@@ -181,7 +181,8 @@ const parseLocaleHref = (href) => {
   const [pathWithoutQuery] = pathname.split(/[?#]/)
   const locale = supportedLocaleDirs.find(
     (item) =>
-      pathWithoutQuery === `/${item}/` || pathWithoutQuery.startsWith(`/${item}/`)
+      pathWithoutQuery === `/${item}/` ||
+      pathWithoutQuery.startsWith(`/${item}/`)
   )
 
   if (!locale) return null
@@ -3116,6 +3117,10 @@ Sitemap: ${siteUrl}/sitemap.xml
                 {
                   text: '48岁货车司机，熬了几个通宵，硬是用AI磕出一个出海工具站',
                   link: '/zh-cn/vibe-stories/story-4'
+                },
+                {
+                  text: '单词蛇 AI 创作游戏 — Vibe Coding 全记录',
+                  link: '/zh-cn/vibe-stories/story-5'
                 }
               ]
             }
