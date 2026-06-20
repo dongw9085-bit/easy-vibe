@@ -118,29 +118,113 @@ export default {
       }
     ],
     versions: [
-      { version: 'HTTP/0.9', year: '1991', features: '仅支持 GET', format: '纯文本', connection: '一次一请求', highlight: false },
-      { version: 'HTTP/1.0', year: '1996', features: '增加 POST/HEAD', format: '纯文本', connection: '短连接', highlight: false },
-      { version: 'HTTP/1.1', year: '1997', features: '持久连接、分块传输', format: '纯文本', connection: '长连接', highlight: true },
-      { version: 'HTTP/2', year: '2015', features: '多路复用、头部压缩', format: '二进制帧', connection: '多路复用', highlight: true },
-      { version: 'HTTP/3', year: '2022', features: '基于 QUIC、解决队头阻塞', format: 'QUIC (UDP)', connection: '独立连接', highlight: true }
+      {
+        version: 'HTTP/0.9',
+        year: '1991',
+        features: '仅支持 GET',
+        format: '纯文本',
+        connection: '一次一请求',
+        highlight: false
+      },
+      {
+        version: 'HTTP/1.0',
+        year: '1996',
+        features: '增加 POST/HEAD',
+        format: '纯文本',
+        connection: '短连接',
+        highlight: false
+      },
+      {
+        version: 'HTTP/1.1',
+        year: '1997',
+        features: '持久连接、分块传输',
+        format: '纯文本',
+        connection: '长连接',
+        highlight: true
+      },
+      {
+        version: 'HTTP/2',
+        year: '2015',
+        features: '多路复用、头部压缩',
+        format: '二进制帧',
+        connection: '多路复用',
+        highlight: true
+      },
+      {
+        version: 'HTTP/3',
+        year: '2022',
+        features: '基于 QUIC、解决队头阻塞',
+        format: 'QUIC (UDP)',
+        connection: '独立连接',
+        highlight: true
+      }
     ],
     http2: {
       legacyRequests: [
-        { label: '请求 1', blocks: [{ label: '发送', type: 'req' }, { label: '等待', type: 'wait' }, { label: '接收', type: 'res' }] },
-        { label: '请求 2', blocks: [{ label: '排队', type: 'wait' }, { label: '发送', type: 'req' }, { label: '等待', type: 'wait' }, { label: '接收', type: 'res' }] },
-        { label: '请求 3', blocks: [{ label: '排队', type: 'wait' }, { label: '排队', type: 'wait' }, { label: '发送', type: 'req' }, { label: '接收', type: 'res' }] }
+        {
+          label: '请求 1',
+          blocks: [
+            { label: '发送', type: 'req' },
+            { label: '等待', type: 'wait' },
+            { label: '接收', type: 'res' }
+          ]
+        },
+        {
+          label: '请求 2',
+          blocks: [
+            { label: '排队', type: 'wait' },
+            { label: '发送', type: 'req' },
+            { label: '等待', type: 'wait' },
+            { label: '接收', type: 'res' }
+          ]
+        },
+        {
+          label: '请求 3',
+          blocks: [
+            { label: '排队', type: 'wait' },
+            { label: '排队', type: 'wait' },
+            { label: '发送', type: 'req' },
+            { label: '接收', type: 'res' }
+          ]
+        }
       ],
       modernStreams: [
-        { label: 'Stream 1', blocks: [{ label: '发送', type: 'req' }, { label: '接收', type: 'res' }] },
-        { label: 'Stream 2', blocks: [{ label: '发送', type: 'req' }, { label: '接收', type: 'res' }] },
-        { label: 'Stream 3', blocks: [{ label: '发送', type: 'req' }, { label: '接收', type: 'res' }] }
+        {
+          label: 'Stream 1',
+          blocks: [
+            { label: '发送', type: 'req' },
+            { label: '接收', type: 'res' }
+          ]
+        },
+        {
+          label: 'Stream 2',
+          blocks: [
+            { label: '发送', type: 'req' },
+            { label: '接收', type: 'res' }
+          ]
+        },
+        {
+          label: 'Stream 3',
+          blocks: [
+            { label: '发送', type: 'req' },
+            { label: '接收', type: 'res' }
+          ]
+        }
       ],
       legacyNote: '串行传输，需等待前一个请求完成',
       modernNote: '多路复用，并发传输多个请求'
     },
     https: {
-      httpItems: ['明文传输，数据可被窃听', '无法验证服务器身份', '数据可能被篡改'],
-      httpsItems: ['加密传输，数据无法被窃听', 'SSL/TLS 证书验证身份', '数据完整性校验，防篡改'],
+      httpItems: [
+        '明文传输，数据可被窃听',
+        '无法验证服务器身份',
+        '数据可能被篡改'
+      ],
+      httpsItems: [
+        '加密传输，数据无法被窃听',
+        'SSL/TLS 证书验证身份',
+        '数据完整性校验，防篡改'
+      ],
       encryptedExample: '8f3a2b...（加密数据）',
       steps: [
         { title: 'Client Hello', desc: '客户端发送支持的加密套件' },

@@ -13,14 +13,30 @@ export default {
     intro: {
       prefix: '想象',
       highlight: '公司的组织架构',
-      suffix: '：有前台接待（URL监听）、有调度中心（路由匹配）、有各部门（组件渲染）。前端路由也是这样分层协作的，各司其职。'
+      suffix:
+        '：有前台接待（URL监听）、有调度中心（路由匹配）、有各部门（组件渲染）。前端路由也是这样分层协作的，各司其职。'
     },
     flowTitle: '📊 数据流向',
     info: '路由系统通过监听URL变化、匹配路由配置、执行守卫验证、渲染组件这一系列流程，实现了单页应用的无刷新导航。',
     layers: [
-      { name: '浏览器层', icon: '🌐', desc: '提供 URL 和 History API', components: ['URL Bar', 'History API', 'Hash Change', 'PopState'] },
-      { name: '路由核心层', icon: '⚙️', desc: '路由系统的核心逻辑', components: ['Router 实例', '路由匹配器', 'History 管理', '守卫管道'] },
-      { name: '组件层', icon: '🧩', desc: '用户界面渲染', components: ['RouterView', 'RouterLink', '页面组件'] }
+      {
+        name: '浏览器层',
+        icon: '🌐',
+        desc: '提供 URL 和 History API',
+        components: ['URL Bar', 'History API', 'Hash Change', 'PopState']
+      },
+      {
+        name: '路由核心层',
+        icon: '⚙️',
+        desc: '路由系统的核心逻辑',
+        components: ['Router 实例', '路由匹配器', 'History 管理', '守卫管道']
+      },
+      {
+        name: '组件层',
+        icon: '🧩',
+        desc: '用户界面渲染',
+        components: ['RouterView', 'RouterLink', '页面组件']
+      }
     ],
     flowSteps: [
       '用户点击链接，触发 URL 变化',
@@ -36,7 +52,8 @@ export default {
     intro: {
       prefix: '想象你在',
       highlight1: '图书馆',
-      middle: '找书：每本书都有编号（动态参数），你需要根据这个编号找到对应的书籍。动态路由就像这样，用',
+      middle:
+        '找书：每本书都有编号（动态参数），你需要根据这个编号找到对应的书籍。动态路由就像这样，用',
       highlight2: '占位符',
       suffix: '匹配不同的内容。'
     },
@@ -49,10 +66,34 @@ export default {
     noResult: '输入路径查看解析结果',
     info: '动态路由用占位符（如 :id）捕获URL中的变量值，就像给数据贴上了"标签"，让组件可以通过这些标签获取具体内容。',
     paramTypes: [
-      { name: 'required', pattern: ':id', label: '必填参数', example: '/user/123', description: 'URL中必须有对应的值' },
-      { name: 'optional', pattern: ':id?', label: '可选参数', example: '/user 或 /user/123', description: '可以省略的参数' },
-      { name: 'multiple', pattern: ':id+', label: '重复参数', example: '/files/a/b/c', description: '一个或多个值' },
-      { name: 'zeroOrMore', pattern: ':id*', label: '灵活参数', example: '/tags 或 /tags/vue/router', description: '零个或多个值' }
+      {
+        name: 'required',
+        pattern: ':id',
+        label: '必填参数',
+        example: '/user/123',
+        description: 'URL中必须有对应的值'
+      },
+      {
+        name: 'optional',
+        pattern: ':id?',
+        label: '可选参数',
+        example: '/user 或 /user/123',
+        description: '可以省略的参数'
+      },
+      {
+        name: 'multiple',
+        pattern: ':id+',
+        label: '重复参数',
+        example: '/files/a/b/c',
+        description: '一个或多个值'
+      },
+      {
+        name: 'zeroOrMore',
+        pattern: ':id*',
+        label: '灵活参数',
+        example: '/tags 或 /tags/vue/router',
+        description: '零个或多个值'
+      }
     ]
   },
   hashVsHistory: {
@@ -83,9 +124,19 @@ export default {
       { name: '关于', path: 'about' }
     ],
     pages: {
-      home: { title: '首页', content: '欢迎来到我们的网站！这是SPA的首页，所有页面切换都在前端完成，无需刷新。' },
-      products: { title: '产品中心', content: '这里展示了我们的核心产品系列。SPA让浏览体验更流畅，切换更快。' },
-      about: { title: '关于我们', content: '了解更多关于我们的故事。SPA模式下，页面间跳转几乎没有延迟。' }
+      home: {
+        title: '首页',
+        content:
+          '欢迎来到我们的网站！这是SPA的首页，所有页面切换都在前端完成，无需刷新。'
+      },
+      products: {
+        title: '产品中心',
+        content: '这里展示了我们的核心产品系列。SPA让浏览体验更流畅，切换更快。'
+      },
+      about: {
+        title: '关于我们',
+        content: '了解更多关于我们的故事。SPA模式下，页面间跳转几乎没有延迟。'
+      }
     }
   },
   mpa: {
@@ -96,13 +147,27 @@ export default {
       highlight1: '餐厅吃饭',
       middle: '：MPA像是每次点菜都',
       highlight2: '换一家餐厅',
-      suffix: '（重新加载整个页面），SPA则是在同一家餐厅换菜品（只更新需要变化的部分）。显然，SPA体验更流畅！'
+      suffix:
+        '（重新加载整个页面），SPA则是在同一家餐厅换菜品（只更新需要变化的部分）。显然，SPA体验更流畅！'
     },
     mpaTitle: 'MPA (多页面应用)',
     spaTitle: 'SPA (单页面应用)',
     info: 'MPA每次跳转都要重新下载整个页面，SPA只在首次加载时下载，后续只更新变化的内容。这就是为什么SPA感觉"更快"的原因。',
-    mpaSteps: ['1. 用户点击链接', '2. 浏览器发送 HTTP 请求', '3. 服务器返回完整 HTML', '4. 浏览器解析并渲染新页面', '5. 页面资源重新加载 (JS/CSS)'],
-    spaSteps: ['1. 用户点击链接', '2. 拦截默认行为', '3. 更新 URL (History API)', '4. 匹配路由配置', '5. 动态渲染新组件', '6. 页面无刷新更新'],
+    mpaSteps: [
+      '1. 用户点击链接',
+      '2. 浏览器发送 HTTP 请求',
+      '3. 服务器返回完整 HTML',
+      '4. 浏览器解析并渲染新页面',
+      '5. 页面资源重新加载 (JS/CSS)'
+    ],
+    spaSteps: [
+      '1. 用户点击链接',
+      '2. 拦截默认行为',
+      '3. 更新 URL (History API)',
+      '4. 匹配路由配置',
+      '5. 动态渲染新组件',
+      '6. 页面无刷新更新'
+    ],
     mpaFeatures: [
       { icon: '✓', text: 'SEO 友好', bad: false },
       { icon: '✓', text: '首屏快', bad: false },
@@ -120,7 +185,8 @@ export default {
     intro: {
       prefix: '想象',
       highlight1: '俄罗斯套娃',
-      middle: '：每个大娃娃里都有小娃娃，小娃娃里还有更小的。嵌套路由就是这样，父组件的',
+      middle:
+        '：每个大娃娃里都有小娃娃，小娃娃里还有更小的。嵌套路由就是这样，父组件的',
       highlight2: 'RouterView',
       suffix: '里可以渲染子组件，一层套一层。'
     },
@@ -133,17 +199,53 @@ export default {
     intro: {
       prefix: '想象你在',
       highlight: '机场过安检',
-      suffix: '：登机前要检查身份、行李，登机后可能还要确认信息。路由守卫就像这些安检员，在导航的各个阶段进行检查和拦截。'
+      suffix:
+        '：登机前要检查身份、行李，登机后可能还要确认信息。路由守卫就像这些安检员，在导航的各个阶段进行检查和拦截。'
     },
     codeExample: '💻 代码示例：',
     executionTitle: '📋 守卫执行顺序',
     info: '路由守卫常用于权限验证（检查用户是否登录）、页面预加载（获取数据）、防止误操作（离开前提示保存）等场景。',
     guards: [
-      { name: 'beforeEach', type: 'global', icon: '🌍', shortDesc: '全局前置守卫', description: '在路由跳转前执行，常用于权限验证、登录检查等', example: `router.beforeEach((to, from, next) => {\n  if (to.meta.requiresAuth && !isLoggedIn()) {\n    next('/login')\n  } else {\n    next()\n  }\n})` },
-      { name: 'beforeResolve', type: 'global', icon: '🔍', shortDesc: '全局解析守卫', description: '在导航被确认之前、组件内守卫和异步路由组件被解析之后调用', example: `router.beforeResolve((to, from, next) => {\n  // 数据预加载\n  next()\n})` },
-      { name: 'afterEach', type: 'global', icon: '✅', shortDesc: '全局后置钩子', description: '在导航完成后执行，不能改变导航，常用于页面统计', example: `router.afterEach((to, from) => {\n  document.title = to.meta.title\n  analytics.track(to.path)\n})` },
-      { name: 'beforeEnter', type: 'route', icon: '🛣️', shortDesc: '路由独享守卫', description: '在单个路由配置中定义，只在进入该路由时触发', example: `{\n  path: '/admin',\n  beforeEnter: (to, from, next) => {\n    if (!isAdmin()) next('/unauthorized')\n    else next()\n  }\n}` },
-      { name: 'beforeRouteEnter', type: 'component', icon: '🔧', shortDesc: '组件内守卫-进入', description: '在渲染该组件的对应路由被验证前调用，不能访问组件实例', example: `beforeRouteEnter(to, from, next) {\n  next(vm => {\n    // 通过 vm 访问组件实例\n  })\n}` }
+      {
+        name: 'beforeEach',
+        type: 'global',
+        icon: '🌍',
+        shortDesc: '全局前置守卫',
+        description: '在路由跳转前执行，常用于权限验证、登录检查等',
+        example: `router.beforeEach((to, from, next) => {\n  if (to.meta.requiresAuth && !isLoggedIn()) {\n    next('/login')\n  } else {\n    next()\n  }\n})`
+      },
+      {
+        name: 'beforeResolve',
+        type: 'global',
+        icon: '🔍',
+        shortDesc: '全局解析守卫',
+        description: '在导航被确认之前、组件内守卫和异步路由组件被解析之后调用',
+        example: `router.beforeResolve((to, from, next) => {\n  // 数据预加载\n  next()\n})`
+      },
+      {
+        name: 'afterEach',
+        type: 'global',
+        icon: '✅',
+        shortDesc: '全局后置钩子',
+        description: '在导航完成后执行，不能改变导航，常用于页面统计',
+        example: `router.afterEach((to, from) => {\n  document.title = to.meta.title\n  analytics.track(to.path)\n})`
+      },
+      {
+        name: 'beforeEnter',
+        type: 'route',
+        icon: '🛣️',
+        shortDesc: '路由独享守卫',
+        description: '在单个路由配置中定义，只在进入该路由时触发',
+        example: `{\n  path: '/admin',\n  beforeEnter: (to, from, next) => {\n    if (!isAdmin()) next('/unauthorized')\n    else next()\n  }\n}`
+      },
+      {
+        name: 'beforeRouteEnter',
+        type: 'component',
+        icon: '🔧',
+        shortDesc: '组件内守卫-进入',
+        description: '在渲染该组件的对应路由被验证前调用，不能访问组件实例',
+        example: `beforeRouteEnter(to, from, next) {\n  next(vm => {\n    // 通过 vm 访问组件实例\n  })\n}`
+      }
     ],
     executionSteps: [
       { name: '触发导航', description: '用户点击链接或调用 router.push()' },
@@ -162,7 +264,8 @@ export default {
     intro: {
       prefix: '想象你在',
       highlight: '查字典',
-      suffix: '：输入一个词，字典会帮你找到对应的解释。路由匹配也是这样，浏览器根据URL路径，在路由配置中找到最匹配的那一项，然后渲染对应组件。'
+      suffix:
+        '：输入一个词，字典会帮你找到对应的解释。路由匹配也是这样，浏览器根据URL路径，在路由配置中找到最匹配的那一项，然后渲染对应组件。'
     },
     testPathTitle: '📍 测试路径',
     hint: '试试：user/123 或 products/electronics/456',
@@ -187,7 +290,8 @@ export default {
     intro: {
       prefix: '想象你在',
       highlight: '寄快递',
-      suffix: '：可以选择平邮（Hash，简单但慢）、快递（History，快速但需要配合）、或者专人送达（Memory，特殊场景）。不同模式适合不同需求。'
+      suffix:
+        '：可以选择平邮（Hash，简单但慢）、快递（History，快速但需要配合）、或者专人送达（Memory，特殊场景）。不同模式适合不同需求。'
     },
     prosTitle: '✅ 优点',
     consTitle: '❌ 缺点',
@@ -195,9 +299,30 @@ export default {
     memorySuffix: ' (URL不变)',
     info: '现代Web应用优先选History模式，老项目或特殊场景用Hash，移动端App或测试环境可用Memory模式。',
     modes: [
-      { key: 'hash', name: 'Hash 模式', icon: '#', description: '使用URL的hash部分（#）来模拟路由，兼容性最好', pros: ['兼容IE8+', '无需服务端配置', '部署简单'], cons: ['URL带有#号', 'SEO不友好', '分享可能丢失hash'] },
-      { key: 'history', name: 'History 模式', icon: '/', description: '使用HTML5 History API实现URL管理，最常用的模式', pros: ['URL美观', 'SEO友好', '符合用户习惯'], cons: ['需要服务端配置', '兼容性IE10+', '刷新返回404'] },
-      { key: 'memory', name: 'Memory 模式', icon: 'M', description: '将路由信息保存在内存中，不修改浏览器URL', pros: ['无需浏览器环境', '适用于测试', '移动端App内嵌'], cons: ['不支持刷新', 'URL不变化', '仅限特定场景'] }
+      {
+        key: 'hash',
+        name: 'Hash 模式',
+        icon: '#',
+        description: '使用URL的hash部分（#）来模拟路由，兼容性最好',
+        pros: ['兼容IE8+', '无需服务端配置', '部署简单'],
+        cons: ['URL带有#号', 'SEO不友好', '分享可能丢失hash']
+      },
+      {
+        key: 'history',
+        name: 'History 模式',
+        icon: '/',
+        description: '使用HTML5 History API实现URL管理，最常用的模式',
+        pros: ['URL美观', 'SEO友好', '符合用户习惯'],
+        cons: ['需要服务端配置', '兼容性IE10+', '刷新返回404']
+      },
+      {
+        key: 'memory',
+        name: 'Memory 模式',
+        icon: 'M',
+        description: '将路由信息保存在内存中，不修改浏览器URL',
+        pros: ['无需浏览器环境', '适用于测试', '移动端App内嵌'],
+        cons: ['不支持刷新', 'URL不变化', '仅限特定场景']
+      }
     ]
   },
   spaNavigation: {
@@ -206,7 +331,8 @@ export default {
     intro: {
       prefix: '想象你在',
       highlight: '餐厅点菜',
-      suffix: '：从看菜单、下单、厨房准备、最后上菜。SPA导航也是这样，用户触发后经过一系列步骤，最终把新"菜品"（页面）端到你面前。'
+      suffix:
+        '：从看菜单、下单、厨房准备、最后上菜。SPA导航也是这样，用户触发后经过一系列步骤，最终把新"菜品"（页面）端到你面前。'
     },
     optimizationTitle: '⚡ 关键优化点',
     info: '整个流程在浏览器内完成，无需服务器参与，体验如原生应用般流畅。这就是SPA相比传统MPA的最大优势。',
@@ -220,8 +346,16 @@ export default {
       { title: '后置钩子', desc: '执行 afterEach 钩子，完成导航' }
     ],
     tips: [
-      { icon: '🎯', title: '路由懒加载', desc: '按需加载页面组件，减少初始包体积' },
-      { icon: '🛡️', title: '守卫预加载', desc: '在beforeEnter中预加载数据，提升用户体验' },
+      {
+        icon: '🎯',
+        title: '路由懒加载',
+        desc: '按需加载页面组件，减少初始包体积'
+      },
+      {
+        icon: '🛡️',
+        title: '守卫预加载',
+        desc: '在beforeEnter中预加载数据，提升用户体验'
+      },
       { icon: '⚡', title: '过渡动画', desc: '添加页面切换动画，让导航更流畅' }
     ]
   }

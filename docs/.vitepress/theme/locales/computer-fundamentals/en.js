@@ -73,7 +73,8 @@ export default {
   },
   binaryAddition: {
     title: 'From Hand Addition to Logic Gates',
-    subtitle: 'How can computers do math with only 0 and 1? Follow the pattern.',
+    subtitle:
+      'How can computers do math with only 0 and 1? Follow the pattern.',
     decimalTitle: 'Step 1: Recall carrying in decimal addition',
     decimalIntro:
       'Because 7 + 5 = 12, the result is larger than the largest single digit (9). We split 12 into "one full 10" and "the remaining 2":',
@@ -122,9 +123,8 @@ export default {
     explanations: {
       '00': '0 + 0 = 0. Write 0 in this column, with no carry.',
       '01': '0 + 1 = 1. Write 1 in this column, with no carry.',
-      '10': '1 + 0 = 1. Write 1 in this column, with no carry.',
-      '11':
-        '1 + 1 = 2. A binary column can only write 0 or 1, so it writes 0 here and carries 1 to the column on the left.'
+      10: '1 + 0 = 1. Write 1 in this column, with no carry.',
+      11: '1 + 1 = 2. A binary column can only write 0 or 1, so it writes 0 here and carries 1 to the column on the left.'
     }
   },
   fullAdder: {
@@ -159,11 +159,15 @@ export default {
   },
   adderChain: {
     title: 'Ripple Carry Adder',
-    subtitle: 'Cascade multiple full adders to perform multi-bit binary addition',
+    subtitle:
+      'Cascade multiple full adders to perform multi-bit binary addition',
     terms: [
       { name: 'Cascade', desc: 'Lower-bit Cout connects to higher-bit Cin' },
       { name: 'Ripple', desc: 'Carry propagates bit by bit like a wave' },
-      { name: 'Overflow', desc: 'The highest bit produces a carry beyond the range' }
+      {
+        name: 'Overflow',
+        desc: 'The highest bit produces a carry beyond the range'
+      }
     ],
     bitCountLabel: 'Bits:',
     bitButton: '{bit} bits',
@@ -192,7 +196,8 @@ export default {
   },
   completeAdder: {
     title: 'Complete Adder Demo',
-    subtitle: 'From logic gates to multi-bit addition -- abstraction layer by layer',
+    subtitle:
+      'From logic gates to multi-bit addition -- abstraction layer by layer',
     layers: {
       gates: 'Logic gates',
       half: 'Half adder',
@@ -267,8 +272,14 @@ export default {
       title: 'Layer 2: Half adder',
       desc: 'Combine XOR and AND to add one bit without carry-in',
       terms: [
-        { name: 'Sum', desc: 'The result for the current bit, excluding external carry-in' },
-        { name: 'Carry', desc: 'When both bits are 1, send a carry to the higher bit' }
+        {
+          name: 'Sum',
+          desc: 'The result for the current bit, excluding external carry-in'
+        },
+        {
+          name: 'Carry',
+          desc: 'When both bits are 1, send a carry to the higher bit'
+        }
       ],
       xorDesc: 'Different -> Sum',
       andDesc: 'All 1 -> Carry',
@@ -358,11 +369,13 @@ export default {
         milestones: [
           {
             lang: 'Fortran',
-            significance: 'The first major high-level language for scientific computing'
+            significance:
+              'The first major high-level language for scientific computing'
           },
           {
             lang: 'Lisp',
-            significance: 'A pioneer of functional programming that still influences languages today'
+            significance:
+              'A pioneer of functional programming that still influences languages today'
           }
         ]
       },
@@ -374,7 +387,8 @@ export default {
         milestones: [
           {
             lang: 'C',
-            significance: 'One of the most influential languages and the basis of Unix/Linux'
+            significance:
+              'One of the most influential languages and the basis of Unix/Linux'
           },
           {
             lang: 'Smalltalk',
@@ -388,9 +402,19 @@ export default {
         languages: ['C++', 'Java', 'Python', 'JavaScript'],
         desc: 'Object-oriented programming became mainstream. Java promised write once, run anywhere, and JavaScript took over the browser.',
         milestones: [
-          { lang: 'Java', significance: 'Cross-platform enterprise applications and the JVM ecosystem' },
-          { lang: 'JavaScript', significance: 'The native language of the Web browser' },
-          { lang: 'Python', significance: 'Simple and expressive, later dominant in AI' }
+          {
+            lang: 'Java',
+            significance:
+              'Cross-platform enterprise applications and the JVM ecosystem'
+          },
+          {
+            lang: 'JavaScript',
+            significance: 'The native language of the Web browser'
+          },
+          {
+            lang: 'Python',
+            significance: 'Simple and expressive, later dominant in AI'
+          }
         ]
       },
       {
@@ -399,8 +423,16 @@ export default {
         languages: ['C#', 'Go', 'Scala', 'Ruby'],
         desc: 'Language design focused more on developer productivity and safety. Go was created for cloud-native infrastructure.',
         milestones: [
-          { lang: 'Go', significance: 'Concurrency-friendly and used to build Docker and Kubernetes' },
-          { lang: 'Ruby', significance: 'Rails brought a major productivity boost to Web development' }
+          {
+            lang: 'Go',
+            significance:
+              'Concurrency-friendly and used to build Docker and Kubernetes'
+          },
+          {
+            lang: 'Ruby',
+            significance:
+              'Rails brought a major productivity boost to Web development'
+          }
         ]
       },
       {
@@ -409,9 +441,15 @@ export default {
         languages: ['Rust', 'Swift', 'Kotlin', 'TypeScript'],
         desc: 'Newer languages emphasized memory safety, type safety, and developer experience.',
         milestones: [
-          { lang: 'Rust', significance: 'Memory safety without a garbage collector' },
+          {
+            lang: 'Rust',
+            significance: 'Memory safety without a garbage collector'
+          },
           { lang: 'TypeScript', significance: 'A type system for JavaScript' },
-          { lang: 'Kotlin', significance: 'A preferred Android language alongside Java' }
+          {
+            lang: 'Kotlin',
+            significance: 'A preferred Android language alongside Java'
+          }
         ]
       }
     ],
@@ -428,7 +466,12 @@ int sum = 0;
 for (int i = 0; i < n; i++) {
     sum += arr[i];  // accumulate step by step
 }`,
-        traits: ['Step oriented', 'Mutable state', 'Close to hardware', 'Easy to understand']
+        traits: [
+          'Step oriented',
+          'Mutable state',
+          'Close to hardware',
+          'Easy to understand'
+        ]
       },
       {
         id: 'oop',
@@ -446,7 +489,12 @@ for (int i = 0; i < n; i++) {
 
 dog = Dog("Buddy")
 dog.bark()  # Buddy says woof!`,
-        traits: ['Encapsulation', 'Inheritance', 'Polymorphism', 'Large projects']
+        traits: [
+          'Encapsulation',
+          'Inheritance',
+          'Polymorphism',
+          'Large projects'
+        ]
       },
       {
         id: 'functional',
@@ -461,7 +509,12 @@ sum = foldl (+) 0
 -- Immutable data, no side effects
 map (*2) [1, 2, 3]  -- [2, 4, 6]
 filter even [1..10]  -- [2, 4, 6, 8, 10]`,
-        traits: ['Pure functions', 'Immutable data', 'No side effects', 'Easy to test']
+        traits: [
+          'Pure functions',
+          'Immutable data',
+          'No side effects',
+          'Easy to test'
+        ]
       },
       {
         id: 'declarative',
@@ -476,7 +529,12 @@ FROM users
 WHERE active = true
 ORDER BY created_at DESC
 -- The database decides the fastest query plan`,
-        traits: ['Describe results', 'System optimized', 'Concise', 'Domain specific']
+        traits: [
+          'Describe results',
+          'System optimized',
+          'Concise',
+          'Domain specific'
+        ]
       }
     ],
     languageComparison: [
@@ -604,10 +662,22 @@ ORDER BY created_at DESC
       }
     ],
     learningPath: [
-      { lang: 'Python', why: 'Simple syntax and broad coverage across AI, Web, and scripts' },
-      { lang: 'JavaScript', why: 'Essential for Web development and usable on both frontend and backend' },
-      { lang: 'TypeScript', why: 'Adds a type system to JavaScript and introduces static typing benefits' },
-      { lang: 'Go or Rust', why: 'Build intuition for compiled languages and lower-level concepts' }
+      {
+        lang: 'Python',
+        why: 'Simple syntax and broad coverage across AI, Web, and scripts'
+      },
+      {
+        lang: 'JavaScript',
+        why: 'Essential for Web development and usable on both frontend and backend'
+      },
+      {
+        lang: 'TypeScript',
+        why: 'Adds a type system to JavaScript and introduces static typing benefits'
+      },
+      {
+        lang: 'Go or Rust',
+        why: 'Build intuition for compiled languages and lower-level concepts'
+      }
     ]
   },
   operatingSystems: {
@@ -727,7 +797,11 @@ ORDER BY created_at DESC
       ['Location', 'Inside the CPU', 'Outside the CPU'],
       ['Access speed', 'Fastest (< 1ns)', 'Slower (50-100ns)'],
       ['Capacity', 'Tiny (bytes)', 'Large (GB)'],
-      ['Role', 'Hold instructions, operands, and results', 'Store programs and data']
+      [
+        'Role',
+        'Hold instructions, operands, and results',
+        'Store programs and data'
+      ]
     ],
     specialRegisters: [
       {
@@ -799,21 +873,24 @@ ORDER BY created_at DESC
         value: '0x00000000',
         desc: 'Data register',
         type: 'General purpose register',
-        detail: 'A 64-bit general register for data, also used by multiply and divide instructions.'
+        detail:
+          'A 64-bit general register for data, also used by multiply and divide instructions.'
       },
       {
         name: 'RSI',
         value: '0x00000000',
         desc: 'Source index',
         type: 'General purpose register',
-        detail: 'Source Index is used as the source pointer in string operations.'
+        detail:
+          'Source Index is used as the source pointer in string operations.'
       },
       {
         name: 'RDI',
         value: '0x00000000',
         desc: 'Destination index',
         type: 'General purpose register',
-        detail: 'Destination Index is used as the destination pointer in string operations.'
+        detail:
+          'Destination Index is used as the destination pointer in string operations.'
       },
       {
         name: 'RBP',
@@ -841,19 +918,22 @@ ORDER BY created_at DESC
   },
   flipFlop: {
     title: 'From Flip-Flops to Registers: The Feedback Loop of Memory',
-    desc:
-      'Change the data and observe it: without a clock signal, the output feeds back to the input and the closed loop preserves memory.',
+    desc: 'Change the data and observe it: without a clock signal, the output feeds back to the input and the closed loop preserves memory.',
     dataInput: 'Data Bus (Data Input)',
     gate: 'Gate',
     registerState: '4-bit Register (Stored State)',
     controlCenter: 'Control Center',
     clockButton: 'Send Clock Pulse',
-    statusPulsing: 'Pulse arrived. The gate opens and new data is being written in parallel.',
-    statusIdle: 'Try changing the left-side input. The register value is locked while the feedback loop is closed.',
-    statusReady: 'New data is ready. Click "Send Clock Pulse" to unlock and write it.',
+    statusPulsing:
+      'Pulse arrived. The gate opens and new data is being written in parallel.',
+    statusIdle:
+      'Try changing the left-side input. The register value is locked while the feedback loop is closed.',
+    statusReady:
+      'New data is ready. Click "Send Clock Pulse" to unlock and write it.',
     statusSame: 'The input bus matches the current stored state.',
     statusPending: 'The loop is closed again, but new data is still pending.',
-    statusSaved: 'The pulse faded. Feedback is restored and the current state is held.'
+    statusSaved:
+      'The pulse faded. Feedback is restored and the current state is held.'
   },
   functionalUnit: {
     label: 'Common Functional Units -- switch modules to see how they work',
@@ -862,17 +942,16 @@ ORDER BY created_at DESC
       { id: 'decoder', name: 'Decoder' }
     ],
     mux: {
-      desc:
-        'Multiplexer (MUX): like a railway switch, it uses the select signal to decide which data input passes through.',
+      desc: 'Multiplexer (MUX): like a railway switch, it uses the select signal to decide which data input passes through.',
       data0: 'Data 0 (D0)',
       data1: 'Data 1 (D1)',
       select: 'Select (Sel)',
       output: 'Output (Out)',
-      explain: 'The select signal is {sel}, so the output equals data {data}: {result}'
+      explain:
+        'The select signal is {sel}, so the output equals data {data}: {result}'
     },
     decoder: {
-      desc:
-        'Decoder: converts a binary input into one active output line. For example, a 2-bit input can activate one of four output lines.',
+      desc: 'Decoder: converts a binary input into one active output line. For example, a 2-bit input can activate one of four output lines.',
       highBit: 'A1 (high bit)',
       lowBit: 'A0 (low bit)',
       chip: '2-to-4\nDecoder',
@@ -882,7 +961,8 @@ ORDER BY created_at DESC
         'Y2 (input 10)',
         'Y3 (input 11)'
       ],
-      explain: 'The current input is binary {binary} (decimal {decimal}), so only Y{decimal} is active (output 1).'
+      explain:
+        'The current input is binary {binary} (decimal {decimal}), so only Y{decimal} is active (output 1).'
     }
   },
   minCpu: {
@@ -905,7 +985,8 @@ ORDER BY created_at DESC
     flags: 'Status Flags',
     controlBus: 'Control Bus',
     subCircuitTitle: 'Underlying subcircuit:',
-    empty: 'Click a module in the CPU diagram to explore its circuit-level implementation.',
+    empty:
+      'Click a module in the CPU diagram to explore its circuit-level implementation.',
     modules: {
       alu: {
         title: 'Arithmetic Logic Unit (ALU)',
@@ -924,8 +1005,7 @@ ORDER BY created_at DESC
         title: 'Status Flags Register',
         description:
           'Records side effects of the previous ALU operation, such as zero, carry, sign, and overflow. These flags drive conditional branches.',
-        subCircuit:
-          'A group of flip-flops connected to ALU output logic.'
+        subCircuit: 'A group of flip-flops connected to ALU output logic.'
       },
       reg: {
         title: 'Register File',
@@ -945,8 +1025,7 @@ ORDER BY created_at DESC
         title: 'Program Counter (PC)',
         description:
           'Points to the address of the next instruction. It increments after normal execution and changes on jumps or calls.',
-        subCircuit:
-          'A register with an incrementer, updated on clock edges.'
+        subCircuit: 'A register with an incrementer, updated on clock edges.'
       },
       ir: {
         title: 'Instruction Register (IR)',
@@ -997,10 +1076,22 @@ ORDER BY created_at DESC
       title: 'Algorithmic Thinking: Ways to Solve Problems',
       subtitle: 'Different strategies fit different kinds of problems',
       tabs: [
-        { id: 'binary', name: 'Binary search', desc: 'Eliminate half each time, O(log n)' },
-        { id: 'sort', name: 'Sorting', desc: 'Turn unordered data into ordered data' },
+        {
+          id: 'binary',
+          name: 'Binary search',
+          desc: 'Eliminate half each time, O(log n)'
+        },
+        {
+          id: 'sort',
+          name: 'Sorting',
+          desc: 'Turn unordered data into ordered data'
+        },
         { id: 'recursion', name: 'Recursion', desc: 'A function calls itself' },
-        { id: 'greedy', name: 'Greedy', desc: 'Choose the best local move each step' }
+        {
+          id: 'greedy',
+          name: 'Greedy',
+          desc: 'Choose the best local move each step'
+        }
       ],
       searchLabel: 'Search in a sorted array:',
       numberPlaceholder: 'Enter a number',
@@ -1012,7 +1103,8 @@ ORDER BY created_at DESC
       calculate: 'Calculate',
       recursionTrace: 'Recursive calls',
       moreCalls: '... {count} calls in total',
-      coinChangeDesc: 'Coin change: use the fewest coins to make the target amount',
+      coinChangeDesc:
+        'Coin change: use the fewest coins to make the target amount',
       targetAmount: 'Target amount:',
       availableCoins: 'Available coins: {coins}',
       changePlan: 'Change plan:',
@@ -1023,7 +1115,8 @@ ORDER BY created_at DESC
       coreIdea:
         'Algorithms are methods for solving problems. A good algorithm can improve efficiency by orders of magnitude. Understanding algorithmic thinking matters more than memorizing individual algorithms.',
       searchStep: {
-        range: 'Search range [{left}, {right}], middle index {mid}, value {value}',
+        range:
+          'Search range [{left}, {right}], middle index {mid}, value {value}',
         found: 'Found target {target} at index {mid}',
         right: '{value} < {target}; continue in the right half',
         left: '{value} > {target}; continue in the left half',
@@ -1037,17 +1130,42 @@ ORDER BY created_at DESC
         done: 'Sorting complete!'
       },
       complexities: [
-        { name: 'O(1)', value: 'Constant', desc: 'Best, such as array access', class: 'good' },
-        { name: 'O(log n)', value: 'Logarithmic', desc: 'Very good, such as binary search', class: 'good' },
-        { name: 'O(n)', value: 'Linear', desc: 'Common, such as traversal', class: 'mid' },
+        {
+          name: 'O(1)',
+          value: 'Constant',
+          desc: 'Best, such as array access',
+          class: 'good'
+        },
+        {
+          name: 'O(log n)',
+          value: 'Logarithmic',
+          desc: 'Very good, such as binary search',
+          class: 'good'
+        },
+        {
+          name: 'O(n)',
+          value: 'Linear',
+          desc: 'Common, such as traversal',
+          class: 'mid'
+        },
         {
           name: 'O(n log n)',
           value: 'Linearithmic',
           desc: 'Acceptable, such as quicksort',
           class: 'mid'
         },
-        { name: 'O(n²)', value: 'Quadratic', desc: 'Slow, such as bubble sort', class: 'bad' },
-        { name: 'O(2ⁿ)', value: 'Exponential', desc: 'Very slow, such as brute-force recursion', class: 'bad' }
+        {
+          name: 'O(n²)',
+          value: 'Quadratic',
+          desc: 'Slow, such as bubble sort',
+          class: 'bad'
+        },
+        {
+          name: 'O(2ⁿ)',
+          value: 'Exponential',
+          desc: 'Very slow, such as brute-force recursion',
+          class: 'bad'
+        }
       ]
     },
     search: {
@@ -1085,13 +1203,39 @@ ORDER BY created_at DESC
       stable: 'Stable',
       initialAlgo: 'Choose a sorting algorithm',
       initialDesc: 'Select a sorting algorithm to start the demo',
-      bubbleDesc: 'Repeatedly scan the array, compare adjacent items, and swap them',
-      quickDesc: 'Choose a pivot and split the array into values below and above it',
+      bubbleDesc:
+        'Repeatedly scan the array, compare adjacent items, and swap them',
+      quickDesc:
+        'Choose a pivot and split the array into values below and above it',
       comparisonRows: [
-        { name: 'Bubble sort', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)', stable: '✓' },
-        { name: 'Quick sort', average: 'O(n log n)', worst: 'O(n²)', space: 'O(log n)', stable: '✗' },
-        { name: 'Merge sort', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)', stable: '✓' },
-        { name: 'Insertion sort', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)', stable: '✓' }
+        {
+          name: 'Bubble sort',
+          average: 'O(n²)',
+          worst: 'O(n²)',
+          space: 'O(1)',
+          stable: '✓'
+        },
+        {
+          name: 'Quick sort',
+          average: 'O(n log n)',
+          worst: 'O(n²)',
+          space: 'O(log n)',
+          stable: '✗'
+        },
+        {
+          name: 'Merge sort',
+          average: 'O(n log n)',
+          worst: 'O(n log n)',
+          space: 'O(n)',
+          stable: '✓'
+        },
+        {
+          name: 'Insertion sort',
+          average: 'O(n²)',
+          worst: 'O(n²)',
+          space: 'O(1)',
+          stable: '✓'
+        }
       ]
     },
     recursive: {
@@ -1099,7 +1243,8 @@ ORDER BY created_at DESC
       subtitle: 'Break a large problem into smaller problems of the same kind',
       analogyTitle: 'Nested dolls',
       analogyLine1: 'Open a large doll and there is a smaller doll inside',
-      analogyLine2: 'Open that one and there is an even smaller one, until the smallest case',
+      analogyLine2:
+        'Open that one and there is an even smaller one, until the smallest case',
       analogyStrong: 'That is recursion.',
       examplesTitle: 'Recursive examples',
       examples: [
@@ -1139,7 +1284,11 @@ ORDER BY created_at DESC
       ],
       prosTitle: '✓ Pros',
       consTitle: '✗ Cons',
-      pros: ['Concise code', 'Naturally expresses recursive structures', 'Good for tree and graph traversal'],
+      pros: [
+        'Concise code',
+        'Naturally expresses recursive structures',
+        'Good for tree and graph traversal'
+      ],
       cons: ['May repeat work', 'Uses stack space', 'Can be harder to debug']
     },
     greedy: {
@@ -1246,14 +1395,19 @@ ORDER BY created_at DESC
       prosTitle: '✓ Pros',
       consTitle: '✗ Cons',
       pros: ['Simple to implement', 'Efficient', 'Low space complexity'],
-      cons: ['Does not always guarantee a global optimum', 'Limited applicability', 'Requires an optimality proof']
+      cons: [
+        'Does not always guarantee a global optimum',
+        'Limited applicability',
+        'Requires an optimality proof'
+      ]
     },
     paradigm: {
       title: 'Algorithm Design Paradigms',
       subtitle: 'Common patterns for solving problems',
       introPrefix: 'Algorithm design paradigms are ',
       introStrong: 'general strategies',
-      introSuffix: ' for solving problems. Learning them helps you find solution ideas quickly.',
+      introSuffix:
+        ' for solving problems. Learning them helps you find solution ideas quickly.',
       coreIdea: 'Core idea',
       scenarios: 'Use cases',
       classicProblems: 'Classic problems',
@@ -1271,8 +1425,17 @@ ORDER BY created_at DESC
           icon: '✂️',
           tagline: 'Divide, solve, combine',
           idea: 'Split a large problem into smaller independent problems, solve them recursively, then combine the results.',
-          scenarios: ['Array sorting', 'Matrix multiplication', 'Large integer arithmetic'],
-          problems: ['Merge sort', 'Quick sort', 'Binary search', 'Strassen matrix multiplication'],
+          scenarios: [
+            'Array sorting',
+            'Matrix multiplication',
+            'Large integer arithmetic'
+          ],
+          problems: [
+            'Merge sort',
+            'Quick sort',
+            'Binary search',
+            'Strassen matrix multiplication'
+          ],
           complexity: 'O(n log n)',
           complexityNote: 'Often much faster than brute force'
         },
@@ -1282,10 +1445,20 @@ ORDER BY created_at DESC
           icon: '📊',
           tagline: 'Store results to avoid repetition',
           idea: 'Break the problem into overlapping subproblems, save their answers, and avoid recomputation.',
-          scenarios: ['Optimization problems', 'Counting problems', 'Path problems'],
-          problems: ['Fibonacci sequence', 'Knapsack problem', 'Longest common subsequence', 'Shortest path'],
+          scenarios: [
+            'Optimization problems',
+            'Counting problems',
+            'Path problems'
+          ],
+          problems: [
+            'Fibonacci sequence',
+            'Knapsack problem',
+            'Longest common subsequence',
+            'Shortest path'
+          ],
           complexity: 'O(n²) or O(n³)',
-          complexityNote: 'Trades space for time and is faster than naive recursion'
+          complexityNote:
+            'Trades space for time and is faster than naive recursion'
         },
         {
           id: 'greedy',
@@ -1293,8 +1466,17 @@ ORDER BY created_at DESC
           icon: '🎯',
           tagline: 'Local optimum',
           idea: 'Choose the best available option at each step, hoping the sequence of choices reaches a global optimum.',
-          scenarios: ['Optimization problems', 'Scheduling problems', 'Graph problems'],
-          problems: ['Coin change', 'Activity selection', 'Huffman coding', 'Minimum spanning tree'],
+          scenarios: [
+            'Optimization problems',
+            'Scheduling problems',
+            'Graph problems'
+          ],
+          problems: [
+            'Coin change',
+            'Activity selection',
+            'Huffman coding',
+            'Minimum spanning tree'
+          ],
           complexity: 'O(n log n)',
           complexityNote: 'Fastest, but not always optimal'
         },
@@ -1304,8 +1486,17 @@ ORDER BY created_at DESC
           icon: '🔙',
           tagline: 'Try and retreat',
           idea: 'Systematically search the solution space and retreat to the previous branch when a path fails.',
-          scenarios: ['Combination problems', 'Permutation problems', 'Constraint satisfaction'],
-          problems: ['N queens', 'Sudoku', 'All permutations', 'Subset problems'],
+          scenarios: [
+            'Combination problems',
+            'Permutation problems',
+            'Constraint satisfaction'
+          ],
+          problems: [
+            'N queens',
+            'Sudoku',
+            'All permutations',
+            'Subset problems'
+          ],
           complexity: 'O(2ⁿ) or O(n!)',
           complexityNote: 'Exponential, suitable for small inputs'
         }
@@ -1376,12 +1567,24 @@ ORDER BY created_at DESC
       tokenTypes: {
         number: { label: 'Number', explain: 'Numeric literal' },
         keyword: { label: 'Keyword', explain: 'Reserved word' },
-        identifier: { label: 'Identifier', explain: 'Variable or function name' },
+        identifier: {
+          label: 'Identifier',
+          explain: 'Variable or function name'
+        },
         string: { label: 'String', explain: 'String literal' },
-        operatorArithmetic: { label: 'Operator', explain: 'Arithmetic operation' },
-        operatorCompare: { label: 'Operator', explain: 'Comparison or assignment operation' },
+        operatorArithmetic: {
+          label: 'Operator',
+          explain: 'Arithmetic operation'
+        },
+        operatorCompare: {
+          label: 'Operator',
+          explain: 'Comparison or assignment operation'
+        },
         bracket: { label: 'Bracket', explain: 'Grouping or scope' },
-        punctuation: { label: 'Punctuation', explain: 'Statement or argument separator' },
+        punctuation: {
+          label: 'Punctuation',
+          explain: 'Statement or argument separator'
+        },
         unknown: { label: 'Unknown', explain: 'Unrecognized token' }
       }
     },
@@ -1399,9 +1602,24 @@ ORDER BY created_at DESC
             { icon: '🚀', name: 'Run directly', desc: 'CPU runs it directly' }
           ],
           metrics: [
-            { label: 'Run speed', value: 95, text: 'Very fast', color: '#22c55e' },
-            { label: 'Startup', value: 30, text: 'Slow; compile first', color: '#ef4444' },
-            { label: 'Portability', value: 20, text: 'Recompile required', color: '#ef4444' }
+            {
+              label: 'Run speed',
+              value: 95,
+              text: 'Very fast',
+              color: '#22c55e'
+            },
+            {
+              label: 'Startup',
+              value: 30,
+              text: 'Slow; compile first',
+              color: '#ef4444'
+            },
+            {
+              label: 'Portability',
+              value: 20,
+              text: 'Recompile required',
+              color: '#ef4444'
+            }
           ],
           langs: ['C', 'C++', 'Rust', 'Go']
         },
@@ -1410,12 +1628,26 @@ ORDER BY created_at DESC
           steps: [
             { icon: '📝', name: 'Source code', desc: 'app.py' },
             { icon: '🔍', name: 'Interpreter', desc: 'Read line by line' },
-            { icon: '🔄', name: 'Execute line by line', desc: 'Translate while running' }
+            {
+              icon: '🔄',
+              name: 'Execute line by line',
+              desc: 'Translate while running'
+            }
           ],
           metrics: [
             { label: 'Run speed', value: 30, text: 'Slower', color: '#ef4444' },
-            { label: 'Startup', value: 90, text: 'Fast; run directly', color: '#22c55e' },
-            { label: 'Portability', value: 90, text: 'Naturally portable', color: '#22c55e' }
+            {
+              label: 'Startup',
+              value: 90,
+              text: 'Fast; run directly',
+              color: '#22c55e'
+            },
+            {
+              label: 'Portability',
+              value: 90,
+              text: 'Naturally portable',
+              color: '#22c55e'
+            }
           ],
           langs: ['Python', 'Ruby', 'PHP', 'Bash']
         },
@@ -1423,15 +1655,46 @@ ORDER BY created_at DESC
           name: 'JIT',
           steps: [
             { icon: '📝', name: 'Source code', desc: 'app.js' },
-            { icon: '🔍', name: 'Interpret first', desc: 'Start by interpreting' },
-            { icon: '🔥', name: 'Hot path detection', desc: 'Find frequently run code' },
-            { icon: '⚡', name: 'JIT compile', desc: 'Compile to machine code' },
-            { icon: '🚀', name: 'Fast execution', desc: 'Close to native speed' }
+            {
+              icon: '🔍',
+              name: 'Interpret first',
+              desc: 'Start by interpreting'
+            },
+            {
+              icon: '🔥',
+              name: 'Hot path detection',
+              desc: 'Find frequently run code'
+            },
+            {
+              icon: '⚡',
+              name: 'JIT compile',
+              desc: 'Compile to machine code'
+            },
+            {
+              icon: '🚀',
+              name: 'Fast execution',
+              desc: 'Close to native speed'
+            }
           ],
           metrics: [
-            { label: 'Run speed', value: 75, text: 'Fast after warmup', color: '#22c55e' },
-            { label: 'Startup', value: 60, text: 'Medium; needs warmup', color: '#eab308' },
-            { label: 'Portability', value: 85, text: 'Portable', color: '#22c55e' }
+            {
+              label: 'Run speed',
+              value: 75,
+              text: 'Fast after warmup',
+              color: '#22c55e'
+            },
+            {
+              label: 'Startup',
+              value: 60,
+              text: 'Medium; needs warmup',
+              color: '#eab308'
+            },
+            {
+              label: 'Portability',
+              value: 85,
+              text: 'Portable',
+              color: '#22c55e'
+            }
           ],
           langs: ['JavaScript (V8)', 'Java (JVM)', 'C# (.NET)']
         }
@@ -1658,7 +1921,8 @@ console.log(z + 1)   // 31`,
       subtitle: 'How code becomes machine instructions',
       introPrefix: 'A compiler is like a ',
       introStrong: 'translator',
-      introSuffix: ', turning human-readable code into machine-readable instructions',
+      introSuffix:
+        ', turning human-readable code into machine-readable instructions',
       processTitle: 'The Complete Code Translation Pipeline',
       lexicalTitle: 'Lexical analysis: tokenization',
       syntaxTitle: 'Syntax analysis: build a tree',
@@ -1672,7 +1936,8 @@ console.log(z + 1)   // 31`,
       optimizationTitle: 'Compiler Optimization',
       before: 'Before:',
       after: 'After:',
-      optimizationNote: 'The compiler can optimize code automatically and improve runtime efficiency',
+      optimizationNote:
+        'The compiler can optimize code automatically and improve runtime efficiency',
       translationSteps: [
         {
           name: 'Lexical analysis',
@@ -1718,14 +1983,22 @@ console.log(z + 1)   // 31`,
           header: 'Compiled languages',
           step: 'Source code → Compiler → Machine code',
           example: 'C, Go, Rust',
-          features: ['✓ Fast execution', '✓ Compile once, run many times', '✗ Slow compile step']
+          features: [
+            '✓ Fast execution',
+            '✓ Compile once, run many times',
+            '✗ Slow compile step'
+          ]
         },
         {
           class: 'interpret',
           header: 'Interpreted languages',
           step: 'Source code → Interpreter → Line-by-line execution',
           example: 'Python, JavaScript, PHP',
-          features: ['✓ Fast development', '✓ Cross-platform', '✗ Slower execution']
+          features: [
+            '✓ Fast development',
+            '✓ Cross-platform',
+            '✗ Slower execution'
+          ]
         }
       ]
     },
@@ -1754,7 +2027,13 @@ console.log(z + 1)   // 31`,
           name: 'Lexical analysis',
           output: 'Token stream',
           desc: 'Split source code into individual words called tokens, like recognizing each word in a sentence.',
-          tasks: ['Recognize keywords', 'Recognize identifiers', 'Recognize numbers', 'Recognize operators', 'Filter whitespace'],
+          tasks: [
+            'Recognize keywords',
+            'Recognize identifiers',
+            'Recognize numbers',
+            'Recognize operators',
+            'Filter whitespace'
+          ],
           example: `int x = 10 + 5;
 → [int] [x] [=] [10] [+] [5] [;]
     keyword identifier operator number operator number separator`
@@ -1763,7 +2042,11 @@ console.log(z + 1)   // 31`,
           name: 'Syntax analysis',
           output: 'AST syntax tree',
           desc: 'Organize tokens into a tree structure according to grammar rules and determine precedence.',
-          tasks: ['Build syntax tree', 'Determine precedence', 'Check syntax errors'],
+          tasks: [
+            'Build syntax tree',
+            'Determine precedence',
+            'Check syntax errors'
+          ],
           example: `1 + 2 * 3  →  syntax tree:
        +
       / \\
@@ -1775,7 +2058,12 @@ console.log(z + 1)   // 31`,
           name: 'Semantic analysis',
           output: 'Typed AST',
           desc: 'Check whether the code meaning is valid, including types and declared variables.',
-          tasks: ['Type checking', 'Scope analysis', 'Build symbol table', 'Type inference'],
+          tasks: [
+            'Type checking',
+            'Scope analysis',
+            'Build symbol table',
+            'Type inference'
+          ],
           example: `int x = "hello";  // ❌ type error: int ≠ string
 int y = 10 + 5;   // ✅ valid: int + int = int`
         },
@@ -1783,7 +2071,11 @@ int y = 10 + 5;   // ✅ valid: int + int = int`
           name: 'Intermediate code generation',
           output: 'IR (intermediate representation)',
           desc: 'Generate a platform-independent intermediate language for optimization and cross-platform compilation.',
-          tasks: ['Generate three-address code', 'Stay platform-independent', 'Enable optimization'],
+          tasks: [
+            'Generate three-address code',
+            'Stay platform-independent',
+            'Enable optimization'
+          ],
           example: `source: int x = (a + b) * c;
 IR:
   t1 = a + b
@@ -1794,7 +2086,12 @@ IR:
           name: 'Code optimization',
           output: 'Optimized IR',
           desc: 'Make code run faster by removing redundant work and precomputing constants.',
-          tasks: ['Constant folding', 'Dead-code elimination', 'Inlining', 'Loop optimization'],
+          tasks: [
+            'Constant folding',
+            'Dead-code elimination',
+            'Inlining',
+            'Loop optimization'
+          ],
           example: `before:                 after:
 int x = 10 + 5;   →  int x = 15;   (constant folding)
 int y = x * 2;    →  int y = 30;   (constant propagation)
@@ -1804,7 +2101,11 @@ if (false) {...}   →  (delete)      (dead-code elimination)`
           name: 'Target code generation',
           output: 'Machine code',
           desc: 'Finally translate the program into machine instructions the CPU can run directly.',
-          tasks: ['Instruction selection', 'Register allocation', 'Instruction scheduling'],
+          tasks: [
+            'Instruction selection',
+            'Register allocation',
+            'Instruction scheduling'
+          ],
           example: `; int x = 15;
 mov  eax, 15          ; put 15 into eax register
 mov  dword ptr [x], eax ; store it at variable x address`
@@ -1827,7 +2128,12 @@ mov  dword ptr [x], eax ; store it at variable x address`
         },
         {
           name: 'JIT',
-          steps: ['Source', 'Bytecode', 'JIT hot path compilation', 'Execution'],
+          steps: [
+            'Source',
+            'Bytecode',
+            'JIT hot path compilation',
+            'Execution'
+          ],
           pro: 'Balances performance and flexibility',
           con: 'Slower startup',
           langs: 'Java, JavaScript (V8)'
@@ -1839,7 +2145,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
     overview: {
       title: 'Data Structure Overview',
       subtitle: 'Choose a data organization model for each scenario',
-      intro: 'Data structures are like ways to organize a room: clothes in a wardrobe, books on shelves, and small items in drawers.',
+      intro:
+        'Data structures are like ways to organize a room: clothes in a wardrobe, books on shelves, and small items in drawers.',
       featuresTitle: 'Features',
       scenariosTitle: 'Use Cases',
       complexityTitle: 'Operation Complexity',
@@ -1859,9 +2166,21 @@ mov  dword ptr [x], eax ; store it at variable x address`
             'Can use contiguous storage or linked storage'
           ],
           scenarios: [
-            { icon: '📝', title: 'Arrays: list data', desc: 'Store ordered data such as student scores or product prices' },
-            { icon: '🔄', title: 'Stacks: undo operations', desc: 'Text editor undo history, last in first out' },
-            { icon: '🎫', title: 'Queues: task scheduling', desc: 'Print queues and task queues, first in first out' }
+            {
+              icon: '📝',
+              title: 'Arrays: list data',
+              desc: 'Store ordered data such as student scores or product prices'
+            },
+            {
+              icon: '🔄',
+              title: 'Stacks: undo operations',
+              desc: 'Text editor undo history, last in first out'
+            },
+            {
+              icon: '🎫',
+              title: 'Queues: task scheduling',
+              desc: 'Print queues and task queues, first in first out'
+            }
           ],
           complexity: [
             { operation: 'Access element', time: 'O(1)' },
@@ -1869,7 +2188,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
           ],
           analogy: {
             text: 'Like train cars connected in order',
-            example: 'To find car 5, count directly to it; to insert a new car, you need to break and reconnect links.'
+            example:
+              'To find car 5, count directly to it; to insert a new car, you need to break and reconnect links.'
           }
         },
         {
@@ -1878,11 +2198,27 @@ mov  dword ptr [x], eax ; store it at variable x address`
           icon: '🗂️',
           desc: 'Fast lookup through a key',
           examples: ['Hash table', 'Dictionary', 'Set'],
-          features: ['Store data as key-value pairs', 'Very fast lookup', 'No inherent order between items'],
+          features: [
+            'Store data as key-value pairs',
+            'Very fast lookup',
+            'No inherent order between items'
+          ],
           scenarios: [
-            { icon: '📖', title: 'Dictionary: word lookup', desc: 'Quickly find a definition from a word' },
-            { icon: '👤', title: 'User info: ID lookup', desc: 'Fetch a profile quickly from a user ID' },
-            { icon: '🛒', title: 'Cart: product management', desc: 'Track product IDs and quantities for checkout' }
+            {
+              icon: '📖',
+              title: 'Dictionary: word lookup',
+              desc: 'Quickly find a definition from a word'
+            },
+            {
+              icon: '👤',
+              title: 'User info: ID lookup',
+              desc: 'Fetch a profile quickly from a user ID'
+            },
+            {
+              icon: '🛒',
+              title: 'Cart: product management',
+              desc: 'Track product IDs and quantities for checkout'
+            }
           ],
           complexity: [
             { operation: 'Lookup', time: 'O(1)' },
@@ -1890,7 +2226,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
           ],
           analogy: {
             text: 'Like library index cards',
-            example: 'Instead of scanning shelf by shelf, use the index to find the location directly.'
+            example:
+              'Instead of scanning shelf by shelf, use the index to find the location directly.'
           }
         },
         {
@@ -1899,11 +2236,27 @@ mov  dword ptr [x], eax ; store it at variable x address`
           icon: '🌳',
           desc: 'Hierarchy, like a family tree',
           examples: ['Binary tree', 'B-tree', 'Heap'],
-          features: ['One-to-many hierarchy', 'A clear root node', 'Good for categories and levels'],
+          features: [
+            'One-to-many hierarchy',
+            'A clear root node',
+            'Good for categories and levels'
+          ],
           scenarios: [
-            { icon: '📁', title: 'File systems: directory trees', desc: 'Hierarchical organization of folders and files' },
-            { icon: '🏢', title: 'Organizations: management trees', desc: 'Company reporting relationships' },
-            { icon: '💻', title: 'HTML: DOM tree', desc: 'Nested structure of web page elements' }
+            {
+              icon: '📁',
+              title: 'File systems: directory trees',
+              desc: 'Hierarchical organization of folders and files'
+            },
+            {
+              icon: '🏢',
+              title: 'Organizations: management trees',
+              desc: 'Company reporting relationships'
+            },
+            {
+              icon: '💻',
+              title: 'HTML: DOM tree',
+              desc: 'Nested structure of web page elements'
+            }
           ],
           complexity: [
             { operation: 'Lookup', time: 'O(log n)' },
@@ -1911,7 +2264,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
           ],
           analogy: {
             text: 'Like a family tree or company org chart',
-            example: 'Start from the root and move down level by level; each path is unique.'
+            example:
+              'Start from the root and move down level by level; each path is unique.'
           }
         },
         {
@@ -1920,11 +2274,27 @@ mov  dword ptr [x], eax ; store it at variable x address`
           icon: '🕸️',
           desc: 'Complex relationship networks',
           examples: ['Directed graph', 'Undirected graph', 'Network graph'],
-          features: ['Many-to-many relationships', 'Nodes can connect freely', 'Represents complex networks'],
+          features: [
+            'Many-to-many relationships',
+            'Nodes can connect freely',
+            'Represents complex networks'
+          ],
           scenarios: [
-            { icon: '🗺️', title: 'Maps: route planning', desc: 'Road connections between cities and navigation systems' },
-            { icon: '👥', title: 'Social networks: friendships', desc: 'Follow and friend relationships between users' },
-            { icon: '🔗', title: 'Web pages: links', desc: 'Hyperlink networks between pages' }
+            {
+              icon: '🗺️',
+              title: 'Maps: route planning',
+              desc: 'Road connections between cities and navigation systems'
+            },
+            {
+              icon: '👥',
+              title: 'Social networks: friendships',
+              desc: 'Follow and friend relationships between users'
+            },
+            {
+              icon: '🔗',
+              title: 'Web pages: links',
+              desc: 'Hyperlink networks between pages'
+            }
           ],
           complexity: [
             { operation: 'Traversal', time: 'O(V + E)' },
@@ -1932,7 +2302,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
           ],
           analogy: {
             text: 'Like a subway map or airline network',
-            example: 'Many stations, many lines, and multiple possible connections between stations.'
+            example:
+              'Many stations, many lines, and multiple possible connections between stations.'
           }
         }
       ]
@@ -1941,12 +2312,36 @@ mov  dword ptr [x], eax ; store it at variable x address`
       title: 'Data Structures: Containers for Data',
       subtitle: 'Choose different storage models for different scenarios',
       structures: [
-        { id: 'array', name: 'Array', desc: 'Contiguous memory and fast indexed access' },
-        { id: 'linkedlist', name: 'Linked list', desc: 'Connected nodes with fast insertion and deletion' },
-        { id: 'stack', name: 'Stack', desc: 'Last in, first out; used by function calls' },
-        { id: 'queue', name: 'Queue', desc: 'First in, first out; used for scheduling' },
-        { id: 'hash', name: 'Hash table', desc: 'Key-value storage with the fastest lookup' },
-        { id: 'tree', name: 'Tree', desc: 'Hierarchical structure for search and sorting' }
+        {
+          id: 'array',
+          name: 'Array',
+          desc: 'Contiguous memory and fast indexed access'
+        },
+        {
+          id: 'linkedlist',
+          name: 'Linked list',
+          desc: 'Connected nodes with fast insertion and deletion'
+        },
+        {
+          id: 'stack',
+          name: 'Stack',
+          desc: 'Last in, first out; used by function calls'
+        },
+        {
+          id: 'queue',
+          name: 'Queue',
+          desc: 'First in, first out; used for scheduling'
+        },
+        {
+          id: 'hash',
+          name: 'Hash table',
+          desc: 'Key-value storage with the fastest lookup'
+        },
+        {
+          id: 'tree',
+          name: 'Tree',
+          desc: 'Hierarchical structure for search and sorting'
+        }
       ],
       hints: {
         array: 'Access arr[2] = O(1), insert/delete = O(n)',
@@ -1991,8 +2386,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           delete: 'O(n) slow',
           feature: 'Fixed size',
           applications: [
-            { icon: '📋', name: 'List data', desc: 'Student scores or product price lists' },
-            { icon: '🖼️', name: 'Image processing', desc: 'Pixel matrix storage' },
+            {
+              icon: '📋',
+              name: 'List data',
+              desc: 'Student scores or product price lists'
+            },
+            {
+              icon: '🖼️',
+              name: 'Image processing',
+              desc: 'Pixel matrix storage'
+            },
             { icon: '📈', name: 'Charts', desc: 'Data ordered by time' }
           ]
         },
@@ -2008,7 +2411,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
           applications: [
             { icon: '↩️', name: 'Undo', desc: 'Operation history' },
             { icon: '🎵', name: 'Music playback', desc: 'Playlists' },
-            { icon: '📝', name: 'Text editing', desc: 'Dynamic document storage' }
+            {
+              icon: '📝',
+              name: 'Text editing',
+              desc: 'Dynamic document storage'
+            }
           ]
         },
         {
@@ -2022,8 +2429,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           feature: 'One-end operations',
           applications: [
             { icon: '↩️', name: 'Undo operation', desc: 'Editor undo history' },
-            { icon: '🔙', name: 'Browser history', desc: 'Back button implementation' },
-            { icon: '📞', name: 'Function calls', desc: 'Program call stack management' }
+            {
+              icon: '🔙',
+              name: 'Browser history',
+              desc: 'Back button implementation'
+            },
+            {
+              icon: '📞',
+              name: 'Function calls',
+              desc: 'Program call stack management'
+            }
           ]
         },
         {
@@ -2036,15 +2451,29 @@ mov  dword ptr [x], eax ; store it at variable x address`
           delete: 'O(1) fast',
           feature: 'Two-end operations',
           applications: [
-            { icon: '🖨️', name: 'Print queue', desc: 'Print documents in order' },
-            { icon: '🎫', name: 'Task scheduling', desc: 'Operating system process scheduling' },
-            { icon: '💬', name: 'Message queue', desc: 'Asynchronous task handling' }
+            {
+              icon: '🖨️',
+              name: 'Print queue',
+              desc: 'Print documents in order'
+            },
+            {
+              icon: '🎫',
+              name: 'Task scheduling',
+              desc: 'Operating system process scheduling'
+            },
+            {
+              icon: '💬',
+              name: 'Message queue',
+              desc: 'Asynchronous task handling'
+            }
           ]
         }
       ],
       notes: {
-        array: '✓ Contiguous memory | ✓ Fast access (O(1)) | ✗ Slow insert/delete (O(n))',
-        linkedlist: '✓ Non-contiguous memory | ✗ Slow access (O(n)) | ✓ Fast insert/delete',
+        array:
+          '✓ Contiguous memory | ✓ Fast access (O(1)) | ✗ Slow insert/delete (O(n))',
+        linkedlist:
+          '✓ Non-contiguous memory | ✗ Slow access (O(n)) | ✓ Fast insert/delete',
         stack: 'Last in, first out (LIFO) | Uses: undo and function calls',
         queue: 'First in, first out (FIFO) | Uses: task queues and print queues'
       },
@@ -2069,7 +2498,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
       subtitle: 'Find data directly through a key',
       analogyPrefix: 'A hash table is like a library ',
       analogyStrong: 'index card',
-      analogySuffix: ': instead of searching shelf by shelf, you use the index to find the book location directly.',
+      analogySuffix:
+        ': instead of searching shelf by shelf, you use the index to find the book location directly.',
       storageTitle: 'Store data',
       keyPlaceholder: 'Key (for example: apple)',
       valuePlaceholder: 'Value (for example: apple)',
@@ -2088,9 +2518,24 @@ mov  dword ptr [x], eax ; store it at variable x address`
         { key: 'orange', value: 'orange' }
       ],
       performanceItems: [
-        { label: 'Hash table lookup', value: 'O(1)', class: 'excellent', desc: 'Found instantly' },
-        { label: 'Array lookup', value: 'O(n)', class: 'good', desc: 'Requires traversal' },
-        { label: 'Binary search', value: 'O(log n)', class: 'better', desc: 'Requires sorted data' }
+        {
+          label: 'Hash table lookup',
+          value: 'O(1)',
+          class: 'excellent',
+          desc: 'Found instantly'
+        },
+        {
+          label: 'Array lookup',
+          value: 'O(n)',
+          class: 'good',
+          desc: 'Requires traversal'
+        },
+        {
+          label: 'Binary search',
+          value: 'O(log n)',
+          class: 'better',
+          desc: 'Requires sorted data'
+        }
       ],
       applications: [
         { icon: '👤', text: 'User table (user ID → profile)' },
@@ -2121,17 +2566,49 @@ mov  dword ptr [x], eax ; store it at variable x address`
       },
       featuresTitle: 'Tree Structure Features',
       features: [
-        { icon: '🌲', title: 'Hierarchy', desc: 'Nodes have one-to-many parent-child relationships' },
-        { icon: '🎯', title: 'Single root node', desc: 'Except for the root, each node has exactly one parent' },
-        { icon: '🔍', title: 'Efficient lookup', desc: 'Binary search tree lookup is O(log n)' },
-        { icon: '🔄', title: 'Multiple traversals', desc: 'Preorder, inorder, postorder, and level-order traversal' }
+        {
+          icon: '🌲',
+          title: 'Hierarchy',
+          desc: 'Nodes have one-to-many parent-child relationships'
+        },
+        {
+          icon: '🎯',
+          title: 'Single root node',
+          desc: 'Except for the root, each node has exactly one parent'
+        },
+        {
+          icon: '🔍',
+          title: 'Efficient lookup',
+          desc: 'Binary search tree lookup is O(log n)'
+        },
+        {
+          icon: '🔄',
+          title: 'Multiple traversals',
+          desc: 'Preorder, inorder, postorder, and level-order traversal'
+        }
       ],
       appTitle: 'Use Cases',
       applications: [
-        { icon: '📁', name: 'File systems', desc: 'Hierarchical organization of folders and files' },
-        { icon: '🌐', name: 'HTML DOM', desc: 'Nested structure of web page elements' },
-        { icon: '🏢', name: 'Organization charts', desc: 'Company management hierarchy' },
-        { icon: '🌲', name: 'Decision trees', desc: 'Classification algorithms in machine learning' }
+        {
+          icon: '📁',
+          name: 'File systems',
+          desc: 'Hierarchical organization of folders and files'
+        },
+        {
+          icon: '🌐',
+          name: 'HTML DOM',
+          desc: 'Nested structure of web page elements'
+        },
+        {
+          icon: '🏢',
+          name: 'Organization charts',
+          desc: 'Company management hierarchy'
+        },
+        {
+          icon: '🌲',
+          name: 'Decision trees',
+          desc: 'Classification algorithms in machine learning'
+        }
       ]
     },
     graph: {
@@ -2162,7 +2639,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
       reasonTitle: 'Why?',
       exampleTitle: 'Real examples',
       referenceTitle: 'Quick Reference',
-      tableHeaders: ['Scenario need', 'Recommended structure', 'Time complexity'],
+      tableHeaders: [
+        'Scenario need',
+        'Recommended structure',
+        'Time complexity'
+      ],
       flowTitle: 'Decision Flow',
       flow: {
         yes: 'Yes',
@@ -2182,8 +2663,13 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Fast lookup',
           desc: 'Find matching data quickly by key',
           recommendation: 'Hash table',
-          reasons: ['Average lookup time is O(1)', 'Key-value storage is semantically clear', 'No need to scan the whole dataset'],
-          example: 'Find user profiles by user ID, dictionary lookup, cache systems'
+          reasons: [
+            'Average lookup time is O(1)',
+            'Key-value storage is semantically clear',
+            'No need to scan the whole dataset'
+          ],
+          example:
+            'Find user profiles by user ID, dictionary lookup, cache systems'
         },
         {
           id: 'ordered',
@@ -2191,7 +2677,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Preserve order',
           desc: 'Data must stay in insertion order or a specific order',
           recommendation: 'Array or linked list',
-          reasons: ['Arrays support direct indexed access', 'Linked lists can resize flexibly', 'Position-based access is straightforward'],
+          reasons: [
+            'Arrays support direct indexed access',
+            'Linked lists can resize flexibly',
+            'Position-based access is straightforward'
+          ],
           example: 'Student score lists, time-series data, rankings'
         },
         {
@@ -2200,7 +2690,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Last in, first out',
           desc: 'The most recent item is processed first',
           recommendation: 'Stack',
-          reasons: ['Operate only at the top', 'Push and pop are O(1)', 'Good for backtracking and undo'],
+          reasons: [
+            'Operate only at the top',
+            'Push and pop are O(1)',
+            'Good for backtracking and undo'
+          ],
           example: 'Browser back, editor undo, function call stack'
         },
         {
@@ -2209,7 +2703,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'First in, first out',
           desc: 'Earlier items are processed first',
           recommendation: 'Queue',
-          reasons: ['Enqueue at one end and dequeue at the other', 'Enqueue and dequeue are O(1)', 'A fair scheduling model'],
+          reasons: [
+            'Enqueue at one end and dequeue at the other',
+            'Enqueue and dequeue are O(1)',
+            'A fair scheduling model'
+          ],
           example: 'Print queues, task scheduling, message queues'
         },
         {
@@ -2218,7 +2716,11 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Hierarchy',
           desc: 'Data has parent-child relationships',
           recommendation: 'Tree',
-          reasons: ['Clearly expresses hierarchy', 'Lookup can be O(log n)', 'Supports several traversal orders'],
+          reasons: [
+            'Clearly expresses hierarchy',
+            'Lookup can be O(log n)',
+            'Supports several traversal orders'
+          ],
           example: 'File systems, organization charts, HTML DOM'
         },
         {
@@ -2227,15 +2729,31 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Complex relationships',
           desc: 'Data has many-to-many connections',
           recommendation: 'Graph',
-          reasons: ['Can represent arbitrary relationships', 'Supports path-search algorithms', 'Fits networks and social relations'],
+          reasons: [
+            'Can represent arbitrary relationships',
+            'Supports path-search algorithms',
+            'Fits networks and social relations'
+          ],
           example: 'Social networks, map navigation, web links'
         }
       ],
       referenceTable: [
         { scenario: 'Random access', structure: 'Array', complexity: 'O(1)' },
-        { scenario: 'Fast lookup', structure: 'Hash table', complexity: 'O(1)' },
-        { scenario: 'Ordered lookup', structure: 'Binary search tree', complexity: 'O(log n)' },
-        { scenario: 'Frequent insertion/deletion', structure: 'Linked list', complexity: 'O(1)' },
+        {
+          scenario: 'Fast lookup',
+          structure: 'Hash table',
+          complexity: 'O(1)'
+        },
+        {
+          scenario: 'Ordered lookup',
+          structure: 'Binary search tree',
+          complexity: 'O(log n)'
+        },
+        {
+          scenario: 'Frequent insertion/deletion',
+          structure: 'Linked list',
+          complexity: 'O(1)'
+        },
         { scenario: 'Undo operations', structure: 'Stack', complexity: 'O(1)' },
         { scenario: 'Task scheduling', structure: 'Queue', complexity: 'O(1)' }
       ]
@@ -2251,64 +2769,215 @@ mov  dword ptr [x], eax ; store it at variable x address`
         { id: 'convert', label: 'Conversion' },
         { id: 'infer', label: 'Inference' }
       ],
-      axes: { strong: 'Strong', weak: 'Weak', static: 'Static', dynamic: 'Dynamic' },
-      checkScenarioTitle: 'Scenario: assign values of different types to a variable',
+      axes: {
+        strong: 'Strong',
+        weak: 'Weak',
+        static: 'Static',
+        dynamic: 'Dynamic'
+      },
+      checkScenarioTitle:
+        'Scenario: assign values of different types to a variable',
       inferIntroPrefix: 'Type inference in modern languages: ',
-      inferIntroStrong: 'write like a dynamic language, stay protected like a static one',
+      inferIntroStrong:
+        'write like a dynamic language, stay protected like a static one',
       inferArrow: '↓ Compiler infers automatically',
       coreIdeaLabel: 'Core idea:',
       coreIdeas: {
-        quadrant: 'Type systems choose along two dimensions: when checks happen (static/dynamic) and whether implicit conversion is allowed (strong/weak). There is no best combination, only the best fit for a scenario.',
-        check: 'Static typing finds errors at compile time. Dynamic typing discovers them at runtime. The earlier you find a bug, the cheaper it is to fix.',
-        convert: 'Weakly typed languages may guess your intent through implicit conversion, often with surprises. Strongly typed languages require explicit intent, which is safer.',
-        infer: 'Type inference gives you both: concise code like a dynamic language and strict compiler checks like a static language.'
+        quadrant:
+          'Type systems choose along two dimensions: when checks happen (static/dynamic) and whether implicit conversion is allowed (strong/weak). There is no best combination, only the best fit for a scenario.',
+        check:
+          'Static typing finds errors at compile time. Dynamic typing discovers them at runtime. The earlier you find a bug, the cheaper it is to fix.',
+        convert:
+          'Weakly typed languages may guess your intent through implicit conversion, often with surprises. Strongly typed languages require explicit intent, which is safer.',
+        infer:
+          'Type inference gives you both: concise code like a dynamic language and strict compiler checks like a static language.'
       },
       quadrants: [
-        { id: 'strong-static', title: 'Strong + static', langs: ['Java', 'Rust', 'Haskell'], desc: 'Strict compile-time checking with no implicit conversion. Very safe and IDE-friendly, but more verbose.', traits: ['Compile-time checks', 'No implicit conversion', 'Autocomplete-friendly', 'Safe refactoring'] },
-        { id: 'weak-static', title: 'Weak + static', langs: ['C', 'C++'], desc: 'Types are checked at compile time, but casts and conversions can bypass safety. Very fast, but easy to misuse.', traits: ['Compile-time checks', 'Pointer casts allowed', 'Very high performance', 'Use carefully'] },
-        { id: 'strong-dynamic', title: 'Strong + dynamic', langs: ['Python', 'Ruby'], desc: 'Types are checked at runtime and implicit conversion is rejected. Flexible and safe, but slower.', traits: ['Runtime checks', 'Rejects implicit conversion', 'Fast development', 'Performance limits'] },
-        { id: 'weak-dynamic', title: 'Weak + dynamic', langs: ['JavaScript', 'PHP'], desc: 'Runtime checking with implicit conversion. Very flexible, but the easiest to surprise you.', traits: ['Runtime checks', 'Implicit conversion', 'Very flexible', 'Surprise-prone'] }
+        {
+          id: 'strong-static',
+          title: 'Strong + static',
+          langs: ['Java', 'Rust', 'Haskell'],
+          desc: 'Strict compile-time checking with no implicit conversion. Very safe and IDE-friendly, but more verbose.',
+          traits: [
+            'Compile-time checks',
+            'No implicit conversion',
+            'Autocomplete-friendly',
+            'Safe refactoring'
+          ]
+        },
+        {
+          id: 'weak-static',
+          title: 'Weak + static',
+          langs: ['C', 'C++'],
+          desc: 'Types are checked at compile time, but casts and conversions can bypass safety. Very fast, but easy to misuse.',
+          traits: [
+            'Compile-time checks',
+            'Pointer casts allowed',
+            'Very high performance',
+            'Use carefully'
+          ]
+        },
+        {
+          id: 'strong-dynamic',
+          title: 'Strong + dynamic',
+          langs: ['Python', 'Ruby'],
+          desc: 'Types are checked at runtime and implicit conversion is rejected. Flexible and safe, but slower.',
+          traits: [
+            'Runtime checks',
+            'Rejects implicit conversion',
+            'Fast development',
+            'Performance limits'
+          ]
+        },
+        {
+          id: 'weak-dynamic',
+          title: 'Weak + dynamic',
+          langs: ['JavaScript', 'PHP'],
+          desc: 'Runtime checking with implicit conversion. Very flexible, but the easiest to surprise you.',
+          traits: [
+            'Runtime checks',
+            'Implicit conversion',
+            'Very flexible',
+            'Surprise-prone'
+          ]
+        }
       ],
       typeChecks: [
-        { lang: 'Java (static)', code: 'String name = "Alice";\nname = 123; // ❌ compile error', result: 'error', badge: 'Compile-time error', verdict: 'The problem is found before the program runs.' },
-        { lang: 'Python (dynamic strong)', code: 'name = "Alice"\nname = 123  # ✅ OK\nname + " test"  # ❌ runtime TypeError', result: 'warning', badge: 'Runtime error', verdict: 'Assignment is fine, but later operations may fail.' },
-        { lang: 'JavaScript (dynamic weak)', code: 'let name = "Alice"\nname = 123  // ✅ OK\nname + " test"  // "123 test" 🤔', result: 'success', badge: 'Silent pass', verdict: 'It does not fail, but the result may not be what you meant.' }
+        {
+          lang: 'Java (static)',
+          code: 'String name = "Alice";\nname = 123; // ❌ compile error',
+          result: 'error',
+          badge: 'Compile-time error',
+          verdict: 'The problem is found before the program runs.'
+        },
+        {
+          lang: 'Python (dynamic strong)',
+          code: 'name = "Alice"\nname = 123  # ✅ OK\nname + " test"  # ❌ runtime TypeError',
+          result: 'warning',
+          badge: 'Runtime error',
+          verdict: 'Assignment is fine, but later operations may fail.'
+        },
+        {
+          lang: 'JavaScript (dynamic weak)',
+          code: 'let name = "Alice"\nname = 123  // ✅ OK\nname + " test"  // "123 test" 🤔',
+          result: 'success',
+          badge: 'Silent pass',
+          verdict: 'It does not fail, but the result may not be what you meant.'
+        }
       ],
       convertLangs: [
         {
           name: 'JavaScript',
-          summary: 'Weak typing: implicit conversion can produce surprising results',
+          summary:
+            'Weak typing: implicit conversion can produce surprising results',
           summaryClass: 'weak',
           conversions: [
-            { expr: '"1" + 1', result: '"11"', explain: 'String concatenation', error: false },
-            { expr: '"1" - 1', result: '0', explain: 'Automatically converts to number', error: false },
-            { expr: '[] + []', result: '""', explain: 'Empty arrays become empty strings', error: false },
-            { expr: '[] + {}', result: '"[object Object]"', explain: 'Object converted to string', error: false },
-            { expr: 'true + true', result: '2', explain: 'Booleans become numbers', error: false },
-            { expr: 'null + 1', result: '1', explain: 'null becomes 0', error: false }
+            {
+              expr: '"1" + 1',
+              result: '"11"',
+              explain: 'String concatenation',
+              error: false
+            },
+            {
+              expr: '"1" - 1',
+              result: '0',
+              explain: 'Automatically converts to number',
+              error: false
+            },
+            {
+              expr: '[] + []',
+              result: '""',
+              explain: 'Empty arrays become empty strings',
+              error: false
+            },
+            {
+              expr: '[] + {}',
+              result: '"[object Object]"',
+              explain: 'Object converted to string',
+              error: false
+            },
+            {
+              expr: 'true + true',
+              result: '2',
+              explain: 'Booleans become numbers',
+              error: false
+            },
+            {
+              expr: 'null + 1',
+              result: '1',
+              explain: 'null becomes 0',
+              error: false
+            }
           ]
         },
         {
           name: 'Python',
-          summary: 'Strong typing: implicit conversion is rejected; be explicit',
+          summary:
+            'Strong typing: implicit conversion is rejected; be explicit',
           summaryClass: 'strong',
           conversions: [
-            { expr: '"1" + 1', result: 'TypeError', explain: 'Implicit conversion not allowed', error: true },
-            { expr: '"1" + str(1)', result: '"11"', explain: 'Explicit conversion', error: false },
-            { expr: 'int("1") + 1', result: '2', explain: 'Explicit conversion', error: false },
-            { expr: 'True + True', result: '2', explain: 'bool is a subclass of int', error: false },
-            { expr: '[1] + [2]', result: '[1, 2]', explain: 'List concatenation', error: false }
+            {
+              expr: '"1" + 1',
+              result: 'TypeError',
+              explain: 'Implicit conversion not allowed',
+              error: true
+            },
+            {
+              expr: '"1" + str(1)',
+              result: '"11"',
+              explain: 'Explicit conversion',
+              error: false
+            },
+            {
+              expr: 'int("1") + 1',
+              result: '2',
+              explain: 'Explicit conversion',
+              error: false
+            },
+            {
+              expr: 'True + True',
+              result: '2',
+              explain: 'bool is a subclass of int',
+              error: false
+            },
+            {
+              expr: '[1] + [2]',
+              result: '[1, 2]',
+              explain: 'List concatenation',
+              error: false
+            }
           ]
         },
         {
           name: 'Java',
-          summary: 'Strong typing: string concatenation is special; most conversions are strict',
+          summary:
+            'Strong typing: string concatenation is special; most conversions are strict',
           summaryClass: 'strong',
           conversions: [
-            { expr: '"1" + 1', result: '"11"', explain: 'String concatenation special case', error: false },
-            { expr: '(String) 1', result: 'Compile error', explain: 'Conversion not allowed', error: true },
-            { expr: '(int) 1.5', result: '1', explain: 'Explicit cast loses precision', error: false },
-            { expr: 'Integer.parseInt("1")', result: '1', explain: 'Explicit parsing', error: false }
+            {
+              expr: '"1" + 1',
+              result: '"11"',
+              explain: 'String concatenation special case',
+              error: false
+            },
+            {
+              expr: '(String) 1',
+              result: 'Compile error',
+              explain: 'Conversion not allowed',
+              error: true
+            },
+            {
+              expr: '(int) 1.5',
+              result: '1',
+              explain: 'Explicit cast loses precision',
+              error: false
+            },
+            {
+              expr: 'Integer.parseInt("1")',
+              result: '1',
+              explain: 'Explicit parsing',
+              error: false
+            }
           ]
         },
         {
@@ -2316,10 +2985,30 @@ mov  dword ptr [x], eax ; store it at variable x address`
           summary: 'Strong typing: mismatched types are rejected',
           summaryClass: 'strong',
           conversions: [
-            { expr: '1_i32 + 1_i64', result: 'Compile error', explain: 'Type mismatch', error: true },
-            { expr: '1_i32 as i64 + 1_i64', result: '2', explain: 'Explicit as conversion', error: false },
-            { expr: '"1".parse::<i32>()', result: 'Ok(1)', explain: 'Explicit parse returns Result', error: false },
-            { expr: '1 as f64', result: '1.0', explain: 'Explicit conversion', error: false }
+            {
+              expr: '1_i32 + 1_i64',
+              result: 'Compile error',
+              explain: 'Type mismatch',
+              error: true
+            },
+            {
+              expr: '1_i32 as i64 + 1_i64',
+              result: '2',
+              explain: 'Explicit as conversion',
+              error: false
+            },
+            {
+              expr: '"1".parse::<i32>()',
+              result: 'Ok(1)',
+              explain: 'Explicit parse returns Result',
+              error: false
+            },
+            {
+              expr: '1 as f64',
+              result: '1.0',
+              explain: 'Explicit conversion',
+              error: false
+            }
           ]
         }
       ],
@@ -2331,7 +3020,12 @@ mov  dword ptr [x], eax ; store it at variable x address`
         { lang: 'Kotlin', code: 'val x = 1', type: 'Int' },
         { lang: 'Go', code: 'x := 1', type: 'int' }
       ],
-      inferBenefits: ['✅ Fewer type annotations', '✅ Compiler still checks strictly', '✅ IDE autocomplete still works', '✅ Compiler catches refactor mistakes']
+      inferBenefits: [
+        '✅ Fewer type annotations',
+        '✅ Compiler still checks strictly',
+        '✅ IDE autocomplete still works',
+        '✅ Compiler catches refactor mistakes'
+      ]
     },
     staticDynamic: {
       title: '🔍 Static vs Dynamic Typing: Live Comparison',
@@ -2341,9 +3035,45 @@ mov  dword ptr [x], eax ; store it at variable x address`
       staticTiming: '⏱ Checked at compile time',
       dynamicTiming: '⏱ Checked at runtime',
       examples: [
-        { label: 'Variable assignment', staticCode: 'let name: string = "Alice"\nname = 42  // ❌ compile error', dynamicCode: 'let name = "Alice"\nname = 42  // ✅ OK', staticResult: '❌ Type "number" is not assignable to type "string"', dynamicResult: '✅ Runs normally; name becomes 42', staticOk: false, dynamicOk: true, insight: 'Static typing catches the error while you write code. Dynamic typing waits until runtime.' },
-        { label: 'Function arguments', staticCode: 'function add(a: number, b: number) {\n  return a + b\n}\nadd("1", 2)  // ❌ compile error', dynamicCode: 'function add(a, b) {\n  return a + b\n}\nadd("1", 2)  // ✅ returns "12"', staticResult: '❌ Argument of type "string" is not assignable to parameter of type "number"', dynamicResult: '✅ Returns "12" (string concatenation, not math)', staticOk: false, dynamicOk: true, insight: 'Dynamic flexibility can become a bug source: you expected 3 but got "12".' },
-        { label: 'Property access', staticCode: 'interface User { name: string }\nlet user: User = { name: "Bob" }\nconsole.log(user.age)  // ❌ compile error', dynamicCode: 'let user = { name: "Bob" }\nconsole.log(user.age)  // ✅ prints undefined', staticResult: '❌ Property "age" does not exist on type "User"', dynamicResult: '✅ Prints undefined, which may break later logic', staticOk: false, dynamicOk: true, insight: 'Static typing catches typos and missing properties at compile time. Dynamic typing silently returns undefined.' }
+        {
+          label: 'Variable assignment',
+          staticCode:
+            'let name: string = "Alice"\nname = 42  // ❌ compile error',
+          dynamicCode: 'let name = "Alice"\nname = 42  // ✅ OK',
+          staticResult: '❌ Type "number" is not assignable to type "string"',
+          dynamicResult: '✅ Runs normally; name becomes 42',
+          staticOk: false,
+          dynamicOk: true,
+          insight:
+            'Static typing catches the error while you write code. Dynamic typing waits until runtime.'
+        },
+        {
+          label: 'Function arguments',
+          staticCode:
+            'function add(a: number, b: number) {\n  return a + b\n}\nadd("1", 2)  // ❌ compile error',
+          dynamicCode:
+            'function add(a, b) {\n  return a + b\n}\nadd("1", 2)  // ✅ returns "12"',
+          staticResult:
+            '❌ Argument of type "string" is not assignable to parameter of type "number"',
+          dynamicResult: '✅ Returns "12" (string concatenation, not math)',
+          staticOk: false,
+          dynamicOk: true,
+          insight:
+            'Dynamic flexibility can become a bug source: you expected 3 but got "12".'
+        },
+        {
+          label: 'Property access',
+          staticCode:
+            'interface User { name: string }\nlet user: User = { name: "Bob" }\nconsole.log(user.age)  // ❌ compile error',
+          dynamicCode:
+            'let user = { name: "Bob" }\nconsole.log(user.age)  // ✅ prints undefined',
+          staticResult: '❌ Property "age" does not exist on type "User"',
+          dynamicResult: '✅ Prints undefined, which may break later logic',
+          staticOk: false,
+          dynamicOk: true,
+          insight:
+            'Static typing catches typos and missing properties at compile time. Dynamic typing silently returns undefined.'
+        }
       ]
     },
     strongWeak: {
@@ -2352,9 +3082,111 @@ mov  dword ptr [x], eax ; store it at variable x address`
       strong: 'Strong',
       weak: 'Weak',
       expressions: [
-        { expr: '"1" + 1', langs: [{ name: 'JavaScript', strong: false, code: '"1" + 1', result: '→ "11" (string concatenation)', error: false }, { name: 'Python', strong: true, code: '"1" + 1', result: '→ TypeError: can only concatenate str to str', error: true }, { name: 'Java', strong: false, code: '"1" + 1', result: '→ "11" (string concatenation)', error: false }, { name: 'Rust', strong: true, code: '"1" + 1', result: '→ compile error: type mismatch', error: true }], takeaway: 'Strongly typed languages refuse to guess your intent. Weakly typed languages may helpfully convert, but the result may be wrong.' },
-        { expr: 'true + 1', langs: [{ name: 'JavaScript', strong: false, code: 'true + 1', result: '→ 2 (true becomes 1)', error: false }, { name: 'Python', strong: true, code: 'True + 1', result: '→ 2 (bool is a subclass of int)', error: false }, { name: 'Java', strong: false, code: 'true + 1', result: '→ compile error', error: true }, { name: 'C', strong: false, code: '1 + 1 // true=1', result: '→ 2 (C uses 0/1)', error: false }], takeaway: 'The relationship between booleans and numbers differs by language. Python is strong, but bool inheriting from int is a design choice.' },
-        { expr: '"5" == 5', langs: [{ name: 'JavaScript', strong: false, code: '"5" == 5', result: '→ true (after implicit conversion)', error: false }, { name: 'Python', strong: true, code: '"5" == 5', result: '→ False (different types)', error: false }, { name: 'TypeScript', strong: false, code: '"5" == 5', result: '→ true (linters warn)', error: false }, { name: 'PHP', strong: false, code: '"5" == 5', result: '→ true (loose comparison)', error: false }], takeaway: 'JavaScript == performs implicit conversion and causes many bugs. The community recommends === for strict comparison.' }
+        {
+          expr: '"1" + 1',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: '"1" + 1',
+              result: '→ "11" (string concatenation)',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: '"1" + 1',
+              result: '→ TypeError: can only concatenate str to str',
+              error: true
+            },
+            {
+              name: 'Java',
+              strong: false,
+              code: '"1" + 1',
+              result: '→ "11" (string concatenation)',
+              error: false
+            },
+            {
+              name: 'Rust',
+              strong: true,
+              code: '"1" + 1',
+              result: '→ compile error: type mismatch',
+              error: true
+            }
+          ],
+          takeaway:
+            'Strongly typed languages refuse to guess your intent. Weakly typed languages may helpfully convert, but the result may be wrong.'
+        },
+        {
+          expr: 'true + 1',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: 'true + 1',
+              result: '→ 2 (true becomes 1)',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: 'True + 1',
+              result: '→ 2 (bool is a subclass of int)',
+              error: false
+            },
+            {
+              name: 'Java',
+              strong: false,
+              code: 'true + 1',
+              result: '→ compile error',
+              error: true
+            },
+            {
+              name: 'C',
+              strong: false,
+              code: '1 + 1 // true=1',
+              result: '→ 2 (C uses 0/1)',
+              error: false
+            }
+          ],
+          takeaway:
+            'The relationship between booleans and numbers differs by language. Python is strong, but bool inheriting from int is a design choice.'
+        },
+        {
+          expr: '"5" == 5',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true (after implicit conversion)',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: '"5" == 5',
+              result: '→ False (different types)',
+              error: false
+            },
+            {
+              name: 'TypeScript',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true (linters warn)',
+              error: false
+            },
+            {
+              name: 'PHP',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true (loose comparison)',
+              error: false
+            }
+          ],
+          takeaway:
+            'JavaScript == performs implicit conversion and causes many bugs. The community recommends === for strict comparison.'
+        }
       ]
     },
     inference: {
@@ -2363,11 +3195,51 @@ mov  dword ptr [x], eax ; store it at variable x address`
       processTitle: 'Inference process',
       supportTitle: 'Type Inference Capability by Language',
       codeLines: [
-        { code: '<span class="kw">let</span> x = <span class="num">42</span>', inferred: 'number', steps: ['The right side is literal 42', '42 is an integer-like number', 'Infer x as number'] },
-        { code: '<span class="kw">let</span> names = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>]', inferred: 'string[]', steps: ['The right side is an array literal', 'Both elements are strings', 'Infer the array as string[]'] },
-        { code: '<span class="kw">let</span> result = x > 10 ? <span class="str">"big"</span> : <span class="str">"small"</span>', inferred: 'string', steps: ['Both ternary branches are strings', 'Branch types match', 'Infer result as string'] },
-        { code: '<span class="kw">const</span> add = (a: <span class="type">number</span>, b: <span class="type">number</span>) => a + b', inferred: '(a: number, b: number) => number', steps: ['Parameters a and b are annotated as number', 'number + number returns number', 'Infer return type as number'] },
-        { code: '<span class="kw">let</span> mixed = [<span class="num">1</span>, <span class="str">"two"</span>, <span class="kw">true</span>]', inferred: '(number | string | boolean)[]', steps: ['The array contains number, string, and boolean', 'Take the union of element types', 'Infer (number | string | boolean)[]'] }
+        {
+          code: '<span class="kw">let</span> x = <span class="num">42</span>',
+          inferred: 'number',
+          steps: [
+            'The right side is literal 42',
+            '42 is an integer-like number',
+            'Infer x as number'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> names = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>]',
+          inferred: 'string[]',
+          steps: [
+            'The right side is an array literal',
+            'Both elements are strings',
+            'Infer the array as string[]'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> result = x > 10 ? <span class="str">"big"</span> : <span class="str">"small"</span>',
+          inferred: 'string',
+          steps: [
+            'Both ternary branches are strings',
+            'Branch types match',
+            'Infer result as string'
+          ]
+        },
+        {
+          code: '<span class="kw">const</span> add = (a: <span class="type">number</span>, b: <span class="type">number</span>) => a + b',
+          inferred: '(a: number, b: number) => number',
+          steps: [
+            'Parameters a and b are annotated as number',
+            'number + number returns number',
+            'Infer return type as number'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> mixed = [<span class="num">1</span>, <span class="str">"two"</span>, <span class="kw">true</span>]',
+          inferred: '(number | string | boolean)[]',
+          steps: [
+            'The array contains number, string, and boolean',
+            'Take the union of element types',
+            'Infer (number | string | boolean)[]'
+          ]
+        }
       ],
       langs: [
         { name: 'Rust', level: 95, label: 'Almost fully inferred' },
@@ -2385,9 +3257,39 @@ mov  dword ptr [x], eax ; store it at variable x address`
       withLabel: '✅ With generics',
       flowTitle: 'Type flow',
       scenes: [
-        { label: 'Reusable function', without: '// Need one function per type\nfunction getFirstNumber(arr: number[]): number {\n  return arr[0]\n}\nfunction getFirstString(arr: string[]): string {\n  return arr[0]\n}\n// boolean, object... it never ends', withGeneric: '// One generic function handles all types\nfunction getFirst<T>(arr: T[]): T {\n  return arr[0]\n}\n\ngetFirst<number>([1, 2, 3])   // → number\ngetFirst<string>(["a", "b"])  // → string', problem: 'You repeat the same code for every type.', benefit: 'T is a type parameter and is replaced by the actual type at call time.', flow: ['T = number', 'arr: number[]', 'return: number'] },
-        { label: 'Type-safe container', without: '// any loses type safety\nclass Box {\n  value: any\n  get(): any { return this.value }\n}\nconst box = new Box()\nbox.value = 42\nconst v = box.get() // v is any, no type help', withGeneric: '// Generic class keeps type safety\nclass Box<T> {\n  value: T\n  get(): T { return this.value }\n}\nconst box = new Box<number>()\nbox.value = 42\nconst v = box.get() // v is number, with full hints', problem: 'any removes type checking and hints.', benefit: 'A generic class fixes the type when instantiated and stays safe throughout.', flow: ['Box<number>', 'value: number', 'get(): number'] },
-        { label: 'Type constraints', without: '// No constraint, so anything can be passed\nfunction getLength<T>(item: T): number {\n  return item.length  // ❌ compile error!\n  // T may not have length\n}', withGeneric: '// extends requires T to have length\ninterface HasLength { length: number }\n\nfunction getLength<T extends HasLength>(item: T) {\n  return item.length  // ✅ safe!\n}\n\ngetLength("hello")     // ✅ string has length\ngetLength([1, 2, 3])   // ✅ array has length\ngetLength(42)           // ❌ number has no length', problem: 'Without a constraint, the generic is too free to access properties safely.', benefit: 'extends guarantees that T has a length property.', flow: ['T extends HasLength', 'has .length', 'safe access'] }
+        {
+          label: 'Reusable function',
+          without:
+            '// Need one function per type\nfunction getFirstNumber(arr: number[]): number {\n  return arr[0]\n}\nfunction getFirstString(arr: string[]): string {\n  return arr[0]\n}\n// boolean, object... it never ends',
+          withGeneric:
+            '// One generic function handles all types\nfunction getFirst<T>(arr: T[]): T {\n  return arr[0]\n}\n\ngetFirst<number>([1, 2, 3])   // → number\ngetFirst<string>(["a", "b"])  // → string',
+          problem: 'You repeat the same code for every type.',
+          benefit:
+            'T is a type parameter and is replaced by the actual type at call time.',
+          flow: ['T = number', 'arr: number[]', 'return: number']
+        },
+        {
+          label: 'Type-safe container',
+          without:
+            '// any loses type safety\nclass Box {\n  value: any\n  get(): any { return this.value }\n}\nconst box = new Box()\nbox.value = 42\nconst v = box.get() // v is any, no type help',
+          withGeneric:
+            '// Generic class keeps type safety\nclass Box<T> {\n  value: T\n  get(): T { return this.value }\n}\nconst box = new Box<number>()\nbox.value = 42\nconst v = box.get() // v is number, with full hints',
+          problem: 'any removes type checking and hints.',
+          benefit:
+            'A generic class fixes the type when instantiated and stays safe throughout.',
+          flow: ['Box<number>', 'value: number', 'get(): number']
+        },
+        {
+          label: 'Type constraints',
+          without:
+            '// No constraint, so anything can be passed\nfunction getLength<T>(item: T): number {\n  return item.length  // ❌ compile error!\n  // T may not have length\n}',
+          withGeneric:
+            '// extends requires T to have length\ninterface HasLength { length: number }\n\nfunction getLength<T extends HasLength>(item: T) {\n  return item.length  // ✅ safe!\n}\n\ngetLength("hello")     // ✅ string has length\ngetLength([1, 2, 3])   // ✅ array has length\ngetLength(42)           // ❌ number has no length',
+          problem:
+            'Without a constraint, the generic is too free to access properties safely.',
+          benefit: 'extends guarantees that T has a length property.',
+          flow: ['T extends HasLength', 'has .length', 'safe access']
+        }
       ]
     },
     safety: {
@@ -2397,10 +3299,68 @@ mov  dword ptr [x], eax ; store it at variable x address`
       safeLabel: '✅ Safe code',
       tipTitle: '🔑 Defense strategy',
       traps: [
-        { icon: '💣', name: 'null reference', dangerCode: 'function getLength(str) {\n  return str.length  // what if str is null?\n}\ngetLength(null)  // 💥 runtime crash', dangerResult: '💥 TypeError: Cannot read properties of null', safeCode: 'function getLength(str: string | null): number {\n  if (str === null) return 0\n  return str.length  // ✅ compiler knows str is not null here\n}', safeResult: '✅ The compiler forces you to handle null', tips: ['Enable strictNullChecks', 'Use string | null to mark nullable values explicitly', 'Use optional chaining ?. for safe access'] },
-        { icon: '🎭', name: 'Overusing assertions', dangerCode: 'const data = fetchAPI() as any\nconst name = data.user.profile.name\n// What if the API shape changed?', dangerResult: '💥 Runtime crash; any bypassed all type checks', safeCode: 'interface APIResponse {\n  user: { profile: { name: string } }\n}\nconst data: APIResponse = await fetchAPI()\nconst name = data.user.profile.name', safeResult: '✅ If the API shape changes, compile-time checks can catch it', tips: ['Avoid any; prefer unknown', 'Define explicit interfaces for API responses', 'Use libraries such as zod for runtime validation'] },
-        { icon: '🔄', name: 'Implicit conversion', dangerCode: 'if (userId == 0) {\n  // userId === "" also enters!\n  console.log("invalid user")\n}\n// "" == 0 → true', dangerResult: '💥 Empty string is treated as 0, causing logic errors', safeCode: 'if (userId === 0) {\n  console.log("invalid user")\n}\n// "" === 0 → false', safeResult: '✅ Strict comparison avoids implicit conversion', tips: ['Always use === instead of ==', 'Enable ESLint eqeqeq', 'Use TypeScript strict mode'] },
-        { icon: '📦', name: 'Unsafe array types', dangerCode: 'const items = []  // any[]\nitems.push(1)\nitems.push("hello")\nitems.push({ x: 1 })\n// Mixed values make later usage fragile', dangerResult: '💥 Inconsistent element types can crash later operations', safeCode: 'const items: number[] = []\nitems.push(1)\nitems.push("hello")  // ❌ compile error!\n// Compiler keeps element types consistent', safeResult: '✅ Type mismatch is blocked at compile time', tips: ['Specify element types when declaring arrays', 'Use ReadonlyArray to prevent accidental mutation', 'Use tuples such as [string, number] for fixed structures'] }
+        {
+          icon: '💣',
+          name: 'null reference',
+          dangerCode:
+            'function getLength(str) {\n  return str.length  // what if str is null?\n}\ngetLength(null)  // 💥 runtime crash',
+          dangerResult: '💥 TypeError: Cannot read properties of null',
+          safeCode:
+            'function getLength(str: string | null): number {\n  if (str === null) return 0\n  return str.length  // ✅ compiler knows str is not null here\n}',
+          safeResult: '✅ The compiler forces you to handle null',
+          tips: [
+            'Enable strictNullChecks',
+            'Use string | null to mark nullable values explicitly',
+            'Use optional chaining ?. for safe access'
+          ]
+        },
+        {
+          icon: '🎭',
+          name: 'Overusing assertions',
+          dangerCode:
+            'const data = fetchAPI() as any\nconst name = data.user.profile.name\n// What if the API shape changed?',
+          dangerResult: '💥 Runtime crash; any bypassed all type checks',
+          safeCode:
+            'interface APIResponse {\n  user: { profile: { name: string } }\n}\nconst data: APIResponse = await fetchAPI()\nconst name = data.user.profile.name',
+          safeResult:
+            '✅ If the API shape changes, compile-time checks can catch it',
+          tips: [
+            'Avoid any; prefer unknown',
+            'Define explicit interfaces for API responses',
+            'Use libraries such as zod for runtime validation'
+          ]
+        },
+        {
+          icon: '🔄',
+          name: 'Implicit conversion',
+          dangerCode:
+            'if (userId == 0) {\n  // userId === "" also enters!\n  console.log("invalid user")\n}\n// "" == 0 → true',
+          dangerResult: '💥 Empty string is treated as 0, causing logic errors',
+          safeCode:
+            'if (userId === 0) {\n  console.log("invalid user")\n}\n// "" === 0 → false',
+          safeResult: '✅ Strict comparison avoids implicit conversion',
+          tips: [
+            'Always use === instead of ==',
+            'Enable ESLint eqeqeq',
+            'Use TypeScript strict mode'
+          ]
+        },
+        {
+          icon: '📦',
+          name: 'Unsafe array types',
+          dangerCode:
+            'const items = []  // any[]\nitems.push(1)\nitems.push("hello")\nitems.push({ x: 1 })\n// Mixed values make later usage fragile',
+          dangerResult:
+            '💥 Inconsistent element types can crash later operations',
+          safeCode:
+            'const items: number[] = []\nitems.push(1)\nitems.push("hello")  // ❌ compile error!\n// Compiler keeps element types consistent',
+          safeResult: '✅ Type mismatch is blocked at compile time',
+          tips: [
+            'Specify element types when declaring arrays',
+            'Use ReadonlyArray to prevent accidental mutation',
+            'Use tuples such as [string, number] for fixed structures'
+          ]
+        }
       ]
     },
     languageModel: {
@@ -2408,20 +3368,57 @@ mov  dword ptr [x], eax ; store it at variable x address`
       subtitle: 'How type systems differ across languages',
       matrixTitle: 'Type System Classification Matrix',
       inferenceTitle: 'Type Inference',
-      inferenceDesc: 'Modern languages can infer variable types automatically without explicit declarations.',
+      inferenceDesc:
+        'Modern languages can infer variable types automatically without explicit declarations.',
       dimensions: [
-        { id: 'static', title: 'When types are checked', options: [{ name: 'Static typing', langs: 'Java, C++, Rust, Go' }, { name: 'Dynamic typing', langs: 'Python, JavaScript, Ruby' }] },
-        { id: 'strength', title: 'Type strength', options: [{ name: 'Strong typing', langs: 'Python, Java, Rust' }, { name: 'Weak typing', langs: 'JavaScript, C, PHP' }] }
+        {
+          id: 'static',
+          title: 'When types are checked',
+          options: [
+            { name: 'Static typing', langs: 'Java, C++, Rust, Go' },
+            { name: 'Dynamic typing', langs: 'Python, JavaScript, Ruby' }
+          ]
+        },
+        {
+          id: 'strength',
+          title: 'Type strength',
+          options: [
+            { name: 'Strong typing', langs: 'Python, Java, Rust' },
+            { name: 'Weak typing', langs: 'JavaScript, C, PHP' }
+          ]
+        }
       ],
       matrixCells: [
-        { title: 'Static + strong', langs: 'Java, C++, Rust, Go', desc: 'Compile-time checks with type safety' },
-        { title: 'Static + weak', langs: 'C', desc: 'Compile-time checks with flexible conversion' },
-        { title: 'Dynamic + strong', langs: 'Python, Ruby', desc: 'Runtime checks with type safety' },
-        { title: 'Dynamic + weak', langs: 'JavaScript, PHP', desc: 'Runtime checks with flexible typing' }
+        {
+          title: 'Static + strong',
+          langs: 'Java, C++, Rust, Go',
+          desc: 'Compile-time checks with type safety'
+        },
+        {
+          title: 'Static + weak',
+          langs: 'C',
+          desc: 'Compile-time checks with flexible conversion'
+        },
+        {
+          title: 'Dynamic + strong',
+          langs: 'Python, Ruby',
+          desc: 'Runtime checks with type safety'
+        },
+        {
+          title: 'Dynamic + weak',
+          langs: 'JavaScript, PHP',
+          desc: 'Runtime checks with flexible typing'
+        }
       ],
       inferenceExamples: [
-        { lang: 'TypeScript', code: 'let x = 5; // inferred as number\nlet name = "Alice"; // string' },
-        { lang: 'Rust', code: 'let x = 5; // inferred as i32\nlet name = "Alice"; // &str' }
+        {
+          lang: 'TypeScript',
+          code: 'let x = 5; // inferred as number\nlet name = "Alice"; // string'
+        },
+        {
+          lang: 'Rust',
+          code: 'let x = 5; // inferred as i32\nlet name = "Alice"; // &str'
+        }
       ]
     }
   },
@@ -2436,8 +3433,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
       title: 'Hardware Startup Chain',
       steps: [
         { icon: '🔌', name: 'Power supply', desc: 'AC power → DC power' },
-        { icon: '🧩', name: 'Motherboard chipset', desc: 'Coordinates hardware components' },
-        { icon: '⚙️', name: 'CPU reset', desc: 'Clear registers and become ready' },
+        {
+          icon: '🧩',
+          name: 'Motherboard chipset',
+          desc: 'Coordinates hardware components'
+        },
+        {
+          icon: '⚙️',
+          name: 'CPU reset',
+          desc: 'Clear registers and become ready'
+        },
         { icon: '📟', name: 'BIOS/UEFI', desc: 'Run the first instruction' }
       ]
     },
@@ -2493,16 +3498,27 @@ mov  dword ptr [x], eax ; store it at variable x address`
               icon: '💾',
               name: 'BIOS (traditional)',
               what: 'Basic Input/Output System, a firmware interface used since the 1980s.',
-              details: ['Stored in motherboard ROM', 'Runs in 16-bit real mode', 'Supports disks up to 2.2 TB', 'Blue text interface']
+              details: [
+                'Stored in motherboard ROM',
+                'Runs in 16-bit real mode',
+                'Supports disks up to 2.2 TB',
+                'Blue text interface'
+              ]
             },
             {
               icon: '✨',
               name: 'UEFI (modern)',
               what: 'Unified Extensible Firmware Interface, the modern replacement for BIOS.',
-              details: ['Supports 32/64-bit modes', 'Supports disks larger than 2.2 TB', 'Graphical settings interface', 'Secure Boot support']
+              details: [
+                'Supports 32/64-bit modes',
+                'Supports disks larger than 2.2 TB',
+                'Graphical settings interface',
+                'Secure Boot support'
+              ]
             }
           ],
-          analogy: 'BIOS/UEFI is like the computer gatekeeper: it wakes up first, checks that everything is healthy, and decides who, the operating system, can enter.'
+          analogy:
+            'BIOS/UEFI is like the computer gatekeeper: it wakes up first, checks that everything is healthy, and decides who, the operating system, can enter.'
         },
         {
           short: 'POST',
@@ -2510,12 +3526,49 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Power-On Self-Test (POST)',
           desc: 'POST checks key hardware one by one to make sure it can work normally.',
           operations: [
-            { icon: '🧠', name: 'Memory check', what: 'Write test data to memory and read it back to verify each memory module.', details: ['Byte-by-byte write/read tests', 'Check memory capacity and speed', 'Failure emits a beep code'] },
-            { icon: '🎮', name: 'GPU check', what: 'Initialize the graphics card and try to output an image. If it fails, the screen stays black.', details: ['Load graphics BIOS', 'Set a basic display mode', 'Failure beep: 1 long 2 short'] },
-            { icon: '⌨️', name: 'Peripheral check', what: 'Scan USB/PS2 ports and detect input devices such as keyboard and mouse.', details: ['Enumerate USB devices', 'Check keyboard response', 'Non-critical devices do not block boot'] },
-            { icon: '💾', name: 'Storage check', what: 'Identify disks, SSDs, and optical drives, then read device information.', details: ['Detect SATA/NVMe devices', 'Read model and capacity', 'Prepare for the boot search'] }
+            {
+              icon: '🧠',
+              name: 'Memory check',
+              what: 'Write test data to memory and read it back to verify each memory module.',
+              details: [
+                'Byte-by-byte write/read tests',
+                'Check memory capacity and speed',
+                'Failure emits a beep code'
+              ]
+            },
+            {
+              icon: '🎮',
+              name: 'GPU check',
+              what: 'Initialize the graphics card and try to output an image. If it fails, the screen stays black.',
+              details: [
+                'Load graphics BIOS',
+                'Set a basic display mode',
+                'Failure beep: 1 long 2 short'
+              ]
+            },
+            {
+              icon: '⌨️',
+              name: 'Peripheral check',
+              what: 'Scan USB/PS2 ports and detect input devices such as keyboard and mouse.',
+              details: [
+                'Enumerate USB devices',
+                'Check keyboard response',
+                'Non-critical devices do not block boot'
+              ]
+            },
+            {
+              icon: '💾',
+              name: 'Storage check',
+              what: 'Identify disks, SSDs, and optical drives, then read device information.',
+              details: [
+                'Detect SATA/NVMe devices',
+                'Read model and capacity',
+                'Prepare for the boot search'
+              ]
+            }
           ],
-          analogy: 'Like a pre-flight safety checklist: the pilot confirms engines, instruments, and fuel before takeoff.'
+          analogy:
+            'Like a pre-flight safety checklist: the pilot confirms engines, instruments, and fuel before takeoff.'
         },
         {
           short: 'Init',
@@ -2523,12 +3576,49 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Initialize hardware',
           desc: 'After self-test passes, firmware configures hardware parameters and creates the bridge between hardware and software.',
           operations: [
-            { icon: '🔧', name: 'Set operating modes', what: 'Configure CPU frequency, memory timings such as CAS latency, and related parameters.', details: ['Read user settings from CMOS', 'Apply overclock settings if present', 'Set power management mode'] },
-            { icon: '📋', name: 'Interrupt vector table', what: 'Map interrupt numbers to handlers so hardware events can be handled correctly.', details: ['Configure PIC/APIC', 'Assign IRQ numbers', 'Set interrupt handler entries'] },
-            { icon: '🔌', name: 'PCI device enumeration', what: 'Scan PCI/PCIe buses and allocate resources for GPU, network card, audio card, and more.', details: ['Discover all PCI devices', 'Allocate memory-mapped I/O addresses', 'Assign interrupt resources'] },
-            { icon: '🕐', name: 'Clock initialization', what: 'Read the real-time clock from CMOS and synchronize system time.', details: ['Read hardware clock', 'Validate time', 'Provide initial time to the operating system'] }
+            {
+              icon: '🔧',
+              name: 'Set operating modes',
+              what: 'Configure CPU frequency, memory timings such as CAS latency, and related parameters.',
+              details: [
+                'Read user settings from CMOS',
+                'Apply overclock settings if present',
+                'Set power management mode'
+              ]
+            },
+            {
+              icon: '📋',
+              name: 'Interrupt vector table',
+              what: 'Map interrupt numbers to handlers so hardware events can be handled correctly.',
+              details: [
+                'Configure PIC/APIC',
+                'Assign IRQ numbers',
+                'Set interrupt handler entries'
+              ]
+            },
+            {
+              icon: '🔌',
+              name: 'PCI device enumeration',
+              what: 'Scan PCI/PCIe buses and allocate resources for GPU, network card, audio card, and more.',
+              details: [
+                'Discover all PCI devices',
+                'Allocate memory-mapped I/O addresses',
+                'Assign interrupt resources'
+              ]
+            },
+            {
+              icon: '🕐',
+              name: 'Clock initialization',
+              what: 'Read the real-time clock from CMOS and synchronize system time.',
+              details: [
+                'Read hardware clock',
+                'Validate time',
+                'Provide initial time to the operating system'
+              ]
+            }
           ],
-          analogy: 'Like tuning before a concert: every instrument, the hardware, must be set correctly before the conductor can coordinate the performance.'
+          analogy:
+            'Like tuning before a concert: every instrument, the hardware, must be set correctly before the conductor can coordinate the performance.'
         },
         {
           short: 'Boot',
@@ -2536,31 +3626,104 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Find a boot device',
           desc: 'Firmware follows the boot order, reads a boot sector, and hands control to the operating system.',
           operations: [
-            { icon: '📑', name: 'Read boot order', what: 'Read the user-configured device priority list from CMOS/NVRAM.', details: ['Disk → USB → network by default', 'Users can change it in BIOS settings', 'Saved in non-volatile storage'] },
-            { icon: '💿', name: 'Check boot sector', what: 'Read the first sector of the device and verify the 0x55AA signature at the end.', details: ['Read sector 0 (512 bytes)', 'Check bytes 510-511 for 0x55AA', 'Validate boot code'] },
-            { icon: '🔀', name: 'Try multiple devices', what: 'If the first device cannot boot, automatically try the next one.', details: ['No OS on disk → try USB', 'No USB → try network boot', 'All fail → show an error'] },
-            { icon: '🚀', name: 'Jump and execute', what: 'Load boot-sector code into memory at 0x7C00 and make the CPU jump there.', details: ['Load 512 bytes of boot code', 'Jump to 0x7C00', 'Hand control to the bootloader'] }
+            {
+              icon: '📑',
+              name: 'Read boot order',
+              what: 'Read the user-configured device priority list from CMOS/NVRAM.',
+              details: [
+                'Disk → USB → network by default',
+                'Users can change it in BIOS settings',
+                'Saved in non-volatile storage'
+              ]
+            },
+            {
+              icon: '💿',
+              name: 'Check boot sector',
+              what: 'Read the first sector of the device and verify the 0x55AA signature at the end.',
+              details: [
+                'Read sector 0 (512 bytes)',
+                'Check bytes 510-511 for 0x55AA',
+                'Validate boot code'
+              ]
+            },
+            {
+              icon: '🔀',
+              name: 'Try multiple devices',
+              what: 'If the first device cannot boot, automatically try the next one.',
+              details: [
+                'No OS on disk → try USB',
+                'No USB → try network boot',
+                'All fail → show an error'
+              ]
+            },
+            {
+              icon: '🚀',
+              name: 'Jump and execute',
+              what: 'Load boot-sector code into memory at 0x7C00 and make the CPU jump there.',
+              details: [
+                'Load 512 bytes of boot code',
+                'Jump to 0x7C00',
+                'Hand control to the bootloader'
+              ]
+            }
           ],
-          analogy: 'Like choosing transportation in the morning: first check your car, then a shared bike, then a ride-hailing service.'
+          analogy:
+            'Like choosing transportation in the morning: first check your car, then a shared bike, then a ride-hailing service.'
         }
       ]
     },
     osBoot: {
       title: 'Operating System Boot Flow',
       introTitle: 'Operating System',
-      introDesc: 'Manages hardware and software resources<br>the computer steward',
+      introDesc:
+        'Manages hardware and software resources<br>the computer steward',
       osComparisonTitle: 'Common Operating Systems',
       osComparisonHeaders: ['System', 'Features', 'Typical devices'],
       bootFlowTitle: 'Windows vs Linux Boot Flow',
       osList: [
-        { name: 'Windows', icon: '🪟', feature: 'Rich ecosystem and broad compatibility', device: 'Desktops and laptops' },
-        { name: 'macOS', icon: '🍎', feature: 'Apple ecosystem, smooth and stable', device: 'Mac computers' },
-        { name: 'Linux', icon: '🐧', feature: 'Open source and server-friendly', device: 'Servers and embedded devices' },
-        { name: 'Android', icon: '🤖', feature: 'Mobile Linux platform', device: 'Phones and tablets' },
-        { name: 'iOS', icon: '📱', feature: 'Apple mobile platform', device: 'iPhone and iPad' }
+        {
+          name: 'Windows',
+          icon: '🪟',
+          feature: 'Rich ecosystem and broad compatibility',
+          device: 'Desktops and laptops'
+        },
+        {
+          name: 'macOS',
+          icon: '🍎',
+          feature: 'Apple ecosystem, smooth and stable',
+          device: 'Mac computers'
+        },
+        {
+          name: 'Linux',
+          icon: '🐧',
+          feature: 'Open source and server-friendly',
+          device: 'Servers and embedded devices'
+        },
+        {
+          name: 'Android',
+          icon: '🤖',
+          feature: 'Mobile Linux platform',
+          device: 'Phones and tablets'
+        },
+        {
+          name: 'iOS',
+          icon: '📱',
+          feature: 'Apple mobile platform',
+          device: 'iPhone and iPad'
+        }
       ],
-      bootloaderSteps: ['Read partition table', 'Find system partition', 'Load kernel into memory', 'Jump to kernel entry'],
-      kernelModules: ['Process management', 'Memory management', 'File system', 'Device drivers'],
+      bootloaderSteps: [
+        'Read partition table',
+        'Find system partition',
+        'Load kernel into memory',
+        'Jump to kernel entry'
+      ],
+      kernelModules: [
+        'Process management',
+        'Memory management',
+        'File system',
+        'Device drivers'
+      ],
       services: [
         { name: 'Network service', icon: '🌐' },
         { name: 'Audio service', icon: '🔊' },
@@ -2575,8 +3738,23 @@ mov  dword ptr [x], eax ; store it at variable x address`
         { icon: '📧', label: 'Mail' },
         { icon: '⚙️', label: 'Settings' }
       ],
-      windowsFlow: ['BIOS', 'MBR', 'bootmgr', 'winload.exe', 'ntoskrnl.exe', 'System services', 'Desktop'],
-      linuxFlow: ['BIOS', 'GRUB', 'vmlinuz', 'systemd', 'System services', 'Desktop environment'],
+      windowsFlow: [
+        'BIOS',
+        'MBR',
+        'bootmgr',
+        'winload.exe',
+        'ntoskrnl.exe',
+        'System services',
+        'Desktop'
+      ],
+      linuxFlow: [
+        'BIOS',
+        'GRUB',
+        'vmlinuz',
+        'systemd',
+        'System services',
+        'Desktop environment'
+      ],
       stages: [
         {
           short: 'Intro',
@@ -2584,11 +3762,42 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'What is an operating system?',
           desc: 'An operating system is the software layer that manages hardware and software resources.',
           operations: [
-            { icon: '🏢', name: 'Resource management', what: 'The OS manages CPU, memory, disk, network, and other hardware resources.', details: ['Process management - schedule programs', 'Memory management - allocate and reclaim memory', 'File system - manage file storage', 'Device management - control hardware'] },
-            { icon: '🎮', name: 'Provide interfaces', what: 'It gives applications a unified interface so they do not need to operate hardware directly.', details: ['System call API', 'Graphical user interface', 'Command-line interface', 'Driver interface'] },
-            { icon: '🔒', name: 'Security protection', what: 'It protects resources from unauthorized access and isolates users and processes.', details: ['User permission management', 'Process address-space isolation', 'File access control', 'Network security protection'] }
+            {
+              icon: '🏢',
+              name: 'Resource management',
+              what: 'The OS manages CPU, memory, disk, network, and other hardware resources.',
+              details: [
+                'Process management - schedule programs',
+                'Memory management - allocate and reclaim memory',
+                'File system - manage file storage',
+                'Device management - control hardware'
+              ]
+            },
+            {
+              icon: '🎮',
+              name: 'Provide interfaces',
+              what: 'It gives applications a unified interface so they do not need to operate hardware directly.',
+              details: [
+                'System call API',
+                'Graphical user interface',
+                'Command-line interface',
+                'Driver interface'
+              ]
+            },
+            {
+              icon: '🔒',
+              name: 'Security protection',
+              what: 'It protects resources from unauthorized access and isolates users and processes.',
+              details: [
+                'User permission management',
+                'Process address-space isolation',
+                'File access control',
+                'Network security protection'
+              ]
+            }
           ],
-          analogy: 'The OS is like building management: it supplies utilities, assigns rooms, manages storage, and keeps security so residents, the applications, can live safely.'
+          analogy:
+            'The OS is like building management: it supplies utilities, assigns rooms, manages storage, and keeps security so residents, the applications, can live safely.'
         },
         {
           short: 'Bootloader',
@@ -2596,12 +3805,53 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Bootloader',
           desc: 'The first disk sector contains a bootloader whose job is to load the OS kernel into memory.',
           operations: [
-            { icon: '📀', name: 'Read partition table', what: 'The bootloader reads the disk partition table and finds the partition containing the OS.', details: ['Read MBR', 'Parse partition table structure', 'Locate active partition', 'Windows: bootmgr / Linux: GRUB'] },
-            { icon: '🔍', name: 'Locate kernel', what: 'Find the operating system kernel file in the system partition.', details: ['Windows: read BCD configuration', 'Linux: show system selection menu', 'Support multi-boot', 'Load file-system driver'] },
-            { icon: '💾', name: 'Load into memory', what: 'Read the kernel file from disk into a specific memory location.', details: ['Decompress kernel image', 'Copy above memory 0x100000', 'Windows: ntoskrnl.exe', 'Linux: vmlinuz'] },
-            { icon: '➡️', name: 'Jump and execute', what: 'Set the initial environment and jump to the kernel entry point.', details: ['Set CPU protected mode', 'Initialize page tables', 'Jump to kernel entry', 'Kernel starts running'] }
+            {
+              icon: '📀',
+              name: 'Read partition table',
+              what: 'The bootloader reads the disk partition table and finds the partition containing the OS.',
+              details: [
+                'Read MBR',
+                'Parse partition table structure',
+                'Locate active partition',
+                'Windows: bootmgr / Linux: GRUB'
+              ]
+            },
+            {
+              icon: '🔍',
+              name: 'Locate kernel',
+              what: 'Find the operating system kernel file in the system partition.',
+              details: [
+                'Windows: read BCD configuration',
+                'Linux: show system selection menu',
+                'Support multi-boot',
+                'Load file-system driver'
+              ]
+            },
+            {
+              icon: '💾',
+              name: 'Load into memory',
+              what: 'Read the kernel file from disk into a specific memory location.',
+              details: [
+                'Decompress kernel image',
+                'Copy above memory 0x100000',
+                'Windows: ntoskrnl.exe',
+                'Linux: vmlinuz'
+              ]
+            },
+            {
+              icon: '➡️',
+              name: 'Jump and execute',
+              what: 'Set the initial environment and jump to the kernel entry point.',
+              details: [
+                'Set CPU protected mode',
+                'Initialize page tables',
+                'Jump to kernel entry',
+                'Kernel starts running'
+              ]
+            }
           ],
-          analogy: 'The bootloader is like a stage announcer: it checks the venue, finds the script, places the props, then announces that the show begins.'
+          analogy:
+            'The bootloader is like a stage announcer: it checks the venue, finds the script, places the props, then announces that the show begins.'
         },
         {
           short: 'Kernel',
@@ -2609,12 +3859,53 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Operating system kernel',
           desc: 'The kernel is the OS core and manages memory, CPU, processes, and other core functions.',
           operations: [
-            { icon: '🧠', name: 'Process management', what: 'Create the first user process and set up scheduling.', details: ['Create init/systemd process', 'Create process control blocks', 'Initialize scheduler', 'Set process priorities'] },
-            { icon: '💾', name: 'Memory management', what: 'Set up virtual memory and separate kernel space from user space.', details: ['Initialize page tables', 'Map physical memory', 'Set memory protection', 'Enable virtual memory'] },
-            { icon: '📁', name: 'File system', what: 'Mount the root file system and initialize the VFS layer.', details: ['Identify file-system type', 'Mount root partition', 'Initialize inode cache', 'Create file descriptor table'] },
-            { icon: '🔌', name: 'Device drivers', what: 'Load core device drivers and initialize hardware abstraction.', details: ['Load disk driver', 'Initialize display driver', 'Load keyboard and mouse drivers', 'Enumerate PCI devices'] }
+            {
+              icon: '🧠',
+              name: 'Process management',
+              what: 'Create the first user process and set up scheduling.',
+              details: [
+                'Create init/systemd process',
+                'Create process control blocks',
+                'Initialize scheduler',
+                'Set process priorities'
+              ]
+            },
+            {
+              icon: '💾',
+              name: 'Memory management',
+              what: 'Set up virtual memory and separate kernel space from user space.',
+              details: [
+                'Initialize page tables',
+                'Map physical memory',
+                'Set memory protection',
+                'Enable virtual memory'
+              ]
+            },
+            {
+              icon: '📁',
+              name: 'File system',
+              what: 'Mount the root file system and initialize the VFS layer.',
+              details: [
+                'Identify file-system type',
+                'Mount root partition',
+                'Initialize inode cache',
+                'Create file descriptor table'
+              ]
+            },
+            {
+              icon: '🔌',
+              name: 'Device drivers',
+              what: 'Load core device drivers and initialize hardware abstraction.',
+              details: [
+                'Load disk driver',
+                'Initialize display driver',
+                'Load keyboard and mouse drivers',
+                'Enumerate PCI devices'
+              ]
+            }
           ],
-          analogy: 'The kernel is like a newly appointed CEO: it takes over departments, assigns responsibilities, and establishes the company operating model.'
+          analogy:
+            'The kernel is like a newly appointed CEO: it takes over departments, assigns responsibilities, and establishes the company operating model.'
         },
         {
           short: 'Services',
@@ -2622,12 +3913,53 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'System services startup',
           desc: 'The kernel starts the first user process and then starts background services by dependency order.',
           operations: [
-            { icon: '🚀', name: 'Init process', what: 'Start the first user-space process (PID 1), the ancestor of all other processes.', details: ['Linux: systemd or init', 'Windows: smss.exe → csrss.exe', 'Read service configuration files', 'Sort by dependencies'] },
-            { icon: '🌐', name: 'Network service', what: 'Initialize network drivers and configure connectivity.', details: ['Load network driver', 'Obtain IP address with DHCP', 'Configure DNS servers', 'Start firewall'] },
-            { icon: '🔒', name: 'Security service', what: 'Start authentication and security monitoring services.', details: ['Start login manager', 'Initialize permission system', 'Start antivirus', 'Configure security policies'] },
-            { icon: '🔊', name: 'Multimedia service', what: 'Start audio, display, and other multimedia-related services.', details: ['Start audio service', 'Initialize display manager', 'Load themes and fonts', 'Prepare user interface'] }
+            {
+              icon: '🚀',
+              name: 'Init process',
+              what: 'Start the first user-space process (PID 1), the ancestor of all other processes.',
+              details: [
+                'Linux: systemd or init',
+                'Windows: smss.exe → csrss.exe',
+                'Read service configuration files',
+                'Sort by dependencies'
+              ]
+            },
+            {
+              icon: '🌐',
+              name: 'Network service',
+              what: 'Initialize network drivers and configure connectivity.',
+              details: [
+                'Load network driver',
+                'Obtain IP address with DHCP',
+                'Configure DNS servers',
+                'Start firewall'
+              ]
+            },
+            {
+              icon: '🔒',
+              name: 'Security service',
+              what: 'Start authentication and security monitoring services.',
+              details: [
+                'Start login manager',
+                'Initialize permission system',
+                'Start antivirus',
+                'Configure security policies'
+              ]
+            },
+            {
+              icon: '🔊',
+              name: 'Multimedia service',
+              what: 'Start audio, display, and other multimedia-related services.',
+              details: [
+                'Start audio service',
+                'Initialize display manager',
+                'Load themes and fonts',
+                'Prepare user interface'
+              ]
+            }
           ],
-          analogy: 'Like a mall before opening: security arrives, climate control starts, checkout systems go online, and everything gets ready for customers.'
+          analogy:
+            'Like a mall before opening: security arrives, climate control starts, checkout systems go online, and everything gets ready for customers.'
         },
         {
           short: 'Desktop',
@@ -2635,24 +3967,95 @@ mov  dword ptr [x], eax ; store it at variable x address`
           name: 'Show desktop',
           desc: 'The graphical interface is ready and the familiar desktop appears.',
           operations: [
-            { icon: '🎮', name: 'Graphics driver', what: 'Initialize the GPU and set screen resolution and color.', details: ['Load graphics driver', 'Set resolution such as 1920×1080', 'Enable hardware acceleration', 'Configure multiple displays'] },
-            { icon: '🪟', name: 'Window system', what: 'Start the window manager responsible for drawing and interaction.', details: ['Windows: DWM', 'Linux: X11/Wayland', 'macOS: WindowServer', 'Manage window stacking'] },
-            { icon: '🎨', name: 'Desktop environment', what: 'Draw wallpaper, desktop icons, taskbar, and other interface elements.', details: ['Load wallpaper', 'Show desktop icons', 'Render taskbar', 'Load system tray'] },
-            { icon: '👆', name: 'User interaction', what: 'The cursor appears and the system becomes fully interactive.', details: ['Show mouse pointer', 'Respond to keyboard input', 'Load user settings', 'Start startup programs'] }
+            {
+              icon: '🎮',
+              name: 'Graphics driver',
+              what: 'Initialize the GPU and set screen resolution and color.',
+              details: [
+                'Load graphics driver',
+                'Set resolution such as 1920×1080',
+                'Enable hardware acceleration',
+                'Configure multiple displays'
+              ]
+            },
+            {
+              icon: '🪟',
+              name: 'Window system',
+              what: 'Start the window manager responsible for drawing and interaction.',
+              details: [
+                'Windows: DWM',
+                'Linux: X11/Wayland',
+                'macOS: WindowServer',
+                'Manage window stacking'
+              ]
+            },
+            {
+              icon: '🎨',
+              name: 'Desktop environment',
+              what: 'Draw wallpaper, desktop icons, taskbar, and other interface elements.',
+              details: [
+                'Load wallpaper',
+                'Show desktop icons',
+                'Render taskbar',
+                'Load system tray'
+              ]
+            },
+            {
+              icon: '👆',
+              name: 'User interaction',
+              what: 'The cursor appears and the system becomes fully interactive.',
+              details: [
+                'Show mouse pointer',
+                'Respond to keyboard input',
+                'Load user settings',
+                'Start startup programs'
+              ]
+            }
           ],
-          analogy: 'The curtain opens and the lights turn on: the stage is set, icons are in place, and the system waits for your first action.'
+          analogy:
+            'The curtain opens and the lights turn on: the stage is set, icons are in place, and the system waits for your first action.'
         }
       ]
     },
     browser: {
       title: 'Browser Architecture -- Click a Module for Details',
       modules: [
-        { icon: '🎨', name: 'User interface', desc: 'The part you see and operate directly: address bar, tabs, bookmarks, and back/forward buttons.', tags: ['Address bar', 'Tabs', 'Bookmarks'] },
-        { icon: '🔗', name: 'Browser engine', desc: 'The bridge between the user interface and rendering engine, coordinating communication between them.', tags: ['Blink', 'Gecko', 'WebKit'] },
-        { icon: '📄', name: 'Rendering engine', desc: 'Parses HTML and CSS and turns code into the web page you see.', tags: ['HTML parsing', 'CSS calculation', 'Layout and paint'] },
-        { icon: '⚡', name: 'JavaScript engine', desc: 'Executes JavaScript in the page to power dynamic interactions.', tags: ['V8', 'SpiderMonkey', 'JavaScriptCore'] },
-        { icon: '🌐', name: 'Network module', desc: 'Sends HTTP requests and receives server responses, connecting the browser to the outside world.', tags: ['HTTP/2', 'HTTP/3', 'WebSocket'] },
-        { icon: '💾', name: 'Data storage', desc: 'Stores site data locally so future visits are faster and logins can persist.', tags: ['Cookie', 'LocalStorage', 'Cache'] }
+        {
+          icon: '🎨',
+          name: 'User interface',
+          desc: 'The part you see and operate directly: address bar, tabs, bookmarks, and back/forward buttons.',
+          tags: ['Address bar', 'Tabs', 'Bookmarks']
+        },
+        {
+          icon: '🔗',
+          name: 'Browser engine',
+          desc: 'The bridge between the user interface and rendering engine, coordinating communication between them.',
+          tags: ['Blink', 'Gecko', 'WebKit']
+        },
+        {
+          icon: '📄',
+          name: 'Rendering engine',
+          desc: 'Parses HTML and CSS and turns code into the web page you see.',
+          tags: ['HTML parsing', 'CSS calculation', 'Layout and paint']
+        },
+        {
+          icon: '⚡',
+          name: 'JavaScript engine',
+          desc: 'Executes JavaScript in the page to power dynamic interactions.',
+          tags: ['V8', 'SpiderMonkey', 'JavaScriptCore']
+        },
+        {
+          icon: '🌐',
+          name: 'Network module',
+          desc: 'Sends HTTP requests and receives server responses, connecting the browser to the outside world.',
+          tags: ['HTTP/2', 'HTTP/3', 'WebSocket']
+        },
+        {
+          icon: '💾',
+          name: 'Data storage',
+          desc: 'Stores site data locally so future visits are faster and logins can persist.',
+          tags: ['Cookie', 'LocalStorage', 'Cache']
+        }
       ]
     },
     url: {
@@ -2662,35 +4065,116 @@ mov  dword ptr [x], eax ; store it at variable x address`
       browser: 'Browser',
       server: 'Server',
       steps: [
-        { name: 'URL parsing', dir: 'right', detail: 'https://example.com → protocol: https, domain: example.com, path: /' },
-        { name: 'DNS lookup', dir: 'right', detail: 'Ask DNS servers to translate the domain into IP address 93.184.216.34' },
-        { name: 'TCP three-way handshake', dir: 'right', detail: 'SYN → SYN-ACK → ACK, establishing a reliable transport connection' },
-        { name: 'TLS handshake', dir: 'right', detail: 'Exchange keys, verify certificates, and create an HTTPS encrypted channel' },
-        { name: 'Send HTTP request', dir: 'right', detail: 'GET /index.html HTTP/1.1  Host: example.com' },
-        { name: 'Server processing', dir: 'left', detail: 'Parse request → run business logic → query database → assemble response' },
-        { name: 'Return HTTP response', dir: 'left', detail: 'HTTP/1.1 200 OK  Content-Type: text/html' },
-        { name: 'Browser rendering', dir: 'left', detail: 'HTML → DOM tree → style calculation → layout → paint to screen' }
+        {
+          name: 'URL parsing',
+          dir: 'right',
+          detail:
+            'https://example.com → protocol: https, domain: example.com, path: /'
+        },
+        {
+          name: 'DNS lookup',
+          dir: 'right',
+          detail:
+            'Ask DNS servers to translate the domain into IP address 93.184.216.34'
+        },
+        {
+          name: 'TCP three-way handshake',
+          dir: 'right',
+          detail:
+            'SYN → SYN-ACK → ACK, establishing a reliable transport connection'
+        },
+        {
+          name: 'TLS handshake',
+          dir: 'right',
+          detail:
+            'Exchange keys, verify certificates, and create an HTTPS encrypted channel'
+        },
+        {
+          name: 'Send HTTP request',
+          dir: 'right',
+          detail: 'GET /index.html HTTP/1.1  Host: example.com'
+        },
+        {
+          name: 'Server processing',
+          dir: 'left',
+          detail:
+            'Parse request → run business logic → query database → assemble response'
+        },
+        {
+          name: 'Return HTTP response',
+          dir: 'left',
+          detail: 'HTTP/1.1 200 OK  Content-Type: text/html'
+        },
+        {
+          name: 'Browser rendering',
+          dir: 'left',
+          detail:
+            'HTML → DOM tree → style calculation → layout → paint to screen'
+        }
       ]
     },
     rendering: {
       title: 'Browser Rendering Pipeline',
       stages: [
-        { name: 'HTML parsing', desc: 'Parse HTML text into the DOM tree, the document object model' },
-        { name: 'CSS parsing', desc: 'Parse CSS rules into stylesheets and compute final styles for each element' },
-        { name: 'Build render tree', desc: 'DOM tree + style rules = render tree containing visible elements' },
-        { name: 'Layout calculation', desc: 'Compute the exact position and size of each element on the page' },
-        { name: 'Paint', desc: 'Draw text, colors, images, borders, and other pixels into buffers' },
-        { name: 'Composite and display', desc: 'Combine layers into the final frame and send it to the screen through the GPU' }
+        {
+          name: 'HTML parsing',
+          desc: 'Parse HTML text into the DOM tree, the document object model'
+        },
+        {
+          name: 'CSS parsing',
+          desc: 'Parse CSS rules into stylesheets and compute final styles for each element'
+        },
+        {
+          name: 'Build render tree',
+          desc: 'DOM tree + style rules = render tree containing visible elements'
+        },
+        {
+          name: 'Layout calculation',
+          desc: 'Compute the exact position and size of each element on the page'
+        },
+        {
+          name: 'Paint',
+          desc: 'Draw text, colors, images, borders, and other pixels into buffers'
+        },
+        {
+          name: 'Composite and display',
+          desc: 'Combine layers into the final frame and send it to the screen through the GPU'
+        }
       ]
     },
     full: {
       title: 'From Pressing Power to Seeing a Web Page -- Full Chain',
       phases: [
-        { icon: '🔌', name: 'Hardware startup', color: '#f59e0b', steps: 'Power → motherboard → CPU → BIOS' },
-        { icon: '🔍', name: 'Firmware self-test', color: '#ef4444', steps: 'POST → initialize → find boot disk' },
-        { icon: '💻', name: 'System boot', color: '#8b5cf6', steps: 'Bootloader → kernel → services → desktop' },
-        { icon: '🌐', name: 'Browser startup', color: '#3b82f6', steps: 'Create process → load code → ready' },
-        { icon: '📡', name: 'Network request and rendering', color: '#10b981', steps: 'DNS → TCP → HTTP → render' }
+        {
+          icon: '🔌',
+          name: 'Hardware startup',
+          color: '#f59e0b',
+          steps: 'Power → motherboard → CPU → BIOS'
+        },
+        {
+          icon: '🔍',
+          name: 'Firmware self-test',
+          color: '#ef4444',
+          steps: 'POST → initialize → find boot disk'
+        },
+        {
+          icon: '💻',
+          name: 'System boot',
+          color: '#8b5cf6',
+          steps: 'Bootloader → kernel → services → desktop'
+        },
+        {
+          icon: '🌐',
+          name: 'Browser startup',
+          color: '#3b82f6',
+          steps: 'Create process → load code → ready'
+        },
+        {
+          icon: '📡',
+          name: 'Network request and rendering',
+          color: '#10b981',
+          steps: 'DNS → TCP → HTTP → render'
+        }
       ]
     }
   },
@@ -2724,7 +4208,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
     reset: '↺ Reset',
     done: '✅ Program complete! Executed {programLength} instructions in {stepIndex} clock steps.',
     restart: 'Restart',
-    startHint: 'Click "Clock Pulse" to step through execution, or "Auto Run" to play continuously.',
+    startHint:
+      'Click "Clock Pulse" to step through execution, or "Auto Run" to play continuously.',
     aluOps: {
       idle: '—',
       decode: 'Decode',
@@ -2738,7 +4223,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
     steps: {
       fetch1:
         '[Fetch 1/3] PC={pc}; the control unit issues a read signal and sends the PC value into MAR (Memory Address Register)',
-      fetch2: '[Fetch 2/3] MAR={pc} is sent over the address bus to memory, which locates that address',
+      fetch2:
+        '[Fetch 2/3] MAR={pc} is sent over the address bus to memory, which locates that address',
       fetch3:
         '[Fetch 3/3] Memory sends instruction "{inst}" via the data bus into MDR, then IR; PC increments → {nextPc}',
       decode1:
@@ -2749,16 +4235,22 @@ mov  dword ptr [x], eax ; store it at variable x address`
         '[Execute 1/2] Send operand address {src} into MAR and access memory through the address bus',
       load2:
         '[Execute 2/2] Memory data 42 travels through the data bus into MDR, then into target register {dst}',
-      loadi: '[Execute] Immediate #{imm} is extracted from IR and written into register {dst}',
+      loadi:
+        '[Execute] Immediate #{imm} is extracted from IR and written into register {dst}',
       add1: '[Execute 1/2] ALU reads R0 and R1 and starts the addition',
       add2: '[Execute 2/2] ALU completes the addition and stores the result in ACC',
       store1:
         '[Execute 1/2] Put target address {addr} into MAR and move {src} into MDR, ready to write memory',
-      store2: '[Execute 2/2] MDR value is written through the data bus to memory address {addr}',
-      wbAdd1: '[Write Back 1/2] Write the result in ACC back to target register R0',
-      wbAdd2: '[Write Back 2/2] Write-back is done. PC was already incremented during fetch and now points to {nextPc}',
-      wbStore: '[Write Back] The STORE result was written during execute; write-back confirms completion, PC={nextPc}',
-      wbDefault: '[Write Back] The result has been written to the target register. PC has advanced to {nextPc} and the next instruction is ready',
+      store2:
+        '[Execute 2/2] MDR value is written through the data bus to memory address {addr}',
+      wbAdd1:
+        '[Write Back 1/2] Write the result in ACC back to target register R0',
+      wbAdd2:
+        '[Write Back 2/2] Write-back is done. PC was already incremented during fetch and now points to {nextPc}',
+      wbStore:
+        '[Write Back] The STORE result was written during execute; write-back confirms completion, PC={nextPc}',
+      wbDefault:
+        '[Write Back] The result has been written to the target register. PC has advanced to {nextPc} and the next instruction is ready',
       signal: {
         marPc: 'MAR ← PC ({pc})',
         addr: 'Address bus: {pc}',
@@ -2781,7 +4273,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
   },
   computerOrganization: {
     codeToInstruction: {
-      title: '🔗 From Code to Instructions: One Line Through the Translation Pipeline',
+      title:
+        '🔗 From Code to Instructions: One Line Through the Translation Pipeline',
       desc: 'Click each stage to see how source code becomes CPU-executable instructions',
       insightTitle: '💡 Key idea',
       insightText:
@@ -2921,7 +4414,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
             { name: 'Source 2', bits: 8 }
           ],
           example: '01101100 00000001 00000010 00000011',
-          description: 'Result goes to a new destination without changing sources',
+          description:
+            'Result goes to a new destination without changing sources',
           explanation:
             'Three addresses identify the destination and two source operands separately. The result goes into the destination without modifying the sources.',
           examples: [
@@ -2976,14 +4470,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           id: 'immediate',
           name: 'Immediate addressing',
           english: 'Immediate Addressing',
-          definition: 'The operand is embedded directly in the instruction and is immediately available.',
+          definition:
+            'The operand is embedded directly in the instruction and is immediately available.',
           format: 'MOV R1, #100',
           usage: 'Constant assignment and initialization',
           fast: true,
           flexibility: 'Low',
           example: {
             assembly: 'MOV R1, #100  ; R1 = 100',
-            description: 'Immediate value 100 is stored directly in the instruction, so no register or memory lookup is needed.'
+            description:
+              'Immediate value 100 is stored directly in the instruction, so no register or memory lookup is needed.'
           },
           steps: [
             'CPU reads immediate value 100 directly from the instruction',
@@ -3002,7 +4498,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
           flexibility: 'Medium',
           example: {
             assembly: 'MOV R1, R2  ; R1 = R2',
-            description: 'Read data from source register R2 and write it into target register R1.'
+            description:
+              'Read data from source register R2 and write it into target register R1.'
           },
           steps: [
             'CPU reads the value of R2 from the register file',
@@ -3014,14 +4511,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           id: 'direct',
           name: 'Direct addressing',
           english: 'Direct Addressing',
-          definition: 'The instruction directly contains the memory address of the operand.',
+          definition:
+            'The instruction directly contains the memory address of the operand.',
           format: 'MOV R1, [100]',
           usage: 'Accessing global variables',
           fast: false,
           flexibility: 'High',
           example: {
             assembly: 'MOV R1, [0x1000]  ; R1 = M[0x1000]',
-            description: 'The instruction contains memory address 0x1000, and data is read from that address.'
+            description:
+              'The instruction contains memory address 0x1000, and data is read from that address.'
           },
           steps: [
             'CPU parses address 0x1000 from the instruction',
@@ -3034,14 +4533,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           id: 'indirect',
           name: 'Indirect addressing',
           english: 'Indirect Addressing',
-          definition: 'The instruction names a register that contains the operand address.',
+          definition:
+            'The instruction names a register that contains the operand address.',
           format: 'MOV R1, [R2]',
           usage: 'Pointers and array traversal',
           fast: false,
           flexibility: 'High',
           example: {
             assembly: 'MOV R1, [R2]  ; R1 = M[R2]',
-            description: 'R2 stores an address, and data is read from that address.'
+            description:
+              'R2 stores an address, and data is read from that address.'
           },
           steps: [
             'CPU reads an address from register R2',
@@ -3054,14 +4555,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           id: 'indexed',
           name: 'Indexed addressing',
           english: 'Indexed Addressing',
-          definition: 'The operand address is a base address plus the value in an index register.',
+          definition:
+            'The operand address is a base address plus the value in an index register.',
           format: 'MOV R1, [R2 + R3]',
           usage: 'Array access and loops',
           fast: false,
           flexibility: 'High',
           example: {
             assembly: 'MOV R1, [R2 + R3]  ; R1 = M[R2+R3]',
-            description: 'Effective address = R2 + R3, commonly used to access array elements.'
+            description:
+              'Effective address = R2 + R3, commonly used to access array elements.'
           },
           steps: [
             'CPU reads the base address register R2',
@@ -3082,8 +4585,10 @@ mov  dword ptr [x], eax ; store it at variable x address`
           fast: false,
           flexibility: 'High',
           example: {
-            assembly: 'MOV R1, [RBP - 8]  ; access a local variable in the stack frame',
-            description: 'Effective address = RBP - 8, used to access variables inside a function stack frame.'
+            assembly:
+              'MOV R1, [RBP - 8]  ; access a local variable in the stack frame',
+            description:
+              'Effective address = RBP - 8, used to access variables inside a function stack frame.'
           },
           steps: [
             'CPU reads the value of base register RBP',
@@ -3096,14 +4601,16 @@ mov  dword ptr [x], eax ; store it at variable x address`
           id: 'relative',
           name: 'Relative addressing',
           english: 'Relative Addressing',
-          definition: 'The operand address is the current instruction address plus an offset.',
+          definition:
+            'The operand address is the current instruction address plus an offset.',
           format: 'JMP LABEL',
           usage: 'Loops and conditional branches',
           fast: true,
           flexibility: 'High',
           example: {
             assembly: 'JMP LOOP  ; jump to label LOOP',
-            description: 'Target address = PC + offset, used for loops and branches.'
+            description:
+              'Target address = PC + offset, used for loops and branches.'
           },
           steps: [
             'CPU computes target address = current PC + offset',
@@ -3123,13 +4630,34 @@ mov  dword ptr [x], eax ; store it at variable x address`
       principleTextMiddle: '(temporal locality) and',
       spatialLocality: 'nearby locations',
       principleTextSuffix: '(spatial locality)',
-      principleExample: 'By exploiting locality, caches can significantly improve performance.',
+      principleExample:
+        'By exploiting locality, caches can significantly improve performance.',
       levels: [
-        { className: 'register', name: 'Registers', speed: 'Fastest', size: 'Smallest (KB)' },
-        { className: 'cache', name: 'Cache', speed: 'Very fast', size: 'Small (MB)' },
-        { className: 'ram', name: 'Memory', speed: 'Fast', size: 'Medium (GB)' },
+        {
+          className: 'register',
+          name: 'Registers',
+          speed: 'Fastest',
+          size: 'Smallest (KB)'
+        },
+        {
+          className: 'cache',
+          name: 'Cache',
+          speed: 'Very fast',
+          size: 'Small (MB)'
+        },
+        {
+          className: 'ram',
+          name: 'Memory',
+          speed: 'Fast',
+          size: 'Medium (GB)'
+        },
         { className: 'disk', name: 'Disk', speed: 'Slow', size: 'Large (TB)' },
-        { className: 'network', name: 'Network/Cloud', speed: 'Slowest', size: 'Unlimited' }
+        {
+          className: 'network',
+          name: 'Network/Cloud',
+          speed: 'Slowest',
+          size: 'Unlimited'
+        }
       ],
       headers: ['Storage level', 'Access time', 'Typical capacity', 'Cost'],
       rows: [
@@ -3152,19 +4680,51 @@ mov  dword ptr [x], eax ; store it at variable x address`
       processTitle: 'Data encapsulation process',
       stackTitle: 'Network protocol stack (OSI model)',
       pathSteps: [
-        { icon: '📧', name: 'Application layer', desc: 'Mail software creates the message content' },
-        { icon: '🔐', name: 'Transport layer', desc: 'TCP adds port numbers and sequence numbers' },
-        { icon: '🌐', name: 'Network layer', desc: 'IP adds source and destination addresses' },
-        { icon: '🔌', name: 'Data link layer', desc: 'Ethernet adds MAC addresses' },
-        { icon: '⚡', name: 'Physical layer', desc: 'Convert to electrical signals and send' }
+        {
+          icon: '📧',
+          name: 'Application layer',
+          desc: 'Mail software creates the message content'
+        },
+        {
+          icon: '🔐',
+          name: 'Transport layer',
+          desc: 'TCP adds port numbers and sequence numbers'
+        },
+        {
+          icon: '🌐',
+          name: 'Network layer',
+          desc: 'IP adds source and destination addresses'
+        },
+        {
+          icon: '🔌',
+          name: 'Data link layer',
+          desc: 'Ethernet adds MAC addresses'
+        },
+        {
+          icon: '⚡',
+          name: 'Physical layer',
+          desc: 'Convert to electrical signals and send'
+        }
       ],
       encapsulationLayers: [
-        { num: '7', name: 'Application layer', data: 'Message content: "Hello!"' },
+        {
+          num: '7',
+          name: 'Application layer',
+          data: 'Message content: "Hello!"'
+        },
         { num: '6', name: 'Presentation layer', data: 'Encoding: UTF-8' },
         { num: '5', name: 'Session layer', data: 'Session ID: sess_123' },
         { num: '4', name: 'Transport layer', data: 'TCP header: port 25' },
-        { num: '3', name: 'Network layer', data: 'IP header: 192.168.1.100 → 192.168.1.200' },
-        { num: '2', name: 'Data link layer', data: 'Ethernet frame: MAC address' },
+        {
+          num: '3',
+          name: 'Network layer',
+          data: 'IP header: 192.168.1.100 → 192.168.1.200'
+        },
+        {
+          num: '2',
+          name: 'Data link layer',
+          data: 'Ethernet frame: MAC address'
+        },
         { num: '1', name: 'Physical layer', data: 'Bitstream: 01010101...' }
       ],
       protocolLayers: [
@@ -3186,11 +4746,26 @@ mov  dword ptr [x], eax ; store it at variable x address`
       totalCycles: 'Total cycles',
       completedInstructions: 'Completed instructions',
       explanationTitle: 'Pipeline principle',
-      sequentialText: 'Sequential execution: each instruction finishes before the next starts, so N instructions require N × 5 cycles.',
-      pipelineText: 'Pipeline execution: multiple instructions occupy different stages at once; ideally CPI ≈ 1.',
-      hazardWarning: '⚠️ Pipeline hazards: data hazards, control hazards, structural hazards',
-      stages: ['Fetch(IF)', 'Decode(ID)', 'Execute(EX)', 'Memory(MEM)', 'Write Back(WB)'],
-      instructions: ['ADD R1,R2,R3', 'SUB R4,R1,R5', 'LOAD R6,[R4]', 'STORE R6,[R7]', 'AND R8,R1,R6']
+      sequentialText:
+        'Sequential execution: each instruction finishes before the next starts, so N instructions require N × 5 cycles.',
+      pipelineText:
+        'Pipeline execution: multiple instructions occupy different stages at once; ideally CPI ≈ 1.',
+      hazardWarning:
+        '⚠️ Pipeline hazards: data hazards, control hazards, structural hazards',
+      stages: [
+        'Fetch(IF)',
+        'Decode(ID)',
+        'Execute(EX)',
+        'Memory(MEM)',
+        'Write Back(WB)'
+      ],
+      instructions: [
+        'ADD R1,R2,R3',
+        'SUB R4,R1,R5',
+        'LOAD R6,[R4]',
+        'STORE R6,[R7]',
+        'AND R8,R1,R6'
+      ]
     },
     busSystem: {
       title: 'Computer Bus System',
@@ -3212,9 +4787,18 @@ mov  dword ptr [x], eax ; store it at variable x address`
       logTitle: 'Operation flow',
       explanationTitle: 'Bus concepts',
       explanations: [
-        { label: 'Address bus', desc: 'CPU sends memory addresses over a one-way path.' },
-        { label: 'Data bus', desc: 'Transfers actual data in both directions.' },
-        { label: 'Control bus', desc: 'Transfers read/write and other control signals.' }
+        {
+          label: 'Address bus',
+          desc: 'CPU sends memory addresses over a one-way path.'
+        },
+        {
+          label: 'Data bus',
+          desc: 'Transfers actual data in both directions.'
+        },
+        {
+          label: 'Control bus',
+          desc: 'Transfers read/write and other control signals.'
+        }
       ],
       logs: {
         sendAddress: 'CPU sends address {address} over the address bus',
@@ -3252,9 +4836,18 @@ mov  dword ptr [x], eax ; store it at variable x address`
       currentMicroinstruction: 'Current microinstruction',
       conceptTitle: 'Core controller concepts',
       concepts: [
-        { label: 'Control signals:', desc: 'Electrical signals emitted by the controller to control each component on the data path.' },
-        { label: 'Timing:', desc: 'CPU operations advance by clock ticks; each tick performs specific micro-operations.' },
-        { label: 'Hardwired vs microprogrammed:', desc: 'Hardwired controllers are fast but complex; microprogrammed controllers are flexible but slightly slower.' }
+        {
+          label: 'Control signals:',
+          desc: 'Electrical signals emitted by the controller to control each component on the data path.'
+        },
+        {
+          label: 'Timing:',
+          desc: 'CPU operations advance by clock ticks; each tick performs specific micro-operations.'
+        },
+        {
+          label: 'Hardwired vs microprogrammed:',
+          desc: 'Hardwired controllers are fast but complex; microprogrammed controllers are flexible but slightly slower.'
+        }
       ],
       ops: {
         fetch1: 'PC→MAR: send the address in PC into MAR',
@@ -3283,20 +4876,104 @@ mov  dword ptr [x], eax ; store it at variable x address`
       resultLabel: 'Result:',
       usageTitle: 'Typical flag uses',
       flags: [
-        ['CF', 'Carry flag', 'Carry Flag', 0, 'Set when unsigned arithmetic produces carry or borrow', 'Addition carries or subtraction borrows', 'Multi-word unsigned arithmetic and loop counting'],
-        ['PF', 'Parity flag', 'Parity Flag', 0, 'Set when the low 8 bits contain an even number of 1 bits', 'Low 8 bits have even parity', 'Error detection in data communication'],
-        ['AF', 'Auxiliary carry', 'Auxiliary Carry Flag', 0, 'Set when the low 4 bits produce carry or borrow', 'Carry from bit 3 in the low nibble', 'BCD arithmetic adjustment'],
-        ['ZF', 'Zero flag', 'Zero Flag', 0, 'Set when the operation result is 0', 'Result = 0', 'Conditional jumps, loop control, comparisons'],
-        ['SF', 'Sign flag', 'Sign Flag', 0, 'Set when the operation result is negative', 'Most significant bit of result = 1', 'Signed comparisons and negative checks'],
-        ['TF', 'Trap flag', 'Trap Flag', 0, 'When set, CPU enters single-step debug mode', 'Set by software', 'Program debugging'],
-        ['IF', 'Interrupt flag', 'Interrupt Flag', 1, 'When set, CPU responds to maskable interrupts', 'Set by software', 'Interrupt enable switch'],
-        ['DF', 'Direction flag', 'Direction Flag', 0, 'When set, string operations proceed from high to low addresses', 'Set by software', 'String operation direction control'],
-        ['OF', 'Overflow flag', 'Overflow Flag', 0, 'Set when signed arithmetic exceeds representable range', 'Positive or negative overflow', 'Signed arithmetic and overflow detection']
+        [
+          'CF',
+          'Carry flag',
+          'Carry Flag',
+          0,
+          'Set when unsigned arithmetic produces carry or borrow',
+          'Addition carries or subtraction borrows',
+          'Multi-word unsigned arithmetic and loop counting'
+        ],
+        [
+          'PF',
+          'Parity flag',
+          'Parity Flag',
+          0,
+          'Set when the low 8 bits contain an even number of 1 bits',
+          'Low 8 bits have even parity',
+          'Error detection in data communication'
+        ],
+        [
+          'AF',
+          'Auxiliary carry',
+          'Auxiliary Carry Flag',
+          0,
+          'Set when the low 4 bits produce carry or borrow',
+          'Carry from bit 3 in the low nibble',
+          'BCD arithmetic adjustment'
+        ],
+        [
+          'ZF',
+          'Zero flag',
+          'Zero Flag',
+          0,
+          'Set when the operation result is 0',
+          'Result = 0',
+          'Conditional jumps, loop control, comparisons'
+        ],
+        [
+          'SF',
+          'Sign flag',
+          'Sign Flag',
+          0,
+          'Set when the operation result is negative',
+          'Most significant bit of result = 1',
+          'Signed comparisons and negative checks'
+        ],
+        [
+          'TF',
+          'Trap flag',
+          'Trap Flag',
+          0,
+          'When set, CPU enters single-step debug mode',
+          'Set by software',
+          'Program debugging'
+        ],
+        [
+          'IF',
+          'Interrupt flag',
+          'Interrupt Flag',
+          1,
+          'When set, CPU responds to maskable interrupts',
+          'Set by software',
+          'Interrupt enable switch'
+        ],
+        [
+          'DF',
+          'Direction flag',
+          'Direction Flag',
+          0,
+          'When set, string operations proceed from high to low addresses',
+          'Set by software',
+          'String operation direction control'
+        ],
+        [
+          'OF',
+          'Overflow flag',
+          'Overflow Flag',
+          0,
+          'Set when signed arithmetic exceeds representable range',
+          'Positive or negative overflow',
+          'Signed arithmetic and overflow detection'
+        ]
       ],
       usageCards: [
-        { icon: '🔀', name: 'Conditional jumps', desc: 'JE, JNE, JG, JL and similar instructions decide jumps based on ZF, SF, and OF.' },
-        { icon: '➕', name: 'Arithmetic', desc: 'Multi-word arithmetic uses CF for carry and OF for signed overflow.' },
-        { icon: '🔄', name: 'Loop control', desc: 'Loop instructions often use ZF to detect the loop ending condition.' }
+        {
+          icon: '🔀',
+          name: 'Conditional jumps',
+          desc: 'JE, JNE, JG, JL and similar instructions decide jumps based on ZF, SF, and OF.'
+        },
+        {
+          icon: '➕',
+          name: 'Arithmetic',
+          desc: 'Multi-word arithmetic uses CF for carry and OF for signed overflow.'
+        },
+        {
+          icon: '🔄',
+          name: 'Loop control',
+          desc: 'Loop instructions often use ZF to detect the loop ending condition.'
+        }
       ]
     },
     cache: {
@@ -3315,7 +4992,8 @@ mov  dword ptr [x], eax ; store it at variable x address`
       temporalDesc: 'Recently accessed data is likely to be accessed again.',
       temporalExample: 'Variables inside loops',
       spatialLocality: 'Spatial locality',
-      spatialDesc: 'After one item is accessed, nearby data is likely to be accessed.',
+      spatialDesc:
+        'After one item is accessed, nearby data is likely to be accessed.',
       spatialExample: 'Array traversal and sequential execution',
       mappingTitle: 'Cache mapping methods',
       speed: 'Speed',
@@ -3328,9 +5006,30 @@ mov  dword ptr [x], eax ; store it at variable x address`
       h: 'Hit rate (H):',
       avgTime: 'Average access time = {time} ns',
       mappings: [
-        { id: 'direct', type: 'Direct mapping', desc: 'Each memory block maps to exactly one cache line.', speed: 'Fastest', hitRate: 'Lower', complexity: 'Lowest' },
-        { id: 'set', type: 'Set associative', desc: 'Each memory block can map to N cache lines within a set.', speed: 'Relatively fast', hitRate: 'Higher', complexity: 'Medium' },
-        { id: 'full', type: 'Fully associative', desc: 'A memory block can be placed in any cache line.', speed: 'Slowest', hitRate: 'Highest', complexity: 'Highest' }
+        {
+          id: 'direct',
+          type: 'Direct mapping',
+          desc: 'Each memory block maps to exactly one cache line.',
+          speed: 'Fastest',
+          hitRate: 'Lower',
+          complexity: 'Lowest'
+        },
+        {
+          id: 'set',
+          type: 'Set associative',
+          desc: 'Each memory block can map to N cache lines within a set.',
+          speed: 'Relatively fast',
+          hitRate: 'Higher',
+          complexity: 'Medium'
+        },
+        {
+          id: 'full',
+          type: 'Fully associative',
+          desc: 'A memory block can be placed in any cache line.',
+          speed: 'Slowest',
+          hitRate: 'Highest',
+          complexity: 'Highest'
+        }
       ],
       logs: {
         read: 'Read address {address}',
@@ -3351,11 +5050,36 @@ mov  dword ptr [x], eax ; store it at variable x address`
       comparisonTitle: 'Three I/O methods compared',
       headers: ['Feature', 'Programmed I/O', 'Interrupt-driven I/O', 'DMA'],
       rows: [
-        ['CPU involvement', 'Involved throughout', 'Only handles interrupts', 'Almost uninvolved'],
-        ['Data transfer', 'CPU moves each byte', 'CPU moves each word', 'Device transfers directly to memory'],
-        ['Pros', 'Simple and flexible control', 'High CPU efficiency', 'CPU is fully freed'],
-        ['Cons', 'Low CPU utilization', 'Interrupt overhead', 'Complex hardware'],
-        ['Best for', 'Simple or low-speed devices', 'Low/medium-speed devices', 'High-speed bulk transfer']
+        [
+          'CPU involvement',
+          'Involved throughout',
+          'Only handles interrupts',
+          'Almost uninvolved'
+        ],
+        [
+          'Data transfer',
+          'CPU moves each byte',
+          'CPU moves each word',
+          'Device transfers directly to memory'
+        ],
+        [
+          'Pros',
+          'Simple and flexible control',
+          'High CPU efficiency',
+          'CPU is fully freed'
+        ],
+        [
+          'Cons',
+          'Low CPU utilization',
+          'Interrupt overhead',
+          'Complex hardware'
+        ],
+        [
+          'Best for',
+          'Simple or low-speed devices',
+          'Low/medium-speed devices',
+          'High-speed bulk transfer'
+        ]
       ],
       dmaTitle: 'DMA transfer process',
       dmaController: 'DMA controller',
@@ -3367,17 +5091,79 @@ mov  dword ptr [x], eax ; store it at variable x address`
       interruptTitle: 'Interrupt handling flow',
       nextStep: 'Next step',
       methods: [
-        { id: 'programmed', name: 'Programmed I/O', english: 'Programmed I/O', cpuLevel: 'High', cpuLevelClass: 'level-high', speed: 'Slow', complexity: 'Low', steps: ['CPU polls the I/O device status', 'Device busy? Keep waiting', 'Device ready, send read/write command', 'CPU reads or writes data byte by byte', 'Check whether transfer is complete', 'If incomplete, keep polling'] },
-        { id: 'interrupt', name: 'Interrupt-driven I/O', english: 'Interrupt-Driven I/O', cpuLevel: 'Medium', cpuLevelClass: 'level-medium', speed: 'Medium', complexity: 'Medium', steps: ['CPU starts the I/O device', 'CPU continues other work', 'I/O device sends an interrupt when finished', 'CPU responds and saves context', 'Run interrupt service routine', 'Restore context and continue'] },
-        { id: 'dma', name: 'DMA', english: 'Direct Memory Access', cpuLevel: 'Low', cpuLevelClass: 'level-low', speed: 'Fast', complexity: 'High', steps: ['CPU configures the DMA controller', 'Tell DMA the source, destination, and length', 'CPU runs other tasks', 'DMA controller exchanges data directly with memory', 'When done, DMA interrupts the CPU'] }
+        {
+          id: 'programmed',
+          name: 'Programmed I/O',
+          english: 'Programmed I/O',
+          cpuLevel: 'High',
+          cpuLevelClass: 'level-high',
+          speed: 'Slow',
+          complexity: 'Low',
+          steps: [
+            'CPU polls the I/O device status',
+            'Device busy? Keep waiting',
+            'Device ready, send read/write command',
+            'CPU reads or writes data byte by byte',
+            'Check whether transfer is complete',
+            'If incomplete, keep polling'
+          ]
+        },
+        {
+          id: 'interrupt',
+          name: 'Interrupt-driven I/O',
+          english: 'Interrupt-Driven I/O',
+          cpuLevel: 'Medium',
+          cpuLevelClass: 'level-medium',
+          speed: 'Medium',
+          complexity: 'Medium',
+          steps: [
+            'CPU starts the I/O device',
+            'CPU continues other work',
+            'I/O device sends an interrupt when finished',
+            'CPU responds and saves context',
+            'Run interrupt service routine',
+            'Restore context and continue'
+          ]
+        },
+        {
+          id: 'dma',
+          name: 'DMA',
+          english: 'Direct Memory Access',
+          cpuLevel: 'Low',
+          cpuLevelClass: 'level-low',
+          speed: 'Fast',
+          complexity: 'High',
+          steps: [
+            'CPU configures the DMA controller',
+            'Tell DMA the source, destination, and length',
+            'CPU runs other tasks',
+            'DMA controller exchanges data directly with memory',
+            'When done, DMA interrupts the CPU'
+          ]
+        }
       ],
       interruptFlow: [
-        { title: 'Interrupt request', desc: 'The I/O device sends an interrupt request signal to the CPU.' },
-        { title: 'Interrupt response', desc: 'CPU responds after completing the current instruction.' },
-        { title: 'Save context', desc: 'Save PC, registers, and current state on the stack.' },
-        { title: 'Handle interrupt', desc: 'Execute the interrupt service routine (ISR).' },
+        {
+          title: 'Interrupt request',
+          desc: 'The I/O device sends an interrupt request signal to the CPU.'
+        },
+        {
+          title: 'Interrupt response',
+          desc: 'CPU responds after completing the current instruction.'
+        },
+        {
+          title: 'Save context',
+          desc: 'Save PC, registers, and current state on the stack.'
+        },
+        {
+          title: 'Handle interrupt',
+          desc: 'Execute the interrupt service routine (ISR).'
+        },
         { title: 'Restore context', desc: 'Restore saved register values.' },
-        { title: 'Return', desc: 'Return to the interrupted program and continue execution.' }
+        {
+          title: 'Return',
+          desc: 'Return to the interrupted program and continue execution.'
+        }
       ]
     },
     vibeCodingFullstack: {
@@ -3386,10 +5172,21 @@ mov  dword ptr [x], eax ; store it at variable x address`
         vibeLabel: 'Vibe Coding flow',
         traditionalLoop: '↑ Repeated loop ↓',
         vibeLoop: '↑ Fast iteration ↓',
-        traditionalSteps: ['You', 'Learn syntax', 'Write code', 'Debug', 'Read docs', 'Modify', 'Run'],
+        traditionalSteps: [
+          'You',
+          'Learn syntax',
+          'Write code',
+          'Debug',
+          'Read docs',
+          'Modify',
+          'Run'
+        ],
         vibeSteps: [
           { text: 'You', highlight: false },
-          { text: 'Describe requirements in natural language', highlight: true },
+          {
+            text: 'Describe requirements in natural language',
+            highlight: true
+          },
           { text: 'AI generates code', highlight: true },
           { text: 'You review and adjust', highlight: false },
           { text: 'Run', highlight: false }
@@ -3401,55 +5198,147 @@ mov  dword ptr [x], eax ; store it at variable x address`
         beforeTitle: 'More important before AI',
         afterTitle: 'More important in the AI era',
         insightLabel: 'Key insight:',
-        insight: 'AI can help you write code, but judgment, architecture thinking, domain knowledge, and debugging ability cannot be replaced by AI.',
+        insight:
+          'AI can help you write code, but judgment, architecture thinking, domain knowledge, and debugging ability cannot be replaced by AI.',
         beforeSkills: [
-          { name: 'Syntax memory', level: 90, desc: 'Remember APIs and syntax details' },
+          {
+            name: 'Syntax memory',
+            level: 90,
+            desc: 'Remember APIs and syntax details'
+          },
           { name: 'Manual coding speed', level: 85, desc: 'Type code quickly' },
-          { name: 'Documentation search', level: 80, desc: 'Find API usage quickly' }
+          {
+            name: 'Documentation search',
+            level: 80,
+            desc: 'Find API usage quickly'
+          }
         ],
         afterSkills: [
-          { name: 'Requirement description', level: 95, desc: 'Describe needs accurately in natural language' },
-          { name: 'Code review ability', level: 90, desc: 'Judge whether AI-generated code is correct' },
-          { name: 'Architecture design', level: 85, desc: 'Design the overall system structure' },
-          { name: 'Problem diagnosis', level: 80, desc: 'Know where to investigate when issues appear' }
+          {
+            name: 'Requirement description',
+            level: 95,
+            desc: 'Describe needs accurately in natural language'
+          },
+          {
+            name: 'Code review ability',
+            level: 90,
+            desc: 'Judge whether AI-generated code is correct'
+          },
+          {
+            name: 'Architecture design',
+            level: 85,
+            desc: 'Design the overall system structure'
+          },
+          {
+            name: 'Problem diagnosis',
+            level: 80,
+            desc: 'Know where to investigate when issues appear'
+          }
         ]
       },
       fieldMap: {
         title: 'Computer Field Map',
         subtitle: 'Click to inspect details',
         adviceLabel: 'Advice:',
-        advice: 'Do not try to learn every field at once. Pick one direction first, build a strong base, then expand horizontally.',
+        advice:
+          'Do not try to learn every field at once. Pick one direction first, build a strong base, then expand horizontally.',
         fields: [
-          { name: 'Frontend', desc: 'Everything users can see and interact with', techs: ['HTML/CSS', 'JavaScript', 'React/Vue'] },
-          { name: 'Backend', desc: 'Server-side business logic and data processing', techs: ['Node.js', 'Go', 'Java', 'Python'] },
-          { name: 'Mobile', desc: 'Application experience on phones', techs: ['Swift', 'Kotlin', 'Flutter'] },
-          { name: 'AI/Algorithms', desc: 'Make systems smarter', techs: ['PyTorch', 'TensorFlow', 'Machine learning'] },
-          { name: 'DevOps', desc: 'Keep systems running reliably', techs: ['Docker', 'K8s', 'CI/CD'] },
-          { name: 'Data engineering', desc: 'Data collection, storage, and analysis', techs: ['SQL', 'Spark', 'Data warehouse'] }
+          {
+            name: 'Frontend',
+            desc: 'Everything users can see and interact with',
+            techs: ['HTML/CSS', 'JavaScript', 'React/Vue']
+          },
+          {
+            name: 'Backend',
+            desc: 'Server-side business logic and data processing',
+            techs: ['Node.js', 'Go', 'Java', 'Python']
+          },
+          {
+            name: 'Mobile',
+            desc: 'Application experience on phones',
+            techs: ['Swift', 'Kotlin', 'Flutter']
+          },
+          {
+            name: 'AI/Algorithms',
+            desc: 'Make systems smarter',
+            techs: ['PyTorch', 'TensorFlow', 'Machine learning']
+          },
+          {
+            name: 'DevOps',
+            desc: 'Keep systems running reliably',
+            techs: ['Docker', 'K8s', 'CI/CD']
+          },
+          {
+            name: 'Data engineering',
+            desc: 'Data collection, storage, and analysis',
+            techs: ['SQL', 'Spark', 'Data warehouse']
+          }
         ]
       },
       frontendTriad: {
         title: 'Frontend Triad',
         subtitle: 'The three foundations of web development',
         relationshipLabel: 'How they work together:',
-        relationship: 'HTML builds the skeleton, CSS dresses it, and JavaScript makes it move. All three are necessary.',
+        relationship:
+          'HTML builds the skeleton, CSS dresses it, and JavaScript makes it move. All three are necessary.',
         triad: [
-          { name: 'HTML', role: 'Structure layer', analogy: 'House skeleton: walls, doors, windows', examples: ['div', 'span', 'form', 'input'] },
-          { name: 'CSS', role: 'Presentation layer', analogy: 'House decoration: color, position, size', examples: ['color', 'flex', 'grid', 'animation'] },
-          { name: 'JavaScript', role: 'Behavior layer', analogy: 'House automation: lights and doors', examples: ['Events', 'DOM operations', 'Network requests'] }
+          {
+            name: 'HTML',
+            role: 'Structure layer',
+            analogy: 'House skeleton: walls, doors, windows',
+            examples: ['div', 'span', 'form', 'input']
+          },
+          {
+            name: 'CSS',
+            role: 'Presentation layer',
+            analogy: 'House decoration: color, position, size',
+            examples: ['color', 'flex', 'grid', 'animation']
+          },
+          {
+            name: 'JavaScript',
+            role: 'Behavior layer',
+            analogy: 'House automation: lights and doors',
+            examples: ['Events', 'DOM operations', 'Network requests']
+          }
         ]
       },
       frontendFramework: {
         title: 'Frontend Framework Evolution',
         subtitle: 'From jQuery to modern frameworks',
         essenceLabel: 'What frameworks solve:',
-        essence: 'They solve how to update UI efficiently when data changes. Modern frameworks let you focus on what the data is while they handle how the UI changes.',
+        essence:
+          'They solve how to update UI efficiently when data changes. Modern frameworks let you focus on what the data is while they handle how the UI changes.',
         eras: [
-          { name: 'Native era', time: '1990s', desc: 'Manipulate page elements directly; build everything from scratch', techs: ['HTML', 'CSS', 'JavaScript'] },
-          { name: 'jQuery era', time: '2006-2015', desc: 'Simplified page manipulation and cross-browser compatibility', techs: ['jQuery', 'Bootstrap'] },
-          { name: 'MVVM era', time: '2010-2015', desc: 'Data-driven views and two-way binding', techs: ['Angular.js', 'Knockout'] },
-          { name: 'Component era', time: '2013-present', desc: 'Declarative components with automatic UI updates', techs: ['React', 'Vue', 'Angular'] },
-          { name: 'New era', time: '2020-present', desc: 'Compile-time optimization and less runtime overhead', techs: ['Svelte', 'Solid'] }
+          {
+            name: 'Native era',
+            time: '1990s',
+            desc: 'Manipulate page elements directly; build everything from scratch',
+            techs: ['HTML', 'CSS', 'JavaScript']
+          },
+          {
+            name: 'jQuery era',
+            time: '2006-2015',
+            desc: 'Simplified page manipulation and cross-browser compatibility',
+            techs: ['jQuery', 'Bootstrap']
+          },
+          {
+            name: 'MVVM era',
+            time: '2010-2015',
+            desc: 'Data-driven views and two-way binding',
+            techs: ['Angular.js', 'Knockout']
+          },
+          {
+            name: 'Component era',
+            time: '2013-present',
+            desc: 'Declarative components with automatic UI updates',
+            techs: ['React', 'Vue', 'Angular']
+          },
+          {
+            name: 'New era',
+            time: '2020-present',
+            desc: 'Compile-time optimization and less runtime overhead',
+            techs: ['Svelte', 'Solid']
+          }
         ]
       },
       backendCore: {
@@ -3457,22 +5346,54 @@ mov  dword ptr [x], eax ; store it at variable x address`
         subtitle: 'Core server-side responsibilities',
         flowTitle: 'Request handling flow',
         valueLabel: 'Backend core value:',
-        value: 'It is not just writing code; it is designing systems. Making systems stable, secure, efficient, and scalable is the real backend engineering capability.',
+        value:
+          'It is not just writing code; it is designing systems. Making systems stable, secure, efficient, and scalable is the real backend engineering capability.',
         coreConcepts: [
-          { name: 'API design', desc: 'Define how clients interact with servers', examples: ['RESTful', 'GraphQL'] },
-          { name: 'Business logic', desc: 'Handle core business rules and workflows', examples: ['Order handling', 'Payment flow'] },
-          { name: 'Data storage', desc: 'Persist and query data', examples: ['MySQL', 'Redis'] },
-          { name: 'Auth', desc: 'Verify identity and control permissions', examples: ['JWT', 'OAuth'] },
-          { name: 'Performance', desc: 'Caching, async work, and concurrency', examples: ['Cache', 'Message queue'] },
-          { name: 'Security', desc: 'Prevent attacks and data leaks', examples: ['SQL injection defense', 'HTTPS'] }
+          {
+            name: 'API design',
+            desc: 'Define how clients interact with servers',
+            examples: ['RESTful', 'GraphQL']
+          },
+          {
+            name: 'Business logic',
+            desc: 'Handle core business rules and workflows',
+            examples: ['Order handling', 'Payment flow']
+          },
+          {
+            name: 'Data storage',
+            desc: 'Persist and query data',
+            examples: ['MySQL', 'Redis']
+          },
+          {
+            name: 'Auth',
+            desc: 'Verify identity and control permissions',
+            examples: ['JWT', 'OAuth']
+          },
+          {
+            name: 'Performance',
+            desc: 'Caching, async work, and concurrency',
+            examples: ['Cache', 'Message queue']
+          },
+          {
+            name: 'Security',
+            desc: 'Prevent attacks and data leaks',
+            examples: ['SQL injection defense', 'HTTPS']
+          }
         ],
-        flowSteps: ['Receive request', 'Resolve route', 'Run business logic', 'Operate on data', 'Return response']
+        flowSteps: [
+          'Receive request',
+          'Resolve route',
+          'Run business logic',
+          'Operate on data',
+          'Return response'
+        ]
       },
       languageMap: {
         title: 'Programming Language Classification',
         subtitle: 'View languages from different dimensions',
         adviceLabel: 'Selection advice:',
-        advice: 'Go deep in one mainstream language first and understand programming ideas; learning other languages becomes much easier afterward.',
+        advice:
+          'Go deep in one mainstream language first and understand programming ideas; learning other languages becomes much easier afterward.',
         tabs: [
           { key: 'type', label: 'By type system' },
           { key: 'level', label: 'By abstraction level' },
@@ -3480,17 +5401,45 @@ mov  dword ptr [x], eax ; store it at variable x address`
         ],
         classifications: {
           type: [
-            { name: 'Static typing', desc: 'Variable types are determined at compile time', examples: ['Java', 'C++', 'Go', 'TypeScript'] },
-            { name: 'Dynamic typing', desc: 'Variable types are determined at runtime', examples: ['Python', 'JavaScript', 'Ruby'] }
+            {
+              name: 'Static typing',
+              desc: 'Variable types are determined at compile time',
+              examples: ['Java', 'C++', 'Go', 'TypeScript']
+            },
+            {
+              name: 'Dynamic typing',
+              desc: 'Variable types are determined at runtime',
+              examples: ['Python', 'JavaScript', 'Ruby']
+            }
           ],
           level: [
-            { name: 'Low-level languages', desc: 'Close to hardware with high execution efficiency', examples: ['C', 'Assembly'] },
-            { name: 'High-level languages', desc: 'Closer to human language with high development efficiency', examples: ['Python', 'Java', 'JavaScript'] }
+            {
+              name: 'Low-level languages',
+              desc: 'Close to hardware with high execution efficiency',
+              examples: ['C', 'Assembly']
+            },
+            {
+              name: 'High-level languages',
+              desc: 'Closer to human language with high development efficiency',
+              examples: ['Python', 'Java', 'JavaScript']
+            }
           ],
           paradigm: [
-            { name: 'Object-oriented', desc: 'Organize code around objects', examples: ['Java', 'C++', 'Python'] },
-            { name: 'Functional', desc: 'Organize code around functions and immutability', examples: ['Haskell', 'Elixir', 'Clojure'] },
-            { name: 'Multi-paradigm', desc: 'Support multiple programming styles', examples: ['Python', 'JavaScript', 'Rust'] }
+            {
+              name: 'Object-oriented',
+              desc: 'Organize code around objects',
+              examples: ['Java', 'C++', 'Python']
+            },
+            {
+              name: 'Functional',
+              desc: 'Organize code around functions and immutability',
+              examples: ['Haskell', 'Elixir', 'Clojure']
+            },
+            {
+              name: 'Multi-paradigm',
+              desc: 'Support multiple programming styles',
+              examples: ['Python', 'JavaScript', 'Rust']
+            }
           ]
         }
       },
@@ -3499,14 +5448,39 @@ mov  dword ptr [x], eax ; store it at variable x address`
         subtitle: 'Choose a language based on your goal',
         recommend: 'Recommended:',
         principleLabel: 'Core principle:',
-        principle: 'A language is only a tool; problem-solving ability matters more. Master one first, then transfer the ideas.',
+        principle:
+          'A language is only a tool; problem-solving ability matters more. Master one first, then transfer the ideas.',
         selections: [
-          { goal: 'Web frontend', desc: 'Web pages, mini apps, H5', langs: ['JavaScript', 'TypeScript'] },
-          { goal: 'Web backend', desc: 'API services and business systems', langs: ['Node.js', 'Go', 'Java', 'Python'] },
-          { goal: 'Mobile', desc: 'iOS / Android apps', langs: ['Swift', 'Kotlin', 'Flutter'] },
-          { goal: 'AI / Data science', desc: 'Machine learning and data analysis', langs: ['Python'] },
-          { goal: 'Systems programming', desc: 'Operating systems and embedded work', langs: ['C', 'C++', 'Rust'] },
-          { goal: 'Rapid prototyping', desc: 'Scripts, automation, small tools', langs: ['Python', 'Shell'] }
+          {
+            goal: 'Web frontend',
+            desc: 'Web pages, mini apps, H5',
+            langs: ['JavaScript', 'TypeScript']
+          },
+          {
+            goal: 'Web backend',
+            desc: 'API services and business systems',
+            langs: ['Node.js', 'Go', 'Java', 'Python']
+          },
+          {
+            goal: 'Mobile',
+            desc: 'iOS / Android apps',
+            langs: ['Swift', 'Kotlin', 'Flutter']
+          },
+          {
+            goal: 'AI / Data science',
+            desc: 'Machine learning and data analysis',
+            langs: ['Python']
+          },
+          {
+            goal: 'Systems programming',
+            desc: 'Operating systems and embedded work',
+            langs: ['C', 'C++', 'Rust']
+          },
+          {
+            goal: 'Rapid prototyping',
+            desc: 'Scripts, automation, small tools',
+            langs: ['Python', 'Shell']
+          }
         ]
       },
       fullstackSkill: {
@@ -3517,9 +5491,24 @@ mov  dword ptr [x], eax ; store it at variable x address`
         backendTitle: 'Backend skills',
         noteLabel: 'Fullstack does not mean expert at everything:',
         note: 'The core is connecting frontend and backend and independently delivering a complete feature. You do not need expert depth in every domain.',
-        frontendSkills: ['HTML/CSS', 'JavaScript', 'Framework usage', 'Responsive design'],
-        backendSkills: ['API design', 'Database operations', 'Business logic', 'Server deployment'],
-        bridgeSkills: ['HTTP protocol', 'Git collaboration', 'Debugging ability', 'System design']
+        frontendSkills: [
+          'HTML/CSS',
+          'JavaScript',
+          'Framework usage',
+          'Responsive design'
+        ],
+        backendSkills: [
+          'API design',
+          'Database operations',
+          'Business logic',
+          'Server deployment'
+        ],
+        bridgeSkills: [
+          'HTTP protocol',
+          'Git collaboration',
+          'Debugging ability',
+          'System design'
+        ]
       },
       aiVsTraditional: {
         title: 'AI Engineer vs Traditional Engineer',
@@ -3532,9 +5521,24 @@ mov  dword ptr [x], eax ; store it at variable x address`
         down: 'Importance down',
         up: 'Importance up',
         competitivenessLabel: 'Core competitiveness in the AI era:',
-        competitiveness: 'It is not "can write code"; it is "can describe requirements, judge correctness, and design solutions." AI is your programming assistant, but you remain the decision-maker.',
-        traditionalSteps: ['Understand requirements', 'Read docs and learn syntax', 'Write code by hand', 'Debug and fix bugs', 'Optimize performance', 'Write tests'],
-        aiSteps: ['Understand requirements', 'Describe them to AI in natural language', 'Review AI-generated code', 'Judge whether it meets expectations', 'Adjust requirements and regenerate', 'Integrate into the project'],
+        competitiveness:
+          'It is not "can write code"; it is "can describe requirements, judge correctness, and design solutions." AI is your programming assistant, but you remain the decision-maker.',
+        traditionalSteps: [
+          'Understand requirements',
+          'Read docs and learn syntax',
+          'Write code by hand',
+          'Debug and fix bugs',
+          'Optimize performance',
+          'Write tests'
+        ],
+        aiSteps: [
+          'Understand requirements',
+          'Describe them to AI in natural language',
+          'Review AI-generated code',
+          'Judge whether it meets expectations',
+          'Adjust requirements and regenerate',
+          'Integrate into the project'
+        ],
         skillShift: [
           { from: 'Syntax memory', to: 'Requirement description' },
           { from: 'Manual coding speed', to: 'Code review ability' },
@@ -3550,24 +5554,101 @@ mov  dword ptr [x], eax ; store it at variable x address`
         keyLabel: 'Growth key:',
         key: 'Build fundamentals and independent task ability in the first 1-2 years; choose a direction and develop depth in years 2-3; expand horizontally and build architecture thinking in years 3-5; after 5+ years, focus on technical decisions and team influence.',
         stages: [
-          { name: 'Beginner', icon: '🌱', time: '0-1 year', desc: 'Learn basic syntax and tools; complete simple tasks', skills: ['One language basics', 'Git usage', 'Debugging', 'Reading docs'], output: 'Can independently complete small features and fix simple bugs' },
-          { name: 'Growing', icon: '🌿', time: '1-2 years', desc: 'Use common frameworks and best practices; own modules independently', skills: ['Framework fluency', 'Code standards', 'Unit tests', 'API design'], output: 'Own a feature module with stable code quality' },
-          { name: 'Advanced', icon: '🌳', time: '2-3 years', desc: 'Go deep in one field and begin making technical choices', skills: ['Domain depth', 'Performance optimization', 'Architecture design', 'Technology selection'], output: 'Lead technical solution design and solve complex problems' },
-          { name: 'Mature', icon: '🌲', time: '3-5 years', desc: 'Become fullstack or a domain expert and lead a small team', skills: ['Fullstack ability', 'Team collaboration', 'Technical sharing', 'Project management'], output: 'Own core systems and mentor newcomers' },
-          { name: 'Expert', icon: '🏔️', time: '5+ years', desc: 'Make technical decisions and build industry influence', skills: ['Technology strategy', 'Team building', 'Industry insight', 'Innovation leadership'], output: 'Decide technical direction and grow technical teams' }
+          {
+            name: 'Beginner',
+            icon: '🌱',
+            time: '0-1 year',
+            desc: 'Learn basic syntax and tools; complete simple tasks',
+            skills: [
+              'One language basics',
+              'Git usage',
+              'Debugging',
+              'Reading docs'
+            ],
+            output:
+              'Can independently complete small features and fix simple bugs'
+          },
+          {
+            name: 'Growing',
+            icon: '🌿',
+            time: '1-2 years',
+            desc: 'Use common frameworks and best practices; own modules independently',
+            skills: [
+              'Framework fluency',
+              'Code standards',
+              'Unit tests',
+              'API design'
+            ],
+            output: 'Own a feature module with stable code quality'
+          },
+          {
+            name: 'Advanced',
+            icon: '🌳',
+            time: '2-3 years',
+            desc: 'Go deep in one field and begin making technical choices',
+            skills: [
+              'Domain depth',
+              'Performance optimization',
+              'Architecture design',
+              'Technology selection'
+            ],
+            output: 'Lead technical solution design and solve complex problems'
+          },
+          {
+            name: 'Mature',
+            icon: '🌲',
+            time: '3-5 years',
+            desc: 'Become fullstack or a domain expert and lead a small team',
+            skills: [
+              'Fullstack ability',
+              'Team collaboration',
+              'Technical sharing',
+              'Project management'
+            ],
+            output: 'Own core systems and mentor newcomers'
+          },
+          {
+            name: 'Expert',
+            icon: '🏔️',
+            time: '5+ years',
+            desc: 'Make technical decisions and build industry influence',
+            skills: [
+              'Technology strategy',
+              'Team building',
+              'Industry insight',
+              'Innovation leadership'
+            ],
+            output: 'Decide technical direction and grow technical teams'
+          }
         ]
       },
       learningStrategy: {
         title: 'Vibe Coding Learning Strategy',
         subtitle: 'How to learn efficiently in the AI era',
         principleLabel: 'Core principle:',
-        principle: 'AI is your programming assistant, but you are always the decision-maker. Learning to ask, judge, and integrate matters more than learning to type code.',
+        principle:
+          'AI is your programming assistant, but you are always the decision-maker. Learning to ask, judge, and integrate matters more than learning to type code.',
         strategies: [
-          { title: 'Understand first, then ask AI to write', desc: 'Do not ask AI to code immediately. First understand the problem and solution, then use AI to accelerate implementation.' },
-          { title: 'Treat AI as a pair-programming partner', desc: 'Ask AI to explain unfamiliar concepts. Discuss complex solutions with it. AI is a knowledgeable colleague.' },
-          { title: 'Learn to review AI output', desc: 'AI-generated code is not always correct. You need to judge logic, security risks, and performance.' },
-          { title: 'Build your own knowledge system', desc: 'AI can fill gaps, but the core mental model is yours. Knowing what exists lets you ask how to use it.' },
-          { title: 'Learn through practice', desc: 'Build real projects and solve real problems. Let AI remove syntax friction while you focus on business problems.' }
+          {
+            title: 'Understand first, then ask AI to write',
+            desc: 'Do not ask AI to code immediately. First understand the problem and solution, then use AI to accelerate implementation.'
+          },
+          {
+            title: 'Treat AI as a pair-programming partner',
+            desc: 'Ask AI to explain unfamiliar concepts. Discuss complex solutions with it. AI is a knowledgeable colleague.'
+          },
+          {
+            title: 'Learn to review AI output',
+            desc: 'AI-generated code is not always correct. You need to judge logic, security risks, and performance.'
+          },
+          {
+            title: 'Build your own knowledge system',
+            desc: 'AI can fill gaps, but the core mental model is yours. Knowing what exists lets you ask how to use it.'
+          },
+          {
+            title: 'Learn through practice',
+            desc: 'Build real projects and solve real problems. Let AI remove syntax friction while you focus on business problems.'
+          }
         ]
       }
     },
@@ -3580,43 +5661,94 @@ mov  dword ptr [x], eax ; store it at variable x address`
       productsLabel: 'Representative products:',
       realWorldTitle: '🌍 Real-world choices',
       dimensions: [
-        { label: 'Instruction count', cisc: 'Thousands of complex instructions', risc: 'Tens to hundreds of streamlined instructions' },
-        { label: 'Single instruction', cisc: 'One instruction can do many things', risc: 'One instruction does one thing' },
-        { label: 'Instruction length', cisc: 'Variable length (1-15 bytes)', risc: 'Fixed length, often 4 bytes' },
-        { label: 'Execution speed', cisc: 'Complex instructions take multiple cycles', risc: 'Most instructions complete in one cycle' },
+        {
+          label: 'Instruction count',
+          cisc: 'Thousands of complex instructions',
+          risc: 'Tens to hundreds of streamlined instructions'
+        },
+        {
+          label: 'Single instruction',
+          cisc: 'One instruction can do many things',
+          risc: 'One instruction does one thing'
+        },
+        {
+          label: 'Instruction length',
+          cisc: 'Variable length (1-15 bytes)',
+          risc: 'Fixed length, often 4 bytes'
+        },
+        {
+          label: 'Execution speed',
+          cisc: 'Complex instructions take multiple cycles',
+          risc: 'Most instructions complete in one cycle'
+        },
         { label: 'Power use', cisc: 'Higher', risc: 'Lower' },
-        { label: 'Pipeline', cisc: 'Harder to optimize because lengths vary', risc: 'Easier to optimize because instructions are regular' },
-        { label: 'Compiler burden', cisc: 'Lighter because hardware does more', risc: 'Heavier because software optimizes more' }
+        {
+          label: 'Pipeline',
+          cisc: 'Harder to optimize because lengths vary',
+          risc: 'Easier to optimize because instructions are regular'
+        },
+        {
+          label: 'Compiler burden',
+          cisc: 'Lighter because hardware does more',
+          risc: 'Heavier because software optimizes more'
+        }
       ],
       archData: {
         cisc: {
           name: 'CISC',
           full: 'Complex Instruction Set Computer',
-          philosophy: 'Make hardware powerful enough that one instruction can perform complex work and reduce compiler burden.',
-          analogy: 'Like a multi-tool: many functions, though each one is not always the best dedicated tool.',
+          philosophy:
+            'Make hardware powerful enough that one instruction can perform complex work and reduce compiler burden.',
+          analogy:
+            'Like a multi-tool: many functions, though each one is not always the best dedicated tool.',
           exampleTitle: 'Do memory addition with one instruction',
           example:
             'ADD [0x1000], R1\n; one instruction: read memory → add → write memory\n; internally split into multiple micro-operations',
-          exampleNote: 'CISC instructions may operate directly on memory; one instruction can hide five or six micro-operations.',
+          exampleNote:
+            'CISC instructions may operate directly on memory; one instruction can hide five or six micro-operations.',
           products: ['Intel Core', 'AMD Ryzen', 'x86 servers']
         },
         risc: {
           name: 'RISC',
           full: 'Reduced Instruction Set Computer',
-          philosophy: 'Keep each instruction simple and fast; compose complex behavior from simple instructions.',
-          analogy: 'Like a set of dedicated tools: each tool does one job and does it quickly.',
+          philosophy:
+            'Keep each instruction simple and fast; compose complex behavior from simple instructions.',
+          analogy:
+            'Like a set of dedicated tools: each tool does one job and does it quickly.',
           exampleTitle: 'Do the same memory addition with three instructions',
           example:
             'LOAD  R2, [0x1000]  ; step 1: read memory into a register\nADD   R2, R2, R1    ; step 2: add between registers\nSTORE R2, [0x1000]  ; step 3: write the result back',
-          exampleNote: 'RISC usually loads data into registers first, computes between registers, then stores back to memory.',
-          products: ['Apple M series', 'Qualcomm Snapdragon', 'AWS Graviton', 'RISC-V']
+          exampleNote:
+            'RISC usually loads data into registers first, computes between registers, then stores back to memory.',
+          products: [
+            'Apple M series',
+            'Qualcomm Snapdragon',
+            'AWS Graviton',
+            'RISC-V'
+          ]
         }
       },
       realWorld: [
-        { device: '💻 Your computer', arch: 'x86 (CISC)', why: 'Compatible with decades of software' },
-        { device: '📱 Your phone', arch: 'ARM (RISC)', why: 'Low power consumption and longer battery life' },
-        { device: '🍎 Apple Silicon', arch: 'ARM (RISC)', why: 'High performance per watt reshaped laptops' },
-        { device: '🔬 RISC-V board', arch: 'RISC-V (RISC)', why: 'Open and royalty-free for IoT and education' }
+        {
+          device: '💻 Your computer',
+          arch: 'x86 (CISC)',
+          why: 'Compatible with decades of software'
+        },
+        {
+          device: '📱 Your phone',
+          arch: 'ARM (RISC)',
+          why: 'Low power consumption and longer battery life'
+        },
+        {
+          device: '🍎 Apple Silicon',
+          arch: 'ARM (RISC)',
+          why: 'High performance per watt reshaped laptops'
+        },
+        {
+          device: '🔬 RISC-V board',
+          arch: 'RISC-V (RISC)',
+          why: 'Open and royalty-free for IoT and education'
+        }
       ]
     }
   }

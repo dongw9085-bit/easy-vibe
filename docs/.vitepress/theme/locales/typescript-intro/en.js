@@ -8,7 +8,8 @@ export default {
     initialName: 'Alice',
     changedName: 'Bob',
     successName: 'Updated successfully. Type check passed',
-    ageError: 'TypeScript error: type "string" is not assignable to type "number"',
+    ageError:
+      'TypeScript error: type "string" is not assignable to type "number"',
     activeMessage: 'Status changed to {value}',
     buttons: {
       modifyName: 'Change name (valid)',
@@ -19,18 +20,22 @@ export default {
       javascript: 'JavaScript (no type checking)',
       typescript: 'TypeScript (compile-time checking)'
     },
-    jsCode: 'let name = "Alice"\nname = 123  // Runtime error may appear much later',
-    tsCode: 'let name: string = "Alice"\nname = 123  // Compile-time error appears immediately'
+    jsCode:
+      'let name = "Alice"\nname = 123  // Runtime error may appear much later',
+    tsCode:
+      'let name: string = "Alice"\nname = 123  // Compile-time error appears immediately'
   },
   inference: {
     title: 'Type Inference Demo',
     conceptTitle: 'What is type inference?',
-    conceptText: 'TypeScript can infer variable types from your code, so you do not need to annotate every value manually.',
+    conceptText:
+      'TypeScript can infer variable types from your code, so you do not need to annotate every value manually.',
     selectorTitle: 'Choose an example to see how type inference works:',
     codeLabel: 'Code',
     inferredTypeLabel: 'Inferred type',
     tryError: 'Try a type error',
-    errorMessage: 'TypeScript error: type "number" is not assignable to type "{type}"',
+    errorMessage:
+      'TypeScript error: type "number" is not assignable to type "{type}"',
     practicesTitle: 'Best Practices',
     comparisonTitle: 'Type Inference vs Explicit Annotation',
     inferenceLabel: 'Use inference',
@@ -40,19 +45,22 @@ export default {
         id: 1,
         code: 'let name = "Alice"',
         inferredType: 'string',
-        explanation: 'TypeScript infers that name has type string from the assigned string value.'
+        explanation:
+          'TypeScript infers that name has type string from the assigned string value.'
       },
       {
         id: 2,
         code: 'let age = 25',
         inferredType: 'number',
-        explanation: 'TypeScript infers that age has type number from the numeric literal.'
+        explanation:
+          'TypeScript infers that age has type number from the numeric literal.'
       },
       {
         id: 3,
         code: 'let isActive = true',
         inferredType: 'boolean',
-        explanation: 'TypeScript infers that isActive has type boolean from the boolean value.'
+        explanation:
+          'TypeScript infers that isActive has type boolean from the boolean value.'
       },
       {
         id: 4,
@@ -64,24 +72,37 @@ export default {
     practices: [
       {
         title: 'When to use inference',
-        items: ['A variable has a clear initial value', 'The function return type is obvious', 'The assignment is a simple literal']
+        items: [
+          'A variable has a clear initial value',
+          'The function return type is obvious',
+          'The assignment is a simple literal'
+        ]
       },
       {
         title: 'When to add annotations',
-        items: ['Function parameters are required', 'Objects or arrays have complex structure', 'The initial value cannot reveal the type', 'You need an explicit type constraint']
+        items: [
+          'Function parameters are required',
+          'Objects or arrays have complex structure',
+          'The initial value cannot reveal the type',
+          'You need an explicit type constraint'
+        ]
       }
     ],
     comparisons: [
       {
         scenario: 'Function return value',
-        withInference: 'function add(a: number, b: number) {\n  return a + b  // inferred as number\n}',
-        withAnnotation: 'function add(a: number, b: number): number {\n  return a + b\n}',
+        withInference:
+          'function add(a: number, b: number) {\n  return a + b  // inferred as number\n}',
+        withAnnotation:
+          'function add(a: number, b: number): number {\n  return a + b\n}',
         recommendation: 'Inference is recommended'
       },
       {
         scenario: 'Complex object',
-        withInference: 'const user = {\n  name: "Alice",\n  age: 25,\n  email: "test@example.com"\n}  // type is inferred automatically',
-        withAnnotation: 'interface User {\n  name: string\n  age: number\n  email: string\n}\n\nconst user: User = { ... }',
+        withInference:
+          'const user = {\n  name: "Alice",\n  age: 25,\n  email: "test@example.com"\n}  // type is inferred automatically',
+        withAnnotation:
+          'interface User {\n  name: string\n  age: number\n  email: string\n}\n\nconst user: User = { ... }',
         recommendation: 'Use an interface for complex structures'
       }
     ]
@@ -93,7 +114,8 @@ export default {
     initialUser: { id: 1, name: 'Alice', email: 'alice@example.com', age: 25 },
     newUser: { id: 2, name: 'Bob', email: 'bob@example.com', age: 30 },
     messages: {
-      typeError: 'TypeScript error: type "string" is not assignable to type "number"',
+      typeError:
+        'TypeScript error: type "string" is not assignable to type "number"',
       newUser: 'New user created. Type check passed',
       ageUpdated: 'Age updated to {age}'
     },
@@ -105,16 +127,20 @@ export default {
     examples: {
       correctTitle: 'Correct usage',
       errorTitle: 'Incorrect usage',
-      correctCode: 'const user: User = {\n  id: 1,\n  name: "Alice",\n  email: "alice@example.com",\n  age: 25\n} // fully matches the type',
-      errorCode: 'const user: User = {\n  id: 1,\n  name: "Alice",\n  email: "alice@example.com",\n  age: "25"  // error: age should be number, not string\n}'
+      correctCode:
+        'const user: User = {\n  id: 1,\n  name: "Alice",\n  email: "alice@example.com",\n  age: 25\n} // fully matches the type',
+      errorCode:
+        'const user: User = {\n  id: 1,\n  name: "Alice",\n  email: "alice@example.com",\n  age: "25"  // error: age should be number, not string\n}'
     }
   },
   generics: {
     title: 'Generics Demo',
     conceptStrong: 'Generics are reusable templates',
-    conceptText: 'They handle different data types while preserving type safety',
+    conceptText:
+      'They handle different data types while preserving type safety',
     definitionTitle: 'Generic Function Definition',
-    definitionCode: '// T is a type variable decided when the function is used\nfunction identity<T>(arg: T): T {\n  return arg\n}\n\n// Generic array reversal\nfunction reverseArray<T>(arr: T[]): T[] {\n  return [...arr].reverse()\n}',
+    definitionCode:
+      '// T is a type variable decided when the function is used\nfunction identity<T>(arg: T): T {\n  return arg\n}\n\n// Generic array reversal\nfunction reverseArray<T>(arr: T[]): T[] {\n  return [...arr].reverse()\n}',
     selectType: 'Choose data type:',
     numberArray: 'Number array',
     stringArray: 'String array',
@@ -136,7 +162,9 @@ export default {
     unknownType: 'Unknown type',
     formatError: 'Invalid input format',
     stringExampleValue: 'apple, banana, orange, grape',
-    numberExampleCode: 'const nums = [1, 2, 3, 4, 5]\nconst reversed = reverseArray<number>(nums)\n// result: [5, 4, 3, 2, 1]\n// type: number[]',
-    stringExampleCode: 'const strs = ["a", "b", "c"]\nconst reversed = reverseArray<string>(strs)\n// result: ["c", "b", "a"]\n// type: string[]'
+    numberExampleCode:
+      'const nums = [1, 2, 3, 4, 5]\nconst reversed = reverseArray<number>(nums)\n// result: [5, 4, 3, 2, 1]\n// type: number[]',
+    stringExampleCode:
+      'const strs = ["a", "b", "c"]\nconst reversed = reverseArray<string>(strs)\n// result: ["c", "b", "a"]\n// type: string[]'
   }
 }

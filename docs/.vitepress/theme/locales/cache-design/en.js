@@ -1,8 +1,16 @@
 export default {
   performanceComparison: {
     scenarios: [
-      { name: 'Without cache', metric: '5-8 s response, high DB pressure', width: '95%' },
-      { name: 'With cache', metric: '50 ms response, most reads served from memory', width: '24%' }
+      {
+        name: 'Without cache',
+        metric: '5-8 s response, high DB pressure',
+        width: '95%'
+      },
+      {
+        name: 'With cache',
+        metric: '50 ms response, most reads served from memory',
+        width: '24%'
+      }
     ]
   },
   lifecycle: {
@@ -59,7 +67,8 @@ export default {
         name: 'Cache penetration',
         icon: '🕳️',
         introTitle: 'What is cache penetration?',
-        introHtml: 'A request queries <strong>nonexistent data</strong>, such as malicious id=-1. The cache misses and the database also has no record, so every request hits the database.',
+        introHtml:
+          'A request queries <strong>nonexistent data</strong>, such as malicious id=-1. The cache misses and the database also has no record, so every request hits the database.',
         flow: ['Request id=-999', 'Cache miss', 'Database query (not found)'],
         solutions: [
           {
@@ -80,7 +89,8 @@ export default {
         name: 'Cache breakdown',
         icon: '🔥',
         introTitle: 'What is cache breakdown?',
-        introHtml: 'A <strong>hot key</strong> expires, such as a trending topic, and millions of concurrent requests hit the database at once.',
+        introHtml:
+          'A <strong>hot key</strong> expires, such as a trending topic, and millions of concurrent requests hit the database at once.',
         hotData: 'Hot data',
         concurrentRequests: 'Concurrent requests',
         requestPrefix: 'Request',
@@ -112,7 +122,8 @@ export default {
         name: 'Cache avalanche',
         icon: '❄️',
         introTitle: 'What is cache avalanche?',
-        introHtml: 'Many cache entries <strong>expire at the same time</strong>, such as after a system restart where everything expires at 00:00:00, and the database is overwhelmed.',
+        introHtml:
+          'Many cache entries <strong>expire at the same time</strong>, such as after a system restart where everything expires at 00:00:00, and the database is overwhelmed.',
         expiredTogether: 'Expired together!',
         solutions: [
           {
@@ -137,21 +148,47 @@ export default {
       }
     ],
     comparisonRows: [
-      ['Cache penetration', 'Querying nonexistent data', 'Higher database pressure', 'Bloom filter, cache empty objects'],
-      ['Cache breakdown', 'Hot data expires', 'Instant database pressure', 'Mutex lock, logical expiration'],
-      ['Cache avalanche', 'Many entries expire together', 'Database overload', 'Random TTL, cache warm-up']
+      [
+        'Cache penetration',
+        'Querying nonexistent data',
+        'Higher database pressure',
+        'Bloom filter, cache empty objects'
+      ],
+      [
+        'Cache breakdown',
+        'Hot data expires',
+        'Instant database pressure',
+        'Mutex lock, logical expiration'
+      ],
+      [
+        'Cache avalanche',
+        'Many entries expire together',
+        'Database overload',
+        'Random TTL, cache warm-up'
+      ]
     ]
   },
   consistency: {
     strategies: [
-      { name: 'Update DB, then delete cache', desc: 'Low complexity and a short inconsistency window; works for most products.' },
-      { name: 'Delayed double delete', desc: 'Deletes cache twice to reduce stale reads in high consistency scenarios.' },
-      { name: 'Avoid delete-before-update', desc: 'Deleting cache first can reload old database values under concurrency.' }
+      {
+        name: 'Update DB, then delete cache',
+        desc: 'Low complexity and a short inconsistency window; works for most products.'
+      },
+      {
+        name: 'Delayed double delete',
+        desc: 'Deletes cache twice to reduce stale reads in high consistency scenarios.'
+      },
+      {
+        name: 'Avoid delete-before-update',
+        desc: 'Deleting cache first can reload old database values under concurrency.'
+      }
     ]
   },
   ecommerceArchitecture: {
     title: 'E-commerce Cache Architecture Demo',
-    description: 'Shows multi-level cache architecture in e-commerce systems, including product, inventory, and user caches.',
-    placeholder: 'E-commerce cache architecture demo placeholder - detailed interaction to be implemented'
+    description:
+      'Shows multi-level cache architecture in e-commerce systems, including product, inventory, and user caches.',
+    placeholder:
+      'E-commerce cache architecture demo placeholder - detailed interaction to be implemented'
   }
 }

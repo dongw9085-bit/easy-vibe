@@ -170,7 +170,10 @@ export default {
     introText:
       'MCP 之前，AI 只能"看"和"说"，有了 MCP，AI 终于可以"动手"了。它让 AI 可以操纵各种程序，真正帮你干活。',
     popularUses: [
-      { title: 'Cursor / Claude 等 AI 编辑器', desc: '直接读写文件、执行代码、操作 Git' },
+      {
+        title: 'Cursor / Claude 等 AI 编辑器',
+        desc: '直接读写文件、执行代码、操作 Git'
+      },
       { title: '浏览器自动化', desc: 'AI 自动打开网页、点击按钮、填表单' },
       { title: '数据库查询', desc: '直接查询/写入数据库，无需手动导出' },
       { title: 'AI 操作电脑', desc: 'Windows-MCP 让 AI 直接操控鼠标键盘' },
@@ -185,10 +188,22 @@ export default {
         title: '找到 MCP Server',
         desc: '从 MCP 资源站或 GitHub 找到你需要的 MCP Server',
         resources: [
-          { name: '官方 Server 列表', href: 'https://github.com/modelcontextprotocol/servers', label: 'github.com/modelcontextprotocol/servers' },
+          {
+            name: '官方 Server 列表',
+            href: 'https://github.com/modelcontextprotocol/servers',
+            label: 'github.com/modelcontextprotocol/servers'
+          },
           { name: 'MCP.so（中文）', href: 'https://mcp.so', label: 'mcp.so' },
-          { name: 'Pulse MCP（英文）', href: 'https://www.pulsemcp.com', label: 'pulsemcp.com' },
-          { name: 'Smithery（英文）', href: 'https://smithery.ai', label: 'smithery.ai' }
+          {
+            name: 'Pulse MCP（英文）',
+            href: 'https://www.pulsemcp.com',
+            label: 'pulsemcp.com'
+          },
+          {
+            name: 'Smithery（英文）',
+            href: 'https://smithery.ai',
+            label: 'smithery.ai'
+          }
         ]
       },
       {
@@ -207,7 +222,10 @@ export default {
     configTitle: '常见 IDE 的 mcp.json 位置',
     configLocations: [
       { name: 'Cursor', path: '~/.cursor/mcp.json' },
-      { name: 'Claude Desktop', path: '~/Library/Application Support/Claude/claude_desktop_config.json (macOS)' },
+      {
+        name: 'Claude Desktop',
+        path: '~/Library/Application Support/Claude/claude_desktop_config.json (macOS)'
+      },
       { name: 'Windsurf', path: '~/.windsurf/mcp.json' }
     ],
     implementTitle: '如何实现一个 MCP Server？',
@@ -236,11 +254,20 @@ export default {
     techJsonRpcTitle: '技术深究：JSON-RPC 2.0 消息格式',
     requestTitle: '请求消息结构',
     responseTitle: '响应消息结构',
-    jsonRpcNote: 'JSON-RPC 2.0 是无状态协议，每个请求都需要包含 id 用于匹配响应',
+    jsonRpcNote:
+      'JSON-RPC 2.0 是无状态协议，每个请求都需要包含 id 用于匹配响应',
     techTransportTitle: '技术深究：两种传输方式',
     transportCards: [
-      { name: 'stdio（本地进程）', desc: '适用于本地工具，通过标准输入输出通信', codeKey: 'stdioExample' },
-      { name: 'HTTP + SSE（远程）', desc: '适用于远程服务，支持长连接推送', codeKey: 'httpExample' }
+      {
+        name: 'stdio（本地进程）',
+        desc: '适用于本地工具，通过标准输入输出通信',
+        codeKey: 'stdioExample'
+      },
+      {
+        name: 'HTTP + SSE（远程）',
+        desc: '适用于远程服务，支持长连接推送',
+        codeKey: 'httpExample'
+      }
     ],
     techApiTitle: '技术深究：MCP 核心 API',
     flowSteps: [
@@ -472,11 +499,31 @@ const transport = new StdioServerTransport()
 await server.connect(transport)`
     },
     apis: [
-      { method: 'initialize', name: '初始化', desc: 'Server 向 Client 声明协议版本和能力' },
-      { method: 'tools/list', name: '工具列表', desc: '获取 Server 提供所有可用工具' },
-      { method: 'tools/call', name: '调用工具', desc: '实际调用某个工具并获取结果' },
-      { method: 'resources/list', name: '资源列表', desc: '获取可访问的资源（如文件、数据库）' },
-      { method: 'resources/read', name: '读取资源', desc: '读取某个资源的内容' },
+      {
+        method: 'initialize',
+        name: '初始化',
+        desc: 'Server 向 Client 声明协议版本和能力'
+      },
+      {
+        method: 'tools/list',
+        name: '工具列表',
+        desc: '获取 Server 提供所有可用工具'
+      },
+      {
+        method: 'tools/call',
+        name: '调用工具',
+        desc: '实际调用某个工具并获取结果'
+      },
+      {
+        method: 'resources/list',
+        name: '资源列表',
+        desc: '获取可访问的资源（如文件、数据库）'
+      },
+      {
+        method: 'resources/read',
+        name: '读取资源',
+        desc: '读取某个资源的内容'
+      },
       { method: 'prompts/list', name: '提示模板', desc: '获取预定义的提示模板' }
     ]
   },
@@ -487,12 +534,30 @@ await server.connect(transport)`
     introText:
       'A2A 让多个 AI Agent 可以相互协作，不再是单打独斗。一个复杂任务可以分配给多个专业 Agent，每个 Agent 做自己擅长的事。',
     popularUses: [
-      { title: '软件开发流水线', desc: '需求分析 Agent → 代码 Agent → 测试 Agent → 部署 Agent' },
-      { title: '多厂商 Agent 集成', desc: 'Google、Anthropic、OpenAI 的 Agent 可以相互调用' },
-      { title: '企业工作流', desc: 'HR Agent、财务 Agent、审批 Agent 协同处理业务流程' },
-      { title: '智能客服升级', desc: '接待 Agent → 业务 Agent → 人工 Agent 逐级转接' },
-      { title: '科研协作', desc: '文献 Agent → 实验 Agent → 分析 Agent → 报告 Agent' },
-      { title: '自动化运维', desc: '监控 Agent → 诊断 Agent → 修复 Agent → 通知 Agent' }
+      {
+        title: '软件开发流水线',
+        desc: '需求分析 Agent → 代码 Agent → 测试 Agent → 部署 Agent'
+      },
+      {
+        title: '多厂商 Agent 集成',
+        desc: 'Google、Anthropic、OpenAI 的 Agent 可以相互调用'
+      },
+      {
+        title: '企业工作流',
+        desc: 'HR Agent、财务 Agent、审批 Agent 协同处理业务流程'
+      },
+      {
+        title: '智能客服升级',
+        desc: '接待 Agent → 业务 Agent → 人工 Agent 逐级转接'
+      },
+      {
+        title: '科研协作',
+        desc: '文献 Agent → 实验 Agent → 分析 Agent → 报告 Agent'
+      },
+      {
+        title: '自动化运维',
+        desc: '监控 Agent → 诊断 Agent → 修复 Agent → 通知 Agent'
+      }
     ],
     usageTitle: '如何使用 A2A？',
     usageIntro:
@@ -518,18 +583,29 @@ await server.connect(transport)`
     statusTextAfter: ' 获取最新进展。',
     flowTitle: '通信流程（5 步）',
     techAgentCardTitle: '技术深究：Agent Card 名片格式',
-    agentCardIntro: 'Agent Card 是一个 JSON 文件，通常放在 /.well-known/agent.json 路径',
+    agentCardIntro:
+      'Agent Card 是一个 JSON 文件，通常放在 /.well-known/agent.json 路径',
     agentCardExampleTitle: 'Agent Card 示例',
-    agentCardNote: '通过 Agent Card，Agent 之间可以相互发现，了解对方的能力和版本，实现互操作',
+    agentCardNote:
+      '通过 Agent Card，Agent 之间可以相互发现，了解对方的能力和版本，实现互操作',
     techHttpTitle: '技术深究：HTTP + SSE 通信',
     taskSendTitle: '任务发送（HTTP POST）',
     sseTitle: '实时推送（SSE）',
-    sseNote: 'SSE（Server-Sent Events）允许服务器主动推送消息，适合长时任务的状态更新',
+    sseNote:
+      'SSE（Server-Sent Events）允许服务器主动推送消息，适合长时任务的状态更新',
     techApiTitle: '技术深究：A2A 核心 API',
     techAuthTitle: '技术深究：认证机制',
     authCards: [
-      { name: 'API Key', desc: '简单的认证方式，适合内部 Agent 通信', codeKey: 'apiKeyExample' },
-      { name: 'OAuth 2.0', desc: '企业级认证，支持令牌刷新和权限控制', codeKey: 'oauthExample' }
+      {
+        name: 'API Key',
+        desc: '简单的认证方式，适合内部 Agent 通信',
+        codeKey: 'apiKeyExample'
+      },
+      {
+        name: 'OAuth 2.0',
+        desc: '企业级认证，支持令牌刷新和权限控制',
+        codeKey: 'oauthExample'
+      }
     ],
     flowSteps: [
       {
@@ -726,10 +802,26 @@ POST /oauth/token
 }`
     },
     apis: [
-      { method: 'GET', name: 'agents/get', desc: '获取指定 Agent 的 Agent Card，了解其能力' },
-      { method: 'POST', name: 'tasks/send', desc: '发送任务给目标 Agent，同步等待结果' },
-      { method: 'POST', name: 'tasks/sendSubscribe', desc: '发送任务并订阅 SSE 推送，实时获取进度' },
-      { method: 'GET', name: 'tasks/get', desc: '根据任务 ID 获取任务状态和结果' },
+      {
+        method: 'GET',
+        name: 'agents/get',
+        desc: '获取指定 Agent 的 Agent Card，了解其能力'
+      },
+      {
+        method: 'POST',
+        name: 'tasks/send',
+        desc: '发送任务给目标 Agent，同步等待结果'
+      },
+      {
+        method: 'POST',
+        name: 'tasks/sendSubscribe',
+        desc: '发送任务并订阅 SSE 推送，实时获取进度'
+      },
+      {
+        method: 'GET',
+        name: 'tasks/get',
+        desc: '根据任务 ID 获取任务状态和结果'
+      },
       { method: 'GET', name: 'tasks/cancel', desc: '取消正在执行的任务' }
     ]
   }

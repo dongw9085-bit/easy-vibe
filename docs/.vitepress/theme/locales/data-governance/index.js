@@ -5,4 +5,3 @@ export const dataGovernanceLocale = {
   'zh-cn': zhCn,
   en
 }
-

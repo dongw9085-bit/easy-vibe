@@ -5,4 +5,3 @@ export const serverBackendLocale = {
   'zh-cn': zhCn,
   en
 }
-

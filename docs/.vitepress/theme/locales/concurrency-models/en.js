@@ -34,9 +34,12 @@ export default {
       coroutine: 'info'
     },
     explanationTexts: {
-      process: 'Each process has its own independent memory space, strong isolation but high overhead. Inter-process communication requires IPC mechanisms. Suitable for scenarios requiring strong isolation, such as browser tabs and sandbox programs.',
-      thread: 'Threads share process memory, with lower switching overhead, but require synchronization mechanisms to protect shared data. Suitable for CPU-intensive tasks and scenarios that need shared data.',
-      coroutine: 'User-space lightweight threads, scheduled by the runtime, extremely fast switching. Suitable for I/O-intensive high-concurrency scenarios, such as web servers, gateways, and long-connection services.'
+      process:
+        'Each process has its own independent memory space, strong isolation but high overhead. Inter-process communication requires IPC mechanisms. Suitable for scenarios requiring strong isolation, such as browser tabs and sandbox programs.',
+      thread:
+        'Threads share process memory, with lower switching overhead, but require synchronization mechanisms to protect shared data. Suitable for CPU-intensive tasks and scenarios that need shared data.',
+      coroutine:
+        'User-space lightweight threads, scheduled by the runtime, extremely fast switching. Suitable for I/O-intensive high-concurrency scenarios, such as web servers, gateways, and long-connection services.'
     }
   },
 
@@ -70,8 +73,10 @@ export default {
     },
     algorithmDescriptions: {
       fifo: 'Execute threads in the order they arrive. The current thread must complete before the next one starts. Simple and fair, but may cause short tasks to wait for long ones.',
-      roundrobin: 'Each thread takes turns executing for a time slice. When the slice expires, it switches to the next thread. Good responsiveness, suitable for interactive systems.',
-      priority: 'Execution order is determined by thread priority. Higher priority threads execute first. Requires handling priority inversion and starvation issues.'
+      roundrobin:
+        'Each thread takes turns executing for a time slice. When the slice expires, it switches to the next thread. Good responsiveness, suitable for interactive systems.',
+      priority:
+        'Execution order is determined by thread priority. Higher priority threads execute first. Requires handling priority inversion and starvation issues.'
     }
   },
 
@@ -92,7 +97,8 @@ export default {
     ioWaitTime: 'I/O Wait Time',
     cpuUtilization: 'CPU Utilization',
     alertTitle: 'Advantages of async/await',
-    alertDescription: 'When a task encounters an I/O operation (such as a network request), await yields the CPU, and the event loop schedules other tasks to execute. After I/O completes, the task resumes from the suspension point. This approach allows a single thread to handle thousands of concurrent tasks.'
+    alertDescription:
+      'When a task encounters an I/O operation (such as a network request), await yields the CPU, and the event loop schedules other tasks to execute. After I/O completes, the task resumes from the suspension point. This approach allows a single thread to handle thousands of concurrent tasks.'
   },
 
   concurrentVsParallel: {
@@ -106,11 +112,14 @@ export default {
     taskExecution: 'Task Execution',
     comparisonTitle: 'Concurrency vs Parallelism',
     concurrencyTitle: 'Concurrency',
-    concurrencyDesc: 'Multiple tasks alternate execution, progressing simultaneously at a macro level',
-    concurrencyExamples: 'Single-core CPU multi-threading, coroutine scheduling, async I/O',
+    concurrencyDesc:
+      'Multiple tasks alternate execution, progressing simultaneously at a macro level',
+    concurrencyExamples:
+      'Single-core CPU multi-threading, coroutine scheduling, async I/O',
     parallelismTitle: 'Parallelism',
     parallelismDesc: 'Multiple tasks execute truly simultaneously',
-    parallelismExamples: 'Multi-core CPU computing, GPU parallel computing, distributed processing',
+    parallelismExamples:
+      'Multi-core CPU computing, GPU parallel computing, distributed processing',
     examplesLabel: 'Examples',
     needConditions: 'What Conditions Are Needed?',
     concurrencyNeed: 'Concurrency: A single-core CPU is sufficient',
@@ -172,9 +181,12 @@ export default {
       running: 'Memory Layout'
     },
     infoDescriptions: {
-      empty: 'Each process has its own independent virtual address space. A crash in one process does not affect other processes. Click "Create Process" to start the demo.',
-      crashed: 'A process has crashed but other processes are still running normally, proving that inter-process memory isolation is effective. The crashed process will have its resources reclaimed by the OS.',
-      running: '{count} processes are currently running. Each process memory is divided into code, data, heap, and stack segments, isolated from each other.'
+      empty:
+        'Each process has its own independent virtual address space. A crash in one process does not affect other processes. Click "Create Process" to start the demo.',
+      crashed:
+        'A process has crashed but other processes are still running normally, proving that inter-process memory isolation is effective. The crashed process will have its resources reclaimed by the OS.',
+      running:
+        '{count} processes are currently running. Each process memory is divided into code, data, heap, and stack segments, isolated from each other.'
     }
   },
 
@@ -190,7 +202,8 @@ export default {
     localQueue: 'Local Queue',
     bindM: 'Bound to M{id}',
     alertTitle: 'GMP Scheduling Model',
-    alertDescription: 'G (Goroutine): Tasks to be executed. M (Machine): OS threads that execute G. P (Processor): Logical processor providing execution context. G is first placed in P\'s local queue. After P binds to M, M fetches G from P for execution. When the local queue is empty, it steals tasks from the global queue or other P\'s.'
+    alertDescription:
+      "G (Goroutine): Tasks to be executed. M (Machine): OS threads that execute G. P (Processor): Logical processor providing execution context. G is first placed in P's local queue. After P binds to M, M fetches G from P for execution. When the local queue is empty, it steals tasks from the global queue or other P's."
   },
 
   coroutineLightweight: {
@@ -212,9 +225,12 @@ export default {
       large: 'Large Scale High Concurrency'
     },
     insightDescriptions: {
-      small: 'Currently {count} concurrent units. The difference between threads and coroutines is not significant yet. Try increasing to 1000+ to observe significant differences.',
-      medium: 'Using coroutines can save {savings}% of memory (about {memSaved}MB), with {speedup}x faster creation speed.',
-      large: 'In high-concurrency scenarios, coroutines have a huge advantage! Saving {savings}% memory ({memSaved}MB), {threadMem}MB vs {coroutineMem}MB. This is the key solution for the C10K/C10M problem.'
+      small:
+        'Currently {count} concurrent units. The difference between threads and coroutines is not significant yet. Try increasing to 1000+ to observe significant differences.',
+      medium:
+        'Using coroutines can save {savings}% of memory (about {memSaved}MB), with {speedup}x faster creation speed.',
+      large:
+        'In high-concurrency scenarios, coroutines have a huge advantage! Saving {savings}% memory ({memSaved}MB), {threadMem}MB vs {coroutineMem}MB. This is the key solution for the C10K/C10M problem.'
     }
   }
 }

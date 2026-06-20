@@ -234,14 +234,18 @@ export default {
       ['Human expert experience', 'Converted into IF-THEN rule bases'],
       ['Domain-specific problems', 'Reasoned answers (diagnosis/configuration)']
     ],
-    tags: ['1965: Dendral (chemistry)', '1977: MYCIN (medicine)', '1980: XCON (configuration)'],
+    tags: [
+      '1965: Dendral (chemistry)',
+      '1977: MYCIN (medicine)',
+      '1980: XCON (configuration)'
+    ],
     winterArrow: '⬇️ Limits became obvious ⬇️',
     winterTitle: 'First AI Winter (1974-1980)',
     reasons: [
       {
         icon: '📝',
         title: 'Knowledge acquisition bottleneck',
-        desc: 'Polanyi\'s paradox: humans cannot fully explain everything they know. Large amounts of common sense could not be manually encoded.'
+        desc: "Polanyi's paradox: humans cannot fully explain everything they know. Large amounts of common sense could not be manually encoded."
       },
       {
         icon: '💥',

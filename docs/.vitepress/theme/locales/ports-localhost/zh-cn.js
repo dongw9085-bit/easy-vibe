@@ -22,7 +22,8 @@ export default {
     listening: '🟢 监听中',
     closed: '🔴 已关闭',
     knockOpen: '✅ 端口 {port} 开着！{label} 服务正在监听，准备接收你的请求。',
-    knockClosed: '🚫 端口 {port} 关着！没有程序在监听这个端口，连接被拒绝 (Connection Refused)。',
+    knockClosed:
+      '🚫 端口 {port} 关着！没有程序在监听这个端口，连接被拒绝 (Connection Refused)。',
     core: '核心比喻：'
   },
   localhostLoopback: {
@@ -45,10 +46,14 @@ export default {
     portSuffix: '（:3000）',
     noLeave: '请求不离开本机',
     aliasTitle: 'localhost 的"马甲"们（点击查看说明）',
-    aliasDesc0: '这是写在你电脑 <code>/etc/hosts</code> 文件里的映射。浏览器看到 <code>localhost</code> 时，直接解析为 <code>127.0.0.1</code>，不会去问 DNS 服务器。',
-    aliasDesc1: '<code>127.0.0.1</code> 是 IPv4 的"环回地址"。发到这个地址的数据包永远不会离开本机，操作系统直接在内部把它"折返"回来。',
-    aliasDesc2: '<code>::1</code> 是 IPv6 版本的环回地址，功能和 <code>127.0.0.1</code> 完全一样，只不过是 IPv6 格式。',
-    aliasDesc3: '<code>0.0.0.0</code> 不是"某一个地址"，而是"所有地址"。当服务监听 <code>0.0.0.0:3000</code> 时，意味着无论从哪个网卡（包括局域网 IP 和 127.0.0.1）都能访问。',
+    aliasDesc0:
+      '这是写在你电脑 <code>/etc/hosts</code> 文件里的映射。浏览器看到 <code>localhost</code> 时，直接解析为 <code>127.0.0.1</code>，不会去问 DNS 服务器。',
+    aliasDesc1:
+      '<code>127.0.0.1</code> 是 IPv4 的"环回地址"。发到这个地址的数据包永远不会离开本机，操作系统直接在内部把它"折返"回来。',
+    aliasDesc2:
+      '<code>::1</code> 是 IPv6 版本的环回地址，功能和 <code>127.0.0.1</code> 完全一样，只不过是 IPv6 格式。',
+    aliasDesc3:
+      '<code>0.0.0.0</code> 不是"某一个地址"，而是"所有地址"。当服务监听 <code>0.0.0.0:3000</code> 时，意味着无论从哪个网卡（包括局域网 IP 和 127.0.0.1）都能访问。',
     coreConcept: '核心概念：'
   },
   commonPorts: {
@@ -67,9 +72,11 @@ export default {
     systemPorts: '系统端口',
     systemPortsDesc: '预留给标准服务（HTTP、SSH 等），普通用户不能随便占用。',
     registeredPorts: '注册端口',
-    registeredPortsDesc: '留给常见应用（MySQL 3306、Redis 6379 等），开发中最常遇到的范围。',
+    registeredPortsDesc:
+      '留给常见应用（MySQL 3306、Redis 6379 等），开发中最常遇到的范围。',
     dynamicPorts: '动态端口',
-    dynamicPortsDesc: '操作系统临时分配的端口，比如你的浏览器发请求时，系统会随机给你一个。',
+    dynamicPortsDesc:
+      '操作系统临时分配的端口，比如你的浏览器发请求时，系统会随机给你一个。',
     securityAlert: '安全提醒：'
   },
   portConflict: {
@@ -83,9 +90,12 @@ export default {
     running: '🟢 运行中',
     killService: '停止服务',
     solution: '解决办法：',
-    solutionDesc: '① 停掉占用端口的进程（点击上方 ✕ 按钮）；② 改用其他端口（点击"智能启动"）；③ 命令行排查：<code>lsof -i :{port}</code>',
-    conflictMsg: '❌ 端口 {port} 已被「{name}」占用！Error: EADDRINUSE :::{port}',
-    autoResolveMsg: '✅ 端口 {port} 被占用，自动换到端口 {newPort}！（很多框架会自动帮你做这件事）',
+    solutionDesc:
+      '① 停掉占用端口的进程（点击上方 ✕ 按钮）；② 改用其他端口（点击"智能启动"）；③ 命令行排查：<code>lsof -i :{port}</code>',
+    conflictMsg:
+      '❌ 端口 {port} 已被「{name}」占用！Error: EADDRINUSE :::{port}',
+    autoResolveMsg:
+      '✅ 端口 {port} 被占用，自动换到端口 {newPort}！（很多框架会自动帮你做这件事）',
     successMsg: '✅ {name} 成功启动在端口 {port}',
     killedMsg: '🗑️ 已停止「{name}」，端口 {port} 已释放',
     core: '端口冲突：'
@@ -145,12 +155,16 @@ export default {
     pageRefreshed: '🔄 页面自动刷新了！',
     httpTitle: '什么是 HTTP 服务器？',
     httpAnalogy1: '想象一个前台窗口',
-    httpAnalogy1Desc: 'HTTP 服务器就像一个"永远开着的服务窗口"——它一直等在那里，有人来问就回答，没人来就静静等着。',
+    httpAnalogy1Desc:
+      'HTTP 服务器就像一个"永远开着的服务窗口"——它一直等在那里，有人来问就回答，没人来就静静等着。',
     httpAnalogy2: '只懂一种"暗号"',
-    httpAnalogy2Desc: '这个窗口只听得懂 HTTP 协议的请求格式（比如 <code>GET /index.html</code>），然后把对应的文件内容返回给你。',
+    httpAnalogy2Desc:
+      '这个窗口只听得懂 HTTP 协议的请求格式（比如 <code>GET /index.html</code>），然后把对应的文件内容返回给你。',
     httpAnalogy3: '开发服务器 = 加强版窗口',
-    httpAnalogy3Desc: 'Vite、Webpack 的开发服务器不只是"原样返回文件"，它还会即时编译你的代码（Vue → JS、TS → JS、Sass → CSS），然后再返回给浏览器。',
+    httpAnalogy3Desc:
+      'Vite、Webpack 的开发服务器不只是"原样返回文件"，它还会即时编译你的代码（Vue → JS、TS → JS、Sass → CSS），然后再返回给浏览器。',
     summary: '一句话总结：',
-    summaryContent: '开发服务器 = 一个运行在 localhost 上的 HTTP 服务器 + 即时代码编译器。它监听某个端口，浏览器来请求，它就把编译好的代码返回。'
+    summaryContent:
+      '开发服务器 = 一个运行在 localhost 上的 HTTP 服务器 + 即时代码编译器。它监听某个端口，浏览器来请求，它就把编译好的代码返回。'
   }
 }

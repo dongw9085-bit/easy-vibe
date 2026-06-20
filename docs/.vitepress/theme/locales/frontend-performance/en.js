@@ -1,7 +1,8 @@
 export default {
   overview: {
     title: 'Frontend Performance Optimization Map',
-    subtitle: 'Select a dimension to explore bottlenecks and matching optimization techniques.',
+    subtitle:
+      'Select a dimension to explore bottlenecks and matching optimization techniques.',
     bottlenecksTitle: 'Common Bottlenecks',
     solutionsTitle: 'Solutions',
     arrowText: 'How to fix it?',
@@ -13,15 +14,40 @@ export default {
         icon: '📡',
         goal: 'Deliver resources to the browser faster by reducing size, request count, and distance.',
         bottlenecks: [
-          { title: 'Large assets', desc: 'Images and JS bundles are not compressed, so downloads take longer.' },
-          { title: 'Too many requests', desc: 'HTTP/1.1 head-of-line blocking makes resources wait in line.' },
-          { title: 'Network latency', desc: 'The server is physically far away, increasing RTT.' }
+          {
+            title: 'Large assets',
+            desc: 'Images and JS bundles are not compressed, so downloads take longer.'
+          },
+          {
+            title: 'Too many requests',
+            desc: 'HTTP/1.1 head-of-line blocking makes resources wait in line.'
+          },
+          {
+            title: 'Network latency',
+            desc: 'The server is physically far away, increasing RTT.'
+          }
         ],
         solutions: [
-          { title: 'Asset compression', desc: 'Use Gzip/Brotli and image formats such as WebP.', tags: ['Smaller size'] },
-          { title: 'Lazy loading', desc: 'Load only resources visible in the current viewport.', tags: ['Smaller size', 'Fewer requests'] },
-          { title: 'CDN acceleration', desc: 'Distribute assets to nodes close to users.', tags: ['Shorter distance'] },
-          { title: 'HTTP caching', desc: 'Use browser cache to avoid repeated requests.', tags: ['Fewer requests'] }
+          {
+            title: 'Asset compression',
+            desc: 'Use Gzip/Brotli and image formats such as WebP.',
+            tags: ['Smaller size']
+          },
+          {
+            title: 'Lazy loading',
+            desc: 'Load only resources visible in the current viewport.',
+            tags: ['Smaller size', 'Fewer requests']
+          },
+          {
+            title: 'CDN acceleration',
+            desc: 'Distribute assets to nodes close to users.',
+            tags: ['Shorter distance']
+          },
+          {
+            title: 'HTTP caching',
+            desc: 'Use browser cache to avoid repeated requests.',
+            tags: ['Fewer requests']
+          }
         ]
       },
       {
@@ -30,15 +56,40 @@ export default {
         icon: '🎨',
         goal: 'Paint the page faster by reducing reflow/repaint and using the GPU.',
         bottlenecks: [
-          { title: 'Critical path blocking', desc: 'CSS and JS block DOM tree construction.' },
-          { title: 'Frequent reflow', desc: 'Changing layout properties forces full layout recalculation.' },
-          { title: 'Animation jank', desc: 'CPU-painted animations drop below 60fps.' }
+          {
+            title: 'Critical path blocking',
+            desc: 'CSS and JS block DOM tree construction.'
+          },
+          {
+            title: 'Frequent reflow',
+            desc: 'Changing layout properties forces full layout recalculation.'
+          },
+          {
+            title: 'Animation jank',
+            desc: 'CPU-painted animations drop below 60fps.'
+          }
         ],
         solutions: [
-          { title: 'Inline critical CSS', desc: 'Place above-the-fold styles directly in HTML.', tags: ['Critical path'] },
-          { title: 'GPU acceleration', desc: 'Use transform/opacity to promote composited layers.', tags: ['Animation'] },
-          { title: 'Virtual lists', desc: 'Render only visible DOM when handling large datasets.', tags: ['DOM optimization'] },
-          { title: 'Debounce and throttle', desc: 'Reduce rendering frequency from high-rate events.', tags: ['Logic optimization'] }
+          {
+            title: 'Inline critical CSS',
+            desc: 'Place above-the-fold styles directly in HTML.',
+            tags: ['Critical path']
+          },
+          {
+            title: 'GPU acceleration',
+            desc: 'Use transform/opacity to promote composited layers.',
+            tags: ['Animation']
+          },
+          {
+            title: 'Virtual lists',
+            desc: 'Render only visible DOM when handling large datasets.',
+            tags: ['DOM optimization']
+          },
+          {
+            title: 'Debounce and throttle',
+            desc: 'Reduce rendering frequency from high-rate events.',
+            tags: ['Logic optimization']
+          }
         ]
       },
       {
@@ -47,15 +98,40 @@ export default {
         icon: '⚙️',
         goal: 'Keep the main thread responsive by reducing long tasks and parallelizing work.',
         bottlenecks: [
-          { title: 'Main thread blocking', desc: 'Long tasks prevent the page from responding to interactions.' },
-          { title: 'Wasted computation', desc: 'Unnecessary React/Vue component rerenders consume time.' },
-          { title: 'Memory leaks', desc: 'Unremoved listeners make the page slower over time.' }
+          {
+            title: 'Main thread blocking',
+            desc: 'Long tasks prevent the page from responding to interactions.'
+          },
+          {
+            title: 'Wasted computation',
+            desc: 'Unnecessary React/Vue component rerenders consume time.'
+          },
+          {
+            title: 'Memory leaks',
+            desc: 'Unremoved listeners make the page slower over time.'
+          }
         ],
         solutions: [
-          { title: 'Web Workers', desc: 'Move heavy computation to a background thread.', tags: ['Parallel'] },
-          { title: 'Code splitting', desc: 'Load JS on demand and reduce main-thread parsing pressure.', tags: ['Less work'] },
-          { title: 'Time slicing', desc: 'Split large tasks into smaller chunks.', tags: ['Responsiveness'] },
-          { title: 'Algorithm optimization', desc: 'Reduce time complexity, for example O(n²) to O(n).', tags: ['Efficiency'] }
+          {
+            title: 'Web Workers',
+            desc: 'Move heavy computation to a background thread.',
+            tags: ['Parallel']
+          },
+          {
+            title: 'Code splitting',
+            desc: 'Load JS on demand and reduce main-thread parsing pressure.',
+            tags: ['Less work']
+          },
+          {
+            title: 'Time slicing',
+            desc: 'Split large tasks into smaller chunks.',
+            tags: ['Responsiveness']
+          },
+          {
+            title: 'Algorithm optimization',
+            desc: 'Reduce time complexity, for example O(n²) to O(n).',
+            tags: ['Efficiency']
+          }
         ]
       }
     ]

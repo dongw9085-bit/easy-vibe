@@ -10,12 +10,16 @@ export default {
     answer: {
       introPrefix: 'This is the VS Code',
       menuBar: 'Menu Bar',
-      introSuffix: ', which contains entry points for the main application features.',
+      introSuffix:
+        ', which contains entry points for the main application features.',
       menuTitle: 'Common menus:',
       items: [
         { name: 'File', desc: 'Create, open, and save files or projects.' },
         { name: 'Edit', desc: 'Copy, paste, find, replace, undo, and redo.' },
-        { name: 'View', desc: 'Control what the interface shows, such as the sidebar and terminal.' },
+        {
+          name: 'View',
+          desc: 'Control what the interface shows, such as the sidebar and terminal.'
+        },
         { name: 'Terminal', desc: 'Open the integrated command-line tool.' }
       ],
       tipLabel: 'Tip',
@@ -25,7 +29,8 @@ export default {
   },
   architecture: {
     title: 'IDE Core Mechanism Simulator',
-    subtitle: 'Click the tabs below to compare runtime results and see why each part matters.',
+    subtitle:
+      'Click the tabs below to compare runtime results and see why each part matters.',
     runTitle: 'Click to run',
     runButton: '▶ Run',
     layerLabels: {
@@ -51,13 +56,15 @@ export default {
         tab: '1. Editor only',
         title: 'Scenario 1: VS Code only (plain text mode)',
         desc: 'This is like writing code in Notepad. You can type, but the editor does not understand Python.',
-        result: 'Failed: VS Code treats the code as plain text and does not know how to run it.'
+        result:
+          'Failed: VS Code treats the code as plain text and does not know how to run it.'
       },
       extension: {
         tab: '2. + Extension',
         title: 'Scenario 2: Extension installed (missing environment)',
         desc: 'The Python extension knows that Run means finding a Python program, but Python is not installed on your computer.',
-        result: 'Error: the extension generated a command, but the system cannot find "python.exe".'
+        result:
+          'Error: the extension generated a command, but the system cannot find "python.exe".'
       },
       full: {
         tab: '3. + Environment',
@@ -67,8 +74,10 @@ export default {
       }
     },
     logs: {
-      unknownFile: 'VS Code: "What kind of file is this? I do not recognize it."',
-      textEditor: 'VS Code: "I am only a text editor here, so I cannot run it."',
+      unknownFile:
+        'VS Code: "What kind of file is this? I do not recognize it."',
+      textEditor:
+        'VS Code: "I am only a text editor here, so I cannot run it."',
       missingPython: 'System: Python interpreter not found'
     }
   },
@@ -93,7 +102,10 @@ export default {
         { label: 'Save', info: 'Save: save changes' },
         { label: 'Save As...', info: 'Save as: save as a new file' },
         { label: 'Auto Save', info: 'Auto save: enable automatic saving' },
-        { label: 'Preferences', info: 'Preferences: configure themes and settings' },
+        {
+          label: 'Preferences',
+          info: 'Preferences: configure themes and settings'
+        },
         { label: 'Exit', info: 'Exit: close VS Code' }
       ],
       Edit: [
@@ -107,8 +119,14 @@ export default {
       ],
       Selection: [
         { label: 'Select All', info: 'Select all: select everything' },
-        { label: 'Expand Selection', info: 'Expand selection: include more range' },
-        { label: 'Shrink Selection', info: 'Shrink selection: reduce the range' }
+        {
+          label: 'Expand Selection',
+          info: 'Expand selection: include more range'
+        },
+        {
+          label: 'Shrink Selection',
+          info: 'Shrink selection: reduce the range'
+        }
       ],
       View: [
         { label: 'Command Palette...', info: 'Command Palette: run commands' },
@@ -123,13 +141,19 @@ export default {
         { label: 'Go to Symbol...', info: 'Go to symbol: jump to definitions' }
       ],
       Debug: [
-        { label: 'Start Debugging', info: 'Start debugging: run with debugger' },
+        {
+          label: 'Start Debugging',
+          info: 'Start debugging: run with debugger'
+        },
         { label: 'Run Without Debugging', info: 'Run: run directly' },
         { label: 'Stop Debugging', info: 'Stop: end debugging' }
       ],
       Terminal: [
         { label: 'New Terminal', info: 'New terminal: open a command line' },
-        { label: 'Split Terminal', info: 'Split terminal: show terminals side by side' },
+        {
+          label: 'Split Terminal',
+          info: 'Split terminal: show terminals side by side'
+        },
         { label: 'Run Task...', info: 'Run task: execute a configured task' }
       ],
       Help: [

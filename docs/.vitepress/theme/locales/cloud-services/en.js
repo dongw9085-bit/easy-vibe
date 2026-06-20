@@ -7,7 +7,8 @@ export default {
         icon: '⚙️',
         name: 'Compute',
         examples: 'EC2 / ECS',
-        description: 'Virtual servers and compute capacity, the foundation of cloud services.',
+        description:
+          'Virtual servers and compute capacity, the foundation of cloud services.',
         aws: 'Amazon EC2',
         aliyun: 'ECS cloud server'
       },
@@ -16,7 +17,8 @@ export default {
         icon: '💾',
         name: 'Storage',
         examples: 'S3 / OSS',
-        description: 'Object storage for images, documents, backups, and other files.',
+        description:
+          'Object storage for images, documents, backups, and other files.',
         aws: 'Amazon S3',
         aliyun: 'OSS object storage'
       },
@@ -74,10 +76,30 @@ export default {
       { id: 'singapore', name: 'Asia Pacific - Singapore' }
     ],
     specs: [
-      { id: 'small', name: '1 vCPU / 2 GB', scene: 'Test environments and personal blogs', price: 89 },
-      { id: 'medium', name: '2 vCPU / 4 GB', scene: 'Small apps and development environments', price: 199 },
-      { id: 'large', name: '4 vCPU / 8 GB', scene: 'Production environments and medium sites', price: 399 },
-      { id: 'xlarge', name: '8 vCPU / 16 GB', scene: 'Large applications and databases', price: 799 }
+      {
+        id: 'small',
+        name: '1 vCPU / 2 GB',
+        scene: 'Test environments and personal blogs',
+        price: 89
+      },
+      {
+        id: 'medium',
+        name: '2 vCPU / 4 GB',
+        scene: 'Small apps and development environments',
+        price: 199
+      },
+      {
+        id: 'large',
+        name: '4 vCPU / 8 GB',
+        scene: 'Production environments and medium sites',
+        price: 399
+      },
+      {
+        id: 'xlarge',
+        name: '8 vCPU / 16 GB',
+        scene: 'Large applications and databases',
+        price: 799
+      }
     ],
     images: [
       { id: 'ubuntu', name: 'Ubuntu 22.04' },
@@ -97,31 +119,55 @@ export default {
         name: 'Prepare code',
         time: '5 min',
         description: 'Package the website code into a deployable format.',
-        tasks: ['Organize HTML/CSS/JS files', 'Compress images and static assets', 'Check that file paths are correct']
+        tasks: [
+          'Organize HTML/CSS/JS files',
+          'Compress images and static assets',
+          'Check that file paths are correct'
+        ]
       },
       {
         name: 'Create bucket',
         time: '2 min',
         description: 'Create storage space in an object storage service.',
-        tasks: ['Log in to the cloud console', 'Open OSS or S3 object storage', 'Click "Create Bucket"', 'Set the bucket name and region']
+        tasks: [
+          'Log in to the cloud console',
+          'Open OSS or S3 object storage',
+          'Click "Create Bucket"',
+          'Set the bucket name and region'
+        ]
       },
       {
         name: 'Upload files',
         time: '3 min',
         description: 'Upload website files to the bucket.',
-        tasks: ['Open the bucket management page', 'Click "Upload files"', 'Choose local website files', 'Wait for upload completion']
+        tasks: [
+          'Open the bucket management page',
+          'Click "Upload files"',
+          'Choose local website files',
+          'Wait for upload completion'
+        ]
       },
       {
         name: 'Configure CDN',
         time: '5 min',
         description: 'Configure content delivery network acceleration.',
-        tasks: ['Open the CDN console', 'Add an accelerated domain', 'Set the origin to the bucket', 'Wait for CDN deployment']
+        tasks: [
+          'Open the CDN console',
+          'Add an accelerated domain',
+          'Set the origin to the bucket',
+          'Wait for CDN deployment'
+        ]
       },
       {
         name: 'Bind domain',
         time: '10 min',
         description: 'Bind a custom domain to the CDN.',
-        tasks: ['Add DNS records', 'Point CNAME to the CDN', 'Request an SSL certificate', 'Test HTTPS access']
+        tasks: [
+          'Add DNS records',
+          'Point CNAME to the CDN',
+          'Request an SSL certificate',
+          'Test HTTPS access'
+        ]
       }
     ]
   },
@@ -146,8 +192,10 @@ export default {
     },
     recommendations: {
       lowUsage: 'Usage is low, so on-demand billing is recommended.',
-      stable: 'The workload is stable. Switching to reserved instances can save {saving}%.',
-      reserved: 'Reserved instances are more cost-effective for this configuration.'
+      stable:
+        'The workload is stable. Switching to reserved instances can save {saving}%.',
+      reserved:
+        'Reserved instances are more cost-effective for this configuration.'
     }
   },
   storageType: {

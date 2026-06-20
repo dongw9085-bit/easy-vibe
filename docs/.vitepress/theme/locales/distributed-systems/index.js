@@ -5,4 +5,3 @@ export const distributedSystemsLocale = {
   'zh-cn': zhCn,
   en
 }
-

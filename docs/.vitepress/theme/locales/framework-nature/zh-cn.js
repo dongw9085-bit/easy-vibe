@@ -15,12 +15,49 @@ export default {
     infoStrong: '核心思想：',
     info: '组件化就是把一个大页面拆成多个独立的小块。每个组件管理自己的数据、界面和样式，互不干扰。同一个组件可以在不同地方复用多次，传入不同的数据就会显示不同的内容。',
     components: [
-      { id: 'app', name: 'App（根组件）', icon: '📱', depth: 0, desc: '整个应用的根组件，包含所有其他组件。' },
-      { id: 'navbar', name: 'NavBar（导航栏）', icon: '🧭', depth: 1, desc: '页面顶部的导航栏，包含 Logo、搜索框和购物车入口。' },
-      { id: 'search', name: 'SearchBox（搜索框）', icon: '🔍', depth: 2, desc: '独立的搜索框组件，管理搜索关键词和搜索结果。' },
-      { id: 'cart', name: 'CartIcon（购物车图标）', icon: '🛒', depth: 2, desc: '显示购物车数量的小图标，数据来自全局购物车状态。' },
-      { id: 'product', name: 'ProductCard（商品卡片）', icon: '📦', depth: 1, reused: 3, desc: '单个商品的展示卡片。写一次代码，传入不同的商品数据就能复用多次，每次显示不同的商品信息。' },
-      { id: 'footer', name: 'Footer（页脚）', icon: '📄', depth: 1, desc: '页面底部信息，一般包含版权声明等。' }
+      {
+        id: 'app',
+        name: 'App（根组件）',
+        icon: '📱',
+        depth: 0,
+        desc: '整个应用的根组件，包含所有其他组件。'
+      },
+      {
+        id: 'navbar',
+        name: 'NavBar（导航栏）',
+        icon: '🧭',
+        depth: 1,
+        desc: '页面顶部的导航栏，包含 Logo、搜索框和购物车入口。'
+      },
+      {
+        id: 'search',
+        name: 'SearchBox（搜索框）',
+        icon: '🔍',
+        depth: 2,
+        desc: '独立的搜索框组件，管理搜索关键词和搜索结果。'
+      },
+      {
+        id: 'cart',
+        name: 'CartIcon（购物车图标）',
+        icon: '🛒',
+        depth: 2,
+        desc: '显示购物车数量的小图标，数据来自全局购物车状态。'
+      },
+      {
+        id: 'product',
+        name: 'ProductCard（商品卡片）',
+        icon: '📦',
+        depth: 1,
+        reused: 3,
+        desc: '单个商品的展示卡片。写一次代码，传入不同的商品数据就能复用多次，每次显示不同的商品信息。'
+      },
+      {
+        id: 'footer',
+        name: 'Footer（页脚）',
+        icon: '📄',
+        depth: 1,
+        desc: '页面底部信息，一般包含版权声明等。'
+      }
     ]
   },
   dataUIGap: {
@@ -73,12 +110,14 @@ export default {
     running: '执行中...',
     start: '开始对比',
     slowBadge: '逐个操作 DOM',
-    slowDesc: '每修改一次数据 → 立刻操作一次真实 DOM → 浏览器每次都要重新布局和绘制',
+    slowDesc:
+      '每修改一次数据 → 立刻操作一次真实 DOM → 浏览器每次都要重新布局和绘制',
     timeLabel: '模拟耗时',
     slowStep: '修改 → 布局 → 绘制',
     repeatStep: '... 重复 {count} 次 ...',
     fastBadge: '批量计算后一次性操作',
-    fastDesc: '所有修改先在内存中计算好 → 最后只操作一次真实 DOM → 浏览器只需要重新布局和绘制一次',
+    fastDesc:
+      '所有修改先在内存中计算好 → 最后只操作一次真实 DOM → 浏览器只需要重新布局和绘制一次',
     memoryStep: '内存中计算 {count} 次变化',
     commitStep: '一次性提交 → 布局 → 绘制',
     savings: '批量操作节省了',
@@ -96,13 +135,69 @@ export default {
     bundleSize: '打包体积',
     devExperience: '开发体验',
     trendStrong: '趋势：',
-    trend: '趋势很明确：框架在不断将工作从运行时移向编译时，目标是同时实现更好的开发体验和更优的运行性能。',
+    trend:
+      '趋势很明确：框架在不断将工作从运行时移向编译时，目标是同时实现更好的开发体验和更优的运行性能。',
     frameworks: {
-      react: { id: 'react', name: 'React', short: 'R', emoji: '⚛️', percent: 20, runtimePercent: 80, compilePercent: 20, bundleSize: '中等', devExperience: '★★★★☆', summary: '运行时为主：虚拟 DOM + Reconciliation' },
-      vue3: { id: 'vue3', name: 'Vue 3', short: 'V', emoji: '💚', percent: 40, runtimePercent: 60, compilePercent: 40, bundleSize: '中等', devExperience: '★★★★★', summary: '混合：编译优化模板 + 运行时虚拟 DOM' },
-      vapor: { id: 'vapor', name: 'Vue Vapor', short: 'Vp', emoji: '🌫️', percent: 60, runtimePercent: 40, compilePercent: 60, bundleSize: '较小', devExperience: '★★★★☆', summary: '编译时为主：跳过虚拟 DOM，编译生成直接操作' },
-      svelte: { id: 'svelte', name: 'Svelte', short: 'S', emoji: '🔥', percent: 80, runtimePercent: 20, compilePercent: 80, bundleSize: '最小', devExperience: '★★★★☆', summary: '编译时为主：编译时生成精确 DOM 更新代码' },
-      solid: { id: 'solid', name: 'Solid.js', short: 'Sd', emoji: '⬆️', percent: 90, runtimePercent: 10, compilePercent: 90, bundleSize: '最小', devExperience: '★★★★☆', summary: '纯编译时：细粒度响应式，无虚拟 DOM' }
+      react: {
+        id: 'react',
+        name: 'React',
+        short: 'R',
+        emoji: '⚛️',
+        percent: 20,
+        runtimePercent: 80,
+        compilePercent: 20,
+        bundleSize: '中等',
+        devExperience: '★★★★☆',
+        summary: '运行时为主：虚拟 DOM + Reconciliation'
+      },
+      vue3: {
+        id: 'vue3',
+        name: 'Vue 3',
+        short: 'V',
+        emoji: '💚',
+        percent: 40,
+        runtimePercent: 60,
+        compilePercent: 40,
+        bundleSize: '中等',
+        devExperience: '★★★★★',
+        summary: '混合：编译优化模板 + 运行时虚拟 DOM'
+      },
+      vapor: {
+        id: 'vapor',
+        name: 'Vue Vapor',
+        short: 'Vp',
+        emoji: '🌫️',
+        percent: 60,
+        runtimePercent: 40,
+        compilePercent: 60,
+        bundleSize: '较小',
+        devExperience: '★★★★☆',
+        summary: '编译时为主：跳过虚拟 DOM，编译生成直接操作'
+      },
+      svelte: {
+        id: 'svelte',
+        name: 'Svelte',
+        short: 'S',
+        emoji: '🔥',
+        percent: 80,
+        runtimePercent: 20,
+        compilePercent: 80,
+        bundleSize: '最小',
+        devExperience: '★★★★☆',
+        summary: '编译时为主：编译时生成精确 DOM 更新代码'
+      },
+      solid: {
+        id: 'solid',
+        name: 'Solid.js',
+        short: 'Sd',
+        emoji: '⬆️',
+        percent: 90,
+        runtimePercent: 10,
+        compilePercent: 90,
+        bundleSize: '最小',
+        devExperience: '★★★★☆',
+        summary: '纯编译时：细粒度响应式，无虚拟 DOM'
+      }
     }
   },
   reactivityMechanism: {
@@ -174,9 +269,21 @@ export default {
     parseLabel: '浏览器解析',
     treeTitle: '浏览器生成的 DOM 树',
     explanations: [
-      { icon: '📄', title: '节点（Node）', text: 'DOM 树上的每一个方块就是一个节点。每个 HTML 标签（如 <code>&lt;h1&gt;</code>、<code>&lt;p&gt;</code>）都对应一个节点。' },
-      { icon: '🌳', title: '父子关系', text: '标签嵌套在另一个标签里面，在 DOM 树上就是父节点和子节点的关系。<code>&lt;body&gt;</code> 里包含 <code>&lt;h1&gt;</code>，所以 body 是 h1 的父节点。' },
-      { icon: '✏️', title: 'DOM 操作', text: 'JavaScript 可以增加、删除、修改 DOM 树上的节点。修改节点后，浏览器会重新计算布局并重新绘制页面，这就是“DOM 操作”。' }
+      {
+        icon: '📄',
+        title: '节点（Node）',
+        text: 'DOM 树上的每一个方块就是一个节点。每个 HTML 标签（如 <code>&lt;h1&gt;</code>、<code>&lt;p&gt;</code>）都对应一个节点。'
+      },
+      {
+        icon: '🌳',
+        title: '父子关系',
+        text: '标签嵌套在另一个标签里面，在 DOM 树上就是父节点和子节点的关系。<code>&lt;body&gt;</code> 里包含 <code>&lt;h1&gt;</code>，所以 body 是 h1 的父节点。'
+      },
+      {
+        icon: '✏️',
+        title: 'DOM 操作',
+        text: 'JavaScript 可以增加、删除、修改 DOM 树上的节点。修改节点后，浏览器会重新计算布局并重新绘制页面，这就是“DOM 操作”。'
+      }
     ],
     infoStrong: '关键概念：',
     info: 'DOM 是浏览器在内存中维护的一棵树，它和你写的 HTML 一一对应。JavaScript 无法直接修改 HTML 文件，它修改的是这棵 DOM 树——浏览器再根据 DOM 树的变化更新屏幕上的显示。',
@@ -222,7 +329,14 @@ export default {
     separator: '、',
     infoStrong: '核心思想：',
     info: '前端框架的本质价值在于“自动同步”——你只需修改数据，框架保证所有依赖该数据的 UI 自动更新，不会遗漏。',
-    products: ['耳机 ¥99', '键盘 ¥199', '鼠标 ¥59', '显示器 ¥1299', '摄像头 ¥149', '音箱 ¥79'],
+    products: [
+      '耳机 ¥99',
+      '键盘 ¥199',
+      '鼠标 ¥59',
+      '显示器 ¥1299',
+      '摄像头 ¥149',
+      '音箱 ¥79'
+    ],
     areas: {
       count: '购物车数量',
       list: '商品列表',
@@ -268,9 +382,11 @@ export default {
     runAgain: '再执行一次',
     reset: '重置',
     nativeInfoStrong: '为什么不自动？',
-    nativeInfo: 'JavaScript 的变量是“无感知”的。你执行 <code>count = 4</code> 时，JavaScript 引擎只是把内存中 count 的值从 3 改成 4，仅此而已。它不会通知任何人，不会触发任何回调，不会去检查页面上哪里显示了 count。所以界面不会有任何变化——除非你自己写代码去更新 DOM。',
+    nativeInfo:
+      'JavaScript 的变量是“无感知”的。你执行 <code>count = 4</code> 时，JavaScript 引擎只是把内存中 count 的值从 3 改成 4，仅此而已。它不会通知任何人，不会触发任何回调，不会去检查页面上哪里显示了 count。所以界面不会有任何变化——除非你自己写代码去更新 DOM。',
     frameworkInfoStrong: '框架怎么做到的？',
-    frameworkInfo: '框架把你的数据用特殊机制包裹起来。以 Vue 为例，它用 JavaScript 的 Proxy（代理）功能拦截你对变量的赋值操作。当你写 <code>count = 4</code> 时，Proxy 会在赋值的同时自动执行一段“通知”代码，告诉框架“count 变了”，框架再去找到所有用到 count 的 DOM 节点并更新它们。整个过程你不需要写任何额外代码。'
+    frameworkInfo:
+      '框架把你的数据用特殊机制包裹起来。以 Vue 为例，它用 JavaScript 的 Proxy（代理）功能拦截你对变量的赋值操作。当你写 <code>count = 4</code> 时，Proxy 会在赋值的同时自动执行一段“通知”代码，告诉框架“count 变了”，框架再去找到所有用到 count 的 DOM 节点并更新它们。整个过程你不需要写任何额外代码。'
   },
   frameworkMotivation: {
     cards: [

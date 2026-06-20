@@ -5,4 +5,3 @@ export const dockerContainersLocale = {
   'zh-cn': zhCn,
   en
 }
-

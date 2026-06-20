@@ -18,10 +18,26 @@ export default {
           { title: '网络延迟', desc: '服务器物理距离远，RTT 时间长' }
         ],
         solutions: [
-          { title: '资源压缩', desc: 'Gzip/Brotli, 图片格式转换 (WebP)', tags: ['减体积'] },
-          { title: '懒加载', desc: '只加载当前视口可见的资源', tags: ['减体积', '减次数'] },
-          { title: 'CDN 加速', desc: '将资源分发到离用户最近的节点', tags: ['缩短距离'] },
-          { title: 'HTTP 缓存', desc: '利用浏览器缓存，避免重复请求', tags: ['减次数'] }
+          {
+            title: '资源压缩',
+            desc: 'Gzip/Brotli, 图片格式转换 (WebP)',
+            tags: ['减体积']
+          },
+          {
+            title: '懒加载',
+            desc: '只加载当前视口可见的资源',
+            tags: ['减体积', '减次数']
+          },
+          {
+            title: 'CDN 加速',
+            desc: '将资源分发到离用户最近的节点',
+            tags: ['缩短距离']
+          },
+          {
+            title: 'HTTP 缓存',
+            desc: '利用浏览器缓存，避免重复请求',
+            tags: ['减次数']
+          }
         ]
       },
       {
@@ -35,10 +51,26 @@ export default {
           { title: '动画卡顿', desc: '使用 CPU 绘制动画，帧率低于 60fps' }
         ],
         solutions: [
-          { title: '关键 CSS 内联', desc: '首屏样式直接写在 HTML 中', tags: ['关键路径'] },
-          { title: 'GPU 加速', desc: '使用 transform/opacity 触发合成层', tags: ['动画'] },
-          { title: '虚拟列表', desc: '只渲染可见 DOM，处理海量数据', tags: ['DOM 优化'] },
-          { title: '防抖节流', desc: '减少高频事件触发渲染的频率', tags: ['逻辑优化'] }
+          {
+            title: '关键 CSS 内联',
+            desc: '首屏样式直接写在 HTML 中',
+            tags: ['关键路径']
+          },
+          {
+            title: 'GPU 加速',
+            desc: '使用 transform/opacity 触发合成层',
+            tags: ['动画']
+          },
+          {
+            title: '虚拟列表',
+            desc: '只渲染可见 DOM，处理海量数据',
+            tags: ['DOM 优化']
+          },
+          {
+            title: '防抖节流',
+            desc: '减少高频事件触发渲染的频率',
+            tags: ['逻辑优化']
+          }
         ]
       },
       {
@@ -52,10 +84,26 @@ export default {
           { title: '内存泄漏', desc: '未清理的监听器导致页面越来越卡' }
         ],
         solutions: [
-          { title: 'Web Workers', desc: '将复杂计算移到后台线程', tags: ['并行'] },
-          { title: '代码分割', desc: '按需加载 JS，减少主线程解析压力', tags: ['减负'] },
-          { title: '时间切片', desc: '将大任务拆分为多个小任务', tags: ['响应'] },
-          { title: '算法优化', desc: '降低时间复杂度 (如 O(n²) -> O(n))', tags: ['效率'] }
+          {
+            title: 'Web Workers',
+            desc: '将复杂计算移到后台线程',
+            tags: ['并行']
+          },
+          {
+            title: '代码分割',
+            desc: '按需加载 JS，减少主线程解析压力',
+            tags: ['减负']
+          },
+          {
+            title: '时间切片',
+            desc: '将大任务拆分为多个小任务',
+            tags: ['响应']
+          },
+          {
+            title: '算法优化',
+            desc: '降低时间复杂度 (如 O(n²) -> O(n))',
+            tags: ['效率']
+          }
         ]
       }
     ]

@@ -5,4 +5,3 @@ export const systemDesignMethodologyLocale = {
   'zh-cn': zhCn,
   en
 }
-

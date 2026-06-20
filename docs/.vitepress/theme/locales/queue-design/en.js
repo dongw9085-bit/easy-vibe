@@ -26,17 +26,39 @@ export default {
     syncCalls: [
       { id: 1, service: 'Call inventory service', status: 'Processing...' },
       { id: 2, service: 'Call points service', status: 'Processing...' },
-      { id: 3, service: 'Call notification service', status: 'Failed! Order rolled back' }
+      {
+        id: 3,
+        service: 'Call notification service',
+        status: 'Failed! Order rolled back'
+      }
     ],
     problems: [
-      { term: 'Strong dependency: ', desc: 'notification failure blocks order creation' },
-      { term: 'Slow response: ', desc: 'total time = 300ms + 500ms + 400ms = 1200ms' },
-      { term: 'Hard to extend: ', desc: 'adding a service requires changing order code' }
+      {
+        term: 'Strong dependency: ',
+        desc: 'notification failure blocks order creation'
+      },
+      {
+        term: 'Slow response: ',
+        desc: 'total time = 300ms + 500ms + 400ms = 1200ms'
+      },
+      {
+        term: 'Hard to extend: ',
+        desc: 'adding a service requires changing order code'
+      }
     ],
     benefits: [
-      { term: 'Independent operation: ', desc: 'notification failures do not block order creation' },
-      { term: 'Fast response: ', desc: 'the order service only spends 50ms sending a message' },
-      { term: 'Easy extension: ', desc: 'new consumers can be added without changing order code' }
+      {
+        term: 'Independent operation: ',
+        desc: 'notification failures do not block order creation'
+      },
+      {
+        term: 'Fast response: ',
+        desc: 'the order service only spends 50ms sending a message'
+      },
+      {
+        term: 'Easy extension: ',
+        desc: 'new consumers can be added without changing order code'
+      }
     ]
   },
   peakShaving: {
@@ -65,7 +87,8 @@ export default {
     principleMiddle: ', extra requests are stored in the ',
     queue: 'message queue',
     orangeArea: ' (orange area).',
-    principleEnd: 'After the traffic peak passes, the system keeps processing the backlog at full speed until the queue is empty. This is peak shaving.'
+    principleEnd:
+      'After the traffic peak passes, the system keeps processing the backlog at full speed until the queue is empty. This is peak shaving.'
   },
   reliability: {
     title: 'Message Reliability Demo',
@@ -83,7 +106,8 @@ export default {
     broker: 'Broker',
     receiveAndStore: 'Receive and store',
     sendAndWait: 'Send and wait for ACK',
-    producerTip: 'If no ACK is received, the producer retries or records a local log.',
+    producerTip:
+      'If no ACK is received, the producer retries or records a local log.',
     memoryStorage: 'Memory storage',
     memoryDesc: 'Fast, but lost on restart',
     highRisk: '❌ High risk',
@@ -91,7 +115,8 @@ export default {
     diskDesc: 'Persisted to avoid loss',
     recommended: '✅ Recommended',
     replication: 'Multi-replica sync',
-    replicationDetail: 'Messages are synced to 3 nodes, so data is not lost even if 1 node fails.',
+    replicationDetail:
+      'Messages are synced to 3 nodes, so data is not lost even if 1 node fails.',
     storageMode: 'Storage mode',
     memory: 'Memory',
     disk: 'Disk',
@@ -110,7 +135,8 @@ export default {
     manualAckReliable: 'Reliable, ACK after processing',
     simulateConsume: 'Simulate consumption',
     startConsume: 'Start consumption flow',
-    consumeTip: 'If processing fails, no ACK is sent and the Broker redelivers.',
+    consumeTip:
+      'If processing fails, no ACK is sent and the Broker redelivers.',
     summaryTitle: 'All three defense lines are required:',
     summary: 'Producer ACK → Broker persistence → Consumer ACK',
     sending: 'Sending...',
@@ -134,7 +160,8 @@ export default {
     disabled: 'Disabled',
     processing: 'Processing...',
     simulateDuplicate: 'Simulate duplicate consumption',
-    uniqueIdInfo: 'Each transaction has a unique ID, so duplicate requests are filtered automatically.',
+    uniqueIdInfo:
+      'Each transaction has a unique ID, so duplicate requests are filtered automatically.',
     logTitle: 'Processing log',
     emptyLog: 'No logs yet. Click the button to start.',
     noProtection: '❌ No idempotence protection',
@@ -143,13 +170,15 @@ export default {
     duplicateDebit: 'Duplicate consumption causes multiple debits',
     filteredOnce: 'Duplicate requests are filtered, so debit happens once',
     elevatorTitle: '✅ Naturally idempotent operation: elevator button',
-    elevatorSubtitle: 'No matter how many times it is pressed, the elevator handles one request',
+    elevatorSubtitle:
+      'No matter how many times it is pressed, the elevator handles one request',
     elevatorPanel: 'Elevator button panel',
     pressedPrefix: 'Pressed',
     pressedSuffix: 'times',
     rapidPress: 'Press 3 times quickly',
     clickRepeatedly: '🚀 Click repeatedly',
-    elevatorInfo: 'Pressed {count} times, but the elevator handles only one request.',
+    elevatorInfo:
+      'Pressed {count} times, but the elevator handles only one request.',
     whyElevator: 'Why is an elevator button idempotent?',
     explanations: [
       'State changes once: idle → selected',
@@ -157,11 +186,14 @@ export default {
       'No extra idempotence protection is required'
     ],
     principleTitle: 'Core idempotence principle:',
-    transferPrinciple: 'Generate a unique ID for each message and check whether it was processed before doing the operation.',
-    elevatorPrinciple: 'Design operations so repeated execution has the same effect as one execution.',
+    transferPrinciple:
+      'Generate a unique ID for each message and check whether it was processed before doing the operation.',
+    elevatorPrinciple:
+      'Design operations so repeated execution has the same effect as one execution.',
     logRequest: 'Received transfer request: ¥100',
     logSuccess: 'Attempt {attempt}: transferred ¥100 successfully',
-    logRecorded: 'Idempotence check: unique ID recorded, later requests filtered',
+    logRecorded:
+      'Idempotence check: unique ID recorded, later requests filtered',
     logDuplicate: 'Attempt {attempt}: duplicate request ignored',
     logTransfer: 'Attempt {attempt}: transferred ¥100'
   }

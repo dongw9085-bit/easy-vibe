@@ -6,35 +6,74 @@ export default {
     db: '数据库 (MySQL / PostgreSQL)',
     commonMistakes: '常见错误：',
     layers: [
-      { id: 'controller', name: 'Controller', badge: '入口', duty: '接收请求、参数校验、调用 Service' },
-      { id: 'service', name: 'Service', badge: '业务核心', duty: '业务逻辑编排、事务管理、跨模块协调' },
-      { id: 'repository', name: 'Repository', badge: '数据访问', duty: '数据持久化、查询封装、ORM 映射' },
-      { id: 'domain', name: 'Domain', badge: '领域模型', duty: '实体定义、业务规则、值对象' }
+      {
+        id: 'controller',
+        name: 'Controller',
+        badge: '入口',
+        duty: '接收请求、参数校验、调用 Service'
+      },
+      {
+        id: 'service',
+        name: 'Service',
+        badge: '业务核心',
+        duty: '业务逻辑编排、事务管理、跨模块协调'
+      },
+      {
+        id: 'repository',
+        name: 'Repository',
+        badge: '数据访问',
+        duty: '数据持久化、查询封装、ORM 映射'
+      },
+      {
+        id: 'domain',
+        name: 'Domain',
+        badge: '领域模型',
+        duty: '实体定义、业务规则、值对象'
+      }
     ],
     infoMap: {
       controller: {
         title: 'Controller 层 — 请求的"门童"',
         desc: '负责接收 HTTP 请求、解析参数、进行基础校验，然后调用 Service 层处理业务。',
-        analogy: '就像餐厅的门童，负责迎接客人、检查预约、引导入座，但不负责做菜。',
-        mistakes: ['在 Controller 里写业务逻辑', '直接操作数据库', '不做参数校验']
+        analogy:
+          '就像餐厅的门童，负责迎接客人、检查预约、引导入座，但不负责做菜。',
+        mistakes: [
+          '在 Controller 里写业务逻辑',
+          '直接操作数据库',
+          '不做参数校验'
+        ]
       },
       service: {
         title: 'Service 层 — 业务逻辑的"厨师"',
         desc: '编排业务逻辑、管理事务、协调多个 Repository。包含所有的业务规则和流程。',
         analogy: '就像餐厅的厨师，按照菜谱做菜，协调各种食材，把控菜品质量。',
-        mistakes: ['Service 之间循环依赖', '直接写 SQL', '单个方法过长包含多个业务场景']
+        mistakes: [
+          'Service 之间循环依赖',
+          '直接写 SQL',
+          '单个方法过长包含多个业务场景'
+        ]
       },
       repository: {
         title: 'Repository 层 — 数据的"仓管"',
         desc: '封装所有数据访问逻辑，上层不需要关心具体的数据库类型和 SQL 语句。',
-        analogy: '就像仓管员，负责从仓库取食材、存放剩余食材，厨师只需说要什么。',
-        mistakes: ['在 Repository 里写业务逻辑', '直接返回实体给前端', '一个 Repository 操作多个表']
+        analogy:
+          '就像仓管员，负责从仓库取食材、存放剩余食材，厨师只需说要什么。',
+        mistakes: [
+          '在 Repository 里写业务逻辑',
+          '直接返回实体给前端',
+          '一个 Repository 操作多个表'
+        ]
       },
       domain: {
         title: 'Domain 层 — 业务概念的"蓝图"',
         desc: '定义实体、值对象、业务规则。是所有层的依赖基础，但不依赖任何其他层。',
-        analogy: '就像菜单和菜品标准，定义了什么是"宫保鸡丁"、用什么食材、什么口味。',
-        mistakes: ['Domain 包含持久化注解', '在 Domain 里写数据库操作', 'Domain 对象之间循环依赖']
+        analogy:
+          '就像菜单和菜品标准，定义了什么是"宫保鸡丁"、用什么食材、什么口味。',
+        mistakes: [
+          'Domain 包含持久化注解',
+          '在 Domain 里写数据库操作',
+          'Domain 对象之间循环依赖'
+        ]
       }
     }
   },
@@ -56,7 +95,11 @@ Content-Type: application/json
     @Size(min = 6, message = "密码至少6位") private String password;
 }`,
     validationDetailTitle: '为什么校验要放在 Controller？',
-    validationDetails: ['第一道防线：尽早拦截非法请求', '减轻下游压力：Service 层可以假设数据已清洗', '关注点分离：Service 专注于业务，不处理格式验证'],
+    validationDetails: [
+      '第一道防线：尽早拦截非法请求',
+      '减轻下游压力：Service 层可以假设数据已清洗',
+      '关注点分离：Service 专注于业务，不处理格式验证'
+    ],
     responseArrow: '↓ 返回结果',
     responseLabel: 'Controller 封装响应返回',
     responseCode: `HTTP/1.1 200 OK
@@ -108,10 +151,30 @@ public OrderDTO createOrder(CreateOrderRequest request) {
     return convertToDTO(order);
 }`,
             subs: [
-              { icon: '✅', name: '检查并扣减库存', desc: '确保库存充足', status: '成功' },
-              { icon: '📝', name: '创建订单记录', desc: '生成订单主表', status: '成功' },
-              { icon: '💳', name: '创建支付记录', desc: '初始化待支付', status: '成功' },
-              { icon: '🔄', name: '事务提交', desc: '原子性提交', status: '已提交' }
+              {
+                icon: '✅',
+                name: '检查并扣减库存',
+                desc: '确保库存充足',
+                status: '成功'
+              },
+              {
+                icon: '📝',
+                name: '创建订单记录',
+                desc: '生成订单主表',
+                status: '成功'
+              },
+              {
+                icon: '💳',
+                name: '创建支付记录',
+                desc: '初始化待支付',
+                status: '成功'
+              },
+              {
+                icon: '🔄',
+                name: '事务提交',
+                desc: '原子性提交',
+                status: '已提交'
+              }
             ]
           },
           {
@@ -152,11 +215,36 @@ public RefundDTO processRefund(Long orderId, RefundRequest request) {
     return convertToDTO(saveRefundRecord(orderId, amount, request));
 }`,
             subs: [
-              { icon: '🔍', name: '验证订单状态', desc: '检查是否可退款', status: '通过' },
-              { icon: '💰', name: '计算退款金额', desc: '根据规则计算', status: '完成' },
-              { icon: '🏦', name: '调用支付渠道', desc: '请求第三方退款', status: '处理中' },
-              { icon: '📝', name: '更新订单状态', desc: '标记为退款中', status: '已更新' },
-              { icon: '🔄', name: '异步恢复库存', desc: '后台恢复库存', status: '已提交' }
+              {
+                icon: '🔍',
+                name: '验证订单状态',
+                desc: '检查是否可退款',
+                status: '通过'
+              },
+              {
+                icon: '💰',
+                name: '计算退款金额',
+                desc: '根据规则计算',
+                status: '完成'
+              },
+              {
+                icon: '🏦',
+                name: '调用支付渠道',
+                desc: '请求第三方退款',
+                status: '处理中'
+              },
+              {
+                icon: '📝',
+                name: '更新订单状态',
+                desc: '标记为退款中',
+                status: '已更新'
+              },
+              {
+                icon: '🔄',
+                name: '异步恢复库存',
+                desc: '后台恢复库存',
+                status: '已提交'
+              }
             ]
           }
         ]
@@ -191,10 +279,30 @@ public void generateReportAsync(Long taskId) {
     reportTaskRepository.save(task);
 }`,
             subs: [
-              { icon: '📥', name: '多数据源查询', desc: 'Orders/Payments/Refunds', status: '已查询' },
-              { icon: '🔄', name: '数据聚合清洗', desc: '关联数据、处理缺失值', status: '已完成' },
-              { icon: '📊', name: '计算业务指标', desc: 'GMV、订单数、客单价', status: '已计算' },
-              { icon: '📄', name: '导出 Excel', desc: '生成并上传至 OSS', status: '已完成' }
+              {
+                icon: '📥',
+                name: '多数据源查询',
+                desc: 'Orders/Payments/Refunds',
+                status: '已查询'
+              },
+              {
+                icon: '🔄',
+                name: '数据聚合清洗',
+                desc: '关联数据、处理缺失值',
+                status: '已完成'
+              },
+              {
+                icon: '📊',
+                name: '计算业务指标',
+                desc: 'GMV、订单数、客单价',
+                status: '已计算'
+              },
+              {
+                icon: '📄',
+                name: '导出 Excel',
+                desc: '生成并上传至 OSS',
+                status: '已完成'
+              }
             ]
           }
         ]
@@ -202,10 +310,26 @@ public void generateReportAsync(Long taskId) {
     },
     principlesTitle: 'Service 层设计原则',
     principles: [
-      { title: '单一职责', desc: '一个 Service 只负责一块业务领域', example: 'UserService 只管用户，OrderService 只管订单' },
-      { title: '事务边界', desc: '在 Service 层声明式管理事务', example: '@Transactional 放在 Service 方法上' },
-      { title: '避免循环依赖', desc: 'Service 之间不要互相调用', example: 'A→B→A 会导致循环' },
-      { title: 'DTO 转换', desc: '返回前转换为 DTO，不暴露实体', example: 'return new UserDTO(user)' }
+      {
+        title: '单一职责',
+        desc: '一个 Service 只负责一块业务领域',
+        example: 'UserService 只管用户，OrderService 只管订单'
+      },
+      {
+        title: '事务边界',
+        desc: '在 Service 层声明式管理事务',
+        example: '@Transactional 放在 Service 方法上'
+      },
+      {
+        title: '避免循环依赖',
+        desc: 'Service 之间不要互相调用',
+        example: 'A→B→A 会导致循环'
+      },
+      {
+        title: 'DTO 转换',
+        desc: '返回前转换为 DTO，不暴露实体',
+        example: 'return new UserDTO(user)'
+      }
     ]
   },
   repository: {
@@ -258,14 +382,45 @@ public class OrderService {
         return orders.stream().map(OrderDTO::from).collect(Collectors.toList());
     }
 }`,
-    problems: ['数据库耦合：业务代码里到处都是 SQL，换数据库等于重写', '难以测试：必须连真实数据库，单元测试变成集成测试', '代码重复：同样的查询条件在每个方法里重复写', '安全隐患：手写 SQL 容易漏掉防注入处理'],
-    benefits: ['关注点分离：Service 专注业务，Repository 专注数据', '可测试性高：单元测试可用 Mock 替代真实数据库', '代码复用：通用查询方法定义一次，到处复用', '切换成本低：换数据库只需改 Repository 实现'],
+    problems: [
+      '数据库耦合：业务代码里到处都是 SQL，换数据库等于重写',
+      '难以测试：必须连真实数据库，单元测试变成集成测试',
+      '代码重复：同样的查询条件在每个方法里重复写',
+      '安全隐患：手写 SQL 容易漏掉防注入处理'
+    ],
+    benefits: [
+      '关注点分离：Service 专注业务，Repository 专注数据',
+      '可测试性高：单元测试可用 Mock 替代真实数据库',
+      '代码复用：通用查询方法定义一次，到处复用',
+      '切换成本低：换数据库只需改 Repository 实现'
+    ],
     tableTitle: '不同 Repository 实现方式对比',
     headers: ['实现方式', '优点', '缺点', '适用场景'],
     repos: [
-      { name: 'Spring Data JPA', tag: '主流方案', tagClass: '', pros: '方法名自动推导、分页内置', cons: '复杂查询性能一般', scene: '快速开发、标准 CRUD' },
-      { name: 'MyBatis / MyBatis-Plus', tag: '国内主流', tagClass: 'blue', pros: 'SQL 完全可控、动态 SQL 强大', cons: '需要手写 SQL', scene: '复杂查询、性能敏感' },
-      { name: 'Spring Data JDBC', tag: '轻量', tagClass: 'green', pros: '简单轻量、启动快速', cons: '无复杂映射', scene: '微服务、简单聚合根' }
+      {
+        name: 'Spring Data JPA',
+        tag: '主流方案',
+        tagClass: '',
+        pros: '方法名自动推导、分页内置',
+        cons: '复杂查询性能一般',
+        scene: '快速开发、标准 CRUD'
+      },
+      {
+        name: 'MyBatis / MyBatis-Plus',
+        tag: '国内主流',
+        tagClass: 'blue',
+        pros: 'SQL 完全可控、动态 SQL 强大',
+        cons: '需要手写 SQL',
+        scene: '复杂查询、性能敏感'
+      },
+      {
+        name: 'Spring Data JDBC',
+        tag: '轻量',
+        tagClass: 'green',
+        pros: '简单轻量、启动快速',
+        cons: '无复杂映射',
+        scene: '微服务、简单聚合根'
+      }
     ]
   },
   domain: {
@@ -280,11 +435,21 @@ public class OrderService {
     traditional: '传统做法',
     recommended: '推荐做法',
     anemicProblemsTitle: '贫血模型的问题',
-    anemicProblems: ['违背面向对象：对象只有数据没有行为', '逻辑分散：同样的规则可能在多个 Service 重复', '难以维护：改一个规则要找所有用到的地方'],
+    anemicProblems: [
+      '违背面向对象：对象只有数据没有行为',
+      '逻辑分散：同样的规则可能在多个 Service 重复',
+      '难以维护：改一个规则要找所有用到的地方'
+    ],
     richBenefitsTitle: '充血模型的优势',
-    richBenefits: ['符合面向对象：数据和行为封装在一起', '业务内聚：规则跟着对象走，改一处处处生效', '可测试：领域对象是纯内存对象，不需要数据库', '表达力强：order.cancel() 比 orderService.cancel(order) 更自然'],
+    richBenefits: [
+      '符合面向对象：数据和行为封装在一起',
+      '业务内聚：规则跟着对象走，改一处处处生效',
+      '可测试：领域对象是纯内存对象，不需要数据库',
+      '表达力强：order.cancel() 比 orderService.cancel(order) 更自然'
+    ],
     valueObjectTitle: '什么是值对象（Value Object）？',
-    valueObjectDesc: '没有唯一标识、不可变的对象，描述某种特征或属性。两个值对象所有属性相等就被认为是同一个。',
+    valueObjectDesc:
+      '没有唯一标识、不可变的对象，描述某种特征或属性。两个值对象所有属性相等就被认为是同一个。',
     addressTitle: '地址 Address',
     moneyTitle: '金钱 Money',
     anemicEntity: `@Entity
@@ -386,9 +551,27 @@ public ResponseEntity<UserDTO> createUser(
     tableTitle: '不同层的 DTO 职责',
     headers: ['层级', 'DTO 类型', '职责', '示例'],
     rows: [
-      { layer: 'Controller', cls: 'green', type: 'Request / Response DTO', purpose: '定义 API 契约、参数校验', example: 'UserCreateRequest' },
-      { layer: 'Service', cls: 'orange', type: 'Param / Result DTO', purpose: '封装业务方法参数，解耦层间依赖', example: 'UserCreateParam' },
-      { layer: 'Repository', cls: 'blue', type: 'Entity / DO', purpose: '映射数据库表结构', example: 'UserEntity' }
+      {
+        layer: 'Controller',
+        cls: 'green',
+        type: 'Request / Response DTO',
+        purpose: '定义 API 契约、参数校验',
+        example: 'UserCreateRequest'
+      },
+      {
+        layer: 'Service',
+        cls: 'orange',
+        type: 'Param / Result DTO',
+        purpose: '封装业务方法参数，解耦层间依赖',
+        example: 'UserCreateParam'
+      },
+      {
+        layer: 'Repository',
+        cls: 'blue',
+        type: 'Entity / DO',
+        purpose: '映射数据库表结构',
+        example: 'UserEntity'
+      }
     ]
   },
   dependency: {
@@ -401,9 +584,18 @@ public ResponseEntity<UserDTO> createUser(
     principleTitle: '核心原则：依赖倒置（DIP）',
     principleDesc: '上层模块不应该依赖下层模块的具体实现，而应该依赖于抽象。',
     rules: [
-      { title: 'Controller → Service 接口', desc: 'Controller 只依赖 Service 的接口，不依赖实现类' },
-      { title: 'Service → Repository 接口', desc: 'Service 只依赖 Repository 接口，不关心数据怎么存' },
-      { title: '所有层依赖 Domain', desc: 'Domain 是核心，被所有上层依赖，但 Domain 不依赖任何层' }
+      {
+        title: 'Controller → Service 接口',
+        desc: 'Controller 只依赖 Service 的接口，不依赖实现类'
+      },
+      {
+        title: 'Service → Repository 接口',
+        desc: 'Service 只依赖 Repository 接口，不关心数据怎么存'
+      },
+      {
+        title: '所有层依赖 Domain',
+        desc: 'Domain 是核心，被所有上层依赖，但 Domain 不依赖任何层'
+      }
     ]
   },
   clean: {
@@ -421,28 +613,62 @@ public ResponseEntity<UserDTO> createUser(
       { name: 'Domain 层', desc: '实体定义、业务规则', cls: 'teal' }
     ],
     layeredTitle: '传统分层架构特点',
-    layeredTraits: ['垂直依赖：上层直接依赖下层', '简单直观：结构清晰，易于理解', '适合中小型项目：快速开发，上手简单', '潜在问题：底层变更可能影响上层'],
+    layeredTraits: [
+      '垂直依赖：上层直接依赖下层',
+      '简单直观：结构清晰，易于理解',
+      '适合中小型项目：快速开发，上手简单',
+      '潜在问题：底层变更可能影响上层'
+    ],
     cleanLayers: [
-      { name: '领域层（核心）', items: 'Entity / ValueObject / DomainService', cls: 'teal' },
+      {
+        name: '领域层（核心）',
+        items: 'Entity / ValueObject / DomainService',
+        cls: 'teal'
+      },
       { name: '应用层', items: 'Service / UseCase / DTO', cls: 'orange' },
-      { name: '接口适配层', items: 'Controller / Gateway / Presenter', cls: 'blue' },
+      {
+        name: '接口适配层',
+        items: 'Controller / Gateway / Presenter',
+        cls: 'blue'
+      },
       { name: '框架与驱动层', items: 'Web / DB / UI / 外部接口', cls: 'gray' }
     ],
     depRule: '依赖方向：外层 → 内层，内层不知道外层的存在',
     cleanTitle: '整洁架构特点',
-    cleanTraits: ['依赖倒置：依赖方向从外到内，通过接口隔离', '领域为核心：业务逻辑位于中心，独立于框架', '可测试性强：核心业务可脱离框架单元测试', '技术无关：可轻松切换数据库、框架等'],
+    cleanTraits: [
+      '依赖倒置：依赖方向从外到内，通过接口隔离',
+      '领域为核心：业务逻辑位于中心，独立于框架',
+      '可测试性强：核心业务可脱离框架单元测试',
+      '技术无关：可轻松切换数据库、框架等'
+    ],
     headers: ['特性', '传统分层', '整洁架构'],
     compareRows: [
       { feature: '依赖方向', layered: '从上到下', clean: '从外到内' },
-      { feature: '核心业务位置', layered: 'Service 层', clean: 'Domain 层（中心）' },
+      {
+        feature: '核心业务位置',
+        layered: 'Service 层',
+        clean: 'Domain 层（中心）'
+      },
       { feature: '框架依赖', layered: '较深', clean: '较浅（接口隔离）' },
       { feature: '可测试性', layered: '需要集成测试', clean: '核心可单元测试' },
       { feature: '学习曲线', layered: '平缓', clean: '较陡' },
-      { feature: '适用场景', layered: '中小型、快速迭代', clean: '大型复杂、长期维护' }
+      {
+        feature: '适用场景',
+        layered: '中小型、快速迭代',
+        clean: '大型复杂、长期维护'
+      }
     ],
     layeredChoice: '选择传统分层当...',
-    layeredChoiceItems: ['项目规模较小，业务简单', '团队对 DDD 不熟悉', '需要快速上线验证市场'],
+    layeredChoiceItems: [
+      '项目规模较小，业务简单',
+      '团队对 DDD 不熟悉',
+      '需要快速上线验证市场'
+    ],
     cleanChoice: '选择整洁架构当...',
-    cleanChoiceItems: ['业务复杂，领域模型丰富', '需要长期维护和演进', '需要频繁切换技术栈']
+    cleanChoiceItems: [
+      '业务复杂，领域模型丰富',
+      '需要长期维护和演进',
+      '需要频繁切换技术栈'
+    ]
   }
 }

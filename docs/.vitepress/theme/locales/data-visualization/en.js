@@ -10,9 +10,24 @@ export default {
         name: 'Compare',
         icon: '📊',
         charts: [
-          { name: 'Bar chart', visual: '▐▐▐', desc: 'Compare values across categories', example: 'Sales by department' },
-          { name: 'Grouped bar chart', visual: '▐▐ ▐▐', desc: 'Compare grouped dimensions', example: 'Quarterly revenue by product line' },
-          { name: 'Radar chart', visual: '◇', desc: 'Compare multiple dimensions together', example: 'Candidate skill assessment' }
+          {
+            name: 'Bar chart',
+            visual: '▐▐▐',
+            desc: 'Compare values across categories',
+            example: 'Sales by department'
+          },
+          {
+            name: 'Grouped bar chart',
+            visual: '▐▐ ▐▐',
+            desc: 'Compare grouped dimensions',
+            example: 'Quarterly revenue by product line'
+          },
+          {
+            name: 'Radar chart',
+            visual: '◇',
+            desc: 'Compare multiple dimensions together',
+            example: 'Candidate skill assessment'
+          }
         ]
       },
       {
@@ -20,9 +35,24 @@ export default {
         name: 'Trend',
         icon: '📈',
         charts: [
-          { name: 'Line chart', visual: '╱╲╱', desc: 'Show how data changes over time', example: 'Monthly user growth' },
-          { name: 'Area chart', visual: '▓▓▓', desc: 'Emphasize accumulated values under a trend', example: 'Traffic share by channel over time' },
-          { name: 'Step chart', visual: '┐└┐', desc: 'Show changes at discrete time points', example: 'Price adjustment history' }
+          {
+            name: 'Line chart',
+            visual: '╱╲╱',
+            desc: 'Show how data changes over time',
+            example: 'Monthly user growth'
+          },
+          {
+            name: 'Area chart',
+            visual: '▓▓▓',
+            desc: 'Emphasize accumulated values under a trend',
+            example: 'Traffic share by channel over time'
+          },
+          {
+            name: 'Step chart',
+            visual: '┐└┐',
+            desc: 'Show changes at discrete time points',
+            example: 'Price adjustment history'
+          }
         ]
       },
       {
@@ -30,9 +60,24 @@ export default {
         name: 'Proportion',
         icon: '🍩',
         charts: [
-          { name: 'Pie chart', visual: '◔', desc: 'Show each part as a share of the whole', example: 'Market share distribution' },
-          { name: 'Donut chart', visual: '◎', desc: 'A pie chart variant with room for a central number', example: 'Budget usage rate' },
-          { name: 'Stacked bar chart', visual: '▐▐▐', desc: 'Show composition and totals together', example: 'Sales composition by region and category' }
+          {
+            name: 'Pie chart',
+            visual: '◔',
+            desc: 'Show each part as a share of the whole',
+            example: 'Market share distribution'
+          },
+          {
+            name: 'Donut chart',
+            visual: '◎',
+            desc: 'A pie chart variant with room for a central number',
+            example: 'Budget usage rate'
+          },
+          {
+            name: 'Stacked bar chart',
+            visual: '▐▐▐',
+            desc: 'Show composition and totals together',
+            example: 'Sales composition by region and category'
+          }
         ]
       },
       {
@@ -40,9 +85,24 @@ export default {
         name: 'Distribution',
         icon: '🔔',
         charts: [
-          { name: 'Histogram', visual: '▁▃▇▃▁', desc: 'Show the frequency distribution of values', example: 'User age distribution' },
-          { name: 'Scatter plot', visual: '· ·· ·', desc: 'Show the relationship between two variables', example: 'Ad spend vs sales' },
-          { name: 'Box plot', visual: '├─┤', desc: 'Show median, quartiles, and outliers', example: 'Housing price distribution by city' }
+          {
+            name: 'Histogram',
+            visual: '▁▃▇▃▁',
+            desc: 'Show the frequency distribution of values',
+            example: 'User age distribution'
+          },
+          {
+            name: 'Scatter plot',
+            visual: '· ·· ·',
+            desc: 'Show the relationship between two variables',
+            example: 'Ad spend vs sales'
+          },
+          {
+            name: 'Box plot',
+            visual: '├─┤',
+            desc: 'Show median, quartiles, and outliers',
+            example: 'Housing price distribution by city'
+          }
         ]
       },
       {
@@ -50,9 +110,24 @@ export default {
         name: 'Relationship',
         icon: '🕸️',
         charts: [
-          { name: 'Sankey diagram', visual: '≋≋≋', desc: 'Show the direction and volume of flows', example: 'User conversion funnel' },
-          { name: 'Network graph', visual: '⊙─⊙', desc: 'Show relationships between nodes', example: 'Social relationship network' },
-          { name: 'Heatmap', visual: '▓▒░', desc: 'Represent values with color intensity', example: 'Page visits by hour and page' }
+          {
+            name: 'Sankey diagram',
+            visual: '≋≋≋',
+            desc: 'Show the direction and volume of flows',
+            example: 'User conversion funnel'
+          },
+          {
+            name: 'Network graph',
+            visual: '⊙─⊙',
+            desc: 'Show relationships between nodes',
+            example: 'Social relationship network'
+          },
+          {
+            name: 'Heatmap',
+            visual: '▓▒░',
+            desc: 'Represent values with color intensity',
+            example: 'Page visits by hour and page'
+          }
         ]
       }
     ]
@@ -94,7 +169,10 @@ export default {
         desc: 'Explore from summary to detail level by level',
         useCase: 'Sales analysis, user behavior analysis',
         widgets: [
-          { type: 'chart-wide', label: 'National sales map (click a province)' },
+          {
+            type: 'chart-wide',
+            label: 'National sales map (click a province)'
+          },
           { type: 'half', label: 'Province ranking bar chart' },
           { type: 'half', label: 'City detail pie chart' },
           { type: 'table', label: 'Store-level detail table' }
@@ -117,4 +195,3 @@ export default {
     ]
   }
 }
-

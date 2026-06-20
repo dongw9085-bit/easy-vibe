@@ -19,8 +19,7 @@ export default {
     alertTitle: 'Read sound like a score',
     lowEnergy: 'Low energy (quiet)',
     highEnergy: 'High energy (loud)',
-    info:
-      'A spectrogram turns a one-dimensional sound signal into a two-dimensional image, so image models such as <strong>CNNs</strong> can process sound.'
+    info: 'A spectrogram turns a one-dimensional sound signal into a two-dimensional image, so image models such as <strong>CNNs</strong> can process sound.'
   },
   autoregressiveAudio: {
     start: 'Start comparison',
@@ -34,13 +33,16 @@ export default {
     fast: 'Very fast',
     evolutionTitle: 'Technology evolution',
     arStrong: 'Autoregressive',
-    arInfo: 'Like human speech, it must finish the previous token before generating the next one, so it is slow.',
+    arInfo:
+      'Like human speech, it must finish the previous token before generating the next one, so it is slow.',
     flowStrong: 'Flow matching',
-    flowInfo: 'Like painting, it can update many areas at the same time, improving efficiency by 10-20x.'
+    flowInfo:
+      'Like painting, it can update many areas at the same time, improving efficiency by 10-20x.'
   },
   melSpectrogram: {
     title: '📊 Mel Spectrogram: How AI “Sees” Sound',
-    subtitle: 'Sound is a wave, but AI sees a spectrogram. See how waveforms become images that AI can understand.',
+    subtitle:
+      'Sound is a wave, but AI sees a spectrogram. See how waveforms become images that AI can understand.',
     fftWindow: 'FFT window',
     melFilters: 'Mel filters',
     waveformTitle: '🔊 Waveform (time domain)',
@@ -87,17 +89,34 @@ export default {
     highFreq: 'High-frequency components',
     appsTitle: '🎯 Why audio tokenization?',
     applications: [
-      { icon: '🚀', title: 'Efficient transfer', desc: 'Compress audio to ~1.5 kbps, about 256x smaller than raw audio, making it suitable for network transfer.' },
-      { icon: '🧠', title: 'Language-model friendly', desc: 'Discrete tokens can be processed directly by LLMs, enabling unified text-to-audio modeling.' },
-      { icon: '🎵', title: 'Music generation', desc: 'Models such as MusicGen and AudioLDM use audio tokens to generate music and sound effects.' },
-      { icon: '🗣️', title: 'Speech synthesis', desc: 'TTS models such as VALL-E and SoundStorm can generate audio tokens directly.' }
+      {
+        icon: '🚀',
+        title: 'Efficient transfer',
+        desc: 'Compress audio to ~1.5 kbps, about 256x smaller than raw audio, making it suitable for network transfer.'
+      },
+      {
+        icon: '🧠',
+        title: 'Language-model friendly',
+        desc: 'Discrete tokens can be processed directly by LLMs, enabling unified text-to-audio modeling.'
+      },
+      {
+        icon: '🎵',
+        title: 'Music generation',
+        desc: 'Models such as MusicGen and AudioLDM use audio tokens to generate music and sound effects.'
+      },
+      {
+        icon: '🗣️',
+        title: 'Speech synthesis',
+        desc: 'TTS models such as VALL-E and SoundStorm can generate audio tokens directly.'
+      }
     ],
     infoStrong: 'Neural audio codecs:',
     info: 'Models such as EnCodec (Meta), SoundStream (Google), and SNAC use VQ-VAE style architectures to compress audio into discrete tokens. These tokens can be handled by language models for high-quality audio generation and compression.'
   },
   ttsPipeline: {
     title: '🔄 TTS Architecture Evolution: From Slow to Fast',
-    subtitle: 'Explore how text becomes speech and compare different architectures.',
+    subtitle:
+      'Explore how text becomes speech and compare different architectures.',
     input: 'Input:',
     output: 'Output:',
     tech: 'Tech:',
@@ -108,46 +127,207 @@ export default {
     info: 'TTS has moved from early autoregressive models such as Tacotron, to non-autoregressive models such as FastSpeech, and now to flow matching models such as F5-TTS. The direction is faster, more stable, and higher-quality synthesis.',
     chartSerial: 'Generate one time step at a time',
     architectures: [
-      { id: 'ar', name: 'Autoregressive', icon: '📝', tag: 'AR', tagClass: 'primary' },
-      { id: 'nar', name: 'Non-autoregressive', icon: '⚡', tag: 'NAR', tagClass: 'success' },
-      { id: 'flow', name: 'Flow matching', icon: '🌊', tag: 'Flow', tagClass: 'warning' }
+      {
+        id: 'ar',
+        name: 'Autoregressive',
+        icon: '📝',
+        tag: 'AR',
+        tagClass: 'primary'
+      },
+      {
+        id: 'nar',
+        name: 'Non-autoregressive',
+        icon: '⚡',
+        tag: 'NAR',
+        tagClass: 'success'
+      },
+      {
+        id: 'flow',
+        name: 'Flow matching',
+        icon: '🌊',
+        tag: 'Flow',
+        tagClass: 'warning'
+      }
     ],
     pipelineStages: {
       ar: [
-        { id: 'text', name: 'Text processing', icon: '📝', shortDesc: 'Tokenize & phonemes', description: 'Convert input text into a phoneme sequence', input: 'Raw text', output: 'Phoneme sequence', tech: 'G2P' },
-        { id: 'encoder', name: 'Text encoding', icon: '🔢', shortDesc: 'Extract features', description: 'Encode text with an Encoder', input: 'Phoneme sequence', output: 'Text features', tech: 'Transformer' },
-        { id: 'decoder', name: 'AR decoding', icon: '🎯', shortDesc: 'Frame by frame', description: 'Generate mel spectrogram frames step by step', input: 'Text features', output: 'Mel spectrogram', tech: 'AR Decoder' },
-        { id: 'vocoder', name: 'Vocoder', icon: '🔊', shortDesc: 'Spectrum to waveform', description: 'Convert the spectrogram into an audio waveform', input: 'Mel spectrogram', output: 'Audio waveform', tech: 'HiFi-GAN' }
+        {
+          id: 'text',
+          name: 'Text processing',
+          icon: '📝',
+          shortDesc: 'Tokenize & phonemes',
+          description: 'Convert input text into a phoneme sequence',
+          input: 'Raw text',
+          output: 'Phoneme sequence',
+          tech: 'G2P'
+        },
+        {
+          id: 'encoder',
+          name: 'Text encoding',
+          icon: '🔢',
+          shortDesc: 'Extract features',
+          description: 'Encode text with an Encoder',
+          input: 'Phoneme sequence',
+          output: 'Text features',
+          tech: 'Transformer'
+        },
+        {
+          id: 'decoder',
+          name: 'AR decoding',
+          icon: '🎯',
+          shortDesc: 'Frame by frame',
+          description: 'Generate mel spectrogram frames step by step',
+          input: 'Text features',
+          output: 'Mel spectrogram',
+          tech: 'AR Decoder'
+        },
+        {
+          id: 'vocoder',
+          name: 'Vocoder',
+          icon: '🔊',
+          shortDesc: 'Spectrum to waveform',
+          description: 'Convert the spectrogram into an audio waveform',
+          input: 'Mel spectrogram',
+          output: 'Audio waveform',
+          tech: 'HiFi-GAN'
+        }
       ],
       nar: [
-        { id: 'text', name: 'Text processing', icon: '📝', shortDesc: 'Tokenize & phonemes', description: 'Convert input text into a phoneme sequence', input: 'Raw text', output: 'Phoneme sequence', tech: 'G2P' },
-        { id: 'duration', name: 'Duration prediction', icon: '⏱️', shortDesc: 'Predict duration', description: 'Predict frame counts for each phoneme', input: 'Phoneme sequence', output: 'Duration info', tech: 'Duration Predictor' },
-        { id: 'decoder', name: 'Parallel decoding', icon: '⚡', shortDesc: 'Generate at once', description: 'Generate the full mel spectrogram in parallel', input: 'Text features', output: 'Mel spectrogram', tech: 'Non-AR Transformer' },
-        { id: 'vocoder', name: 'Vocoder', icon: '🔊', shortDesc: 'Spectrum to waveform', description: 'Convert the spectrogram into an audio waveform', input: 'Mel spectrogram', output: 'Audio waveform', tech: 'HiFi-GAN' }
+        {
+          id: 'text',
+          name: 'Text processing',
+          icon: '📝',
+          shortDesc: 'Tokenize & phonemes',
+          description: 'Convert input text into a phoneme sequence',
+          input: 'Raw text',
+          output: 'Phoneme sequence',
+          tech: 'G2P'
+        },
+        {
+          id: 'duration',
+          name: 'Duration prediction',
+          icon: '⏱️',
+          shortDesc: 'Predict duration',
+          description: 'Predict frame counts for each phoneme',
+          input: 'Phoneme sequence',
+          output: 'Duration info',
+          tech: 'Duration Predictor'
+        },
+        {
+          id: 'decoder',
+          name: 'Parallel decoding',
+          icon: '⚡',
+          shortDesc: 'Generate at once',
+          description: 'Generate the full mel spectrogram in parallel',
+          input: 'Text features',
+          output: 'Mel spectrogram',
+          tech: 'Non-AR Transformer'
+        },
+        {
+          id: 'vocoder',
+          name: 'Vocoder',
+          icon: '🔊',
+          shortDesc: 'Spectrum to waveform',
+          description: 'Convert the spectrogram into an audio waveform',
+          input: 'Mel spectrogram',
+          output: 'Audio waveform',
+          tech: 'HiFi-GAN'
+        }
       ],
       flow: [
-        { id: 'text', name: 'Text processing', icon: '📝', shortDesc: 'Tokenize & phonemes', description: 'Convert input text into a phoneme sequence', input: 'Raw text', output: 'Phoneme sequence', tech: 'G2P' },
-        { id: 'embedding', name: 'Text embedding', icon: '🔢', shortDesc: 'Feature extraction', description: 'Convert phonemes into vectors', input: 'Phoneme sequence', output: 'Text embedding', tech: 'DiT' },
-        { id: 'flow', name: 'Flow matching', icon: '🌊', shortDesc: 'Optimal transport', description: 'Use flow matching to generate a spectrogram', input: 'Text embedding', output: 'Mel spectrogram', tech: 'Flow Matching' },
-        { id: 'vocoder', name: 'Vocoder', icon: '🔊', shortDesc: 'Spectrum to waveform', description: 'Convert the spectrogram into an audio waveform', input: 'Mel spectrogram', output: 'Audio waveform', tech: 'Vocoder' }
+        {
+          id: 'text',
+          name: 'Text processing',
+          icon: '📝',
+          shortDesc: 'Tokenize & phonemes',
+          description: 'Convert input text into a phoneme sequence',
+          input: 'Raw text',
+          output: 'Phoneme sequence',
+          tech: 'G2P'
+        },
+        {
+          id: 'embedding',
+          name: 'Text embedding',
+          icon: '🔢',
+          shortDesc: 'Feature extraction',
+          description: 'Convert phonemes into vectors',
+          input: 'Phoneme sequence',
+          output: 'Text embedding',
+          tech: 'DiT'
+        },
+        {
+          id: 'flow',
+          name: 'Flow matching',
+          icon: '🌊',
+          shortDesc: 'Optimal transport',
+          description: 'Use flow matching to generate a spectrogram',
+          input: 'Text embedding',
+          output: 'Mel spectrogram',
+          tech: 'Flow Matching'
+        },
+        {
+          id: 'vocoder',
+          name: 'Vocoder',
+          icon: '🔊',
+          shortDesc: 'Spectrum to waveform',
+          description: 'Convert the spectrogram into an audio waveform',
+          input: 'Mel spectrogram',
+          output: 'Audio waveform',
+          tech: 'Vocoder'
+        }
       ]
     },
     comparisonRows: [
-      { feature: 'Generation speed', ar: 'Slow', nar: 'Fast', flow: 'Very fast' },
-      { feature: 'Audio quality', ar: 'High', nar: 'Medium-high', flow: 'High' },
+      {
+        feature: 'Generation speed',
+        ar: 'Slow',
+        nar: 'Fast',
+        flow: 'Very fast'
+      },
+      {
+        feature: 'Audio quality',
+        ar: 'High',
+        nar: 'Medium-high',
+        flow: 'High'
+      },
       { feature: 'Stability', ar: 'Medium', nar: 'High', flow: 'High' },
       { feature: 'Controllability', ar: 'Medium', nar: 'High', flow: 'High' }
     ],
     models: [
-      { name: 'Tacotron 2', arch: 'ar', type: 'AR', tagClass: 'primary', desc: 'Classic AR model with excellent audio quality' },
-      { name: 'FastSpeech 2', arch: 'nar', type: 'NAR', tagClass: 'success', desc: 'Parallel generation with high speed' },
-      { name: 'F5-TTS', arch: 'flow', type: 'Flow', tagClass: 'warning', desc: 'Recent SOTA, generated in 10 steps' },
-      { name: 'CosyVoice', arch: 'flow', type: 'Flow', tagClass: 'warning', desc: 'Alibaba open-source model with multilingual support' }
+      {
+        name: 'Tacotron 2',
+        arch: 'ar',
+        type: 'AR',
+        tagClass: 'primary',
+        desc: 'Classic AR model with excellent audio quality'
+      },
+      {
+        name: 'FastSpeech 2',
+        arch: 'nar',
+        type: 'NAR',
+        tagClass: 'success',
+        desc: 'Parallel generation with high speed'
+      },
+      {
+        name: 'F5-TTS',
+        arch: 'flow',
+        type: 'Flow',
+        tagClass: 'warning',
+        desc: 'Recent SOTA, generated in 10 steps'
+      },
+      {
+        name: 'CosyVoice',
+        arch: 'flow',
+        type: 'Flow',
+        tagClass: 'warning',
+        desc: 'Alibaba open-source model with multilingual support'
+      }
     ]
   },
   voiceCloning: {
     title: '🎭 Voice Cloning: Let AI Imitate Anyone',
-    subtitle: 'With only a few seconds of reference audio, AI can learn a speaker voice.',
+    subtitle:
+      'With only a few seconds of reference audio, AI can learn a speaker voice.',
     referenceTitle: 'Provide reference audio',
     or: 'or',
     upload: '📤 Upload your own audio',
@@ -172,10 +352,30 @@ export default {
       { id: 'crosslingual', name: 'Cross-lingual cloning', icon: '🌍' }
     ],
     references: [
-      { id: 'male1', name: 'Male voice A', avatar: '👨', desc: 'Low and magnetic' },
-      { id: 'female1', name: 'Female voice B', avatar: '👩', desc: 'Gentle and sweet' },
-      { id: 'child', name: 'Child voice', avatar: '🧒', desc: 'Lively and cute' },
-      { id: 'elder', name: 'Elder voice', avatar: '👴', desc: 'Weathered and steady' }
+      {
+        id: 'male1',
+        name: 'Male voice A',
+        avatar: '👨',
+        desc: 'Low and magnetic'
+      },
+      {
+        id: 'female1',
+        name: 'Female voice B',
+        avatar: '👩',
+        desc: 'Gentle and sweet'
+      },
+      {
+        id: 'child',
+        name: 'Child voice',
+        avatar: '🧒',
+        desc: 'Lively and cute'
+      },
+      {
+        id: 'elder',
+        name: 'Elder voice',
+        avatar: '👴',
+        desc: 'Weathered and steady'
+      }
     ],
     processSteps: [
       { id: 'load', name: 'Load audio', icon: '📂' },
@@ -184,14 +384,27 @@ export default {
       { id: 'embed', name: 'Build embedding', icon: '💎' }
     ],
     tips: [
-      { icon: '⏱️', title: 'Reference duration', text: '3-10 seconds is enough; quality matters more than length.' },
-      { icon: '🔇', title: 'Environment', text: 'Use a quiet environment and avoid background noise.' },
-      { icon: '🗣️', title: 'Content choice', text: 'Audio with varied pitch and speaking speed works better.' }
+      {
+        icon: '⏱️',
+        title: 'Reference duration',
+        text: '3-10 seconds is enough; quality matters more than length.'
+      },
+      {
+        icon: '🔇',
+        title: 'Environment',
+        text: 'Use a quiet environment and avoid background noise.'
+      },
+      {
+        icon: '🗣️',
+        title: 'Content choice',
+        text: 'Audio with varied pitch and speaking speed works better.'
+      }
     ]
   },
   asrTts: {
     title: '🔄 ASR ↔ TTS: Two-Way Speech Conversion',
-    subtitle: 'Explore the inverse processes of speech recognition and speech synthesis.',
+    subtitle:
+      'Explore the inverse processes of speech recognition and speech synthesis.',
     asrName: 'ASR Speech Recognition',
     asrDesc: 'Audio → Text',
     startRecording: 'Start recording',
@@ -218,9 +431,9 @@ export default {
     text: 'Text',
     vocoder: 'Vocoder',
     infoStrong: 'Inverse relationship:',
-    info:
-      'ASR and TTS are two core directions in speech technology and inverse processes of each other. ASR converts continuous audio signals into discrete text, while TTS converts discrete text into continuous audio signals. Both rely on acoustic models and language models.',
-    asrSampleResult: 'This is a sample speech recognition result showing how ASR works.',
+    info: 'ASR and TTS are two core directions in speech technology and inverse processes of each other. ASR converts continuous audio signals into discrete text, while TTS converts discrete text into continuous audio signals. Both rely on acoustic models and language models.',
+    asrSampleResult:
+      'This is a sample speech recognition result showing how ASR works.',
     voices: [
       { id: 'default', name: 'Default', icon: '🎙️' },
       { id: 'male', name: 'Male', icon: '👨' },
@@ -282,31 +495,77 @@ export default {
     referenceText:
       'The user provides reference audio with the target emotion, and the encoder extracts its style feature vector. This vector is used as a condition for the TTS model to generate speech in a similar style.',
     fineTitle: 'Fine-grained control',
-    fineText: 'Modern TTS models such as CosyVoice and F5-TTS support fine-grained style controls, including:',
+    fineText:
+      'Modern TTS models such as CosyVoice and F5-TTS support fine-grained style controls, including:',
     infoStrong: 'Emotion control:',
-    info:
-      'Modern TTS systems can synthesize natural speech and precisely control emotion, speed, pitch, and other style features. This lets AI voiceover adapt to different scenarios, from calm customer-service dialogs to energetic speeches.',
+    info: 'Modern TTS systems can synthesize natural speech and precisely control emotion, speed, pitch, and other style features. This lets AI voiceover adapt to different scenarios, from calm customer-service dialogs to energetic speeches.',
     defaultPreview: 'This is a speech synthesis demo with emotion control.',
     valenceAxis: 'Valence (negative → positive)',
     arousalAxis: 'Arousal (calm → excited)',
     emotions: [
-      { id: 'neutral', name: 'Neutral', emoji: '😐', description: 'Steady and natural', color: '#909399' },
-      { id: 'happy', name: 'Happy', emoji: '😊', description: 'Light and cheerful', color: '#67c23a' },
-      { id: 'sad', name: 'Sad', emoji: '😢', description: 'Low and slow', color: '#409eff' },
-      { id: 'angry', name: 'Angry', emoji: '😠', description: 'Forceful and intense', color: '#f56c6c' },
-      { id: 'excited', name: 'Excited', emoji: '🤩', description: 'Warm and energetic', color: '#e6a23c' },
-      { id: 'calm', name: 'Calm', emoji: '😌', description: 'Relaxed and soothing', color: '#13c2c2' }
+      {
+        id: 'neutral',
+        name: 'Neutral',
+        emoji: '😐',
+        description: 'Steady and natural',
+        color: '#909399'
+      },
+      {
+        id: 'happy',
+        name: 'Happy',
+        emoji: '😊',
+        description: 'Light and cheerful',
+        color: '#67c23a'
+      },
+      {
+        id: 'sad',
+        name: 'Sad',
+        emoji: '😢',
+        description: 'Low and slow',
+        color: '#409eff'
+      },
+      {
+        id: 'angry',
+        name: 'Angry',
+        emoji: '😠',
+        description: 'Forceful and intense',
+        color: '#f56c6c'
+      },
+      {
+        id: 'excited',
+        name: 'Excited',
+        emoji: '🤩',
+        description: 'Warm and energetic',
+        color: '#e6a23c'
+      },
+      {
+        id: 'calm',
+        name: 'Calm',
+        emoji: '😌',
+        description: 'Relaxed and soothing',
+        color: '#13c2c2'
+      }
     ],
     fineItems: [
-      { strong: 'Speed control:', text: 'Adjust playback speed without changing pitch' },
-      { strong: 'Pitch control:', text: 'Modify the fundamental frequency (F0) curve' },
+      {
+        strong: 'Speed control:',
+        text: 'Adjust playback speed without changing pitch'
+      },
+      {
+        strong: 'Pitch control:',
+        text: 'Modify the fundamental frequency (F0) curve'
+      },
       { strong: 'Energy control:', text: 'Adjust the volume envelope' },
-      { strong: 'Pause control:', text: 'Adjust pause lengths between sentences and phrases' }
+      {
+        strong: 'Pause control:',
+        text: 'Adjust pause lengths between sentences and phrases'
+      }
     ]
   },
   quickStart: {
     title: '🎙️ First AI Audio Experience: Let Machines Speak',
-    subtitle: 'From speech synthesis to voice cloning, explore how AI gives machines a voice.',
+    subtitle:
+      'From speech synthesis to voice cloning, explore how AI gives machines a voice.',
     empty: 'Choose a scenario to experience AI audio',
     ttsPlaceholder: 'Enter text to synthesize...',
     voiceLabel: 'Voice:',
@@ -339,9 +598,18 @@ export default {
       { id: 'female2', name: 'Female C', icon: '👧' }
     ],
     tips: [
-      { icon: '💡', text: 'TTS: text to speech, letting AI read any text aloud' },
-      { icon: '🎯', text: 'ASR: speech recognition, converting speech into text' },
-      { icon: '🎭', text: 'Voice cloning: copy a voice from only a few seconds of audio' }
+      {
+        icon: '💡',
+        text: 'TTS: text to speech, letting AI read any text aloud'
+      },
+      {
+        icon: '🎯',
+        text: 'ASR: speech recognition, converting speech into text'
+      },
+      {
+        icon: '🎭',
+        text: 'Voice cloning: copy a voice from only a few seconds of audio'
+      }
     ]
   }
 }

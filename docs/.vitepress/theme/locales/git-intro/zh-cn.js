@@ -17,25 +17,105 @@ export default {
       0: '一次性'
     },
     rows: [
-      { cmd: 'git init', desc: '在当前目录初始化 Git 仓库', level: 0, freqLabel: '项目开始时一次' },
-      { cmd: 'git status', desc: '查看工作区和暂存区的状态', level: 5, freqLabel: '极高频' },
-      { cmd: 'git add <文件>', desc: '把指定文件放入暂存区', level: 5, freqLabel: '每次提交前' },
-      { cmd: 'git add .', desc: '把所有修改放入暂存区', level: 5, freqLabel: '' },
-      { cmd: 'git commit -m "..."', desc: '提交暂存区内容，附上说明', level: 5, freqLabel: '' },
+      {
+        cmd: 'git init',
+        desc: '在当前目录初始化 Git 仓库',
+        level: 0,
+        freqLabel: '项目开始时一次'
+      },
+      {
+        cmd: 'git status',
+        desc: '查看工作区和暂存区的状态',
+        level: 5,
+        freqLabel: '极高频'
+      },
+      {
+        cmd: 'git add <文件>',
+        desc: '把指定文件放入暂存区',
+        level: 5,
+        freqLabel: '每次提交前'
+      },
+      {
+        cmd: 'git add .',
+        desc: '把所有修改放入暂存区',
+        level: 5,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git commit -m "..."',
+        desc: '提交暂存区内容，附上说明',
+        level: 5,
+        freqLabel: ''
+      },
       { cmd: 'git push', desc: '推送到远程仓库', level: 5, freqLabel: '' },
       { cmd: 'git pull', desc: '拉取远程最新内容', level: 5, freqLabel: '' },
-      { cmd: 'git log --oneline', desc: '查看简洁的提交历史', level: 4, freqLabel: '' },
-      { cmd: 'git checkout -b <分支名>', desc: '创建并切换到新分支', level: 4, freqLabel: '' },
-      { cmd: 'git checkout <分支名>', desc: '切换到已有分支', level: 4, freqLabel: '' },
-      { cmd: 'git clone <url>', desc: '克隆远程仓库到本地', level: 4, freqLabel: '' },
+      {
+        cmd: 'git log --oneline',
+        desc: '查看简洁的提交历史',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git checkout -b <分支名>',
+        desc: '创建并切换到新分支',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git checkout <分支名>',
+        desc: '切换到已有分支',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git clone <url>',
+        desc: '克隆远程仓库到本地',
+        level: 4,
+        freqLabel: ''
+      },
       { cmd: 'git branch', desc: '查看所有本地分支', level: 3, freqLabel: '' },
-      { cmd: 'git merge <分支名>', desc: '将指定分支合并到当前分支', level: 3, freqLabel: '' },
-      { cmd: 'git stash', desc: '临时保存未提交的改动（切换任务时用）', level: 3, freqLabel: '' },
-      { cmd: 'git stash pop', desc: '恢复之前 stash 的改动', level: 3, freqLabel: '' },
-      { cmd: 'git reset HEAD~1', desc: '撤销最近一次提交（保留改动）', level: 3, freqLabel: '' },
-      { cmd: 'git diff', desc: '查看工作区和暂存区的具体差异', level: 3, freqLabel: '' },
-      { cmd: 'git branch -d <分支名>', desc: '删除已合并的分支', level: 2, freqLabel: '' },
-      { cmd: 'git remote add origin <url>', desc: '关联远程仓库（只做一次）', level: 0, freqLabel: '项目初始时' }
+      {
+        cmd: 'git merge <分支名>',
+        desc: '将指定分支合并到当前分支',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git stash',
+        desc: '临时保存未提交的改动（切换任务时用）',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git stash pop',
+        desc: '恢复之前 stash 的改动',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git reset HEAD~1',
+        desc: '撤销最近一次提交（保留改动）',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git diff',
+        desc: '查看工作区和暂存区的具体差异',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git branch -d <分支名>',
+        desc: '删除已合并的分支',
+        level: 2,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git remote add origin <url>',
+        desc: '关联远程仓库（只做一次）',
+        level: 0,
+        freqLabel: '项目初始时'
+      }
     ]
   },
   sync: {
@@ -54,8 +134,14 @@ export default {
       remote: {
         output: [
           { kind: 'dim', text: '# 建立本地与远程的关联（只做一次）' },
-          { kind: 'grn', text: 'origin  https://github.com/you/project.git (fetch)' },
-          { kind: 'grn', text: 'origin  https://github.com/you/project.git (push)' }
+          {
+            kind: 'grn',
+            text: 'origin  https://github.com/you/project.git (fetch)'
+          },
+          {
+            kind: 'grn',
+            text: 'origin  https://github.com/you/project.git (push)'
+          }
         ],
         hint: '"origin" 是远程仓库的别名，相当于给 GitHub 地址起个简短的联系人名字。'
       },
@@ -71,7 +157,10 @@ export default {
         cmd: 'git commit -m "fix: 修复登录 Bug"',
         output: [
           { kind: 'dim', text: '[main b5e6f7a] fix: 修复登录 Bug' },
-          { kind: 'yel', text: "Your branch is 1 commit ahead of 'origin/main'." }
+          {
+            kind: 'yel',
+            text: "Your branch is 1 commit ahead of 'origin/main'."
+          }
         ],
         hint: '本地新增一个 commit，但还没 push。远程还是旧的，本地比它“快了一步”。',
         commitMsg: 'fix: 修复登录 Bug'
@@ -87,7 +176,10 @@ export default {
         output: [
           { kind: 'grn', text: 'From https://github.com/you/project.git' },
           { kind: 'grn', text: '   b5e6f7a..d8c9e0f  main -> origin/main' },
-          { kind: 'dim', text: 'Fast-forward: readme.md | 5 +++++ 1 file changed' }
+          {
+            kind: 'dim',
+            text: 'Fast-forward: readme.md | 5 +++++ 1 file changed'
+          }
         ],
         hint: 'pull = fetch + merge。队友推上去的提交，现在也同步到你本地了。',
         commitMsg: '队友: 更新 README'
@@ -109,7 +201,9 @@ export default {
     ],
     ops: {
       create: {
-        output: [{ kind: 'grn', text: "Switched to a new branch 'feature-login'" }],
+        output: [
+          { kind: 'grn', text: "Switched to a new branch 'feature-login'" }
+        ],
         hint: '新分支创建了！它和 main 指向同一个提交，但是独立的“时间线”。现在你在 feature-login 上，main 的时间线不会动。'
       },
       c1: {
@@ -145,7 +239,8 @@ export default {
   },
   commitFlow: {
     initialLine: '# 你刚改了 3 个文件，现在演示 add -> commit 流程',
-    initialHint: '点击下方命令按钮，按顺序执行。观察右侧三区里文件如何随命令移动。',
+    initialHint:
+      '点击下方命令按钮，按顺序执行。观察右侧三区里文件如何随命令移动。',
     areas: {
       work: {
         title: '工作区',

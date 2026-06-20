@@ -110,8 +110,10 @@ export default {
   modelArchitecture: {
     pureLlm: 'Pure LLM (纯文本)',
     vlm: 'Multimodal VLM (多模态)',
-    vlmDesc: 'Tokens from vision are translated and placed before text tokens. (视觉信息被翻译成 Token，放在文字 Token 之前。)',
-    llmDesc: 'Text-only tokens flow into the LLM. (只有文字 Token 流入大模型。)',
+    vlmDesc:
+      'Tokens from vision are translated and placed before text tokens. (视觉信息被翻译成 Token，放在文字 Token 之前。)',
+    llmDesc:
+      'Text-only tokens flow into the LLM. (只有文字 Token 流入大模型。)',
     visionPath: 'Vision Path (视觉路径)',
     image: 'Image (图片)',
     vit: 'ViT (视觉模型)',
@@ -124,7 +126,8 @@ export default {
     tokenSequence: 'Token Sequence (输入序列)',
     visionTag: 'Vision (视觉)',
     textTag: 'Text (文字)',
-    concatHint: 'Concat: [Vision Tokens] + [Text Tokens] (拼接：视觉在前，文字在后)',
+    concatHint:
+      'Concat: [Vision Tokens] + [Text Tokens] (拼接：视觉在前，文字在后)',
     onlyTextHint: 'Only [Text Tokens] (只有文字 Token)',
     backbone: 'LLM Backbone (大模型)',
     response: 'Response (回复)',
@@ -133,8 +136,14 @@ export default {
     vlmTitle: 'VLM = LLM + Vision Encoder (视觉大模型原理)',
     principles: [
       { strong: 'ViT (The Eye):', text: '把图片编码成视觉特征。' },
-      { strong: 'Projector (The Translator):', text: '把视觉特征映射到 LLM 的 Token 空间。' },
-      { strong: 'Concatenation (拼接):', text: '把视觉 Token 放在文字 Token 之前，作为同一条输入序列。' }
+      {
+        strong: 'Projector (The Translator):',
+        text: '把视觉特征映射到 LLM 的 Token 空间。'
+      },
+      {
+        strong: 'Concatenation (拼接):',
+        text: '把视觉 Token 放在文字 Token 之前，作为同一条输入序列。'
+      }
     ]
   },
   vitOutput: {
@@ -146,15 +155,69 @@ export default {
     semanticStrong: '🤖 What ViT sees (Semantic):',
     placeholder: '悬停在上方方块或向量上，查看 ViT 输出的“语义特征”',
     items: [
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Recognized as outdoor nature elements (Trees/Greenery). Low relevance to main subject.' },
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Redundant background info. Contextualizes the scene as "Outdoors".' },
-      { icon: '☁️', label: 'Sky', type: 'Environment', color: '#2196f3', desc: 'Spatial context: Upper region, open area.' },
-      { icon: '👂', label: 'Cat Ear', type: 'Subject Part', color: '#ff9800', desc: 'High Importance. Identified as "Feline Feature". Strongly linked to "Cat Face".' },
-      { icon: '😼', label: 'Cat Face', type: 'Subject Core', color: '#ff5722', desc: 'Global Focus Center. Contains "Eyes", "Whiskers". Aggregates info from surrounding patches.' },
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Background noise.' },
-      { icon: '🐾', label: 'Cat Paw', type: 'Subject Part', color: '#ff9800', desc: 'Action component. Suggests "Standing" or "Walking" posture.' },
-      { icon: '🧶', label: 'Yarn', type: 'Object', color: '#e91e63', desc: 'Interacting Object. Semantically linked to "Play" or "Toy".' },
-      { icon: '🌱', label: 'Grass', type: 'Environment', color: '#8bc34a', desc: 'Ground context. Confirms "Ground level" view.' }
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Recognized as outdoor nature elements (Trees/Greenery). Low relevance to main subject.'
+      },
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Redundant background info. Contextualizes the scene as "Outdoors".'
+      },
+      {
+        icon: '☁️',
+        label: 'Sky',
+        type: 'Environment',
+        color: '#2196f3',
+        desc: 'Spatial context: Upper region, open area.'
+      },
+      {
+        icon: '👂',
+        label: 'Cat Ear',
+        type: 'Subject Part',
+        color: '#ff9800',
+        desc: 'High Importance. Identified as "Feline Feature". Strongly linked to "Cat Face".'
+      },
+      {
+        icon: '😼',
+        label: 'Cat Face',
+        type: 'Subject Core',
+        color: '#ff5722',
+        desc: 'Global Focus Center. Contains "Eyes", "Whiskers". Aggregates info from surrounding patches.'
+      },
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Background noise.'
+      },
+      {
+        icon: '🐾',
+        label: 'Cat Paw',
+        type: 'Subject Part',
+        color: '#ff9800',
+        desc: 'Action component. Suggests "Standing" or "Walking" posture.'
+      },
+      {
+        icon: '🧶',
+        label: 'Yarn',
+        type: 'Object',
+        color: '#e91e63',
+        desc: 'Interacting Object. Semantically linked to "Play" or "Toy".'
+      },
+      {
+        icon: '🌱',
+        label: 'Grass',
+        type: 'Environment',
+        color: '#8bc34a',
+        desc: 'Ground context. Confirms "Ground level" view.'
+      }
     ]
   },
   quickStart: {
@@ -197,8 +260,10 @@ export default {
     },
     answers: {
       chat: {
-        place: '这是一张高山风景照。远处是覆盖着皑皑白雪的山峰，可能是阿尔卑斯山或喜马拉雅山脉。山脚下有郁郁葱葱的松树林。',
-        weather: '天气看起来非常晴朗，阳光明媚（☀️），能见度很高。蓝天白云，是一个适合登山或滑雪的好天气。',
+        place:
+          '这是一张高山风景照。远处是覆盖着皑皑白雪的山峰，可能是阿尔卑斯山或喜马拉雅山脉。山脚下有郁郁葱葱的松树林。',
+        weather:
+          '天气看起来非常晴朗，阳光明媚（☀️），能见度很高。蓝天白云，是一个适合登山或滑雪的好天气。',
         poem: '🏔️ 雪岭插云天，\n🌲 松涛响翠烟。\n☀️ 金阳融冷色，\n🏞️ 壮丽入心田。'
       },
       detection: {
@@ -228,7 +293,8 @@ export default {
           type: 'json',
           text: '{\n  "hazards": [],\n  "safety_score": 100,\n  "status": "SAFE"\n}'
         },
-        riskReport: '✅ **安全合规**\n- 人员：1人\n- 防护装备：齐全\n- 机械设备：正常运行中\n- 风险等级：低'
+        riskReport:
+          '✅ **安全合规**\n- 人员：1人\n- 防护装备：齐全\n- 机械设备：正常运行中\n- 风险等级：低'
       }
     },
     imageLabels: {

@@ -4,7 +4,8 @@ export default {
   },
   evolutionIntro: {
     title: 'Backend Architecture Evolution',
-    subtitle: 'Understand 30 years of architecture evolution through a restaurant analogy',
+    subtitle:
+      'Understand 30 years of architecture evolution through a restaurant analogy',
     restaurantScene: '🍽️ Restaurant scenario',
     backendMapping: '💻 Backend mapping',
     corePain: '⚡ Core pain points',
@@ -16,9 +17,15 @@ export default {
         name: 'Small family workshop',
         arch: 'Physical server',
         restaurant: 'Home kitchen',
-        scenario: 'One cook works in a small kitchen and personally buys ingredients, washes, cuts, cooks, and serves. When customers increase, everyone has to queue.',
-        mapping: 'One physical server handles every request: receiving HTTP requests, reading files, executing CGI scripts, and returning responses. CPU and memory are limited, so extra requests queue up.',
-        pains: ['Single-machine bottleneck: too many customers overwhelm the cook', 'Vertical scaling is expensive: buying a bigger machine is like buying a bigger kitchen', 'Single point of failure: if the cook is unavailable, the restaurant closes']
+        scenario:
+          'One cook works in a small kitchen and personally buys ingredients, washes, cuts, cooks, and serves. When customers increase, everyone has to queue.',
+        mapping:
+          'One physical server handles every request: receiving HTTP requests, reading files, executing CGI scripts, and returning responses. CPU and memory are limited, so extra requests queue up.',
+        pains: [
+          'Single-machine bottleneck: too many customers overwhelm the cook',
+          'Vertical scaling is expensive: buying a bigger machine is like buying a bigger kitchen',
+          'Single point of failure: if the cook is unavailable, the restaurant closes'
+        ]
       },
       {
         era: '2000s',
@@ -26,9 +33,15 @@ export default {
         name: 'Large central kitchen',
         arch: 'Monolith',
         restaurant: 'Chain restaurant central kitchen',
-        scenario: 'A large central kitchen has clear roles: washing, cutting, and cooking. But everyone works in the same big room and depends on each other.',
-        mapping: 'A monolithic application runs all modules, such as users, orders, and payments, in one process. It shares one database and is deployed as one large application.',
-        pains: ['A small issue affects the whole kitchen', 'Technical debt accumulates and becomes hard for new people to understand', 'Releasing one feature may affect the entire system']
+        scenario:
+          'A large central kitchen has clear roles: washing, cutting, and cooking. But everyone works in the same big room and depends on each other.',
+        mapping:
+          'A monolithic application runs all modules, such as users, orders, and payments, in one process. It shares one database and is deployed as one large application.',
+        pains: [
+          'A small issue affects the whole kitchen',
+          'Technical debt accumulates and becomes hard for new people to understand',
+          'Releasing one feature may affect the entire system'
+        ]
       },
       {
         era: '2010s',
@@ -36,9 +49,15 @@ export default {
         name: 'Specialized division',
         arch: 'Microservices',
         restaurant: 'Restaurant group with multiple kitchens',
-        scenario: 'The central kitchen is split into specialized kitchens for different cuisines. Each kitchen runs independently and collaborates through standardized processes.',
-        mapping: 'Each business capability, such as user service, order service, and payment service, runs as an independent process with its own database and communicates through HTTP or gRPC.',
-        pains: ['Distributed coordination is much harder than managing one kitchen', 'Network delays or failures affect cross-service dependencies', 'Operations cost rises because many services need to be managed']
+        scenario:
+          'The central kitchen is split into specialized kitchens for different cuisines. Each kitchen runs independently and collaborates through standardized processes.',
+        mapping:
+          'Each business capability, such as user service, order service, and payment service, runs as an independent process with its own database and communicates through HTTP or gRPC.',
+        pains: [
+          'Distributed coordination is much harder than managing one kitchen',
+          'Network delays or failures affect cross-service dependencies',
+          'Operations cost rises because many services need to be managed'
+        ]
       },
       {
         era: '2020s+',
@@ -46,9 +65,15 @@ export default {
         name: 'Delivery platform',
         arch: 'Serverless',
         restaurant: 'Delivery platform / cloud kitchen',
-        scenario: 'You no longer run your own kitchen. When an order arrives, the platform dispatches nearby capacity. You focus on menu design and promotion.',
-        mapping: 'In serverless architecture, developers write business functions and ignore server location, quantity, and scaling. The cloud platform schedules resources and bills by execution.',
-        pains: ['Cold starts can delay the first request', 'The platform dependency creates migration cost', 'Function runtime and memory limits constrain complex work']
+        scenario:
+          'You no longer run your own kitchen. When an order arrives, the platform dispatches nearby capacity. You focus on menu design and promotion.',
+        mapping:
+          'In serverless architecture, developers write business functions and ignore server location, quantity, and scaling. The cloud platform schedules resources and bills by execution.',
+        pains: [
+          'Cold starts can delay the first request',
+          'The platform dependency creates migration cost',
+          'Function runtime and memory limits constrain complex work'
+        ]
       }
     ]
   },
@@ -62,35 +87,107 @@ export default {
     idea: 'Architecture evolves to solve prior pain points, while also introducing new complexity.',
     defaultEra: 'Monolith',
     eras: [
-      { name: 'Physical server', icon: '🖥️', year: '1990s', tag: 'Single node' },
+      {
+        name: 'Physical server',
+        icon: '🖥️',
+        year: '1990s',
+        tag: 'Single node'
+      },
       { name: 'Monolith', icon: '🏢', year: '2000s', tag: 'Centralized' },
       { name: 'Microservices', icon: '🏭', year: '2010s', tag: 'Distributed' },
       { name: 'Serverless', icon: '☁️', year: '2020s+', tag: 'No server ops' }
     ],
     details: {
       'Physical server': {
-        features: ['Single-machine deployment without redundancy', 'Manual code upload through FTP', 'Vertical scaling by buying stronger machines', 'No service governance concept'],
-        pros: ['Simple deployment with little configuration', 'Good single-node performance without network hops', 'Easy debugging and troubleshooting'],
-        cons: ['Single point of failure', 'Hard to scale except vertically', 'Manual operations are inefficient'],
+        features: [
+          'Single-machine deployment without redundancy',
+          'Manual code upload through FTP',
+          'Vertical scaling by buying stronger machines',
+          'No service governance concept'
+        ],
+        pros: [
+          'Simple deployment with little configuration',
+          'Good single-node performance without network hops',
+          'Easy debugging and troubleshooting'
+        ],
+        cons: [
+          'Single point of failure',
+          'Hard to scale except vertically',
+          'Manual operations are inefficient'
+        ],
         techs: ['Apache/Nginx', 'CGI/Perl', 'FTP/SFTP', 'Physical server']
       },
       Monolith: {
-        features: ['Single codebase and unified stack', 'Shared database and transactional consistency', 'Unified deployment and whole-system release', 'In-process communication without network overhead'],
-        pros: ['Simple development and onboarding', 'Convenient local testing', 'Simple deployment as one package'],
-        cons: ['Tight coupling makes small changes risky', 'Single stack makes new technology hard to introduce', 'Large teams become hard to coordinate'],
-        techs: ['Spring/Django/Rails', 'Tomcat/Gunicorn', 'MySQL/PostgreSQL', 'Maven/Gradle']
+        features: [
+          'Single codebase and unified stack',
+          'Shared database and transactional consistency',
+          'Unified deployment and whole-system release',
+          'In-process communication without network overhead'
+        ],
+        pros: [
+          'Simple development and onboarding',
+          'Convenient local testing',
+          'Simple deployment as one package'
+        ],
+        cons: [
+          'Tight coupling makes small changes risky',
+          'Single stack makes new technology hard to introduce',
+          'Large teams become hard to coordinate'
+        ],
+        techs: [
+          'Spring/Django/Rails',
+          'Tomcat/Gunicorn',
+          'MySQL/PostgreSQL',
+          'Maven/Gradle'
+        ]
       },
       Microservices: {
-        features: ['Services are split and deployed independently', 'Heterogeneous technology stacks', 'Independent databases and eventual consistency', 'Network communication between services'],
-        pros: ['Independent services and autonomous teams', 'Flexible technology choices', 'Fault isolation'],
-        cons: ['Distributed complexity and hard debugging', 'Network latency and performance overhead', 'Operations cost rises sharply'],
-        techs: ['Docker/Kubernetes', 'gRPC/REST', 'Kafka/RabbitMQ', 'Prometheus/Grafana']
+        features: [
+          'Services are split and deployed independently',
+          'Heterogeneous technology stacks',
+          'Independent databases and eventual consistency',
+          'Network communication between services'
+        ],
+        pros: [
+          'Independent services and autonomous teams',
+          'Flexible technology choices',
+          'Fault isolation'
+        ],
+        cons: [
+          'Distributed complexity and hard debugging',
+          'Network latency and performance overhead',
+          'Operations cost rises sharply'
+        ],
+        techs: [
+          'Docker/Kubernetes',
+          'gRPC/REST',
+          'Kafka/RabbitMQ',
+          'Prometheus/Grafana'
+        ]
       },
       Serverless: {
-        features: ['Function granularity and event-driven execution', 'Automatic scaling and pay-per-use billing', 'No server management', 'Cold starts introduce latency'],
-        pros: ['No server operations, focus on business logic', 'Automatic scaling for traffic spikes', 'Pay per invocation keeps cost low'],
-        cons: ['Cold start latency', 'Platform lock-in and migration difficulty', 'Difficult local reproduction and debugging'],
-        techs: ['AWS Lambda', 'Vercel/Cloudflare', 'Supabase/Firebase', 'EventBridge']
+        features: [
+          'Function granularity and event-driven execution',
+          'Automatic scaling and pay-per-use billing',
+          'No server management',
+          'Cold starts introduce latency'
+        ],
+        pros: [
+          'No server operations, focus on business logic',
+          'Automatic scaling for traffic spikes',
+          'Pay per invocation keeps cost low'
+        ],
+        cons: [
+          'Cold start latency',
+          'Platform lock-in and migration difficulty',
+          'Difficult local reproduction and debugging'
+        ],
+        techs: [
+          'AWS Lambda',
+          'Vercel/Cloudflare',
+          'Supabase/Firebase',
+          'EventBridge'
+        ]
       }
     }
   },
@@ -98,15 +195,68 @@ export default {
     title: 'Technology Stack Evolution Timeline',
     subtitle: 'Mainstream technology stacks in each era',
     eras: [
-      { icon: '🖥️', name: 'Physical server era', period: '1990s', categories: [{ name: 'Web servers', techs: ['Apache', 'Nginx', 'IIS'] }, { name: 'Backend languages', techs: ['Perl', 'PHP', 'ASP'] }, { name: 'Databases', techs: ['MySQL', 'PostgreSQL', 'Oracle'] }, { name: 'Deployment', techs: ['FTP', 'SSH', 'Manual'] }] },
-      { icon: '🏢', name: 'Monolith', period: '2000s', categories: [{ name: 'Backend frameworks', techs: ['Spring', 'Django', 'Rails', 'Laravel'] }, { name: 'Frontend tech', techs: ['jQuery', 'Bootstrap', 'JSP'] }, { name: 'Databases', techs: ['MySQL', 'Redis', 'MongoDB'] }, { name: 'Build tools', techs: ['Maven', 'Gradle', 'Ant'] }] },
-      { icon: '🏭', name: 'Microservices', period: '2010s', categories: [{ name: 'Containers', techs: ['Docker', 'Kubernetes', 'Helm'] }, { name: 'Service frameworks', techs: ['Spring Cloud', 'gRPC', 'Dubbo'] }, { name: 'Data stores', techs: ['Redis', 'MongoDB', 'Kafka', 'ES'] }, { name: 'Observability', techs: ['Prometheus', 'Grafana', 'Jaeger'] }] },
-      { icon: '☁️', name: 'Serverless', period: '2020s+', categories: [{ name: 'Function compute', techs: ['Lambda', 'Vercel', 'Cloudflare'] }, { name: 'BaaS', techs: ['Supabase', 'Firebase', 'Auth0'] }, { name: 'Frontend frameworks', techs: ['Next.js', 'Nuxt', 'SvelteKit'] }, { name: 'Databases', techs: ['PlanetScale', 'Neon', 'Turso'] }] }
+      {
+        icon: '🖥️',
+        name: 'Physical server era',
+        period: '1990s',
+        categories: [
+          { name: 'Web servers', techs: ['Apache', 'Nginx', 'IIS'] },
+          { name: 'Backend languages', techs: ['Perl', 'PHP', 'ASP'] },
+          { name: 'Databases', techs: ['MySQL', 'PostgreSQL', 'Oracle'] },
+          { name: 'Deployment', techs: ['FTP', 'SSH', 'Manual'] }
+        ]
+      },
+      {
+        icon: '🏢',
+        name: 'Monolith',
+        period: '2000s',
+        categories: [
+          {
+            name: 'Backend frameworks',
+            techs: ['Spring', 'Django', 'Rails', 'Laravel']
+          },
+          { name: 'Frontend tech', techs: ['jQuery', 'Bootstrap', 'JSP'] },
+          { name: 'Databases', techs: ['MySQL', 'Redis', 'MongoDB'] },
+          { name: 'Build tools', techs: ['Maven', 'Gradle', 'Ant'] }
+        ]
+      },
+      {
+        icon: '🏭',
+        name: 'Microservices',
+        period: '2010s',
+        categories: [
+          { name: 'Containers', techs: ['Docker', 'Kubernetes', 'Helm'] },
+          {
+            name: 'Service frameworks',
+            techs: ['Spring Cloud', 'gRPC', 'Dubbo']
+          },
+          { name: 'Data stores', techs: ['Redis', 'MongoDB', 'Kafka', 'ES'] },
+          { name: 'Observability', techs: ['Prometheus', 'Grafana', 'Jaeger'] }
+        ]
+      },
+      {
+        icon: '☁️',
+        name: 'Serverless',
+        period: '2020s+',
+        categories: [
+          {
+            name: 'Function compute',
+            techs: ['Lambda', 'Vercel', 'Cloudflare']
+          },
+          { name: 'BaaS', techs: ['Supabase', 'Firebase', 'Auth0'] },
+          {
+            name: 'Frontend frameworks',
+            techs: ['Next.js', 'Nuxt', 'SvelteKit']
+          },
+          { name: 'Databases', techs: ['PlanetScale', 'Neon', 'Turso'] }
+        ]
+      }
     ]
   },
   containerDocker: {
     title: 'Docker Containerization Demo',
-    subtitle: 'See how containers let applications be packaged once and run anywhere',
+    subtitle:
+      'See how containers let applications be packaged once and run anywhere',
     traditional: 'Traditional deployment',
     docker: 'Docker containers',
     appA: 'App A',
@@ -120,10 +270,26 @@ export default {
     hardware: 'Physical server',
     idea: 'Containerization lets applications be built once and run anywhere, solving environment consistency and fast deployment problems.',
     benefits: [
-      { icon: '📦', title: 'Environment consistency', desc: 'Development, testing, and production environments stay consistent.' },
-      { icon: '🚀', title: 'Fast deployment', desc: 'Second-level startup, image distribution, and rolling updates without downtime.' },
-      { icon: '📊', title: 'Resource isolation', desc: 'CPU and memory limits keep multiple applications from interfering with each other.' },
-      { icon: '🔄', title: 'Version management', desc: 'Versioned images support rollback and gradual rollout.' }
+      {
+        icon: '📦',
+        title: 'Environment consistency',
+        desc: 'Development, testing, and production environments stay consistent.'
+      },
+      {
+        icon: '🚀',
+        title: 'Fast deployment',
+        desc: 'Second-level startup, image distribution, and rolling updates without downtime.'
+      },
+      {
+        icon: '📊',
+        title: 'Resource isolation',
+        desc: 'CPU and memory limits keep multiple applications from interfering with each other.'
+      },
+      {
+        icon: '🔄',
+        title: 'Version management',
+        desc: 'Versioned images support rollback and gradual rollout.'
+      }
     ]
   },
   physicalServer: {
@@ -169,10 +335,34 @@ export default {
     reset: 'Reset',
     healthy: 'Healthy',
     services: [
-      { name: 'User service', icon: '👤', port: '8081', database: 'MySQL', dependencies: [] },
-      { name: 'Order service', icon: '📦', port: '8082', database: 'PostgreSQL', dependencies: ['User service'] },
-      { name: 'Payment service', icon: '💳', port: '8083', database: 'MongoDB', dependencies: ['User service', 'Order service'] },
-      { name: 'Inventory service', icon: '🏭', port: '8084', database: 'Redis', dependencies: ['Order service'] }
+      {
+        name: 'User service',
+        icon: '👤',
+        port: '8081',
+        database: 'MySQL',
+        dependencies: []
+      },
+      {
+        name: 'Order service',
+        icon: '📦',
+        port: '8082',
+        database: 'PostgreSQL',
+        dependencies: ['User service']
+      },
+      {
+        name: 'Payment service',
+        icon: '💳',
+        port: '8083',
+        database: 'MongoDB',
+        dependencies: ['User service', 'Order service']
+      },
+      {
+        name: 'Inventory service',
+        icon: '🏭',
+        port: '8084',
+        database: 'Redis',
+        dependencies: ['Order service']
+      }
     ],
     flowSteps: [
       { service: 'User service', action: 'Verify user identity' },
@@ -206,15 +396,28 @@ export default {
       { name: 'Tidal traffic', icon: '🌊', desc: 'Periodic peaks and valleys' }
     ],
     explanation: [
-      { term: 'On-demand execution', desc: 'Functions run only when invoked, so idle functions do not create runtime cost.' },
-      { term: 'Automatic scaling', desc: 'Scale automatically from zero to thousands of instances without manual intervention.' },
-      { term: 'Cold start', desc: 'The first call after a long idle period may have extra latency and may need warm-up strategies.' },
-      { term: 'Event driven', desc: 'Respond to HTTP requests, message queues, scheduled tasks, and other event sources.' }
+      {
+        term: 'On-demand execution',
+        desc: 'Functions run only when invoked, so idle functions do not create runtime cost.'
+      },
+      {
+        term: 'Automatic scaling',
+        desc: 'Scale automatically from zero to thousands of instances without manual intervention.'
+      },
+      {
+        term: 'Cold start',
+        desc: 'The first call after a long idle period may have extra latency and may need warm-up strategies.'
+      },
+      {
+        term: 'Event driven',
+        desc: 'Respond to HTTP requests, message queues, scheduled tasks, and other event sources.'
+      }
     ]
   },
   kubernetes: {
     title: '☸️ Kubernetes Orchestration Demo',
-    subtitle: 'Observe how K8s schedules containers, balances load, and recovers from failures',
+    subtitle:
+      'Observe how K8s schedules containers, balances load, and recovers from failures',
     controlPlaneTitle: 'Control Plane',
     workerNodesTitle: 'Worker Nodes',
     memory: 'Memory:',
@@ -248,10 +451,22 @@ export default {
       reset: 'Cluster reset'
     },
     explanation: [
-      { term: 'Pod', desc: 'The smallest deployment unit. A Pod can contain one or more containers.' },
-      { term: 'Deployment', desc: 'Manages Pod replica count and rolling updates.' },
-      { term: 'Service', desc: 'Provides stable network access and load balancing.' },
-      { term: 'Scheduler', desc: 'Automatically schedules Pods to suitable nodes based on resource needs and policies.' }
+      {
+        term: 'Pod',
+        desc: 'The smallest deployment unit. A Pod can contain one or more containers.'
+      },
+      {
+        term: 'Deployment',
+        desc: 'Manages Pod replica count and rolling updates.'
+      },
+      {
+        term: 'Service',
+        desc: 'Provides stable network access and load balancing.'
+      },
+      {
+        term: 'Scheduler',
+        desc: 'Automatically schedules Pods to suitable nodes based on resource needs and policies.'
+      }
     ]
   }
 }

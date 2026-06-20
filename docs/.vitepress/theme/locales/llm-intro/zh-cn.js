@@ -1,7 +1,8 @@
 export default {
   quickStart: {
     title: '🤖 LLM 初体验：从闲聊到业务实战',
-    subtitle: '大模型不仅能聊天，更是生产力工具。试试看它如何处理这些业务需求：',
+    subtitle:
+      '大模型不仅能聊天，更是生产力工具。试试看它如何处理这些业务需求：',
     empty: '请选择一个业务场景开始体验',
     generating: '正在思考业务逻辑并生成 Token...',
     fallback: '正在思考...',
@@ -11,7 +12,8 @@ export default {
         text: '给我想一个请假的理由',
         type: 'casual',
         isCode: false,
-        answer: '老板，我感觉身体不适，可能是昨天写代码太投入，CPU（大脑）过热导致系统（身体）宕机了，申请重启（休息）一天。'
+        answer:
+          '老板，我感觉身体不适，可能是昨天写代码太投入，CPU（大脑）过热导致系统（身体）宕机了，申请重启（休息）一天。'
       },
       {
         icon: '🐍',
@@ -40,21 +42,24 @@ print(f"正在爬取 {url} 的标题...")
         text: '用鲁迅的语气夸我',
         type: 'casual',
         isCode: false,
-        answer: '我向来是不惮以最坏的恶意来推测中国人的，然而我还不料，也不信竟会遇见这样优秀的人。你的代码，很有几分风骨。'
+        answer:
+          '我向来是不惮以最坏的恶意来推测中国人的，然而我还不料，也不信竟会遇见这样优秀的人。你的代码，很有几分风骨。'
       },
       {
         icon: '📊',
         text: '分析这份销售数据的趋势',
         type: 'analysis',
         isCode: false,
-        answer: '基于您提供的数据，我发现以下几个关键趋势：\n\n1. 📈 **总体增长**：Q3 销售额同比增长了 25%，主要得益于线上渠道的爆发。\n2. ⚠️ **库存预警**：热销品类 A 的周转天数已降至 5 天，建议立即补货。\n3. 💡 **潜力市场**：华南地区的转化率（3.2%）显著高于平均水平，建议加大该区域的广告投放。'
+        answer:
+          '基于您提供的数据，我发现以下几个关键趋势：\n\n1. 📈 **总体增长**：Q3 销售额同比增长了 25%，主要得益于线上渠道的爆发。\n2. ⚠️ **库存预警**：热销品类 A 的周转天数已降至 5 天，建议立即补货。\n3. 💡 **潜力市场**：华南地区的转化率（3.2%）显著高于平均水平，建议加大该区域的广告投放。'
       },
       {
         icon: '📝',
         text: '为这款咖啡杯写一段小红书文案',
         type: 'marketing',
         isCode: false,
-        answer: '☕️ **早八人的续命神器！这款咖啡杯真的太懂我了**\n\n家人们谁懂啊！😭 作为一个每天靠咖啡续命的打工人，终于挖到了这款宝藏杯子！\n\n✨ **颜值绝绝子**：奶油白配色，拿在手里就是妥妥的 ins 风，摆在工位上心情都变好了！\n🌡️ **保温超长待机**：早上泡的冰美式，下午还是冰冰凉，这也太适合夏天了吧！\n🔒 **密封不漏水**：直接塞包里也不怕洒，挤地铁必备！\n\n👇 评论区蹲一个链接，带你一起实现咖啡自由！ #好物分享 #高颜值水杯 #打工人日常'
+        answer:
+          '☕️ **早八人的续命神器！这款咖啡杯真的太懂我了**\n\n家人们谁懂啊！😭 作为一个每天靠咖啡续命的打工人，终于挖到了这款宝藏杯子！\n\n✨ **颜值绝绝子**：奶油白配色，拿在手里就是妥妥的 ins 风，摆在工位上心情都变好了！\n🌡️ **保温超长待机**：早上泡的冰美式，下午还是冰冰凉，这也太适合夏天了吧！\n🔒 **密封不漏水**：直接塞包里也不怕洒，挤地铁必备！\n\n👇 评论区蹲一个链接，带你一起实现咖啡自由！ #好物分享 #高颜值水杯 #打工人日常'
       }
     ]
   },
@@ -68,13 +73,22 @@ print(f"正在爬取 {url} 的标题...")
       tokenType: 'Type'
     },
     placeholder: 'Type something to see how AI reads it...',
-    sampleText: 'The quick brown fox jumps over the lazy dog. \n今天天气真不错！',
+    sampleText:
+      'The quick brown fox jumps over the lazy dog. \n今天天气真不错！',
     note: 'LLM 不直接理解单词，它们处理的是数字（Token IDs）。对于英文，一个 Token 通常是一个单词或单词的一部分（如 "ing"）；对于中文，一个 Token 通常是一个汉字或词组。'
   },
   embedding: {
     modes: [
-      { id: 'cluster', label: '语义聚类', desc: '语义相近的词在空间中距离更近。' },
-      { id: 'analogy', label: '向量算术', desc: 'King - Man + Woman ≈ Queen (方向平行)' }
+      {
+        id: 'cluster',
+        label: '语义聚类',
+        desc: '语义相近的词在空间中距离更近。'
+      },
+      {
+        id: 'analogy',
+        label: '向量算术',
+        desc: 'King - Man + Woman ≈ Queen (方向平行)'
+      }
     ]
   },
   matrix: {
@@ -130,10 +144,13 @@ print(f"正在爬取 {url} 的标题...")
     slowOutput: '9.11 比 9.9 小。'
   },
   rnnTransformer: {
-    rnnDesc: 'RNN 从左到右逐个读取。注意看 Memory（记忆），随着句子变长，最早的信息（"The"）可能会被后面的信息冲淡，这就是“长距离依赖”问题。',
+    rnnDesc:
+      'RNN 从左到右逐个读取。注意看 Memory（记忆），随着句子变长，最早的信息（"The"）可能会被后面的信息冲淡，这就是“长距离依赖”问题。',
     hoverTip: '👆 鼠标悬停在任意单词上，查看它在“关注”谁。',
-    transformerDescPrefix: 'Transformer 一眼看完整个句子（并行）。Self-Attention 机制让每个词都能直接“看见”其他词，无论距离多远。',
-    transformerExample: '例如：悬停在 "it" 上，你会发现它强烈关注 "animal"，因为它指代的就是 animal。'
+    transformerDescPrefix:
+      'Transformer 一眼看完整个句子（并行）。Self-Attention 机制让每个词都能直接“看见”其他词，无论距离多远。',
+    transformerExample:
+      '例如：悬停在 "it" 上，你会发现它强烈关注 "animal"，因为它指代的就是 animal。'
   },
   linearAttention: {
     modes: {
@@ -146,9 +163,11 @@ print(f"正在爬取 {url} 的标题...")
     linearDesc: '每个人只传给下一个人。N={n} 时，操作数仅为 {count}。',
     title: '💡 核心区别：要不要回头看？',
     standardTitle: '回看模式 (Retrospective)：',
-    standardBody: '想象你在考试。每做一道新题，你都要把之前做过的所有题目再检查一遍，确认有没有关联。题目越多，你需要检查的次数就越多，最后累死在检查上。',
+    standardBody:
+      '想象你在考试。每做一道新题，你都要把之前做过的所有题目再检查一遍，确认有没有关联。题目越多，你需要检查的次数就越多，最后累死在检查上。',
     linearTitle: '状态模式 (Recurrent)：',
-    linearBody: '想象你在跑步。你不需要记得前 100 步每一步踩在哪，你只需要知道现在的速度和位置（State）。跑第 1000 步和跑第 1 步一样轻松，因为你不需要回头。'
+    linearBody:
+      '想象你在跑步。你不需要记得前 100 步每一步踩在哪，你只需要知道现在的速度和位置（State）。跑第 1000 步和跑第 1 步一样轻松，因为你不需要回头。'
   },
   moe: {
     modes: {
@@ -194,7 +213,8 @@ print(f"正在爬取 {url} 的标题...")
     transform: '➡️ 转换 ➡️',
     rawPromptLabel: '模型看到的 (Raw Prompt)',
     trainDescTitle: 'Training (训练原理)',
-    trainDesc: '模型通过大量数据的“填空题”训练。计算预测结果与真实结果的差异（Loss），并不断调整参数以降低 Loss。',
+    trainDesc:
+      '模型通过大量数据的“填空题”训练。计算预测结果与真实结果的差异（Loss），并不断调整参数以降低 Loss。',
     inputStage: '1. Input (输入)',
     startPlaceholder: '点击下方按钮开始训练',
     rlhfDescTitle: '从“胡说”到“好助手”',
@@ -203,8 +223,10 @@ print(f"正在爬取 {url} 的标题...")
     baseModel: 'Base Model (未对齐)',
     alignedModel: 'Aligned Model (已对齐)',
     harmfulQuery: 'User: "如何制造混乱？"',
-    baseResponse: '哈哈！制造混乱很简单！你可以去大街上大喊大叫，或者...（此处省略1000字胡言乱语）...这太好玩了！',
-    alignedResponse: '对不起，我不能回答这个问题。作为一个人工智能助手，我必须遵守安全准则，不能提供有害建议。',
+    baseResponse:
+      '哈哈！制造混乱很简单！你可以去大街上大喊大叫，或者...（此处省略1000字胡言乱语）...这太好玩了！',
+    alignedResponse:
+      '对不起，我不能回答这个问题。作为一个人工智能助手，我必须遵守安全准则，不能提供有害建议。',
     buttons: {
       start: 'Start Training (开始训练)',
       restart: 'Restart (重新开始)',
@@ -216,6 +238,17 @@ print(f"正在爬取 {url} 的标题...")
       { input: '今天天气', target: '不错' },
       { input: 'Machine', target: 'Learning' }
     ],
-    randomWords: ['cat', 'fly', 'run', 'red', 'table', 'what', 'bad', '未知', '乱码', '错误']
+    randomWords: [
+      'cat',
+      'fly',
+      'run',
+      'red',
+      'table',
+      'what',
+      'bad',
+      '未知',
+      '乱码',
+      '错误'
+    ]
   }
 }

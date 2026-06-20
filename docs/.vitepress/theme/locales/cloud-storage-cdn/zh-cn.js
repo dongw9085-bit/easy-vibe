@@ -27,17 +27,52 @@ export default {
     ],
     objectsData: {
       'myapp-images-prod': [
-        { key: 'avatars/user123.jpg', type: 'image/jpeg', size: '156 KB', lastModified: '2024-01-15' },
-        { key: 'products/shoes-01.png', type: 'image/png', size: '2.3 MB', lastModified: '2024-01-14' },
-        { key: 'banners/sale-2024.webp', type: 'image/webp', size: '456 KB', lastModified: '2024-01-13' }
+        {
+          key: 'avatars/user123.jpg',
+          type: 'image/jpeg',
+          size: '156 KB',
+          lastModified: '2024-01-15'
+        },
+        {
+          key: 'products/shoes-01.png',
+          type: 'image/png',
+          size: '2.3 MB',
+          lastModified: '2024-01-14'
+        },
+        {
+          key: 'banners/sale-2024.webp',
+          type: 'image/webp',
+          size: '456 KB',
+          lastModified: '2024-01-13'
+        }
       ],
       'myapp-videos-prod': [
-        { key: 'tutorials/intro.mp4', type: 'video/mp4', size: '156 MB', lastModified: '2024-01-15' },
-        { key: 'ads/promo-2024.mp4', type: 'video/mp4', size: '234 MB', lastModified: '2024-01-14' }
+        {
+          key: 'tutorials/intro.mp4',
+          type: 'video/mp4',
+          size: '156 MB',
+          lastModified: '2024-01-15'
+        },
+        {
+          key: 'ads/promo-2024.mp4',
+          type: 'video/mp4',
+          size: '234 MB',
+          lastModified: '2024-01-14'
+        }
       ],
       'myapp-backups': [
-        { key: 'db/daily-20240115.sql.gz', type: 'application/gzip', size: '456 MB', lastModified: '2024-01-15' },
-        { key: 'logs/access-20240114.log.gz', type: 'application/gzip', size: '123 MB', lastModified: '2024-01-14' }
+        {
+          key: 'db/daily-20240115.sql.gz',
+          type: 'application/gzip',
+          size: '456 MB',
+          lastModified: '2024-01-15'
+        },
+        {
+          key: 'logs/access-20240114.log.gz',
+          type: 'application/gzip',
+          size: '123 MB',
+          lastModified: '2024-01-14'
+        }
       ]
     },
     metadataData: {
@@ -82,7 +117,12 @@ export default {
     originName: '对象存储源站',
     healthy: '健康',
     backToSourceRequest: '⬆️ 回源请求',
-    backToSourceSteps: ['1. CDN 节点未命中缓存', '2. 向源站发起回源请求', '3. 源站返回文件内容', '4. CDN 缓存并响应用户'],
+    backToSourceSteps: [
+      '1. CDN 节点未命中缓存',
+      '2. 向源站发起回源请求',
+      '3. 源站返回文件内容',
+      '4. CDN 缓存并响应用户'
+    ],
     controlsTitle: '🎮 模拟演示',
     hitButton: '模拟缓存命中',
     missButton: '模拟缓存未命中（回源）',
@@ -106,10 +146,38 @@ export default {
       { id: 'user5', name: '海外用户', icon: '👤', x: 90, y: 25 }
     ],
     edgeNodes: [
-      { id: 'node1', name: '北京节点', icon: '🌐', location: '华北', cacheSize: '2.5 TB', hitRate: 92 },
-      { id: 'node2', name: '上海节点', icon: '🌐', location: '华东', cacheSize: '3.1 TB', hitRate: 89 },
-      { id: 'node3', name: '广州节点', icon: '🌐', location: '华南', cacheSize: '1.8 TB', hitRate: 87 },
-      { id: 'node4', name: '成都节点', icon: '🌐', location: '西南', cacheSize: '1.2 TB', hitRate: 85 }
+      {
+        id: 'node1',
+        name: '北京节点',
+        icon: '🌐',
+        location: '华北',
+        cacheSize: '2.5 TB',
+        hitRate: 92
+      },
+      {
+        id: 'node2',
+        name: '上海节点',
+        icon: '🌐',
+        location: '华东',
+        cacheSize: '3.1 TB',
+        hitRate: 89
+      },
+      {
+        id: 'node3',
+        name: '广州节点',
+        icon: '🌐',
+        location: '华南',
+        cacheSize: '1.8 TB',
+        hitRate: 87
+      },
+      {
+        id: 'node4',
+        name: '成都节点',
+        icon: '🌐',
+        location: '西南',
+        cacheSize: '1.2 TB',
+        hitRate: 85
+      }
     ]
   },
   upload: {
@@ -122,28 +190,65 @@ export default {
       resume: '💾 断点续传流程'
     },
     methods: [
-      { id: 'direct', name: '直传', icon: '🚀', description: '小文件一次性上传到对象存储', suitable: '< 100MB' },
-      { id: 'multipart', name: '分片上传', icon: '🔪', description: '大文件切分多片并行上传', suitable: '> 100MB' },
-      { id: 'resume', name: '断点续传', icon: '💾', description: '网络中断后从断点继续上传', suitable: '任何大小' }
+      {
+        id: 'direct',
+        name: '直传',
+        icon: '🚀',
+        description: '小文件一次性上传到对象存储',
+        suitable: '< 100MB'
+      },
+      {
+        id: 'multipart',
+        name: '分片上传',
+        icon: '🔪',
+        description: '大文件切分多片并行上传',
+        suitable: '> 100MB'
+      },
+      {
+        id: 'resume',
+        name: '断点续传',
+        icon: '💾',
+        description: '网络中断后从断点继续上传',
+        suitable: '任何大小'
+      }
     ],
     flows: {
       direct: [
         { title: '用户选择文件', detail: '浏览器选择 5MB 图片文件' },
         { title: '申请上传凭证', detail: '前端 → 后端 → STS 临时凭证' },
-        { title: '直传到对象存储', detail: '浏览器 → OSS/COS（5MB 一次性上传）' },
+        {
+          title: '直传到对象存储',
+          detail: '浏览器 → OSS/COS（5MB 一次性上传）'
+        },
         { title: '上传完成', detail: '返回 URL，前端通知后端保存记录' }
       ],
       multipart: [
         { title: '文件分片', detail: '500MB 视频 → 50个 10MB 分片' },
         { title: '初始化分片上传', detail: '获取 uploadId（上传会话 ID）' },
-        { title: '并行上传分片', detail: '3 个并发，每片 10MB', slots: ['分片 1', '分片 2', '分片 3'] },
+        {
+          title: '并行上传分片',
+          detail: '3 个并发，每片 10MB',
+          slots: ['分片 1', '分片 2', '分片 3']
+        },
         { title: '合并分片', detail: '服务端合并所有分片为完整文件' }
       ],
       resume: [
-        { title: '开始上传 1GB 视频', detail: '已上传 6 个分片（60MB），正在上传第 7 个' },
-        { title: '网络中断！', detail: 'WiFi 切换到 4G，上传中断，第 7 个分片上传失败' },
-        { title: '查询已上传分片', detail: '恢复网络后，查询服务端已保存的分片列表' },
-        { title: '断点续传成功！', detail: '从第 7 个分片继续上传，无需重传前 6 个分片' }
+        {
+          title: '开始上传 1GB 视频',
+          detail: '已上传 6 个分片（60MB），正在上传第 7 个'
+        },
+        {
+          title: '网络中断！',
+          detail: 'WiFi 切换到 4G，上传中断，第 7 个分片上传失败'
+        },
+        {
+          title: '查询已上传分片',
+          detail: '恢复网络后，查询服务端已保存的分片列表'
+        },
+        {
+          title: '断点续传成功！',
+          detail: '从第 7 个分片继续上传，无需重传前 6 个分片'
+        }
       ]
     },
     uploadedChunks: '已上传分片: 6/100',

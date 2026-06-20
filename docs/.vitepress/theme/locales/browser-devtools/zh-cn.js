@@ -16,12 +16,21 @@ export default {
     stopBtn: '停止演示',
     tabs: {
       elements: { label: '元素', desc: '查看和修改页面 HTML 结构与 CSS 样式' },
-      console: { label: '控制台', desc: '查看日志、错误信息，执行 JavaScript 代码' },
-      sources: { label: '源代码/来源', desc: '查看源代码，设置断点调试 JavaScript' },
+      console: {
+        label: '控制台',
+        desc: '查看日志、错误信息，执行 JavaScript 代码'
+      },
+      sources: {
+        label: '源代码/来源',
+        desc: '查看源代码，设置断点调试 JavaScript'
+      },
       network: { label: '网络', desc: '监控网络请求，查看接口数据和加载性能' },
       performance: { label: '性能', desc: '分析页面运行性能' },
       memory: { label: '内存', desc: '检测内存泄漏' },
-      application: { label: '应用', desc: '查看本地存储(Storage)、Cookies、缓存等' },
+      application: {
+        label: '应用',
+        desc: '查看本地存储(Storage)、Cookies、缓存等'
+      },
       security: { label: '隐私与安全', desc: '查看证书和安全问题' },
       lighthouse: { label: 'Lighthouse', desc: '页面质量审计' },
       recorder: { label: '记录器', desc: '录制用户操作' }
@@ -99,7 +108,8 @@ export default {
         headersTab: 'Headers: 查看请求/响应头信息',
         general: 'General：查看 URL、Method (GET/POST) 和状态码 (200)',
         responseHeaders: 'Response Headers：服务器返回的头信息 (Content-Type)',
-        requestHeaders: 'Request Headers：浏览器发送的头信息 (User-Agent, Cookies)',
+        requestHeaders:
+          'Request Headers：浏览器发送的头信息 (User-Agent, Cookies)',
         previewTab: 'Preview: 格式化预览接口返回的数据',
         previewContent: 'Preview Content: 查看 JSON 结构',
         responseTab: 'Response: 查看原始响应数据',
@@ -145,13 +155,10 @@ export default {
         '幽灵按钮 (Ghost)',
         '深黑按钮 (Dark)'
       ],
-      container: [
-        '默认卡片 (Card)',
-        '深色模式 (Dark)',
-        '极简白 (Minimal)'
-      ]
+      container: ['默认卡片 (Card)', '深色模式 (Dark)', '极简白 (Minimal)']
     },
-    placeholder: '此演示主要展示 Elements 面板的实时编辑功能。请切换回 "元素" 面板。'
+    placeholder:
+      '此演示主要展示 Elements 面板的实时编辑功能。请切换回 "元素" 面板。'
   },
   consoleDemo: {
     title: 'Console (控制台)',
@@ -164,7 +171,8 @@ export default {
   elementsDemo: {
     title: 'Elements (元素面板)',
     previewLabel: '页面预览 (Page Preview)',
-    footerTip: '点击左侧 DOM 树中的元素，在右侧 Styles 面板修改样式，下方预览会实时更新。'
+    footerTip:
+      '点击左侧 DOM 树中的元素，在右侧 Styles 面板修改样式，下方预览会实时更新。'
   },
   networkDemo: {
     title: 'Network (网络面板)',

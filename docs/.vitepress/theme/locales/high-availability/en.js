@@ -9,10 +9,42 @@ export default {
       examples: 'Typical scenarios: '
     },
     slaLevels: [
-      { nines: '2', label: '2 nines', percent: '99%', yearly: '3.65 days', monthly: '7.3 hours', weekly: '1.68 hours', examples: 'Internal tools, non-critical systems' },
-      { nines: '3', label: '3 nines', percent: '99.9%', yearly: '8.76 hours', monthly: '43.8 minutes', weekly: '10.1 minutes', examples: 'Standard web apps, enterprise systems' },
-      { nines: '4', label: '4 nines', percent: '99.99%', yearly: '52.6 minutes', monthly: '4.38 minutes', weekly: '1.01 minutes', examples: 'E-commerce platforms, SaaS services' },
-      { nines: '5', label: '5 nines', percent: '99.999%', yearly: '5.26 minutes', monthly: '26.3 seconds', weekly: '6.05 seconds', examples: 'Financial trading, telecom core networks' }
+      {
+        nines: '2',
+        label: '2 nines',
+        percent: '99%',
+        yearly: '3.65 days',
+        monthly: '7.3 hours',
+        weekly: '1.68 hours',
+        examples: 'Internal tools, non-critical systems'
+      },
+      {
+        nines: '3',
+        label: '3 nines',
+        percent: '99.9%',
+        yearly: '8.76 hours',
+        monthly: '43.8 minutes',
+        weekly: '10.1 minutes',
+        examples: 'Standard web apps, enterprise systems'
+      },
+      {
+        nines: '4',
+        label: '4 nines',
+        percent: '99.99%',
+        yearly: '52.6 minutes',
+        monthly: '4.38 minutes',
+        weekly: '1.01 minutes',
+        examples: 'E-commerce platforms, SaaS services'
+      },
+      {
+        nines: '5',
+        label: '5 nines',
+        percent: '99.999%',
+        yearly: '5.26 minutes',
+        monthly: '26.3 seconds',
+        weekly: '6.05 seconds',
+        examples: 'Financial trading, telecom core networks'
+      }
     ]
   },
   failover: {
@@ -26,11 +58,21 @@ export default {
         name: 'Active-standby',
         desc: 'One primary node handles all requests while a standby waits. If the primary fails, the standby takes over.',
         nodes: [
-          { label: 'Primary node', status: 'Serving requests', role: 'primary' },
+          {
+            label: 'Primary node',
+            status: 'Serving requests',
+            role: 'primary'
+          },
           { label: 'Standby node', status: 'Syncing standby', role: 'standby' }
         ],
-        pros: ['Simple architecture', 'Data consistency is easier to guarantee'],
-        cons: ['Standby resources are underused', 'Failover has a brief interruption']
+        pros: [
+          'Simple architecture',
+          'Data consistency is easier to guarantee'
+        ],
+        cons: [
+          'Standby resources are underused',
+          'Failover has a brief interruption'
+        ]
       },
       {
         key: 'active-active',
@@ -41,7 +83,10 @@ export default {
           { label: 'Node B', status: 'Serving requests', role: 'primary' }
         ],
         pros: ['High resource utilization', 'No failover interruption'],
-        cons: ['Conflict handling is complex', 'Write conflicts must be resolved']
+        cons: [
+          'Conflict handling is complex',
+          'Write conflicts must be resolved'
+        ]
       },
       {
         key: 'multi-az',
@@ -52,7 +97,10 @@ export default {
           { label: 'AZ-2 replica', status: 'Read-only', role: 'secondary' },
           { label: 'AZ-3 replica', status: 'Read-only', role: 'secondary' }
         ],
-        pros: ['Data-center-level disaster recovery', 'Read throughput can scale'],
+        pros: [
+          'Data-center-level disaster recovery',
+          'Read throughput can scale'
+        ],
         cons: ['Cross-AZ latency', 'Higher cost']
       },
       {
@@ -64,10 +112,15 @@ export default {
           { label: 'Shanghai', status: 'Independent service', role: 'primary' },
           { label: 'Guangzhou', status: 'Independent service', role: 'primary' }
         ],
-        pros: ['Region-level disaster recovery', 'Lower latency through nearby access'],
-        cons: ['Very complex architecture', 'Data synchronization is challenging']
+        pros: [
+          'Region-level disaster recovery',
+          'Lower latency through nearby access'
+        ],
+        cons: [
+          'Very complex architecture',
+          'Data synchronization is challenging'
+        ]
       }
     ]
   }
 }
-

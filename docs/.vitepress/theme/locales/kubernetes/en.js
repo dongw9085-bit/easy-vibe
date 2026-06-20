@@ -10,13 +10,15 @@ export default {
         key: 'api-server',
         name: 'API Server',
         desc: 'The front door of Kubernetes. All operations from kubectl, dashboards, and internal components go through the API Server. It handles authentication, authorization, admission control, and acts as the single entry point for the cluster.',
-        analogy: 'A company reception desk where every visitor and delivery is checked in'
+        analogy:
+          'A company reception desk where every visitor and delivery is checked in'
       },
       {
         key: 'etcd',
         name: 'etcd',
         desc: 'A distributed key-value store that keeps all cluster state: Pod data, Service configuration, Secrets, and more. It is the cluster memory; losing etcd data means losing the cluster state.',
-        analogy: 'A records room that stores employee information and company rules'
+        analogy:
+          'A records room that stores employee information and company rules'
       },
       {
         key: 'scheduler',
@@ -42,19 +44,22 @@ export default {
         key: 'kube-proxy',
         name: 'kube-proxy',
         desc: 'Implements Service networking rules and forwards Service traffic to matching Pods. It maintains iptables or IPVS rules on the node to provide load balancing.',
-        analogy: 'A company switchboard routing external calls to the right extension'
+        analogy:
+          'A company switchboard routing external calls to the right extension'
       },
       {
         key: 'runtime',
         name: 'Container runtime',
         desc: 'The component that actually runs containers, such as containerd or CRI-O. kubelet talks to it through the CRI to pull images, create containers, and manage containers.',
-        analogy: 'Workers carrying out concrete production tasks from instructions'
+        analogy:
+          'Workers carrying out concrete production tasks from instructions'
       }
     ]
   },
   workloads: {
     title: 'K8s Core Resources',
-    subtitle: 'Click a resource type to inspect the explanation and YAML example',
+    subtitle:
+      'Click a resource type to inspect the explanation and YAML example',
     yamlLabel: 'YAML example',
     tipLabel: 'Tip:',
     resources: [
@@ -157,4 +162,3 @@ spec:
     ]
   }
 }
-

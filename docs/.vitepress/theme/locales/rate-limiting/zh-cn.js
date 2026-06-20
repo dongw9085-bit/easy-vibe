@@ -1,7 +1,19 @@
 const algorithms = [
-  { key: 'token', label: '令牌桶', desc: '以固定速率往桶里放令牌，每个请求消耗一个令牌。桶满时多余令牌丢弃。允许一定程度的突发流量（桶里有存量令牌时）。' },
-  { key: 'leaky', label: '漏桶', desc: '请求先进入桶中排队，以固定速率从桶底"漏出"处理。桶满时新请求被拒绝。输出速率恒定，完全平滑流量。' },
-  { key: 'sliding', label: '滑动窗口', desc: '统计最近 N 秒内的请求数，超过阈值则拒绝。比固定窗口更精确，避免窗口边界的突发问题。' }
+  {
+    key: 'token',
+    label: '令牌桶',
+    desc: '以固定速率往桶里放令牌，每个请求消耗一个令牌。桶满时多余令牌丢弃。允许一定程度的突发流量（桶里有存量令牌时）。'
+  },
+  {
+    key: 'leaky',
+    label: '漏桶',
+    desc: '请求先进入桶中排队，以固定速率从桶底"漏出"处理。桶满时新请求被拒绝。输出速率恒定，完全平滑流量。'
+  },
+  {
+    key: 'sliding',
+    label: '滑动窗口',
+    desc: '统计最近 N 秒内的请求数，超过阈值则拒绝。比固定窗口更精确，避免窗口边界的突发问题。'
+  }
 ]
 
 export default {
@@ -67,10 +79,26 @@ export default {
       normal: '正常运行'
     },
     strategies: [
-      { name: '丢弃策略', desc: '缓冲区满时直接丢弃新数据', example: '如：日志采集、实时监控指标' },
-      { name: '阻塞策略', desc: '缓冲区满时让生产者等待', example: '如：Go channel、Java BlockingQueue' },
-      { name: '采样策略', desc: '只处理部分数据，跳过其余', example: '如：高频传感器数据降采样' },
-      { name: '弹性扩容', desc: '动态增加消费者数量', example: '如：K8s HPA 自动扩缩容' }
+      {
+        name: '丢弃策略',
+        desc: '缓冲区满时直接丢弃新数据',
+        example: '如：日志采集、实时监控指标'
+      },
+      {
+        name: '阻塞策略',
+        desc: '缓冲区满时让生产者等待',
+        example: '如：Go channel、Java BlockingQueue'
+      },
+      {
+        name: '采样策略',
+        desc: '只处理部分数据，跳过其余',
+        example: '如：高频传感器数据降采样'
+      },
+      {
+        name: '弹性扩容',
+        desc: '动态增加消费者数量',
+        example: '如：K8s HPA 自动扩缩容'
+      }
     ]
   }
 }

@@ -36,7 +36,11 @@ GET /api/profile
 Cookie: session_id=abc`,
         note: '浏览器会自动带 Cookie；因此一定要做 CSRF 防护（SameSite / CSRF Token）。',
         pros: ['服务端可控（可主动注销）', '适合 SSR/同域 Web', '实现直观'],
-        cons: ['服务端有状态（需要共享 session）', '跨域复杂', '容易被 CSRF 影响']
+        cons: [
+          '服务端有状态（需要共享 session）',
+          '跨域复杂',
+          '容易被 CSRF 影响'
+        ]
       },
       {
         id: 'jwt',
@@ -69,7 +73,8 @@ X-API-Key: <your_api_key>`,
   },
   jwtWorkflow: {
     title: '🎫 JWT：生成 → 发送 → 验证 → 解析',
-    subtitle: '默认“手动推进”，不自动下一步；避免把演示误当成真实系统的安全边界。',
+    subtitle:
+      '默认“手动推进”，不自动下一步；避免把演示误当成真实系统的安全边界。',
     start: '开始',
     prev: '上一步',
     next: '下一步',
@@ -116,7 +121,8 @@ X-API-Key: <your_api_key>`,
   },
   sessionJwt: {
     title: '🧩 Session vs JWT：怎么选？',
-    subtitle: '选你的约束条件，得到推荐方案（并解释原因）。这比“背结论”更好用。',
+    subtitle:
+      '选你的约束条件，得到推荐方案（并解释原因）。这比“背结论”更好用。',
     scenarioTitle: '你的场景',
     clientLabel: '主要客户端',
     revokeLabel: '是否强需求“立刻注销/踢下线”',
@@ -147,8 +153,10 @@ X-API-Key: <your_api_key>`,
     tokenRecommendation: {
       title: 'JWT Access Token（配合 Refresh）',
       desc: '现代 API/移动端常用组合',
-      reasonToken: '跨域/移动端/多服务场景更偏向 Token（Authorization Header）。',
-      reasonRevoke: '需要主动注销：用短 access token + refresh token + 黑名单/版本号。',
+      reasonToken:
+        '跨域/移动端/多服务场景更偏向 Token（Authorization Header）。',
+      reasonRevoke:
+        '需要主动注销：用短 access token + refresh token + 黑名单/版本号。',
       reasonNoRevoke: '不强求“立刻注销”时，JWT 的无状态优势更明显。',
       tips: [
         'Access Token：短过期（如 15m），Refresh Token：单独存/可轮换',
@@ -173,7 +181,8 @@ X-API-Key: <your_api_key>`,
   },
   oauth2: {
     title: '🔑 OAuth2：第三方登录（授权码流程）',
-    subtitle: '用最常见的 Authorization Code Flow（建议配合 PKCE）。默认手动推进，不自动下一步。',
+    subtitle:
+      '用最常见的 Authorization Code Flow（建议配合 PKCE）。默认手动推进，不自动下一步。',
     start: '开始',
     prev: '上一步',
     next: '下一步',
@@ -182,7 +191,8 @@ X-API-Key: <your_api_key>`,
     copyCommand: '复制命令',
     progress: 'Step {step} / {maxStep} · {title}',
     rolesTitle: '角色',
-    roleDesc: 'OAuth2 的核心：你的应用不再保存用户在第三方的密码，而是拿到授权码/令牌后去换取用户信息。',
+    roleDesc:
+      'OAuth2 的核心：你的应用不再保存用户在第三方的密码，而是拿到授权码/令牌后去换取用户信息。',
     stepTitle: '本步要做什么',
     startHint: '点击开始',
     warning: '注意',
@@ -196,7 +206,11 @@ X-API-Key: <your_api_key>`,
 1) 读取 userinfo（拿到第三方 user_id）
 2) 在你系统里创建/绑定用户
 3) 返回你自己的 session cookie 或 JWT`,
-    roles: ['Client（你的应用）', 'Authorization Server（微信/Google 等）', 'Resource Server（你的 API）'],
+    roles: [
+      'Client（你的应用）',
+      'Authorization Server（微信/Google 等）',
+      'Resource Server（你的 API）'
+    ],
     steps: [
       {
         title: '1) 跳转到授权页',
@@ -277,13 +291,20 @@ X-API-Key: <your_api_key>`,
     ],
     keyPoints: [
       { strong: '认证失败：', text: '你是谁都不确定 → 通常返回 401。' },
-      { strong: '认证通过但没权限：', text: '你是谁确定了，但不能做 → 通常返回 403。' },
-      { strong: '授权规则要在服务端：', text: '别相信前端的“是否显示按钮”，那只是 UX。' }
+      {
+        strong: '认证通过但没权限：',
+        text: '你是谁确定了，但不能做 → 通常返回 403。'
+      },
+      {
+        strong: '授权规则要在服务端：',
+        text: '别相信前端的“是否显示按钮”，那只是 UX。'
+      }
     ]
   },
   sessionCookie: {
     title: '🍪 Session + Cookie：有状态登录',
-    subtitle: '默认手动推进：先看清楚状态再进入下一步（避免“自动下一步”误解）。',
+    subtitle:
+      '默认手动推进：先看清楚状态再进入下一步（避免“自动下一步”误解）。',
     start: '开始',
     prev: '上一步',
     next: '下一步',
@@ -300,20 +321,33 @@ X-API-Key: <your_api_key>`,
     clickStart: '（点击开始）',
     waitCookie: '（等待服务器响应并写入 Cookie）',
     steps: [
-      { title: '1) 登录请求（POST /login）', desc: '用户提交用户名/密码，服务器验证成功后创建 Session。' },
+      {
+        title: '1) 登录请求（POST /login）',
+        desc: '用户提交用户名/密码，服务器验证成功后创建 Session。'
+      },
       {
         title: '2) 服务器 Set-Cookie',
         desc: '服务器返回 Set-Cookie: session_id=...；浏览器保存 Cookie。',
         warn: 'Cookie 建议加 HttpOnly + Secure + SameSite；同时要考虑 CSRF 防护。'
       },
-      { title: '3) 后续请求自动带 Cookie', desc: '浏览器对同域请求会自动带上 Cookie，服务器用 session_id 查 Session。' },
-      { title: '4) 授权判断（role/权限）', desc: '认证（你是谁）之后，仍需要授权（你能做什么）。比如 admin 才能访问管理接口。' },
-      { title: '5) 注销', desc: '服务器删除 Session（或让其过期），并让浏览器清理 Cookie。' }
+      {
+        title: '3) 后续请求自动带 Cookie',
+        desc: '浏览器对同域请求会自动带上 Cookie，服务器用 session_id 查 Session。'
+      },
+      {
+        title: '4) 授权判断（role/权限）',
+        desc: '认证（你是谁）之后，仍需要授权（你能做什么）。比如 admin 才能访问管理接口。'
+      },
+      {
+        title: '5) 注销',
+        desc: '服务器删除 Session（或让其过期），并让浏览器清理 Cookie。'
+      }
     ]
   },
   passwordHashing: {
     title: '🔐 密码存储：哈希 + 盐 + 慢',
-    subtitle: '演示 PBKDF2（模拟慢哈希）如何抵抗彩虹表/暴力破解；真实项目通常选 bcrypt/Argon2。',
+    subtitle:
+      '演示 PBKDF2（模拟慢哈希）如何抵抗彩虹表/暴力破解；真实项目通常选 bcrypt/Argon2。',
     inputTitle: '输入',
     passwordLabel: '密码',
     placeholder: '例如：123456',
@@ -327,7 +361,8 @@ X-API-Key: <your_api_key>`,
     conclusion:
       '不要存明文；不要用无盐的快速哈希（MD5/SHA1/SHA256 直接 hash 密码）。应使用“专门的密码哈希/KDF（慢 + 盐）”，并设置合理成本。',
     rainbowTitle: '🌈 彩虹表为什么会失效？（同一密码 + 不同盐 → 不同结果）',
-    rainbowHint: '彩虹表依赖“预计算”：同一个密码如果总产生同一个哈希，攻击者就能快速反查。盐让预计算成本爆炸。'
+    rainbowHint:
+      '彩虹表依赖“预计算”：同一个密码如果总产生同一个哈希，攻击者就能快速反查。盐让预计算成本爆炸。'
   },
   evolution: {
     title: '🧭 鉴权方案演进：从 Basic 到 OAuth2',
@@ -342,7 +377,11 @@ X-API-Key: <your_api_key>`,
         when: '内部工具/调试',
         desc: '最早期的方案：每次请求都带 username/password（或等价凭证）。',
         pros: ['实现最简单', '不需要额外存储'],
-        cons: ['每次请求都带“高价值凭证”', '不适合公网生产', '很难做细粒度授权'],
+        cons: [
+          '每次请求都带“高价值凭证”',
+          '不适合公网生产',
+          '很难做细粒度授权'
+        ],
         example: `GET /api/profile
 Authorization: Basic <base64(username:password)>`
       },
@@ -353,7 +392,11 @@ Authorization: Basic <base64(username:password)>`
         when: '传统 Web / SSR',
         desc: '服务端存 Session，浏览器存 cookie(session_id)。后续请求自动带 Cookie。',
         pros: ['服务端可主动注销', '很适合同域 SSR', '工程落地成熟'],
-        cons: ['服务端有状态，需要共享/扩展', 'CSRF 风险更高（必须防）', '跨域更麻烦'],
+        cons: [
+          '服务端有状态，需要共享/扩展',
+          'CSRF 风险更高（必须防）',
+          '跨域更麻烦'
+        ],
         example: `POST /login
 → Set-Cookie: session_id=abc; HttpOnly; Secure; SameSite=Lax
 
@@ -367,7 +410,11 @@ Cookie: session_id=abc`
         when: 'API / 移动端 / 多服务',
         desc: '服务端不存状态，把声明编码为 token；请求携带 Authorization: Bearer。',
         pros: ['无状态易扩展', '跨域友好', '多服务常用'],
-        cons: ['难以全局注销（要额外机制）', 'token 体积大', 'payload 可读（别放敏感信息）'],
+        cons: [
+          '难以全局注销（要额外机制）',
+          'token 体积大',
+          'payload 可读（别放敏感信息）'
+        ],
         example: `GET /api/profile
 Authorization: Bearer <access_token>`
       },
@@ -377,8 +424,16 @@ Authorization: Bearer <access_token>`
         name: 'OAuth2 / OIDC',
         when: '第三方登录/授权',
         desc: '解决“第三方授权/登录”，让应用无需保存第三方账号密码。',
-        pros: ['用户体验好（扫码/一键登录）', '安全边界更清晰', '可扩展到 OIDC（登录）'],
-        cons: ['接入复杂度更高', '必须正确处理 redirect_uri/state', 'token 生命周期设计很关键'],
+        pros: [
+          '用户体验好（扫码/一键登录）',
+          '安全边界更清晰',
+          '可扩展到 OIDC（登录）'
+        ],
+        cons: [
+          '接入复杂度更高',
+          '必须正确处理 redirect_uri/state',
+          'token 生命周期设计很关键'
+        ],
         example: `GET /authorize?response_type=code&client_id=...&redirect_uri=...&state=...`
       }
     ]
@@ -421,7 +476,8 @@ Authorization: Bearer <access_token>`
   },
   csrf: {
     title: '🛡️ CSRF：为什么“自动带 Cookie”会出事？',
-    subtitle: '手动推进一个最小攻击链，再看 3 个最常用防护手段（SameSite / CSRF Token / 双重提交）。',
+    subtitle:
+      '手动推进一个最小攻击链，再看 3 个最常用防护手段（SameSite / CSRF Token / 双重提交）。',
     start: '开始',
     prev: '上一步',
     next: '下一步',
@@ -439,15 +495,36 @@ Authorization: Bearer <access_token>`
     clickStart: '（点击开始）',
     cookieOnlyResult: '（如果服务端只校验 Cookie：可能返回 200 OK 并执行转账）',
     steps: [
-      { title: '1) 恶意站点发起跨站请求', desc: 'evil.com 诱导你点击按钮/加载图片/提交表单，目标是 bank.com 的转账接口。' },
-      { title: '2) 浏览器自动带上 bank.com 的 Cookie', desc: '关键点：Cookie 是“按域名自动携带”的，evil.com 不需要知道你的 session_id。' },
-      { title: '3) 服务端如果只靠 Cookie 识别用户，会误以为是你本人操作', desc: '如果 bank.com 没做 CSRF 防护，转账可能被执行。' },
-      { title: '4) 加上 CSRF 防护后，请求会被拒绝', desc: 'SameSite/CSRF Token 等会阻断这类跨站伪造请求。' }
+      {
+        title: '1) 恶意站点发起跨站请求',
+        desc: 'evil.com 诱导你点击按钮/加载图片/提交表单，目标是 bank.com 的转账接口。'
+      },
+      {
+        title: '2) 浏览器自动带上 bank.com 的 Cookie',
+        desc: '关键点：Cookie 是“按域名自动携带”的，evil.com 不需要知道你的 session_id。'
+      },
+      {
+        title: '3) 服务端如果只靠 Cookie 识别用户，会误以为是你本人操作',
+        desc: '如果 bank.com 没做 CSRF 防护，转账可能被执行。'
+      },
+      {
+        title: '4) 加上 CSRF 防护后，请求会被拒绝',
+        desc: 'SameSite/CSRF Token 等会阻断这类跨站伪造请求。'
+      }
     ],
     defenses: [
-      { strong: 'SameSite Cookie：', text: '对大多数“跨站表单/图片”请求非常有效（Lax/Strict）。' },
-      { strong: 'CSRF Token：', text: '在表单/请求头里带 token，服务端校验（对复杂场景最稳）。' },
-      { strong: '双重提交 Cookie：', text: 'Cookie + Header 同时带 token（服务端比较一致性）。' }
+      {
+        strong: 'SameSite Cookie：',
+        text: '对大多数“跨站表单/图片”请求非常有效（Lax/Strict）。'
+      },
+      {
+        strong: 'CSRF Token：',
+        text: '在表单/请求头里带 token，服务端校验（对复杂场景最稳）。'
+      },
+      {
+        strong: '双重提交 Cookie：',
+        text: 'Cookie + Header 同时带 token（服务端比较一致性）。'
+      }
     ]
   }
 }
