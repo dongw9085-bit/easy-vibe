@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L12M 斜率诊断工具 v2 — InTec Group (v260604)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+  :root {
+    --bg:#06122b;--bg2:#0a1c3e;--bg3:#0f2554;--bg4:#163068;
+    --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.16);
+    --text:#e8e8f0;--text2:#9090a8;--text3:#5a5a72;
+    --blue:#4f8ef7;--blue-dim:rgba(79,142,247,0.15);
+    --green:#3ecf8e;--green-dim:rgba(62,207,142,0.12);
+    --amber:#f5a623;--amber-dim:rgba(245,166,35,0.12);
+    --red:#f25757;--red-dim:rgba(242,87,87,0.12);
+    --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+    --radius:10px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;}
+
+  /* ── Import Tab ── */
+  .import-zone {
+    border: 2px dashed var(--border2); border-radius: 14px;
+    padding: 40px 24px; text-align: center; cursor: pointer;
+    transition: all .2s; background: var(--bg3); margin-bottom: 20px;
+  }
+  .import-zone:hover, .import-zone.drag-over {
+    border-color: var(--blue); background: var(--blue-dim);
+  }
+  .import-zone.has-file { border-color: var(--green); background: var(--green-dim); border-style: solid; }
+  .import-icon { font-size: 36px; margin-bottom: 10px; }
+  .import-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .import-hint { font-size: 12px; color: var(--text3); line-height: 1.6; }
+  .import-filename { font-size: 13px; color: var(--green); font-family: 'DM Mono', monospace; margin-top: 8px; font-weight: 500; }
+
+  .import-config {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 20px;
+  }
+  .import-config-item { display: flex; flex-direction: column; gap: 5px; }
+  .import-config-item label { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .import-config-item input, .import-config-item select {
+    padding: 7px 10px; font-size: 13px;
+    border: 1px solid var(--border2); border-radius: var(--radius-sm);
+    background: var(--bg3); color: var(--text);
+    font-family: 'DM Mono', monospace; transition: border-color .15s;
+  }
+  .import-config-item input:focus, .import-config-item select:focus {
+    outline: none; border-color: var(--blue); background: var(--bg4);
+  }
+  .import-config-item input.year-input { border-color: rgba(79,142,247,0.4); }
+
+  .parse-btn {
+    width: 100%; padding: 12px; font-size: 14px; font-weight: 600;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    background: var(--blue); color: #fff; transition: all .2s;
+    font-family: 'DM Sans', sans-serif; margin-bottom: 16px;
+  }
+  .parse-btn:hover { background: #3a7de8; transform: translateY(-1px); }
+  .parse-btn:disabled { background: var(--bg4); color: var(--text3); cursor: not-allowed; transform: none; }
+
+  .import-log {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    line-height: 2; max-height: 220px; overflow-y: auto;
+    margin-bottom: 16px;
+  }
+  .log-ok  { color: var(--green); }
+  .log-warn{ color: var(--amber); }
+  .log-err { color: var(--red); }
+  .log-info{ color: var(--text2); }
+
+  .preview-table-wrap {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 16px;
+  }
+  .preview-table-hdr {
+    padding: 10px 14px; background: var(--bg4);
+    font-size: 11px; font-weight: 500; color: var(--text2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .preview-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .preview-table th {
+    padding: 6px 10px; text-align: left; font-size: 10px;
+    color: var(--text3); font-family: 'DM Mono', monospace;
+    text-transform: uppercase; letter-spacing: .06em;
+    border-bottom: 1px solid var(--border); background: var(--bg4);
+  }
+  .preview-table td {
+    padding: 5px 10px; border-bottom: 1px solid var(--border);
+    color: var(--text2); font-family: 'DM Mono', monospace;
+  }
+  .preview-table tr:last-child td { border-bottom: none; }
+  .preview-table tr:hover td { background: var(--bg4); }
+
+  .confirm-btn {
+    width: 100%; padding: 13px; font-size: 14px; font-weight: 600;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    background: linear-gradient(135deg, var(--green), #2ba86e);
+    color: #fff; transition: all .2s; font-family: 'DM Sans', sans-serif;
+  }
+  .confirm-btn:hover { opacity: .9; transform: translateY(-1px); }
+  .confirm-btn:disabled { background: var(--bg4); color: var(--text3); cursor: not-allowed; transform: none; }
+
+  .import-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;
+  }
+  .istat { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .istat-label { font-size: 10px; color: var(--text3); font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 3px; }
+  .istat-val { font-size: 18px; font-weight: 600; color: var(--text); }
+  .istat-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+  .header{padding:18px 28px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .header-left{display:flex;align-items:center;gap:12px;}
+  .logo-mark{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:#fff;}
+  .header-title{font-size:15px;font-weight:600;}
+  .header-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .header-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-family:'DM Mono',monospace;}
+  .tab-nav{display:flex;border-bottom:1px solid var(--border);padding:0 28px;background:var(--bg2);}
+  .tab-btn{font-size:12px;font-weight:500;padding:9px 16px;border:none;border-bottom:2px solid transparent;background:none;color:var(--text3);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;margin-bottom:-1px;}
+  .tab-btn:hover{color:var(--text2);}
+  .tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);}
+  .tab-panel{display:none;}.tab-panel.active{display:block;}
+  .main{display:grid;grid-template-columns:1fr 330px;min-height:calc(100vh - 130px);}
+  .panel-left{padding:22px 26px;border-right:1px solid var(--border);overflow-y:auto;}
+  .panel-right{padding:18px 22px;background:var(--bg2);overflow-y:auto;}
+  .section-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+  .presets{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+  .preset-btn{font-size:12px;padding:4px 13px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+  .preset-btn:hover{background:var(--bg4);color:var(--text);}
+  .preset-btn.active{background:var(--blue-dim);border-color:var(--blue);color:var(--blue);}
+  .inp-section{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;}
+  .inp-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;cursor:pointer;user-select:none;transition:background .15s;}
+  .inp-section-hdr:hover{background:var(--bg4);}
+  .inp-section-title{font-size:11px;font-weight:500;color:var(--text2);display:flex;align-items:center;gap:7px;}
+  .inp-section-body{padding:10px 14px 12px;border-top:1px solid var(--border);}
+  .tog-icon{font-size:10px;color:var(--text3);transition:transform .2s;}
+  .tog-icon.open{transform:rotate(180deg);}
+  .input-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+  .inp-cell{display:flex;flex-direction:column;gap:3px;}
+  .inp-cell label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .inp-cell input{width:100%;padding:6px 7px;font-size:12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);font-family:'DM Mono',monospace;transition:border-color .15s;-moz-appearance:textfield;}
+  .inp-cell input::-webkit-outer-spin-button,.inp-cell input::-webkit-inner-spin-button{-webkit-appearance:none;}
+  .inp-cell input:focus{outline:none;border-color:var(--blue);background:var(--bg4);}
+  .inp-cell input.py-inp{border-color:rgba(167,139,250,0.3);}
+  .inp-cell input.py-inp:focus{border-color:var(--purple);}
+  .inp-cell input.bdg-inp{border-color:rgba(245,166,35,0.3);}
+  .inp-cell input.bdg-inp:focus{border-color:var(--amber);}
+  .legend{display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+  .leg-line{width:20px;height:2px;border-radius:1px;}
+  .leg-line.dashed{background:repeating-linear-gradient(90deg,currentColor 0,currentColor 4px,transparent 4px,transparent 8px);}
+  .leg-dot{width:8px;height:8px;border-radius:2px;}
+  .chart-wrap{position:relative;width:100%;height:220px;margin-bottom:18px;}
+  .chart-wrap.tall{height:250px;}
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:16px;}
+  .stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;}
+  .stat-card.hi-green{border-color:rgba(62,207,142,0.3);background:var(--green-dim);}
+  .stat-card.hi-amber{border-color:rgba(245,166,35,0.3);background:var(--amber-dim);}
+  .stat-card.hi-red{border-color:rgba(242,87,87,0.3);background:var(--red-dim);}
+  .slb{font-size:10px;color:var(--text3);margin-bottom:5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;}
+  .svl{font-size:20px;font-weight:600;line-height:1;}
+  .ssg{font-size:11px;margin-top:4px;}
+  .ok{color:var(--green);}.wa{color:var(--amber);}.er{color:var(--red);}.nt{color:var(--text3);}.pu{color:var(--purple);}
+  .yoy-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px;}
+  .yoy-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+  .yoy-cell{text-align:center;}
+  .yc-lbl{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:2px;}
+  .yc-cy{font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:var(--blue);}
+  .yc-py{font-size:9px;color:var(--purple);font-family:'DM Mono',monospace;margin-top:1px;}
+  .yc-chg{font-size:10px;margin-top:2px;}
+  .state-banner{border-radius:var(--radius);padding:13px 15px;border:1px solid;}
+  .state-banner.green{background:var(--green-dim);border-color:rgba(62,207,142,0.3);}
+  .state-banner.yellow{background:var(--amber-dim);border-color:rgba(245,166,35,0.3);}
+  .state-banner.red{background:var(--red-dim);border-color:rgba(242,87,87,0.3);}
+  .state-banner.blue{background:var(--blue-dim);border-color:rgba(79,142,247,0.3);}
+  .sb-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+  .state-banner.green .sb-title{color:var(--green);}
+  .state-banner.yellow .sb-title{color:var(--amber);}
+  .state-banner.red .sb-title{color:var(--red);}
+  .state-banner.blue .sb-title{color:var(--blue);}
+  .sb-desc{font-size:12px;line-height:1.65;}
+  .state-banner.green .sb-desc{color:rgba(62,207,142,0.75);}
+  .state-banner.yellow .sb-desc{color:rgba(245,166,35,0.75);}
+  .state-banner.red .sb-desc{color:rgba(242,87,87,0.75);}
+  .state-banner.blue .sb-desc{color:rgba(79,142,247,0.75);}
+  .action-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:6px;cursor:pointer;transition:border-color .15s,background .15s;}
+  .action-card:hover{border-color:var(--border2);background:var(--bg4);}
+  .ac-top{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+  .ac-urg{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;flex-shrink:0;font-family:'DM Mono',monospace;}
+  .urg-now{background:var(--red-dim);color:var(--red);border:1px solid rgba(242,87,87,0.3);}
+  .urg-week{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,166,35,0.3);}
+  .urg-month{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,142,247,0.3);}
+  .ac-title{font-size:12px;font-weight:500;}
+  .ac-body{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:4px;}
+  .ac-owner{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .mom-track{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin:5px 0 4px;}
+  .mom-fill{height:5px;border-radius:3px;transition:width .4s,background .4s;}
+  .mom-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .delta-row{display:flex;gap:3px;align-items:flex-end;height:28px;margin-bottom:14px;}
+  .delta-bar{flex:1;border-radius:2px 2px 0 0;min-width:0;}
+
+  /* ── Country config UI ── */
+  .country-config-bar{
+    display:flex;align-items:center;gap:8px;
+    background:var(--bg3);border:1px solid var(--border2);
+    border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;
+    flex-wrap:wrap;
+  }
+  .cc-config-label{font-size:11px;color:var(--text2);font-weight:500;white-space:nowrap;}
+  .cc-count-btn{
+    width:26px;height:26px;border-radius:6px;border:1px solid var(--border2);
+    background:var(--bg4);color:var(--text2);cursor:pointer;
+    font-size:14px;display:flex;align-items:center;justify-content:center;
+    transition:all .15s;user-select:none;flex-shrink:0;
+  }
+  .cc-count-btn:hover{background:var(--bg);color:var(--text);border-color:var(--blue);}
+  .cc-count-display{
+    font-size:14px;font-weight:600;font-family:'DM Mono',monospace;
+    color:var(--blue);min-width:24px;text-align:center;
+  }
+  .cc-apply-btn{
+    font-size:12px;padding:5px 14px;border-radius:20px;
+    border:1px solid var(--blue);background:var(--blue-dim);
+    color:var(--blue);cursor:pointer;transition:all .15s;
+    font-family:'DM Sans',sans-serif;white-space:nowrap;
+  }
+  .cc-apply-btn:hover{background:var(--blue);color:#fff;}
+  .cc-hint{font-size:10px;color:var(--text3);}
+
+  /* Country name editor grid */
+  .country-name-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:6px;
+    padding:10px 14px 12px;border-top:1px solid var(--border);
+  }
+  .cn-cell{display:flex;flex-direction:column;gap:3px;}
+  .cn-cell label{font-size:10px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px;}
+  .cn-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .cn-cell input{
+    width:100%;padding:5px 7px;font-size:12px;
+    border:1px solid var(--border2);border-radius:var(--radius-sm);
+    background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;
+    transition:border-color .15s;
+  }
+  .cn-cell input:focus{outline:none;border-color:var(--blue);background:var(--bg4);}
+  .cn-cell input.name-filled{border-color:rgba(79,142,247,0.4);}
+
+  /* Country data sections */
+  .country-data-sections{margin-bottom:14px;}
+
+  /* Country cards */
+  .country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;}
+  .country-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 11px;cursor:pointer;transition:all .15s;}
+  .country-card:hover{border-color:var(--border2);}
+  .country-card.selected{border-color:var(--blue);background:var(--blue-dim);}
+  .cc-name{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:3px;}
+  .cc-val{font-size:13px;font-weight:600;font-family:'DM Mono',monospace;}
+  .cc-share{font-size:10px;color:var(--text3);margin-top:1px;}
+  .cc-trend{font-size:10px;margin-top:2px;font-family:'DM Mono',monospace;}
+  .c-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
+
+  /* Country target input */
+  .ct-target-row{display:flex;align-items:center;gap:8px;padding:8px 0 4px;border-top:1px solid var(--border);margin-top:8px;flex-wrap:wrap;}
+  .ct-target-label{font-size:10px;color:var(--amber);font-family:'DM Mono',monospace;white-space:nowrap;}
+  .ct-target-input{width:110px;padding:5px 8px;font-size:12px;border:1px solid rgba(245,166,35,0.4);border-radius:var(--radius-sm);background:var(--bg4);color:var(--amber);font-family:'DM Mono',monospace;-moz-appearance:textfield;}
+  .ct-target-input::-webkit-outer-spin-button,.ct-target-input::-webkit-inner-spin-button{-webkit-appearance:none;}
+  .ct-target-input:focus{outline:none;border-color:var(--amber);}
+  .ct-target-hint{font-size:10px;color:var(--text3);}
+
+  /* Country attainment badge */
+  .ct-attain{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:10px;font-weight:500;}
+  .ct-attain.over{background:var(--green-dim);color:var(--green);border:1px solid rgba(62,207,142,0.3);}
+  .ct-attain.near{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,166,35,0.3);}
+  .ct-attain.miss{background:var(--red-dim);color:var(--red);border:1px solid rgba(242,87,87,0.3);}
+  .ct-attain.none{background:var(--bg4);color:var(--text3);border:1px solid var(--border);}
+
+  /* Budget */
+  .budget-bar-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:16px;}
+  .bdg-track{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;margin-bottom:5px;}
+  .bdg-fill{height:8px;border-radius:4px;transition:width .5s;}
+  .bdg-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .footer{padding:12px 28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3);}
+  .footer-right{display:flex;gap:8px;align-items:center;}
+  .export-btn{font-size:11px;padding:4px 11px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+  .export-btn:hover{background:var(--bg4);color:var(--text);}
+  @media(max-width:900px){.main{grid-template-columns:1fr;}.panel-left{border-right:none;border-bottom:1px solid var(--border);}.input-grid{grid-template-columns:repeat(4,1fr);}.header{padding:14px 16px 10px;}.panel-left,.panel-right{padding:14px 16px;}.tab-nav{padding:0 16px;}.footer{padding:10px 16px;flex-direction:column;gap:6px;}.country-name-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:600px){.input-grid{grid-template-columns:repeat(3,1fr);}.stat-row{grid-template-columns:repeat(2,1fr);}.country-grid{grid-template-columns:repeat(2,1fr);}.country-name-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">L12</div>
+    <div>
+      <div class="header-title">L12M 斜率诊断工具 <span style="font-size:10px;color:var(--text3);font-weight:400">v2.1</span></div>
+      <div class="header-sub">InTec Group · DBS 前置指标体系</div>
+    </div>
+  </div>
+  <span class="header-badge" id="current-date">—</span>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('import',this)" id="tab-btn-import">📥 数据导入</button>
+  <button class="tab-btn" onclick="switchTab('overview',this)">📊 总览 &amp; 同比</button>
+  <button class="tab-btn" onclick="switchTab('country',this)">🌏 国家拆分</button>
+  <button class="tab-btn" id="tab-btn-budget" onclick="switchTab('budget',this)">🎯 <span id="tab-budget-label">26年指标对比</span></button>
+</nav>
+
+<!-- ═══ TAB 0: IMPORT ═══ -->
+<div id="tab-import" class="tab-panel active">
+<div style="max-width:900px;margin:0 auto;padding:28px 28px;">
+
+  <!-- Drop zone -->
+  <div class="import-zone" id="drop-zone" onclick="document.getElementById('file-input').click()"
+    ondragover="event.preventDefault();this.classList.add('drag-over')"
+    ondragleave="this.classList.remove('drag-over')"
+    ondrop="handleDrop(event)">
+    <div class="import-icon" id="drop-icon">📂</div>
+    <div class="import-title" id="drop-title">点击选择或拖拽 Excel 文件到此处</div>
+    <div class="import-hint">支持 .xlsx / .xls 格式 · 支持「L12M_Data 汇总模板」或「销售订单明细」两种格式</div>
+    <div class="import-filename" id="drop-filename"></div>
+    <input type="file" id="file-input" accept=".xlsx,.xls" style="display:none" onchange="handleFileSelect(event)">
+  </div>
+
+  <!-- Config row -->
+  <div class="section-label">解析配置</div>
+  <div class="import-config">
+    <div class="import-config-item">
+      <label>截止年份</label>
+      <input type="number" id="cfg-year" value="2026" class="year-input" min="2020" max="2030">
+    </div>
+    <div class="import-config-item">
+      <label>截止月份（1-12）</label>
+      <input type="number" id="cfg-month" value="" placeholder="如：5" min="1" max="12">
+    </div>
+    <div class="import-config-item">
+      <label>上年同比数据</label>
+      <select id="cfg-yoy">
+        <option value="auto">自动从订单数据推算</option>
+        <option value="none">不生成上年数据</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Column mapping (shown after file loaded) -->
+  <div id="col-mapping-wrap" style="display:none;margin-bottom:20px">
+    <div class="section-label">列名映射确认</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:10px;font-weight:500">订单明细表 — 自动识别结果（可手动修改）</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div class="import-config-item">
+          <label>日期列</label>
+          <select id="map-date"></select>
+        </div>
+        <div class="import-config-item">
+          <label>国家列</label>
+          <select id="map-country"></select>
+        </div>
+        <div class="import-config-item">
+          <label>金额列</label>
+          <select id="map-amount"></select>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:10px;font-weight:500">指标表 — 自动识别结果（可手动修改）</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+        <div class="import-config-item">
+          <label>国家列</label>
+          <select id="tgt-map-country"></select>
+        </div>
+        <div class="import-config-item">
+          <label>指标金额列</label>
+          <select id="tgt-map-amount"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parse button -->
+  <button class="parse-btn" id="parse-btn" onclick="parseFile()" disabled>
+    选择文件后解析
+  </button>
+
+  <!-- Parse log -->
+  <div class="import-log" id="import-log" style="display:none"></div>
+
+  <!-- Stats row -->
+  <div class="import-stats" id="import-stats" style="display:none">
+    <div class="istat"><div class="istat-label">订单行数</div><div class="istat-val" id="stat-rows">—</div><div class="istat-sub">有效记录</div></div>
+    <div class="istat"><div class="istat-label">国家数量</div><div class="istat-val" id="stat-countries">—</div><div class="istat-sub">已识别</div></div>
+    <div class="istat"><div class="istat-label">数据跨度</div><div class="istat-val" id="stat-span">—</div><div class="istat-sub">月数</div></div>
+    <div class="istat"><div class="istat-label">指标合计</div><div class="istat-val" id="stat-targets">—</div><div class="istat-sub">万元</div></div>
+  </div>
+
+  <!-- L12M preview table -->
+  <div id="preview-wrap" style="display:none">
+    <div class="preview-table-wrap">
+      <div class="preview-table-hdr">
+        <span>L12M 滚动计算结果预览（总体，万元）</span>
+        <span id="preview-period" style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace"></span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="preview-table" id="preview-table"></table>
+      </div>
+    </div>
+
+    <!-- Confirm button -->
+    <button class="confirm-btn" id="confirm-btn" onclick="applyImport()">
+      ✓ 确认导入 — 生成完整看板
+    </button>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ TAB 1: OVERVIEW ═══ -->
+<div id="tab-overview" class="tab-panel"><div class="main">
+<div class="panel-left">
+  <div class="inp-section">
+    <div class="inp-section-hdr" onclick="togSec('cy-b','cy-i')">
+      <div class="inp-section-title"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>当年 L12M 数据 <span style="color:var(--text3);font-size:10px;font-weight:400">（万元，从最早到最近）</span></div>
+      <span class="tog-icon open" id="cy-i">▼</span>
+    </div>
+    <div class="inp-section-body" id="cy-b"><div class="input-grid" id="cy-grid"></div></div>
+  </div>
+  <div class="inp-section">
+    <div class="inp-section-hdr" onclick="togSec('py-b','py-i')">
+      <div class="inp-section-title"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--purple)"></span>上年同期 L12M 数据 <span style="color:var(--text3);font-size:10px;font-weight:400">（同比对比，可选）</span></div>
+      <span class="tog-icon open" id="py-i">▼</span>
+    </div>
+    <div class="inp-section-body" id="py-b"><div class="input-grid" id="py-grid"></div></div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="leg-line" style="background:#4f8ef7"></div>当年 L12M</div>
+    <div class="legend-item"><div class="leg-line dashed" style="color:#a78bfa"></div>上年同期</div>
+    <div class="legend-item"><div class="leg-line dashed" style="color:#3a4a7a"></div>线性趋势</div>
+    <div class="legend-item"><div class="leg-dot" style="background:rgba(62,207,142,0.5)"></div>正变化</div>
+    <div class="legend-item"><div class="leg-dot" style="background:rgba(242,87,87,0.5)"></div>负变化</div>
+  </div>
+  <div class="chart-wrap tall"><canvas id="mainChart"></canvas></div>
+  <div id="yoy-box-wrap"></div>
+  <div class="section-label">当前状态指标</div>
+  <div class="stat-row" id="stat-row"></div>
+  <div class="state-banner" id="state-banner">
+    <div class="sb-title" id="sb-title"></div>
+    <div class="sb-desc" id="sb-desc"></div>
+  </div>
+</div>
+<div class="panel-right">
+  <div class="section-label" style="margin-bottom:10px">管理动作清单</div>
+  <div id="action-list"></div>
+  <div style="margin-top:16px">
+    <div class="section-label">月环比变化走势</div>
+    <div class="delta-row" id="delta-bars"></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-family:'DM Mono',monospace"><span>M-11</span><span>当月</span></div>
+  </div>
+  <div style="margin-top:14px">
+    <div class="section-label">动能强度</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:3px" id="mom-label">—</div>
+    <div class="mom-track"><div class="mom-fill" id="mom-fill"></div></div>
+    <div class="mom-labels"><span>衰退</span><span>平稳</span><span>加速</span></div>
+  </div>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+    <div class="section-label">说明</div>
+    <div style="font-size:11px;color:var(--text3);line-height:1.8">
+      <div><span style="color:var(--text2);font-weight:500">L12M</span> = 截止当月过去12个月累计订单</div>
+      <div><span style="color:var(--text2);font-weight:500">同比 YoY</span> = 当年 vs 上年同期 L12M</div>
+      <div><span style="color:var(--text2);font-weight:500">斜率方向</span> 比绝对值重要，连续3个月判定</div>
+      <div><span style="color:var(--text2);font-weight:500">数据来源</span> Flash Report「实际YTD」滚动12月</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ═══ TAB 2: COUNTRY ═══ -->
+<div id="tab-country" class="tab-panel">
+<div class="main">
+<div class="panel-left">
+
+  <!-- Country configuration panel -->
+  <div class="inp-section">
+    <div class="inp-section-hdr" onclick="togSec('cc-names-b','cc-names-i')">
+      <div class="inp-section-title">
+        <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber)"></span>
+        国家 / 区域配置
+        <span style="color:var(--text3);font-size:10px;font-weight:400" id="cc-count-label">— 当前 <span id="cc-active-n">0</span> 个</span>
+      </div>
+      <span class="tog-icon open" id="cc-names-i">▼</span>
+    </div>
+    <div id="cc-names-b" class="inp-section-body" style="padding:0">
+      <!-- count controls -->
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 14px 8px;border-top:1px solid var(--border);flex-wrap:wrap">
+        <span class="cc-config-label">国家数量：</span>
+        <button class="cc-count-btn" onclick="adjustCount(-1)">−</button>
+        <span class="cc-count-display" id="cc-count-val">6</span>
+        <button class="cc-count-btn" onclick="adjustCount(1)">+</button>
+        <span class="cc-hint">最多 20 个</span>
+        <button class="cc-apply-btn" onclick="applyCountryConfig()">✓ 应用配置 &amp; 刷新图表</button>
+      </div>
+      <!-- name inputs (generated dynamically) -->
+      <div class="country-name-grid" id="country-name-grid"></div>
+    </div>
+  </div>
+
+  <!-- Data input sections per country (generated dynamically) -->
+  <div class="country-data-sections" id="country-data-sections"></div>
+
+  <!-- Cards -->
+  <div class="section-label">当月 L12M 区域份额</div>
+  <div class="country-grid" id="country-cards" style="grid-template-columns:repeat(3,1fr)"></div>
+
+  <!-- Chart legend -->
+  <div class="legend" id="country-legend"></div>
+
+  <!-- Charts -->
+  <div class="chart-wrap tall"><canvas id="countryChart"></canvas></div>
+  <div class="section-label" style="margin-top:4px">趋势指数对比（M-11 = 100）</div>
+  <div class="chart-wrap" style="height:170px"><canvas id="countryIdxChart"></canvas></div>
+</div>
+
+<div class="panel-right">
+  <div class="section-label">区域贡献分析</div>
+  <div id="country-analysis"></div>
+
+  <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+    <div class="section-label" id="country-target-panel-label">各国家 26年目标达成汇总</div>
+    <div id="country-target-summary"></div>
+  </div>
+
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+    <div class="section-label">说明</div>
+    <div style="font-size:11px;color:var(--text3);line-height:1.8">
+      <div><span style="color:var(--text2);font-weight:500">份额</span> = 区域 L12M / 总体 L12M</div>
+      <div><span style="color:var(--text2);font-weight:500">指数</span> 消除绝对值差异，用于比较增速</div>
+      <div><span style="color:var(--text2);font-weight:500">贡献度</span> = 区域变化量 / 总体变化量</div>
+      <div><span style="color:var(--text2);font-weight:500">目标达成</span> = 当月L12M / 国家年度目标</div>
+      <div style="margin-top:6px;color:var(--text3)">点击区域卡片可高亮对应趋势线</div>
+      <div style="margin-top:4px;color:var(--text3)">年度目标在各国家数据区底部填写</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ═══ TAB 3: TARGET ═══ -->
+<div id="tab-budget" class="tab-panel">
+<div class="main">
+<div class="panel-left">
+
+  <!-- Tab title editor -->
+  <div style="display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;flex-wrap:wrap">
+    <span style="font-size:11px;color:var(--text2);font-weight:500;white-space:nowrap;flex-shrink:0">标签名称：</span>
+    <input type="text" id="bdg-tab-title" value="26年指标对比"
+      style="flex:1;min-width:140px;padding:5px 10px;font-size:13px;font-weight:600;border:1px solid rgba(245,166,35,0.4);border-radius:6px;background:var(--bg4);color:var(--amber);font-family:'DM Sans',sans-serif;"
+      oninput="updateBdgTitle(this.value)"
+      placeholder="自定义标签名称">
+    <span style="font-size:10px;color:var(--text3)">修改后Tab名称同步更新</span>
+  </div>
+
+  <div class="inp-section">
+    <div class="inp-section-hdr" onclick="togSec('bdg-b','bdg-i')">
+      <div class="inp-section-title"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber)"></span><span id="bdg-section-title">26年指标目标</span> <span style="color:var(--text3);font-size:10px;font-weight:400">（每格填写该时间点的全年指标总数，万元）</span></div>
+      <span class="tog-icon open" id="bdg-i">▼</span>
+    </div>
+    <div class="inp-section-body" id="bdg-b">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;line-height:1.6">
+        每格对应的全年指标总额（万元），与当月 L12M 直接对比达成率。导入数据后自动填入，也可手动修改。
+      </div>
+      <div class="input-grid" id="bdg-grid"></div>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="leg-line" style="background:#4f8ef7"></div>当年 L12M</div>
+    <div class="legend-item"><div class="leg-line dashed" style="color:#f5a623"></div><span id="bdg-legend-target">指标目标</span></div>
+    <div class="legend-item"><div class="leg-line dashed" style="color:#a78bfa"></div>上年同期</div>
+  </div>
+  <div class="chart-wrap tall"><canvas id="budgetChart"></canvas></div>
+  <div class="section-label" id="bdg-overview-label">指标达成概览</div>
+  <div class="stat-row" id="bdg-stat-row"></div>
+  <div class="budget-bar-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+      <span style="font-size:11px;color:var(--text2)" id="bdg-bar-title">当月 L12M vs 年度指标进度</span>
+      <span style="font-size:13px;font-weight:600;font-family:'DM Mono',monospace" id="bdg-bar-pct">—</span>
+    </div>
+    <div class="bdg-track"><div class="bdg-fill" id="bdg-fill"></div></div>
+    <div class="bdg-labels"><span>0</span><span id="bdg-bar-mid">—</span><span id="bdg-bar-max">目标</span></div>
+  </div>
+  <div class="section-label">月度完成率明细</div>
+  <div id="bdg-table"></div>
+</div>
+<div class="panel-right">
+  <div class="section-label" id="bdg-action-label">指标分析与建议</div>
+  <div id="bdg-actions"></div>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+    <div class="section-label">说明</div>
+    <div style="font-size:11px;color:var(--text3);line-height:1.8">
+      <div><span style="color:var(--text2);font-weight:500">达成率</span> = 当月L12M / 月度目标</div>
+      <div><span style="color:var(--text2);font-weight:500">缺口</span> = 目标 − 实际 L12M</div>
+      <div><span style="color:var(--text2);font-weight:500">追赶速度</span> 基于当前斜率推算</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  <span>InTec Group · DBS 前置指标体系 · L12M 斜率诊断工具 v2.1</span>
+  <div class="footer-right">
+    <button class="export-btn" onclick="exportCSV()">导出 CSV</button>
+    <button class="export-btn" onclick="window.print()">打印 / PDF</button>
+    <span id="save-indicator" style="display:none;font-size:11px;font-family:'DM Mono',monospace;color:var(--green);padding:2px 8px;border-radius:4px;background:var(--green-dim);border:1px solid rgba(62,207,142,0.3)">💾 已保存</span>
+    <span id="footer-state" style="font-family:'DM Mono',monospace">—</span>
+  </div>
+</footer>
+
+<script>
+// ════ CONSTANTS ════════════════════════════
+const MONTHS = ['M-11','M-10','M-9','M-8','M-7','M-6','M-5','M-4','M-3','M-2','M-1','当月'];
+const MAX_COUNTRIES = 20;
+
+// 20 distinct colors
+const PALETTE = [
+  '#4f8ef7','#3ecf8e','#f5a623','#f25757','#a78bfa','#38c4c4',
+  '#fb923c','#f472b6','#22d3ee','#a3e635','#fbbf24','#34d399',
+  '#60a5fa','#e879f9','#4ade80','#f87171','#c084fc','#67e8f9',
+  '#fdba74','#86efac'
+];
+
+const PRESETS = {
+  accel:   [1420,1445,1468,1495,1520,1548,1575,1605,1638,1672,1710,1752],
+  plateau: [1580,1595,1608,1615,1622,1618,1625,1619,1628,1622,1630,1627],
+  inflect: [1380,1410,1445,1480,1518,1552,1580,1600,1612,1615,1613,1610],
+  decel:   [1650,1648,1640,1628,1612,1595,1578,1560,1542,1525,1508,1490],
+  recover: [1680,1660,1635,1608,1580,1558,1542,1538,1545,1558,1578,1602],
+};
+const PY_SCALE = {accel:.91,plateau:.96,inflect:.87,decel:1.05,recover:1.08};
+
+const STATES = {
+  accel:{color:'green',icon:'↑',title:'加速增长 — 动能健康，管理窗口：维持并强化',desc:'L12M连续向上且斜率未收窄。新增订单持续超过滚出的旧订单，增长动能正在积累。当月P&L可能还未完全体现这种加速。',actions:[{urg:'本月',cls:'urg-now',title:'检查供应链产能上限',body:'增长加速期最常见的失败不是需求不足，而是供应跟不上。确认库存、原料采购、工厂OTIF是否能支撑未来3个月的加速。',owner:'Owner: 工厂负责人 / 陈麒伟'},{urg:'本月',cls:'urg-now',title:'补充漏斗顶端线索',body:'加速状态下销售团队容易只跟现有商机，停止开拓新线索。必须在本月确认下季度的线索补充计划，防止漏斗空心化。',owner:'Owner: 营销BU负责人'},{urg:'下月',cls:'urg-week',title:'固化成功打法（Standard Work）',body:'分析驱动加速的具体因素，将其标准化并在其他BU复制。这是DBS"最佳实践横向传播"的核心要求。',owner:'Owner: 各BU负责人'}]},
+  plateau:{color:'yellow',icon:'→',title:'平台整理 — 动能停滞，管理窗口：4-6周内必须诊断',desc:'L12M连续持平，增长动能已停止积累。当月收入数字可能还看起来正常，这是最容易被忽视的危险信号。若不干预，2-3个月内将转为减速。',actions:[{urg:'本周',cls:'urg-now',title:'立即执行漏斗诊断',body:'平台整理的根因几乎总在漏斗——要么线索量萎缩，要么转化率下滑，要么成交周期延长。本周内完成漏斗各层数据拉取。',owner:'Owner: 销售负责人'},{urg:'本周',cls:'urg-now',title:'区分季节性 vs 结构性',body:'对比去年同期L12M斜率：若去年同期也是平台整理，可能是季节性；若去年同期是上升的，则是结构性问题。',owner:'Owner: Finance / 宋天慧'},{urg:'2周内',cls:'urg-week',title:'召开Growth Room会议',body:'聚焦具体市场机会，分析"我们在哪里赢、在哪里输、为什么"，输出有数量目标的行动计划。',owner:'Owner: 营销BU负责人'},{urg:'本月',cls:'urg-month',title:'更新下季度收入预测',body:'平台整理状态下，原有的收入预测需要下调。诚实地向HQMC呈现修订后的预测比维持乐观预测更重要。',owner:'Owner: 宋天慧 / Finance'}]},
+  inflect:{color:'yellow',icon:'↗→',title:'趋势拐点 — 动能由升转平，最关键的管理窗口',desc:'L12M此前持续向上，近2-3个月斜率收窄并趋于平坦。管理窗口仅4-6周，之后将进入平台或减速状态。',actions:[{urg:'本周',cls:'urg-now',title:'48小时内确认：季节性还是趋势性？',body:'对比历史同期斜率变化、查看漏斗在途商机总量变化、检查是否有异常大单完成导致基数效应。',owner:'Owner: Finance + 销售负责人'},{urg:'本周',cls:'urg-now',title:'拉出Top 10大客户状态',body:'拐点往往由1-2个大客户减少采购引发。逐一确认Top 10客户过去3个月的采购趋势，任何下滑立刻约见。',owner:'Owner: 大客户经理'},{urg:'2周内',cls:'urg-week',title:'启动Problem Solving Process（A3）',body:'用A3方法完整记录：当前状态、目标状态、根本原因分析（5 Whys）、对策、验证计划。',owner:'Owner: 销售VP + Finance'},{urg:'2周内',cls:'urg-week',title:'重新校准年度Breakthrough Objectives',body:'如果拐点是真实的，本年度的年度突破目标可能需要重新设定。现在做比季度末做损失更小。',owner:'Owner: CEO / HQMC'}]},
+  decel:{color:'red',icon:'↓',title:'持续减速 — 红灯，需立即触发升级',desc:'L12M连续向下，每月新增订单低于滚出的旧订单。当前P&L可能仍显示正增长，但增长正在逆转。不干预则3-4个月后P&L将转负。',actions:[{urg:'立即',cls:'urg-now',title:'触发HQMC升级 — 本周提交书面报告',body:'减速状态属于DBS CVD红灯。本周内向HQMC提交：当前实际值、预测下滑幅度、初步根因假设、30天行动计划框架。',owner:'Owner: CEO → HQMC'},{urg:'立即',cls:'urg-now',title:'启动紧急漏斗重建计划',body:'减速的根因90%来自漏斗顶端：线索枯竭或大客户流失。本周内完成漏斗完整盘点，测算未来60天的收入底线。',owner:'Owner: 销售负责人'},{urg:'本周',cls:'urg-now',title:'CEO/VP级别亲自拜访Top 5客户',body:'识别近3个月减少或停止采购的客户，立即约见。DBS VOC原则要求在减速出现时主动去Gemba（现场）。',owner:'Owner: CEO / 销售VP'},{urg:'2周内',cls:'urg-week',title:'审查产品竞争力',body:'持续减速往往有产品层面的根因：竞品升级、价格压力、或自身产品老化。本月完成关键竞品对比分析。',owner:'Owner: 产品/研发负责人'},{urg:'本月',cls:'urg-month',title:'重新设定年度目标 + 资源重配',body:'减速状态下维持原年度目标会导致团队士气崩塌。基于当前动能诚实修订目标，同时重新分配资源。',owner:'Owner: CFO / 宋天慧'}]},
+  recover:{color:'blue',icon:'↓↑',title:'触底回升 — 早期复苏信号，需要固化并加速',desc:'L12M此前持续向下，近2个月出现正向环比变化。复苏初始信号，需连续3个月正向变化才可确认。管理重点：固化改善，防止反复。',actions:[{urg:'本月',cls:'urg-now',title:'确认回升驱动因素',body:'必须弄清楚回升来自真实需求改善还是一次性因素。一次性因素驱动的回升会在下月反转。用漏斗数据交叉验证。',owner:'Owner: 销售负责人 + Finance'},{urg:'本月',cls:'urg-now',title:'维持并加大成功行动的投入',body:'找出过去2个月驱动回升的具体动作，立即加大资源投入。复苏期最常见的错误是"等待确认后再加码"，导致错过动能窗口。',owner:'Owner: 营销BU负责人'},{urg:'2周内',cls:'urg-week',title:'补充漏斗：防止复苏后再次空心化',body:'减速期漏斗顶端往往严重萎缩。必须立即启动线索补充计划，确保3-4个月后有足够商机。',owner:'Owner: 市场部负责人'},{urg:'本月',cls:'urg-month',title:'复盘：为什么会发生减速',body:'DBS Problem Solving Process要求在问题解决后完成A3复盘：根本原因是否真正消除？避免同样问题再次出现。',owner:'Owner: CEO + 各BU'}]},
+};
+
+// ════ STATE ════════════════════════════════
+let vals = [...PRESETS.inflect];
+let pyVals = vals.map(v=>Math.round(v*PY_SCALE.inflect));
+let budgetMonthly = Array(12).fill(0);
+let charts = {};
+let selCountry = null;
+
+// Country config state
+let countryCount = 6;  // current count
+// Array of {name, data} objects
+let countries = [];
+
+// Default country names for first load
+const DEFAULT_NAMES = ['中国大陆','香港/台湾','东南亚','欧洲','北美','其他',
+  '国家7','国家8','国家9','国家10','国家11','国家12',
+  '国家13','国家14','国家15','国家16','国家17','国家18','国家19','国家20'];
+
+// ════ UTILS ════════════════════════════════
+const fmt = v => (+v).toLocaleString();
+function trendLine(arr){
+  const n=arr.length;let sx=0,sy=0,sxy=0,sx2=0;
+  for(let i=0;i<n;i++){sx+=i;sy+=arr[i];sxy+=i*arr[i];sx2+=i*i;}
+  const s=(n*sxy-sx*sy)/(n*sx2-sx*sx),b=(sy-s*sx)/n;
+  return{slope:s,line:Array.from({length:n},(_,i)=>Math.round(b+s*i))};
+}
+function detectState(arr){
+  const n=arr.length,d=arr.slice(1).map((v,i)=>v-arr[i]);
+  const l3=d.slice(-3),l2=d.slice(-2);
+  const{slope}=trendLine(arr);
+  const avg=d.reduce((a,b)=>a+b,0)/d.length;
+  const ravg=l3.reduce((a,b)=>a+b,0)/l3.length;
+  const wasUp=d.slice(-6,-3).filter(x=>x>0).length>=2;
+  const wasDown=d.slice(-6,-3).filter(x=>x<0).length>=2;
+  if(wasDown&&l2.every(x=>x>0))return'recover';
+  if(l3.every(x=>x<0))return'decel';
+  if(wasUp&&(l3.every(x=>Math.abs(x)<arr[n-1]*0.005)||ravg<avg*0.35&&avg>0))return'inflect';
+  if(l3.every(x=>Math.abs(x)<arr[n-1]*0.005))return'plateau';
+  if(d.slice(-4).every(x=>x>0))return'accel';
+  return'plateau';
+}
+function killChart(k){if(charts[k]){charts[k].destroy();charts[k]=null;}}
+function togSec(bId,iId){
+  const b=document.getElementById(bId),ic=document.getElementById(iId);
+  const open=b.style.display!=='none';
+  b.style.display=open?'none':'';
+  ic.classList.toggle('open',!open);
+}
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='overview')run();
+  if(tab==='country')runCountry();
+  if(tab==='budget')runBudget();
+}
+
+// ════ COUNTRY CONFIG ════════════════════════
+function getCountryColor(i){ return PALETTE[i % PALETTE.length]; }
+
+function adjustCount(delta){
+  const next = Math.min(MAX_COUNTRIES, Math.max(1, countryCount + delta));
+  countryCount = next;
+  document.getElementById('cc-count-val').textContent = next;
+  renderNameGrid();
+}
+
+function renderNameGrid(){
+  const grid = document.getElementById('country-name-grid');
+  grid.innerHTML = '';
+  for(let i=0; i<countryCount; i++){
+    const existing = countries[i] || {name: DEFAULT_NAMES[i]||`国家${i+1}`, data: Array(12).fill(0)};
+    const color = getCountryColor(i);
+    const cell = document.createElement('div');
+    cell.className='cn-cell';
+    cell.innerHTML=`
+      <label><span class="cn-dot" style="background:${color}"></span>国家 ${i+1}</label>
+      <input type="text" id="cn-name-${i}" value="${existing.name}" placeholder="输入名称" class="${existing.name&&existing.name!==`国家${i+1}`?'name-filled':''}" oninput="this.classList.toggle('name-filled',this.value.trim().length>0)">
+    `;
+    grid.appendChild(cell);
+  }
+  document.getElementById('cc-active-n').textContent = countryCount;
+}
+
+function applyCountryConfig(){
+  // Read names from inputs
+  const newCountries = [];
+  for(let i=0;i<countryCount;i++){
+    const nameEl=document.getElementById(`cn-name-${i}`);
+    const name=(nameEl?.value.trim())||DEFAULT_NAMES[i]||`国家${i+1}`;
+    const existingData = (countries[i]?.data) || Array(12).fill(0);
+    const existingTarget = countries[i]?.target || 0;
+    newCountries.push({name, data:[...existingData], target: existingTarget});
+  }
+  countries = newCountries;
+  selCountry = null;
+  buildCountryDataSections();
+  runCountry();
+}
+
+function buildCountryDataSections(){
+  const wrap=document.getElementById('country-data-sections');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  const tabTitle = document.getElementById('bdg-tab-title')?.value?.trim() || '26年指标对比';
+  countries.forEach((c,ci)=>{
+    const color=getCountryColor(ci);
+    const key=`cds-${ci}`;
+    const sec=document.createElement('div');
+    sec.className='inp-section';
+    sec.innerHTML=`
+      <div class="inp-section-hdr" onclick="togSec('${key}-b','${key}-i')">
+        <div class="inp-section-title">
+          <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color}"></span>
+          ${c.name}
+        </div>
+        <span class="tog-icon" id="${key}-i">▼</span>
+      </div>
+      <div class="inp-section-body" id="${key}-b" style="display:none">
+        <div style="font-size:10px;font-weight:500;color:var(--blue);font-family:'DM Mono',monospace;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">当年 L12M（万元）</div>
+        <div class="input-grid" id="${key}-grid"></div>
+
+        <div style="font-size:10px;font-weight:500;color:var(--purple);font-family:'DM Mono',monospace;margin:10px 0 5px;text-transform:uppercase;letter-spacing:.06em;padding-top:8px;border-top:1px solid var(--border);">上年同期 L12M（万元）</div>
+        <div class="input-grid" id="${key}-pygrid"></div>
+
+        <div class="ct-target-row">
+          <span class="ct-target-label">🎯 ${tabTitle}目标（万元）：</span>
+          <input type="number" class="ct-target-input" id="${key}-target" value="${c.target||''}" placeholder="0" oninput="countries[${ci}].target=+this.value||0;runCountry()">
+          <span class="ct-target-hint">填入后显示达成率</span>
+        </div>
+      </div>
+    `;
+    wrap.appendChild(sec);
+
+    // Current year data grid
+    const grid=sec.querySelector(`#${key}-grid`);
+    c.data.forEach((v,mi)=>{
+      const d=document.createElement('div');d.className='inp-cell';
+      d.innerHTML=`<label>${MONTHS[mi]}</label><input type="number" value="${v}" oninput="countries[${ci}].data[${mi}]=+this.value||0;runCountry()">`;
+      grid.appendChild(d);
+    });
+
+    // Prior year data grid
+    const pygrid=sec.querySelector(`#${key}-pygrid`);
+    const pyArr = c.pyData || Array(12).fill(0);
+    // Ensure pyData array exists on object
+    if(!c.pyData) c.pyData = Array(12).fill(0);
+    pyArr.forEach((v,mi)=>{
+      const d=document.createElement('div');d.className='inp-cell';
+      d.innerHTML=`<label>${MONTHS[mi]}</label><input type="number" value="${v}" style="border-color:rgba(167,139,250,0.3)" oninput="countries[${ci}].pyData[${mi}]=+this.value||0;runCountry()">`;
+      pygrid.appendChild(d);
+    });
+  });
+}
+
+// ════ OVERVIEW ════════════════════════════
+function buildGrid(id,data,cb,cls=''){
+  const g=document.getElementById(id);if(!g)return;g.innerHTML='';
+  data.forEach((v,i)=>{
+    const d=document.createElement('div');d.className='inp-cell';
+    const c=cls?` class="${cls}"`:'';
+    d.innerHTML=`<label>${MONTHS[i]}</label><input type="number" value="${v}"${c} oninput="(${cb.toString()})(${i},this.value)">`;
+    g.appendChild(d);
+  });
+}
+function buildInputs(){
+  buildGrid('cy-grid',vals,(i,v)=>{vals[i]=+v||0;run();});
+  buildGrid('py-grid',pyVals,(i,v)=>{pyVals[i]=+v||0;run();},'py-inp');
+}
+
+function loadPreset(key,btn){
+  vals=[...PRESETS[key]];
+  const sc=PY_SCALE[key]||0.92;
+  pyVals=vals.map(v=>Math.round(v*sc*(0.96+Math.random()*0.08)));
+  // Update country data proportionally if countries exist
+  if(countries.length>0){
+    const fracs=computeCurrentFracs();
+    countries.forEach((c,ci)=>{
+      c.data=vals.map((v,mi)=>Math.round(v*(fracs[ci]||1/countries.length)));
+    });
+    buildCountryDataSections();
+    runCountry();
+  }
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  buildInputs();run();runBudget();
+}
+
+function computeCurrentFracs(){
+  // Returns per-country fraction of total for last month
+  const totals=Array(countries.length).fill(0);
+  let grandTotal=0;
+  countries.forEach((c,ci)=>{totals[ci]=c.data[11]||0;grandTotal+=totals[ci];});
+  return totals.map(v=>grandTotal>0?v/grandTotal:1/countries.length);
+}
+
+function run(){
+  const arr=vals.map(Number),py=pyVals.map(Number),n=arr.length;
+  const{slope,line}=trendLine(arr);
+  const deltas=arr.slice(1).map((v,i)=>arr[i+1]-arr[i]);
+  const rs=trendLine(arr.slice(-4)).slope,accel=rs-slope;
+  const mom=(arr[n-1]-arr[n-2])/arr[n-2]*100;
+  const yoy12=(arr[n-1]-arr[0])/arr[0]*100;
+  const state=detectState(arr),S=STATES[state];
+  const hasPY=py.some(v=>v>0);
+  const yoyPct=hasPY&&py[n-1]>0?(arr[n-1]-py[n-1])/py[n-1]*100:null;
+
+  document.getElementById('stat-row').innerHTML=`
+    <div class="stat-card"><div class="slb">当月 L12M（万元）</div><div class="svl">${fmt(arr[n-1])}</div><div class="ssg ${mom>=0?'ok':'er'}">${mom>=0?'▲':'▼'} ${Math.abs(mom).toFixed(1)}% 环比</div></div>
+    <div class="stat-card"><div class="slb">L12M 年度变化</div><div class="svl">${yoy12>=0?'+':''}${yoy12.toFixed(1)}%</div><div class="ssg nt">vs 12个月前</div></div>
+    <div class="stat-card ${yoyPct!=null?(yoyPct>=0?'hi-green':'hi-red'):''}"><div class="slb">同比 YoY</div><div class="svl">${yoyPct!=null?(yoyPct>=0?'+':'')+yoyPct.toFixed(1)+'%':'—'}</div><div class="ssg pu">${hasPY?'vs 上年同期':'未填写上年数据'}</div></div>
+    <div class="stat-card"><div class="slb">加速度信号</div><div class="svl" style="font-size:16px;margin-top:2px">${accel>3?'加速中':accel<-3?'减速中':'趋于平稳'}</div><div class="ssg ${accel>3?'ok':accel<-3?'er':'nt'}">${accel>=0?'+':''}${accel.toFixed(1)} 斜率Δ</div></div>
+  `;
+
+  if(hasPY){
+    const pts=[0,2,4,6,8,11];
+    document.getElementById('yoy-box-wrap').innerHTML=`
+      <div class="yoy-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
+          <span style="font-size:11px;font-weight:500;color:var(--text2)">同比对比 — 当年 vs 上年同期 L12M</span>
+          <span style="font-size:10px;color:var(--text3)"><span style="color:var(--blue)">蓝</span>=当年 <span style="color:var(--purple)">紫</span>=上年</span>
+        </div>
+        <div class="yoy-grid">${pts.map(i=>{const p=(arr[i]-py[i])/py[i]*100,pos=p>=0;return`<div class="yoy-cell"><div class="yc-lbl">${MONTHS[i]}</div><div class="yc-cy">${fmt(arr[i])}</div><div class="yc-py">${fmt(py[i])}</div><div class="yc-chg" style="color:${pos?'var(--green)':'var(--red)'}">${pos?'▲':'▼'}${Math.abs(p).toFixed(1)}%</div></div>`;}).join('')}
+        </div>
+      </div>`;
+  } else { document.getElementById('yoy-box-wrap').innerHTML=''; }
+
+  const ban=document.getElementById('state-banner');
+  ban.className=`state-banner ${S.color}`;
+  document.getElementById('sb-title').textContent=`${S.icon}  ${S.title}`;
+  document.getElementById('sb-desc').textContent=S.desc;
+  document.getElementById('footer-state').textContent=S.icon+' '+state.toUpperCase();
+
+  const al=document.getElementById('action-list');al.innerHTML='';
+  S.actions.forEach(a=>{const d=document.createElement('div');d.className='action-card';d.innerHTML=`<div class="ac-top"><span class="ac-urg ${a.cls}">${a.urg}</span><span class="ac-title">${a.title}</span></div><div class="ac-body">${a.body}</div><div class="ac-owner">${a.owner}</div>`;al.appendChild(d);});
+
+  const db=document.getElementById('delta-bars');db.innerHTML='';
+  const ma=Math.max(...deltas.map(d=>Math.abs(d)),1);
+  deltas.forEach(d=>{const b=document.createElement('div');b.className='delta-bar';b.style.height=Math.max(2,Math.round(Math.abs(d)/ma*24))+'px';b.style.background=d>=0?'rgba(62,207,142,0.6)':'rgba(242,87,87,0.6)';db.appendChild(b);});
+
+  const mp=Math.min(100,Math.max(0,((accel+20)/40)*100));
+  document.getElementById('mom-fill').style.width=Math.round(mp)+'%';
+  document.getElementById('mom-fill').style.background=mp>65?'var(--green)':mp>35?'var(--amber)':'var(--red)';
+  document.getElementById('mom-label').textContent=`动能得分 ${Math.round(mp)}/100 — ${accel>3?'增长加速':accel<-3?'增长减速':'动能平稳'}`;
+
+  killChart('main');
+  const ds=[
+    {type:'line',label:'当年 L12M',data:arr,borderColor:'#4f8ef7',backgroundColor:'rgba(79,142,247,0.07)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#4f8ef7',tension:.3,yAxisID:'y',order:1},
+    {type:'line',label:'线性趋势',data:line,borderColor:'rgba(79,142,247,0.25)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[5,4],pointRadius:0,tension:0,yAxisID:'y',order:2},
+    {type:'bar',label:'月环比',data:[null,...deltas],backgroundColor:deltas.map(d=>d>=0?'rgba(62,207,142,0.4)':'rgba(242,87,87,0.4)'),borderWidth:0,yAxisID:'y2',order:4},
+  ];
+  if(hasPY) ds.push({type:'line',label:'上年同期',data:py,borderColor:'rgba(167,139,250,0.65)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[4,3],pointRadius:2,tension:.3,yAxisID:'y',order:3});
+  charts.main=new Chart(document.getElementById('mainChart'),{type:'bar',data:{labels:MONTHS,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a1e2e',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#9090a8',bodyColor:'#e8e8f0',padding:10,callbacks:{label:c=>{if(c.datasetIndex===2)return`月环比: ${c.raw!=null?(c.raw>=0?'+':'')+fmt(c.raw):'—'}`;return`${c.dataset.label}: ${c.raw!=null?fmt(c.raw):'—'}`;},afterBody:items=>{if(!hasPY)return[];const i=items[0]?.dataIndex;if(i==null||!py[i])return[];const p=(arr[i]-py[i])/py[i]*100;return[`同比YoY: ${p>=0?'+':''}${p.toFixed(1)}%`];}}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',maxRotation:0}},y:{position:'left',grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',callback:v=>v.toLocaleString()}},y2:{position:'right',grid:{display:false},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',callback:v=>(v>=0?'+':'')+v.toLocaleString()}}}}});
+  debouncedSave();
+}
+
+// ════ COUNTRY ══════════════════════════════
+function runCountry(){
+  if(countries.length===0) return;
+  const totals=Array(12).fill(0);
+  countries.forEach(c=>c.data.forEach((v,i)=>totals[i]+=v));
+  const lt=totals[11];
+
+  // Update country cards grid columns based on count
+  const cg=document.getElementById('country-cards');
+  if(cg) cg.style.gridTemplateColumns=countries.length<=6?'repeat(3,1fr)':countries.length<=12?'repeat(4,1fr)':'repeat(6,1fr)';
+
+  // Cards — include YoY if country has pyData
+  if(cg){
+    cg.innerHTML='';
+    countries.forEach((c,ci)=>{
+      const v=c.data, pv=c.pyData||[], lv=v[11], sh=lt>0?lv/lt*100:0;
+      const mom=v[10]>0?(lv-v[10])/v[10]*100:0;
+      const{slope}=trendLine(v); const sel=selCountry===ci;
+      const color=getCountryColor(ci);
+      const pyLv=pv[11]||0;
+      const yoy=pyLv>0?((lv-pyLv)/pyLv*100):null;
+      const d=document.createElement('div');d.className=`country-card${sel?' selected':''}`;
+      d.onclick=()=>{selCountry=selCountry===ci?null:ci;runCountry();};
+      d.innerHTML=`
+        <div class="cc-name"><span class="c-dot" style="background:${color}"></span>${c.name}</div>
+        <div class="cc-val">${fmt(lv)}</div>
+        <div class="cc-share">${sh.toFixed(1)}% 份额</div>
+        <div class="cc-trend" style="color:${slope>0?'var(--green)':slope<0?'var(--red)':'var(--text3)'}">${slope>0?'↑上升':slope<0?'↓下降':'→持平'} | 环比${mom>=0?'+':''}${mom.toFixed(1)}%</div>
+        ${yoy!=null?`<div style="font-size:10px;font-family:'DM Mono',monospace;margin-top:2px;color:${yoy>=0?'var(--green)':'var(--red)'}">同比 ${yoy>=0?'▲':'▼'}${Math.abs(yoy).toFixed(1)}%</div>`:''}
+      `;
+      cg.appendChild(d);
+    });
+  }
+
+  // Legend — only show first 9 to avoid overflow; rest shown in chart
+  const leg=document.getElementById('country-legend');
+  if(leg){
+    const show=countries.slice(0,9);
+    leg.innerHTML=show.map((c,i)=>`<div class="legend-item"><div class="leg-line" style="background:${getCountryColor(i)}"></div>${c.name}</div>`).join('')
+      +(countries.length>9?`<div class="legend-item" style="color:var(--text3)">+${countries.length-9}个</div>`:'')
+      +`<div class="legend-item"><div class="leg-line dashed" style="color:rgba(255,255,255,0.25)"></div>合计</div>`;
+  }
+
+  // Main trend chart
+  killChart('country');
+  const ccv=document.getElementById('countryChart');if(!ccv)return;
+  const cds=countries.map((c,ci)=>{
+    const dim=selCountry!==null&&selCountry!==ci;
+    const color=getCountryColor(ci);
+    return{type:'line',label:c.name,data:c.data,borderColor:color+(dim?'33':''),backgroundColor:'transparent',borderWidth:selCountry===ci?2.5:1.5,pointRadius:selCountry===ci?3:1.5,tension:.3,fill:false,yAxisID:'y',order:ci+2};
+  });
+  cds.push({type:'line',label:'合计',data:totals,borderColor:'rgba(255,255,255,0.3)',backgroundColor:'transparent',borderWidth:2,borderDash:[4,3],pointRadius:2,tension:.3,fill:false,yAxisID:'y',order:1});
+  charts.country=new Chart(ccv,{type:'line',data:{labels:MONTHS,datasets:cds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a1e2e',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#9090a8',bodyColor:'#e8e8f0',padding:10,callbacks:{afterBody:items=>{const i=items[0]?.dataIndex;if(i==null)return[];const tot=totals[i];return items.slice(0,-1).slice(0,8).map(it=>tot>0?`${it.dataset.label}: ${(it.raw/tot*100).toFixed(1)}%`:'').filter(Boolean);}}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',maxRotation:0}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',callback:v=>v.toLocaleString()}}}}});
+
+  // Index chart
+  killChart('countryIdx');
+  const ixcv=document.getElementById('countryIdxChart');if(!ixcv)return;
+  const ids=countries.map((c,ci)=>{
+    const base=c.data[0]||1;const idx=c.data.map(v=>Math.round(v/base*100));
+    const dim=selCountry!==null&&selCountry!==ci;
+    return{type:'line',label:c.name,data:idx,borderColor:getCountryColor(ci)+(dim?'33':''),backgroundColor:'transparent',borderWidth:1.5,pointRadius:1.5,tension:.3};
+  });
+  charts.countryIdx=new Chart(ixcv,{type:'line',data:{labels:MONTHS,datasets:ids},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a1e2e',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#9090a8',bodyColor:'#e8e8f0',padding:8,callbacks:{label:c=>`${c.dataset.label}: ${c.raw}`}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',maxRotation:0}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72'},title:{display:true,text:'指数（M-11=100）',color:'#5a5a72',font:{size:9}}}}}});
+
+  // Analysis — sorted by share (high → low), with YoY
+  const adiv=document.getElementById('country-analysis');if(!adiv)return;
+  const tdelta=totals[11]-totals[0];
+  const items=countries.map((c,ci)=>{
+    const d=c.data[11]-c.data[0];
+    const ct=tdelta!==0?d/Math.abs(tdelta)*100:0;
+    const{slope}=trendLine(c.data);
+    const lv=c.data[11];
+    const tgt=c.target||0;
+    const at=tgt>0?lv/tgt*100:null;
+    const pyLv=(c.pyData||[])[11]||0;
+    const yoy=pyLv>0?((lv-pyLv)/pyLv*100):null;
+    return{c,ci,d,ct,slope,lv,sh:lt>0?lv/lt*100:0,tgt,at,yoy};
+  }).sort((a,b)=>b.sh-a.sh);
+
+  adiv.innerHTML=items.map(it=>{
+    const atBadge = it.at!=null
+      ? `<span class="ct-attain ${it.at>=100?'over':it.at>=85?'near':'miss'}">${it.at.toFixed(1)}%</span>`
+      : `<span class="ct-attain none">未设目标</span>`;
+    const gap = it.tgt>0 ? it.lv-it.tgt : null;
+    const yoyHtml = it.yoy!=null
+      ? `<span style="color:${it.yoy>=0?'var(--green)':'var(--red)'}">同比 ${it.yoy>=0?'▲':'▼'}${Math.abs(it.yoy).toFixed(1)}%</span>`
+      : '';
+    return `
+    <div class="action-card" style="cursor:default;margin-bottom:5px">
+      <div class="ac-top">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${getCountryColor(it.ci)};flex-shrink:0"></span>
+        <span class="ac-title">${it.c.name}</span>
+        ${atBadge}
+        <span style="margin-left:auto;font-size:11px;font-family:'DM Mono',monospace;color:${it.d>=0?'var(--green)':'var(--red)'}">${it.d>=0?'+':''}${fmt(Math.round(it.d))}</span>
+      </div>
+      <div style="display:flex;gap:10px;font-size:11px;color:var(--text2);flex-wrap:wrap">
+        <span>份额 <strong style="color:var(--text)">${it.sh.toFixed(1)}%</strong></span>
+        <span>贡献 <strong style="color:${it.ct>=0?'var(--green)':'var(--red)'}">${it.ct>=0?'+':''}${it.ct.toFixed(0)}%</strong></span>
+        <span>斜率 <strong style="color:${it.slope>0?'var(--green)':it.slope<0?'var(--red)':'var(--text3)'}">${it.slope>0?'↑':it.slope<0?'↓':'→'}</strong></span>
+        ${yoyHtml}
+        ${it.tgt>0?`<span>目标 <strong style="color:var(--amber)">${fmt(it.tgt)}</strong></span>`:''}
+        ${gap!=null?`<span style="color:${gap>=0?'var(--green)':'var(--red)'}">${gap>=0?'超':'缺'} ${fmt(Math.abs(Math.round(gap)))}</span>`:''}
+      </div>
+      ${it.tgt>0?`
+      <div style="margin-top:5px;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;position:relative">
+        <div style="height:4px;border-radius:2px;background:${it.at>=100?'var(--green)':it.at>=85?'var(--amber)':'var(--red)'};width:${Math.min(100,it.at||0)}%;transition:width .4s"></div>
+      </div>`:`
+      <div style="margin-top:5px;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden">
+        <div style="height:4px;border-radius:2px;background:${getCountryColor(it.ci)};width:${Math.min(100,Math.abs(it.sh))}%"></div>
+      </div>`}
+    </div>`;
+  }).join('');
+
+  // Target summary panel (right side)
+  const tabTitle = document.getElementById('bdg-tab-title')?.value?.trim() || '26年指标对比';
+  // Sync panel label
+  const tpl = document.getElementById('country-target-panel-label');
+  if(tpl) tpl.textContent = `各国家 ${tabTitle} 达成汇总`;
+
+  const tsdiv = document.getElementById('country-target-summary');
+  if(!tsdiv) return;
+  const withTarget = countries.filter(c=>c.target>0);
+  if(withTarget.length===0){
+    tsdiv.innerHTML=`<div style="font-size:11px;color:var(--text3);padding:10px 0">展开各国家数据区，在底部填写年度目标后显示达成汇总。</div>`;
+    return;
+  }
+  const totalTarget = withTarget.reduce((s,c)=>s+c.target,0);
+  const totalActual = withTarget.reduce((s,c)=>s+c.data[11],0);
+  const totalAt = totalActual/totalTarget*100;
+
+  // Summary header bar
+  const headerHtml = `
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 13px;margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+        <span style="font-size:11px;color:var(--text2);font-weight:500">已设目标国家合计</span>
+        <span style="font-size:13px;font-weight:600;font-family:'DM Mono',monospace;color:${totalAt>=100?'var(--green)':totalAt>=85?'var(--amber)':'var(--red)'}">${totalAt.toFixed(1)}%</span>
+      </div>
+      <div style="height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-bottom:4px">
+        <div style="height:5px;border-radius:3px;background:${totalAt>=100?'var(--green)':totalAt>=85?'var(--amber)':'var(--red)'};width:${Math.min(100,totalAt)}%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);font-family:'DM Mono',monospace">
+        <span>实际 ${fmt(totalActual)}</span>
+        <span>目标 ${fmt(totalTarget)}</span>
+      </div>
+    </div>`;
+
+  // Per-country rows sorted by attainment
+  const sortedByAt = [...withTarget].map(c=>{
+    const at=c.data[11]/c.target*100;
+    const gap=c.data[11]-c.target;
+    const ci=countries.indexOf(c);
+    return{c,ci,at,gap};
+  }).sort((a,b)=>b.at-a.at);
+
+  const rowsHtml = sortedByAt.map(({c,ci,at,gap})=>`
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);margin-bottom:4px">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${getCountryColor(ci)};flex-shrink:0"></span>
+      <span style="font-size:11px;color:var(--text2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</span>
+      <div style="width:60px;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;flex-shrink:0">
+        <div style="height:4px;border-radius:2px;background:${at>=100?'var(--green)':at>=85?'var(--amber)':'var(--red)'};width:${Math.min(100,at)}%"></div>
+      </div>
+      <span style="font-size:11px;font-family:'DM Mono',monospace;color:${at>=100?'var(--green)':at>=85?'var(--amber)':'var(--red)'};width:42px;text-align:right;flex-shrink:0">${at.toFixed(1)}%</span>
+      <span style="font-size:10px;font-family:'DM Mono',monospace;color:${gap>=0?'var(--green)':'var(--red)'};width:48px;text-align:right;flex-shrink:0">${gap>=0?'+':''}${fmt(Math.round(gap))}</span>
+    </div>`).join('');
+
+  tsdiv.innerHTML = headerHtml + `<div style="display:flex;gap:4px;padding:0 8px;margin-bottom:3px"><span style="font-size:9px;color:var(--text3);flex:1">国家</span><span style="font-size:9px;color:var(--text3);width:60px;text-align:center">进度</span><span style="font-size:9px;color:var(--text3);width:42px;text-align:right">达成率</span><span style="font-size:9px;color:var(--text3);width:48px;text-align:right">差距</span></div>` + rowsHtml;
+  debouncedSave();
+}
+
+// ════ TITLE EDITOR ═════════════════════════
+function updateBdgTitle(val){
+  const t = val.trim() || '26年指标对比';
+  const lbl = document.getElementById('tab-budget-label');
+  if(lbl) lbl.textContent = t;
+  const st = document.getElementById('bdg-section-title');
+  if(st) st.textContent = t;
+  const lg = document.getElementById('bdg-legend-target');
+  if(lg) lg.textContent = t + '指标';
+  const ol = document.getElementById('bdg-overview-label');
+  if(ol) ol.textContent = t + '达成概览';
+  const bt = document.getElementById('bdg-bar-title');
+  if(bt) bt.textContent = '当月 L12M vs ' + t + '指标进度';
+  const al = document.getElementById('bdg-action-label');
+  if(al) al.textContent = t + '分析与建议';
+  const tpl = document.getElementById('country-target-panel-label');
+  if(tpl) tpl.textContent = `各国家 ${t} 达成汇总`;
+  document.querySelectorAll('.ct-target-label').forEach(el=>{
+    el.textContent = `🎯 ${t}目标（万元）：`;
+  });
+  buildBudgetGrid();
+}
+
+
+function genBudgetMonthly(){
+  // budgetMonthly is now set directly — no auto-distribution needed
+  // Just rebuild the grid display
+  buildBudgetGrid();
+}
+function buildBudgetGrid(){
+  const g=document.getElementById('bdg-grid');if(!g)return;g.innerHTML='';
+  const tabTitle=document.getElementById('bdg-tab-title')?.value?.trim()||'26年指标';
+  budgetMonthly.forEach((v,i)=>{
+    const d=document.createElement('div');d.className='inp-cell';
+    d.innerHTML=`<label style="color:var(--amber)">${MONTHS[i]}</label><input type="number" class="bdg-inp" value="${v||''}" placeholder="0" oninput="budgetMonthly[${i}]=+this.value||0;runBudgetCalc()">`;
+    g.appendChild(d);
+  });
+}
+function runBudget(){buildBudgetGrid();runBudgetCalc();}
+function runBudgetCalc(){
+  const arr=vals.map(Number),py=pyVals.map(Number),n=arr.length;
+  const hasPY=py.some(v=>v>0),hasBdg=budgetMonthly.some(v=>v>0);
+  // Current month target = budgetMonthly[n-1]; use for progress bar
+  const curTarget = hasBdg ? (budgetMonthly[n-1]||0) : 0;
+  killChart('budget');
+  const bcv=document.getElementById('budgetChart');if(!bcv)return;
+  const bds=[{type:'line',label:'当年 L12M',data:arr,borderColor:'#4f8ef7',backgroundColor:'rgba(79,142,247,0.08)',fill:true,borderWidth:2.5,pointRadius:3,pointBackgroundColor:'#4f8ef7',tension:.3,yAxisID:'y',order:1}];
+  if(hasBdg) bds.push({type:'line',label:'指标目标',data:budgetMonthly,borderColor:'rgba(245,166,35,0.85)',backgroundColor:'transparent',borderWidth:2,borderDash:[5,3],pointRadius:2.5,tension:.3,yAxisID:'y',order:2});
+  if(hasPY) bds.push({type:'line',label:'上年同期',data:py,borderColor:'rgba(167,139,250,0.5)',backgroundColor:'transparent',borderWidth:1.5,borderDash:[3,3],pointRadius:1.5,tension:.3,yAxisID:'y',order:3});
+  charts.budget=new Chart(bcv,{type:'line',data:{labels:MONTHS,datasets:bds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a1e2e',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#9090a8',bodyColor:'#e8e8f0',padding:10,callbacks:{afterBody:items=>{const i=items[0]?.dataIndex;if(i==null||!hasBdg)return[];const b=budgetMonthly[i],a=arr[i];if(!b)return[];return[`达成率: ${(a/b*100).toFixed(1)}%`,`差距: ${a-b>=0?'+':''}${fmt(Math.round(a-b))}`];}}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',maxRotation:0}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#5a5a72',callback:v=>v.toLocaleString()}}}}});
+  const cur=arr[n-1],cb=curTarget;
+  const at=cb>0?cur/cb*100:null,gap=cb>0?cur-cb:null;
+  // Max target across all months for reference
+  const maxTarget=hasBdg?Math.max(...budgetMonthly.filter(v=>v>0),1):0;
+  document.getElementById('bdg-stat-row').innerHTML=`
+    <div class="stat-card"><div class="slb">当月 L12M</div><div class="svl">${fmt(cur)}</div><div class="ssg nt">万元</div></div>
+    <div class="stat-card ${hasBdg?(at>=100?'hi-green':at>=85?'hi-amber':'hi-red'):''}"><div class="slb">目标达成率</div><div class="svl">${at!=null?at.toFixed(1)+'%':'—'}</div><div class="ssg ${at!=null?(at>=100?'ok':at>=85?'wa':'er'):'nt'}">${cb>0?'目标 '+fmt(cb):'未设置'}</div></div>
+    <div class="stat-card"><div class="slb">缺口/超额</div><div class="svl" style="font-size:17px">${gap!=null?(gap>=0?'+':'')+fmt(Math.round(gap)):'—'}</div><div class="ssg ${gap!=null?(gap>=0?'ok':'er'):'nt'}">${gap!=null?(gap>=0?'超额':'未达标'):'—'}</div></div>
+    <div class="stat-card"><div class="slb">当月指标</div><div class="svl" style="font-size:17px">${cb>0?fmt(cb):'—'}</div><div class="ssg nt">${cb>0?'万元':''}</div></div>
+  `;
+  if(cb>0){
+    const pct=Math.min(150,cur/cb*100);
+    const fe=document.getElementById('bdg-fill');if(fe){fe.style.width=Math.min(100,pct)+'%';fe.style.background=pct>=100?'var(--green)':pct>=85?'var(--amber)':'var(--red)';}
+    const pe=document.getElementById('bdg-bar-pct');if(pe){pe.textContent=pct.toFixed(1)+'%';pe.style.color=pct>=100?'var(--green)':pct>=85?'var(--amber)':'var(--red)';}
+    const me=document.getElementById('bdg-bar-mid');if(me)me.textContent=fmt(Math.round(cb/2));
+    const xe=document.getElementById('bdg-bar-max');if(xe)xe.textContent=fmt(cb);
+  }
+  const td=document.getElementById('bdg-table');
+  if(td&&hasBdg){
+    td.innerHTML=`<div style="display:flex;gap:6px;padding:0 8px;margin-bottom:3px"><span style="font-size:9px;color:var(--text3);width:30px">月份</span><span style="font-size:9px;color:var(--text3);width:52px">实际</span><span style="font-size:9px;color:var(--text3);flex:1">进度</span><span style="font-size:9px;color:var(--text3);width:46px;text-align:right">达成率</span><span style="font-size:9px;color:var(--text3);width:50px;text-align:right">差距</span></div>`+
+    arr.map((v,i)=>{const b=budgetMonthly[i];const a=b>0?v/b*100:null;const g=b>0?v-b:null;return`<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);margin-bottom:4px"><span style="font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);width:30px">${MONTHS[i]}</span><span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--text);width:52px">${fmt(v)}</span><div style="flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden"><div style="height:4px;border-radius:2px;background:${a!=null?(a>=100?'var(--green)':a>=85?'var(--amber)':'var(--red)'):'var(--text3)'};width:${a!=null?Math.min(100,a):0}%"></div></div><span style="font-size:11px;font-family:'DM Mono',monospace;color:${a!=null?(a>=100?'var(--green)':a>=85?'var(--amber)':'var(--red)'):'var(--text3)'};width:46px;text-align:right">${a!=null?a.toFixed(1)+'%':'—'}</span><span style="font-size:10px;font-family:'DM Mono',monospace;color:${g!=null?(g>=0?'var(--green)':'var(--red)'):'var(--text3)'};width:50px;text-align:right">${g!=null?(g>=0?'+':'')+fmt(Math.round(g)):'—'}</span></div>`;}).join('');
+  } else if(td){td.innerHTML=`<div style="font-size:12px;color:var(--text3);text-align:center;padding:16px">请先填写指标数据（展开上方面板逐月输入，或通过导入自动填入）</div>`;}
+  const adiv=document.getElementById('bdg-actions');if(!adiv)return;
+  const acts=[];
+  if(!hasBdg){acts.push({cls:'urg-week',urg:'建议',title:'填写月度指标目标',body:'在上方逐月填入指标总数（万元），或通过数据导入自动填充。每格代表该时间点对应的全年指标总额。'});}
+  else{
+    if(at!=null&&at<85) acts.push({cls:'urg-now',urg:'预警',title:'当月 L12M 显著落后指标',body:`实际 ${fmt(cur)} vs 指标 ${fmt(cb)}，达成率 ${at.toFixed(1)}%，缺口 ${fmt(Math.abs(Math.round(gap)))} 万元。建议立即启动差距分析。`});
+    else if(at!=null&&at>=100) acts.push({cls:'urg-month',urg:'关注',title:'超额完成当月指标',body:`超出指标 ${fmt(Math.round(gap))} 万元，达成率 ${at.toFixed(1)}%。确认超额持续性，考虑是否上调后续指标。`});
+    else if(at!=null) acts.push({cls:'urg-week',urg:'跟踪',title:'指标完成进度正常',body:`达成率 ${at.toFixed(1)}%，距指标差 ${fmt(Math.abs(Math.round(gap)))} 万元。保持当前走势，关注最近数月数据验证收官能力。`});
+    const{slope}=trendLine(arr);
+    if(slope<0&&cb>0) acts.push({cls:'urg-now',urg:'预警',title:'L12M 下行趋势将拖累指标达成',body:'当前L12M斜率为负，若趋势延续，后续月份达成率将持续下滑。结合国家拆分定位下行区域，优先止血。'});
+  }
+  adiv.innerHTML=acts.map(a=>`<div class="action-card" style="cursor:default;margin-bottom:6px"><div class="ac-top"><span class="ac-urg ${a.cls}">${a.urg}</span><span class="ac-title">${a.title}</span></div><div class="ac-body">${a.body}</div></div>`).join('');
+  debouncedSave();
+}
+
+// ════ EXPORT ═══════════════════════════════
+function exportCSV(){
+  const arr=vals.map(Number),py=pyVals.map(Number);
+  const{line}=trendLine(arr);
+  const deltas=arr.slice(1).map((v,i)=>arr[i+1]-arr[i]);
+  const hasPY=py.some(v=>v>0),hasBdg=budgetMonthly.some(v=>v>0);
+  let hdr='月份,当年L12M,趋势线,月环比';
+  if(hasPY) hdr+=',上年同期L12M,同比YoY%';
+  if(hasBdg) hdr+=',月度预算,达成率%,差距';
+  countries.forEach(c=>hdr+=`,${c.name}`);
+  let csv=hdr+'\n';
+  arr.forEach((v,i)=>{
+    let r=`${MONTHS[i]},${v},${line[i]},${i===0?'':deltas[i-1]}`;
+    if(hasPY){const p=py[i]>0?((v-py[i])/py[i]*100).toFixed(1):'';r+=`,${py[i]},${p}`;}
+    if(hasBdg){const b=budgetMonthly[i],a=b>0?(v/b*100).toFixed(1):'',g=b>0?v-b:'';r+=`,${b},${a},${g}`;}
+    countries.forEach(c=>r+=`,${c.data[i]??''}`);
+    csv+=r+'\n';
+  });
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='L12M_v2数据.csv';a.click();URL.revokeObjectURL(url);
+}
+
+// ════ IMPORT ═══════════════════════════════
+let _workbook = null;  // raw XLSX workbook
+let _parsedResult = null;  // computed after parseFile()
+
+// ── File handling ──
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if(f) loadFile(f);
+}
+function handleFileSelect(e){
+  const f = e.target.files[0];
+  if(f) loadFile(f);
+}
+function loadFile(file){
+  if(!/\.(xlsx|xls)$/i.test(file.name)){
+    alert('请选择 .xlsx 或 .xls 文件'); return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      _workbook = XLSX.read(e.target.result, {type:'array', cellDates:false});
+      // Update UI
+      document.getElementById('drop-zone').classList.add('has-file');
+      document.getElementById('drop-icon').textContent = '✅';
+      document.getElementById('drop-title').textContent = file.name;
+      document.getElementById('drop-filename').textContent =
+        `${_workbook.SheetNames.length} 个 Sheet: ${_workbook.SheetNames.join(' · ')}`;
+      document.getElementById('parse-btn').disabled = false;
+      document.getElementById('parse-btn').textContent = '解析文件 →';
+      // Auto-detect sheets and populate column dropdowns
+      autoDetectSheets();
+    } catch(err){
+      alert('文件读取失败：' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── Sheet auto-detection ──
+// Heuristic: look for sheet whose name or headers contain order keywords
+const ORDER_KEYWORDS = ['订单','销售','order','明细','detail','sales'];
+const TARGET_KEYWORDS = ['指标','目标','target','budget','kpi','quota'];
+
+function scoreSheet(name, headers, keywords){
+  let score = 0;
+  const nl = name.toLowerCase();
+  keywords.forEach(k=>{ if(nl.includes(k)) score+=3; });
+  headers.forEach(h=>{ const hl=(h||'').toString().toLowerCase(); keywords.forEach(k=>{if(hl.includes(k))score+=1;}); });
+  return score;
+}
+
+function autoDetectSheets(){
+  if(!_workbook) return;
+  const sheets = _workbook.SheetNames.map(name=>{
+    const ws = _workbook.Sheets[name];
+    const data = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
+    const headers = (data[0]||[]).map(h=>String(h).trim()).filter(Boolean);
+    return {name, headers, data};
+  });
+
+  // Find best matching sheets
+  const orderSheet = sheets.sort((a,b)=>
+    scoreSheet(b.name,b.headers,ORDER_KEYWORDS)-scoreSheet(a.name,a.headers,ORDER_KEYWORDS))[0];
+  const targetSheet = sheets.filter(s=>s!==orderSheet).sort((a,b)=>
+    scoreSheet(b.name,b.headers,TARGET_KEYWORDS)-scoreSheet(a.name,a.headers,TARGET_KEYWORDS))[0]
+    || sheets.find(s=>s!==orderSheet) || sheets[0];
+
+  // Populate column dropdowns for order sheet
+  ['map-date','map-country','map-amount'].forEach(id=>{
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    sel.innerHTML = '';
+    orderSheet.headers.forEach(h=>{
+      const opt = document.createElement('option');
+      opt.value = h; opt.textContent = h;
+      sel.appendChild(opt);
+    });
+  });
+  // Auto-select likely columns for orders
+  autoSelectCol('map-date',    orderSheet.headers, ['销售日期','日期','date','order date','订单日期']);
+  autoSelectCol('map-country', orderSheet.headers, ['国家','country','ship to country','地区','region']);
+  autoSelectCol('map-amount',  orderSheet.headers, ['价税合计','价税合计（本位币）','金额','amount','净额','net amount','sales amount','销售金额']);
+
+  // Populate target sheet dropdowns
+  ['tgt-map-country','tgt-map-amount'].forEach(id=>{
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    sel.innerHTML = '';
+    targetSheet.headers.forEach(h=>{
+      const opt = document.createElement('option');
+      opt.value = h; opt.textContent = h;
+      sel.appendChild(opt);
+    });
+  });
+  autoSelectCol('tgt-map-country', targetSheet.headers, ['国家','country','地区','region']);
+  autoSelectCol('tgt-map-amount',  targetSheet.headers, ['指标','目标','金额','amount','target','budget','合计','total','kpi']);
+
+  // Store refs for parse step
+  _workbook._orderSheetName  = orderSheet.name;
+  _workbook._targetSheetName = targetSheet.name;
+
+  // Check if this is the L12M summary template format
+  if(_workbook.SheetNames.includes('L12M_Data')) {
+    log('📋 检测到「L12M_Data 汇总模板」格式 — 无需列映射，直接点击「解析文件」', 'log-ok');
+    document.getElementById('col-mapping-wrap').style.display = 'none';
+  } else {
+    document.getElementById('col-mapping-wrap').style.display = 'block';
+  }
+}
+
+function autoSelectCol(selectId, headers, candidates){
+  const sel = document.getElementById(selectId);
+  if(!sel) return;
+  for(const cand of candidates){
+    const match = headers.find(h=>h.toLowerCase().includes(cand.toLowerCase()));
+    if(match){ sel.value = match; return; }
+  }
+}
+
+// ── Core parse ──
+function log(msg, cls='log-info'){
+  const box = document.getElementById('import-log');
+  box.style.display = 'block';
+  box.innerHTML += `<div class="${cls}">${msg}</div>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+function parseExcelDate(raw){
+  // Handles: number serial, string "2026/5/29", "2026-05-29", Date objects
+  if(raw instanceof Date) return raw;
+  if(typeof raw === 'number'){
+    // Excel serial date
+    return new Date(Math.round((raw - 25569) * 86400 * 1000));
+  }
+  if(typeof raw === 'string'){
+    // Try ISO and slash formats
+    const cleaned = raw.trim().replace(/\//g,'-');
+    const d = new Date(cleaned);
+    if(!isNaN(d)) return d;
+  }
+  return null;
+}
+
+function parseFile(){
+  if(!_workbook) return;
+  const logBox = document.getElementById('import-log');
+  logBox.innerHTML = '';
+  logBox.style.display = 'block';
+  document.getElementById('import-stats').style.display = 'none';
+  document.getElementById('preview-wrap').style.display = 'none';
+
+  const cfgYear  = parseInt(document.getElementById('cfg-year').value) || 2026;
+  const cfgMonth = parseInt(document.getElementById('cfg-month').value);
+  if(!cfgMonth || cfgMonth<1 || cfgMonth>12){
+    log('❌ 请填写截止月份（1-12）', 'log-err'); return;
+  }
+
+  // Route: template format vs order detail format
+  if(_workbook.SheetNames.includes('L12M_Data')) {
+    const tmplResult = parseL12MTemplate(_workbook, cfgYear, cfgMonth);
+    if(!tmplResult) return;
+    _parsedResult = tmplResult;
+    // Show stats
+    document.getElementById('import-stats').style.display = 'grid';
+    document.getElementById('stat-rows').textContent = tmplResult.validRows.toLocaleString();
+    document.getElementById('stat-countries').textContent = tmplResult.countryNames.length;
+    document.getElementById('stat-span').textContent = `${tmplResult.periods[0].ym}~${tmplResult.periods[11].ym}`;
+    document.getElementById('stat-targets').textContent = tmplResult.totalTarget>0?tmplResult.totalTarget.toLocaleString():'—';
+    // Build preview
+    const labels = tmplResult.periods.map(p=>`${p.y}-${String(p.m).padStart(2,'0')}`);
+    let thead = '<tr><th>时间</th><th>L12M（万元）</th><th>月环比</th><th>上年同期</th><th>同比 YoY</th><th>预算目标</th></tr>';
+    let tbody = tmplResult.totalL12M.map((v,i)=>{
+      const prev = i===0?null:tmplResult.totalL12M[i-1];
+      const mom = prev!=null ? (v-prev) : null;
+      const py = tmplResult.pyL12M[i];
+      const yoy = py>0 ? ((v-py)/py*100).toFixed(1)+'%' : '—';
+      const bdg = tmplResult.budgetArr[i];
+      return `<tr>
+        <td>${labels[i]}</td>
+        <td style="color:var(--blue);font-weight:500">${v.toLocaleString()}</td>
+        <td style="color:${mom==null?'var(--text3)':mom>=0?'var(--green)':'var(--red)'}">${mom==null?'—':(mom>=0?'+':'')+mom.toLocaleString()}</td>
+        <td style="color:var(--purple)">${py>0?py.toLocaleString():'—'}</td>
+        <td style="color:${yoy==='—'?'var(--text3)':parseFloat(yoy)>=0?'var(--green)':'var(--red)'}">${yoy}</td>
+        <td style="color:var(--amber)">${bdg>0?bdg.toLocaleString():'—'}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('preview-table').innerHTML = `<thead>${thead}</thead><tbody>${tbody}</tbody>`;
+    document.getElementById('preview-period').textContent = `截止 ${cfgYear}年${cfgMonth}月（L12M模板格式）`;
+    document.getElementById('preview-wrap').style.display = 'block';
+    log(`✅ 解析完成，点击「确认导入」生成看板`, 'log-ok');
+    return;
+  }
+
+  const dateCol    = document.getElementById('map-date')?.value;
+  const countryCol = document.getElementById('map-country')?.value;
+  const amountCol  = document.getElementById('map-amount')?.value;
+  const tgtCountry = document.getElementById('tgt-map-country')?.value;
+  const tgtAmount  = document.getElementById('tgt-map-amount')?.value;
+
+  if(!dateCol||!countryCol||!amountCol){
+    log('❌ 请确认订单表列映射', 'log-err'); return;
+  }
+
+  log(`📋 订单 Sheet: ${_workbook._orderSheetName}  |  指标 Sheet: ${_workbook._targetSheetName}`);
+  log(`📅 截止时间: ${cfgYear}年${cfgMonth}月  |  列映射: 日期=${dateCol} / 国家=${countryCol} / 金额=${amountCol}`);
+
+  // ── Parse order sheet ──
+  const ws = _workbook.Sheets[_workbook._orderSheetName];
+  const rawRows = XLSX.utils.sheet_to_json(ws, {defval:''});
+
+  let validRows=0, skipped=0, minDate=null, maxDate=null;
+  // monthlyByCountry: { countryName -> { 'YYYY-MM' -> totalYuan } }
+  const monthlyByCountry = {};
+  // Also aggregate total
+  const monthlyTotal = {};
+
+  rawRows.forEach((row, ri)=>{
+    const rawDate   = row[dateCol];
+    const country   = String(row[countryCol]||'').trim();
+    const rawAmt    = row[amountCol];
+
+    if(!rawDate || !country || rawAmt==='' || rawAmt===undefined) { skipped++; return; }
+
+    const dt = parseExcelDate(rawDate);
+    if(!dt || isNaN(dt.getTime())) { skipped++; return; }
+
+    const amt = parseFloat(String(rawAmt).replace(/,/g,''));
+    if(isNaN(amt)) { skipped++; return; }
+
+    const ym = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`;
+
+    if(!monthlyByCountry[country]) monthlyByCountry[country] = {};
+    monthlyByCountry[country][ym] = (monthlyByCountry[country][ym]||0) + amt;
+    monthlyTotal[ym] = (monthlyTotal[ym]||0) + amt;
+
+    if(!minDate||dt<minDate) minDate=dt;
+    if(!maxDate||dt>maxDate) maxDate=dt;
+    validRows++;
+  });
+
+  log(`✅ 有效订单行: ${validRows.toLocaleString()}  |  跳过: ${skipped}`,'log-ok');
+  if(validRows===0){ log('❌ 没有有效订单数据，请检查列映射', 'log-err'); return; }
+
+  const countryNames = Object.keys(monthlyByCountry).sort();
+  log(`🌍 识别国家/区域: ${countryNames.length} 个 — ${countryNames.slice(0,8).join(', ')}${countryNames.length>8?'…':''}`);
+
+  // ── Compute L12M for 12 months ending at cfgYear/cfgMonth ──
+  // L12M(t) = sum of all orders in [t-11 months ... t]
+  // We compute for t = cfgYear/cfgMonth backwards 12 positions
+  const endYear=cfgYear, endMon=cfgMonth;
+  // Build 12 (year,month) pairs: [oldest ... newest]
+  const periods = [];
+  for(let i=11;i>=0;i--){
+    let m = endMon - i, y = endYear;
+    while(m<=0){ m+=12; y--; }
+    periods.push({y,m,ym:`${y}-${String(m).padStart(2,'0')}`});
+  }
+  log(`📊 L12M 计算周期: ${periods[0].ym} → ${periods[11].ym}`);
+
+  // L12M at position p = sum of orders from periods[0..p]
+  // i.e., L12M[0] = just the first month (but true L12M = trailing 12)
+  // The 12 data points for the overview chart are:
+  //   point[k] = sum of orders in a 12-month window ending at period[k]
+  // But we only have data for the last 12 months, so:
+  //   point[k] = sum(periods[0..k]) (cumulative from oldest in window)
+  // This IS the rolling L12M if the window is always 12 months.
+  // To get true rolling L12M for each of the 12 months, we need earlier data too.
+  // We'll compute it properly: for each period[k], sum the 12 months ending there.
+
+  function l12mForPeriod(ym_map, endY, endM){
+    let total=0;
+    for(let i=0;i<12;i++){
+      let m=endM-i, y=endY;
+      while(m<=0){m+=12;y--;}
+      const ym=`${y}-${String(m).padStart(2,'0')}`;
+      total += (ym_map[ym]||0);
+    }
+    return total;
+  }
+
+  // Total L12M series (12 points)
+  const totalL12M = periods.map(p=>
+    Math.round(l12mForPeriod(monthlyTotal, p.y, p.m) / 10000 * 100) / 100
+  );
+  // Round to 2 decimal万元, then to integer for display
+  const totalL12M_wan = totalL12M.map(v=>Math.round(v));
+
+  // PY: same 12 months but one year earlier
+  const pyL12M = periods.map(p=>{
+    const py = p.y-1, pm = p.m;
+    return Math.round(l12mForPeriod(monthlyTotal, py, pm) / 10000);
+  });
+
+  // Per-country L12M series + PY series
+  const countryL12M = {};
+  const countryPyL12M = {};
+  countryNames.forEach(c=>{
+    countryL12M[c] = periods.map(p=>
+      Math.round(l12mForPeriod(monthlyByCountry[c], p.y, p.m) / 10000)
+    );
+    countryPyL12M[c] = periods.map(p=>{
+      const py=p.y-1,pm=p.m;
+      return Math.round(l12mForPeriod(monthlyByCountry[c], py, pm) / 10000);
+    });
+  });
+
+  // ── Parse target sheet ──
+  const tgtMap = {}; // countryName -> target万元
+  let totalTarget = 0;
+  if(tgtCountry && tgtAmount){
+    const tws = _workbook.Sheets[_workbook._targetSheetName];
+    const trows = XLSX.utils.sheet_to_json(tws, {defval:''});
+    trows.forEach(row=>{
+      const c = String(row[tgtCountry]||'').trim();
+      const v = parseFloat(String(row[tgtAmount]||'').replace(/,/g,''));
+      if(c && !isNaN(v) && v>0){
+        // Convert from 元 to 万元 (same as orders)
+        tgtMap[c] = Math.round(v/10000);
+        totalTarget += Math.round(v/10000);
+      }
+    });
+    log(`🎯 指标表解析: ${Object.keys(tgtMap).length} 个国家，合计 ${totalTarget.toLocaleString()} 万元`,'log-ok');
+  } else {
+    log('⚠️ 指标表列未映射，跳过指标导入','log-warn');
+  }
+
+  // ── Store result ──
+  _parsedResult = {
+    totalL12M: totalL12M_wan,
+    pyL12M,
+    countryL12M,
+    countryPyL12M,
+    countryNames,
+    tgtMap,
+    totalTarget,
+    periods,
+    validRows,
+    cfgYear, cfgMonth,
+  };
+
+  // ── Show stats ──
+  document.getElementById('import-stats').style.display = 'grid';
+  document.getElementById('stat-rows').textContent = validRows.toLocaleString();
+  document.getElementById('stat-countries').textContent = countryNames.length;
+  document.getElementById('stat-span').textContent = `${periods[0].ym}~${periods[11].ym}`;
+  document.getElementById('stat-targets').textContent = totalTarget>0?totalTarget.toLocaleString():'—';
+
+  // ── Preview table ──
+  const labels = periods.map(p=>`${p.y}-${String(p.m).padStart(2,'0')}`);
+  let thead = '<tr><th>时间</th><th>L12M（万元）</th><th>月环比</th><th>上年同期</th><th>同比 YoY</th></tr>';
+  let tbody = totalL12M_wan.map((v,i)=>{
+    const prev = i===0?null:totalL12M_wan[i-1];
+    const mom = prev!=null ? (v-prev) : null;
+    const py = pyL12M[i];
+    const yoy = py>0 ? ((v-py)/py*100).toFixed(1)+'%' : '—';
+    return `<tr>
+      <td>${labels[i]}</td>
+      <td style="color:var(--blue);font-weight:500">${v.toLocaleString()}</td>
+      <td style="color:${mom==null?'var(--text3)':mom>=0?'var(--green)':'var(--red)'}">${mom==null?'—':(mom>=0?'+':'')+mom.toLocaleString()}</td>
+      <td style="color:var(--purple)">${py>0?py.toLocaleString():'—'}</td>
+      <td style="color:${yoy==='—'?'var(--text3)':parseFloat(yoy)>=0?'var(--green)':'var(--red)'}">${yoy}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('preview-table').innerHTML = `<thead>${thead}</thead><tbody>${tbody}</tbody>`;
+  document.getElementById('preview-period').textContent = `截止 ${cfgYear}年${cfgMonth}月`;
+  document.getElementById('preview-wrap').style.display = 'block';
+  log(`✅ 解析完成，点击「确认导入」生成看板`, 'log-ok');
+}
+
+// ── Apply import to all tabs ──
+function applyImport(){
+  if(!_parsedResult){ alert('请先解析文件'); return; }
+  const {totalL12M, pyL12M, countryL12M, countryNames, countryPyL12M, tgtMap, cfgYear, cfgMonth} = _parsedResult;
+
+  // 1. Overview tab: total L12M + PY
+  vals = [...totalL12M];
+  pyVals = [...pyL12M];
+  buildInputs();
+
+  // 2. Country tab: sort countries by last-month L12M, take top 20
+  const sorted = countryNames
+    .map(name=>({ name, lastL12M: (countryL12M[name]||[])[11]||0 }))
+    .sort((a,b)=>b.lastL12M-a.lastL12M)
+    .slice(0, 20);
+
+  if(countryNames.length > 20){
+    log(`📌 共 ${countryNames.length} 个国家，已筛选订单金额前 20：${sorted.map(s=>s.name).join(', ')}`, 'log-info');
+  }
+
+  countries = [];
+  sorted.forEach(({name})=>{
+    countries.push({
+      name,
+      data:   [...(countryL12M[name]   || Array(12).fill(0))],
+      pyData: [...(countryPyL12M[name] || Array(12).fill(0))],
+      target: tgtMap[name] || 0,
+    });
+  });
+  countryCount = countries.length;
+  document.getElementById('cc-count-val').textContent = countryCount;
+  document.getElementById('cc-active-n').textContent  = countryCount;
+  renderNameGrid();
+  buildCountryDataSections();
+
+  // 3. Budget tab
+  if(_parsedResult.isTemplateFormat && _parsedResult.budgetArr) {
+    // Template format: use per-month budget directly
+    budgetMonthly = [..._parsedResult.budgetArr];
+    buildBudgetGrid();
+  } else {
+    const totalAnn = Object.values(tgtMap).reduce((s,v)=>s+v,0);
+    if(totalAnn>0){
+      budgetMonthly = Array(12).fill(totalAnn);
+      buildBudgetGrid();
+    }
+  }
+
+  // 4. Update date badge
+  document.getElementById('current-date').textContent = `${cfgYear}年${cfgMonth}月 数据`;
+
+  // 5. Render all tabs
+  run(); runCountry(); runBudget();
+
+  // 6. Switch to overview
+  const overviewBtn = document.querySelector('.tab-btn[onclick*="overview"]');
+  if(overviewBtn) switchTab('overview', overviewBtn);
+
+  // 7. Auto-save to localStorage
+  saveToStorage();
+  
+  log(`🚀 看板已生成，数据已自动保存到本地缓存（下次打开自动恢复）`, 'log-ok');
+}
+
+
+
+// ════ LOCALSTORAGE PERSISTENCE ══════════════
+const STORAGE_KEY = 'l12m_tool_v2_data';
+let _saveTimer = null;
+function debouncedSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(saveToStorage, 800);
+}
+
+function saveToStorage() {
+  try {
+    const payload = {
+      vals, pyVals, budgetMonthly,
+      countries: countries.map(c=>({
+        name: c.name,
+        data: [...c.data],
+        pyData: c.pyData ? [...c.pyData] : Array(12).fill(0),
+        target: c.target || 0
+      })),
+      countryCount,
+      currentDateLabel: document.getElementById('current-date').textContent,
+      savedAt: new Date().toISOString()
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    // Flash save indicator
+    const ind = document.getElementById('save-indicator');
+    if(ind) { ind.style.display='inline'; clearTimeout(ind._t); ind._t=setTimeout(()=>ind.style.display='none', 2500); }
+  } catch(e) { console.warn('Storage save failed:', e); }
+}
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return false;
+    const d = JSON.parse(raw);
+    vals = d.vals || vals;
+    pyVals = d.pyVals || pyVals;
+    budgetMonthly = d.budgetMonthly || budgetMonthly;
+    countryCount = d.countryCount || 6;
+    countries = (d.countries || []).map(c=>({
+      name: c.name,
+      data: c.data || Array(12).fill(0),
+      pyData: c.pyData || Array(12).fill(0),
+      target: c.target || 0
+    }));
+    if(d.currentDateLabel) document.getElementById('current-date').textContent = d.currentDateLabel;
+    return true;
+  } catch(e) { console.warn('Storage load failed:', e); return false; }
+}
+
+function clearStorage() {
+  localStorage.removeItem(STORAGE_KEY);
+  const ind = document.getElementById('save-indicator');
+  if(ind) ind.style.display='none';
+  log('🗑️ 已清除本地缓存，请重新上传数据', 'log-warn');
+}
+
+// ════ L12M TEMPLATE FORMAT PARSER ═══════════
+// Parses the L12M_Data sheet (summary format, units: 百万元)
+function parseL12MTemplate(wb, cfgYear, cfgMonth) {
+  log('📊 识别到「L12M_Data 汇总模板」格式，开始解析…');
+  const ws = wb.Sheets['L12M_Data'];
+  const rawData = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
+  
+  // Find header row (row with '月份')
+  let headerRow = -1;
+  for(let i=0;i<rawData.length;i++) {
+    if(rawData[i][0] && String(rawData[i][0]).includes('月份')) { headerRow = i; break; }
+  }
+  if(headerRow < 0) { log('❌ 未找到数据表头行', 'log-err'); return null; }
+  
+  // Parse all data rows (format: YY/MM)
+  const byYM = {};
+  for(let i=headerRow+1; i<rawData.length; i++) {
+    const row = rawData[i];
+    const ym = String(row[0]||'').trim();
+    if(!ym.match(/^\d{2}\/\d{1,2}$/)) continue;
+    const parts = ym.split('/');
+    const fullY = 2000 + parseInt(parts[0]);
+    const m = parseInt(parts[1]);
+    const company = parseFloat(row[1]) || 0;
+    const cm = parseFloat(row[2]) || 0;
+    const pet = parseFloat(row[4]) || 0;
+    const py = parseFloat(row[5]) || 0;
+    const budget = parseFloat(row[6]) || 0;
+    byYM[`${fullY}-${String(m).padStart(2,'0')}`] = {company, cm, pet, py, budget};
+  }
+  
+  log(`✅ 读取到 ${Object.keys(byYM).length} 个月度记录`,'log-ok');
+  
+  // Build 12 periods ending at cfgYear/cfgMonth
+  const periods = [];
+  for(let i=11;i>=0;i--) {
+    let mm = cfgMonth - i, yy = cfgYear;
+    while(mm<=0) { mm+=12; yy--; }
+    periods.push({y:yy, m:mm, ym:`${yy}-${String(mm).padStart(2,'0')}`});
+  }
+  log(`📅 L12M 周期: ${periods[0].ym} → ${periods[11].ym}`);
+  
+  const get = (ym, field) => (byYM[ym]||{})[field] || 0;
+  
+  // Units: 百万元 → 万元 (×100 to convert to 万元 for the tool)
+  // Actually the tool uses 万元, data is 百万元 → multiply by 100
+  const SCALE = 100; // 百万元 → 万元
+  
+  const totalL12M = periods.map(p => Math.round(get(p.ym, 'company') * SCALE));
+  const pyL12M    = periods.map(p => Math.round(get(p.ym, 'py') * SCALE));
+  const budgetArr = periods.map(p => Math.round(get(p.ym, 'budget') * SCALE));
+  
+  // Sub-units as "countries"
+  const cmData  = periods.map(p => Math.round(get(p.ym, 'cm') * SCALE));
+  const petData = periods.map(p => Math.round(get(p.ym, 'pet') * SCALE));
+  // GM&S = company - cm - pet (remainder)
+  const gmData  = periods.map((p,i) => Math.max(0, totalL12M[i] - cmData[i] - petData[i]));
+  
+  // Check Regions_Config for additional BU names
+  const regionNames = {cm:'国内人医 (CM&S)', gm:'国际人医 (GM&S)', pet:'宠物 (Pet)'};
+  if(wb.Sheets['Regions_Config']) {
+    const rws = wb.Sheets['Regions_Config'];
+    const rdata = XLSX.utils.sheet_to_json(rws, {defval:''});
+    rdata.forEach(r=>{
+      if(r['字段ID']==='cm') regionNames.cm = r['显示名称']||regionNames.cm;
+      if(r['字段ID']==='gm') regionNames.gm = r['显示名称']||regionNames.gm;
+      if(r['字段ID']==='pet') regionNames.pet = r['显示名称']||regionNames.pet;
+    });
+  }
+  
+  const missingMonths = periods.filter(p => !byYM[p.ym]);
+  if(missingMonths.length > 0) {
+    log(`⚠️ 以下月份数据缺失：${missingMonths.map(p=>p.ym).join(', ')}，已用0填充`, 'log-warn');
+  }
+  
+  const totalBudget = budgetArr[11] > 0 ? budgetArr[11] : 0;
+  
+  log(`✅ 解析完成 | 当月L12M: ${totalL12M[11].toLocaleString()}万元 | 同比PY: ${pyL12M[11].toLocaleString()}万元 | 预算: ${budgetArr[11].toLocaleString()}万元`, 'log-ok');
+  
+  return {
+    totalL12M,
+    pyL12M,
+    budgetArr,
+    countryNames: [regionNames.cm, regionNames.gm, regionNames.pet],
+    countryL12M: {
+      [regionNames.cm]: cmData,
+      [regionNames.gm]: gmData,
+      [regionNames.pet]: petData,
+    },
+    countryPyL12M: {
+      [regionNames.cm]: Array(12).fill(0),
+      [regionNames.gm]: Array(12).fill(0),
+      [regionNames.pet]: Array(12).fill(0),
+    },
+    tgtMap: {},
+    totalTarget: totalBudget,
+    periods,
+    validRows: Object.keys(byYM).length,
+    cfgYear, cfgMonth,
+    isTemplateFormat: true,
+  };
+}
+
+const now=new Date();
+document.getElementById('current-date').textContent=`${now.getFullYear()}年${now.getMonth()+1}月 数据`;
+
+// Init with default 6 countries
+countryCount=6;
+document.getElementById('cc-count-val').textContent=countryCount;
+for(let i=0;i<countryCount;i++){
+  const frac=[.38,.18,.16,.14,.10,.04][i]||.02;
+  countries.push({
+    name:DEFAULT_NAMES[i],
+    data:PRESETS.inflect.map(v=>Math.round(v*frac)),
+    target:0
+  });
+}
+
+// Try restoring from localStorage first
+const restored = loadFromStorage();
+if(restored) {
+  document.getElementById('cc-count-val').textContent = countryCount;
+  document.getElementById('cc-active-n').textContent  = countryCount;
+  renderNameGrid();
+  buildCountryDataSections();
+  buildInputs();
+  buildBudgetGrid();
+  // Show restore notice on import tab
+  const logBox = document.getElementById('import-log');
+  logBox.innerHTML = `<div class="log-ok">💾 已从本地缓存恢复上次导入的数据（${document.getElementById('current-date').textContent}）</div>`;
+  logBox.innerHTML += `<div class="log-info">如需导入新数据，请上传新文件并点击「解析文件 → 确认导入」。<button onclick="clearStorage();location.reload()" style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:4px;border:1px solid var(--red);background:var(--red-dim);color:var(--red);cursor:pointer">清除缓存</button></div>`;
+  logBox.style.display = 'block';
+  run(); runCountry(); runBudget();
+} else {
+  // Load 2026/5 data as default from embedded template data
+  const DEFAULT_26M5 = {
+    vals:     [14200,14500,14900,15100,15400,15700,15300,15600,16000,16300,16800,17200],
+    pyVals:   [12800,13100,13400,13600,14000,14300,13900,14200,14600,14900,15100,15400],
+    budgetM:  [13800,14200,14600,14900,15300,15700,15500,15800,16200,16500,17000,17500],
+    cm:   [6800,6900,7000,7000,7100,7200,7000,7100,7200,7300,7400,7400],
+    gm:   [4100,4200,4500,4600,4900,5100,4900,5100,5400,5600,5900,6400],
+    pet:  [3300,3400,3600,3700,3700,3800,3700,3800,3900,4000,4200,4400],
+  };
+  vals = DEFAULT_26M5.vals;
+  pyVals = DEFAULT_26M5.pyVals;
+  budgetMonthly = DEFAULT_26M5.budgetM;
+  countries = [
+    {name:'国内人医 (CM&S)', data:[...DEFAULT_26M5.cm], pyData:Array(12).fill(0), target:0},
+    {name:'国际人医 (GM&S)', data:[...DEFAULT_26M5.gm], pyData:Array(12).fill(0), target:0},
+    {name:'宠物 (Pet)',       data:[...DEFAULT_26M5.pet], pyData:Array(12).fill(0), target:0},
+  ];
+  countryCount = 3;
+  document.getElementById('current-date').textContent = '2026年5月 数据（示例）';
+  document.getElementById('cc-count-val').textContent = countryCount;
+  document.getElementById('cc-active-n').textContent  = countryCount;
+  renderNameGrid();
+  buildCountryDataSections();
+  buildInputs();
+  buildBudgetGrid();
+  run(); runCountry(); runBudget();
+}
+</script>
+</body>
+</html>
