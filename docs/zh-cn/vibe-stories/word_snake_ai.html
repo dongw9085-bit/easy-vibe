@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单词蛇 · AI 创作游戏</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#eff6ff;--bg3:#dbeafe;
+  --text:#1e293b;--text2:#3b82f6;--text3:#94a3b8;
+  --border:rgba(59,130,246,0.18);--border2:rgba(59,130,246,0.32);
+  --accent:#2563eb;--accent2:#1d4ed8;
+  --font:'Inter',-apple-system,sans-serif;--serif:Georgia,serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#1e1e2e;--bg2:#252540;--bg3:#16213e;
+    --text:#e2e8f0;--text2:#93c5fd;--text3:#475569;
+    --border:rgba(147,197,253,0.15);--border2:rgba(147,197,253,0.28);
+    --accent:#3b82f6;--accent2:#2563eb;
+  }
+}
+body{
+  background:var(--bg3);
+  font-family:var(--font);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+#app{
+  display:flex;gap:0;
+  background:var(--bg);
+  border-radius:20px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(37,99,235,0.14),0 2px 8px rgba(0,0,0,0.06);
+  width:100%;max-width:710px;
+}
+#game-panel{
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px;gap:12px;flex:0 0 auto;
+}
+#canvas{
+  border-radius:10px;
+  border:1px solid var(--border);
+  display:block;
+  background:#f0f7ff;
+}
+/* ── 大号分数 ── */
+#score-row{
+  display:flex;align-items:baseline;gap:6px;
+}
+#score-num{
+  font-size:44px;font-weight:800;
+  color:var(--accent);line-height:1;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.03em;
+}
+#score-denom{
+  font-size:15px;color:var(--text3);font-weight:500;
+}
+/* ── 难度条 ── */
+#status-bar{display:flex;align-items:center;gap:10px;width:100%}
+#diff-label{
+  font-size:11px;font-weight:600;
+  padding:3px 10px;border-radius:20px;
+  background:var(--bg2);color:var(--accent);
+  white-space:nowrap;border:1px solid var(--border);
+}
+#diff-bar-wrap{flex:1;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden}
+#diff-bar{height:100%;width:10%;transition:width 0.4s,background 0.4s;border-radius:2px;background:#3b82f6}
+/* ── 按钮 ── */
+#btn-row{display:flex;gap:8px}
+.btn{
+  font-size:13px;padding:7px 18px;border-radius:9px;
+  border:1px solid var(--border2);
+  background:var(--bg);color:var(--accent);
+  cursor:pointer;font-family:var(--font);font-weight:600;
+  transition:all 0.15s;
+}
+.btn:hover{background:var(--bg2);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent2);border-color:var(--accent2)}
+/* ── 侧栏 ── */
+#side-panel{
+  flex:1;display:flex;flex-direction:column;
+  border-left:1px solid var(--border);
+  min-width:190px;max-width:260px;
+}
+#collection-box{padding:16px;border-bottom:1px solid var(--border)}
+#collection-title{
+  font-size:10px;color:var(--text3);
+  margin-bottom:10px;letter-spacing:0.08em;
+  text-transform:uppercase;font-weight:700;
+}
+#progress-text{font-size:12px;color:var(--text2);margin-bottom:10px;font-weight:500}
+#word-tags{display:flex;flex-wrap:wrap;gap:5px;min-height:28px}
+.word-tag{
+  font-size:11px;padding:3px 10px;border-radius:20px;
+  background:#eff6ff;color:#2563eb;
+  border:1px solid #bfdbfe;font-weight:600;
+}
+#ai-panel{
+  flex:1;padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+  overflow-y:auto;max-height:440px;
+}
+#ai-status{font-size:13px;color:var(--text3);min-height:18px}
+#poem-box{font-size:14px;line-height:2;color:var(--text);white-space:pre-wrap;font-family:var(--serif);display:none}
+#scene-box{
+  font-size:12px;line-height:1.8;color:var(--text2);
+  border-left:2px solid var(--border2);
+  padding-left:10px;display:none;
+}
+#ai-actions{display:none;flex-wrap:wrap;gap:6px}
+/* ── 遮罩 ── */
+#canvas-wrap{position:relative}
+#overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;border-radius:10px;
+  background:rgba(10,20,60,0.76);
+  backdrop-filter:blur(4px);
+}
+#overlay-title{font-size:24px;font-weight:800;color:#fff;letter-spacing:-0.02em}
+#overlay-sub{font-size:13px;color:rgba(255,255,255,0.65);text-align:center;padding:0 20px;line-height:1.7}
+.key-hint{font-size:11px;color:rgba(255,255,255,0.38);margin-top:-4px}
+/* ── 移动端 ── */
+@media(max-width:540px){
+  #app{flex-direction:column;max-width:100%}
+  #side-panel{max-width:100%;border-left:none;border-top:1px solid var(--border)}
+  #game-panel{padding:14px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="game-panel">
+    <div id="canvas-wrap">
+      <canvas id="canvas" width="384" height="384"></canvas>
+      <div id="overlay">
+        <div id="overlay-title">单词蛇</div>
+        <div id="overlay-sub">收集 8 个英文单词<br>AI 为你创作一首诗</div>
+        <div class="key-hint">方向键 / WASD 控制</div>
+        <button class="btn primary" id="btn-start" style="margin-top:4px">开始游戏</button>
+      </div>
+    </div>
+    <div id="score-row">
+      <span id="score-num">0</span>
+      <span id="score-denom">/ 8 个单词</span>
+    </div>
+    <div id="status-bar">
+      <span id="diff-label">新手</span>
+      <div id="diff-bar-wrap"><div id="diff-bar"></div></div>
+    </div>
+    <div id="btn-row">
+      <button class="btn" id="btn-restart" style="display:none">重新开始</button>
+    </div>
+  </div>
+
+  <div id="side-panel">
+    <div id="collection-box">
+      <div id="collection-title">收集单词</div>
+      <div id="progress-text">0 / 8</div>
+      <div id="word-tags"></div>
+    </div>
+    <div id="ai-panel">
+      <div id="ai-status">开始游戏，用方向键控制蛇～</div>
+      <div id="poem-box"></div>
+      <div id="scene-box"></div>
+      <div id="ai-actions">
+        <button class="btn" id="btn-remix">换个风格 ↗</button>
+        <button class="btn" id="btn-save">保存作品</button>
+        <button class="btn primary" id="btn-continue">继续游戏</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WORDS=['dream','light','ocean','fire','moon','star','wind','river','time','flower','shadow','dance','forest','rain','stone','leaf','flame','echo','dawn','dusk','mist','tide','frost','ember','spark','silence','solitude','wonder','memory','horizon','zenith','abyss','hollow','summit','cliff','compass','lantern','anchor','mirror','candle','prism','surge','plunge','cascade','tremor','glow','flicker','ripple','whisper','crimson','amber','velvet','silver','golden','crystal','eternal','fleeting','infinite','gentle','fierce','sacred','wild','tender','vast','quiet'];
+const CELL=24,COLS=16,ROWS=16;
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+const overlay=document.getElementById('overlay');
+const btnStart=document.getElementById('btn-start');
+const btnRestart=document.getElementById('btn-restart');
+const btnRemix=document.getElementById('btn-remix');
+const btnSave=document.getElementById('btn-save');
+const btnContinue=document.getElementById('btn-continue');
+const wordTagsEl=document.getElementById('word-tags');
+const progressEl=document.getElementById('progress-text');
+const scoreNumEl=document.getElementById('score-num');
+const aiStatus=document.getElementById('ai-status');
+const poemBox=document.getElementById('poem-box');
+const sceneBox=document.getElementById('scene-box');
+const aiActions=document.getElementById('ai-actions');
+const diffLabel=document.getElementById('diff-label');
+const diffBar=document.getElementById('diff-bar');
+
+let snake,dir,nextDir,foods,usedWords,collected,collectedWords,gameLoop,speed,state,currentPoem;
+const DIFF=[
+  {label:'新手',ms:220,color:'#3b82f6',pct:10},
+  {label:'初级',ms:190,color:'#22c55e',pct:30},
+  {label:'中级',ms:160,color:'#f59e0b',pct:50},
+  {label:'高级',ms:130,color:'#f97316',pct:75},
+  {label:'大师',ms:100,color:'#ef4444',pct:95},
+];
+
+function getTheme(){return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+function snakeColor(){return getTheme()==='dark'?'#5DCAA5':'#0F6E56';}
+
+function randomWord(){
+  const avail=WORDS.filter(w=>!usedWords.has(w));
+  if(!avail.length){usedWords.clear();}
+  const pool=avail.length?avail:WORDS;
+  const w=pool[Math.floor(Math.random()*pool.length)];
+  usedWords.add(w);return w;
+}
+function randomEmpty(){
+  const occ=new Set([...snake.map(s=>`${s.x},${s.y}`),...foods.map(f=>`${f.x},${f.y}`)]);
+  let tries=0,x,y;
+  do{x=Math.floor(Math.random()*COLS);y=Math.floor(Math.random()*ROWS);tries++;}
+  while(occ.has(`${x},${y}`)&&tries<200);
+  return{x,y};
+}
+function placeFood(n){
+  for(let i=0;i<n;i++){
+    const pos=randomEmpty();
+    foods.push({...pos,word:randomWord()});
+  }
+}
+function setScore(n){
+  scoreNumEl.textContent=n;
+  progressEl.textContent=`${n} / 8`;
+}
+function initGame(){
+  snake=[{x:8,y:8},{x:7,y:8},{x:6,y:8}];
+  dir={x:1,y:0};nextDir={x:1,y:0};
+  foods=[];usedWords=new Set();
+  collected=0;collectedWords=[];currentPoem=null;
+  speed=220;state='running';
+  poemBox.style.display='none';
+  sceneBox.style.display='none';
+  aiActions.style.display='none';
+  aiStatus.textContent='用方向键控制蛇，吃到单词就收集～';
+  wordTagsEl.innerHTML='';
+  setScore(0);
+  placeFood(3);
+  updateDiffUI(0);
+  clearInterval(gameLoop);
+  gameLoop=setInterval(update,speed);
+}
+function updateDiffUI(c){
+  let d=DIFF[0];
+  if(c>=7)d=DIFF[4];
+  else if(c>=5)d=DIFF[3];
+  else if(c>=3)d=DIFF[2];
+  else if(c>=1)d=DIFF[1];
+  diffLabel.textContent=d.label;
+  diffBar.style.background=d.color;
+  diffBar.style.width=d.pct+'%';
+}
+function updateSpeed(){
+  let ns=220;
+  if(collected>=7)ns=100;
+  else if(collected>=5)ns=130;
+  else if(collected>=3)ns=160;
+  else if(collected>=1)ns=190;
+  if(ns!==speed){speed=ns;clearInterval(gameLoop);gameLoop=setInterval(update,speed);}
+}
+function update(){
+  if(state!=='running')return;
+  dir={...nextDir};
+  const nh={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+  if(nh.x<0||nh.x>=COLS||nh.y<0||nh.y>=ROWS){endGame();return;}
+  if(snake.some(s=>s.x===nh.x&&s.y===nh.y)){endGame();return;}
+  const fi=foods.findIndex(f=>f.x===nh.x&&f.y===nh.y);
+  if(fi!==-1){
+    snake.unshift(nh);
+    const w=foods[fi].word;
+    collectedWords.push(w);
+    foods.splice(fi,1);
+    collected++;
+    addTag(w);
+    setScore(collected);
+    updateDiffUI(collected);
+    if(collected>=8){clearInterval(gameLoop);state='ai';draw();triggerAI(false);return;}
+    placeFood(1);
+    updateSpeed();
+  }else{
+    snake.unshift(nh);snake.pop();
+  }
+  draw();
+}
+function addTag(w){
+  const t=document.createElement('span');
+  t.className='word-tag';t.textContent=w;
+  wordTagsEl.appendChild(t);
+}
+function endGame(){
+  clearInterval(gameLoop);state='dead';draw();
+  overlay.style.display='flex';
+  document.getElementById('overlay-title').textContent='游戏结束';
+  document.getElementById('overlay-sub').textContent=`收集了 ${collected} 个单词`;
+  btnStart.textContent='再来一局';
+  btnStart.style.display='';
+}
+function draw(){
+  ctx.clearRect(0,0,COLS*CELL,ROWS*CELL);
+  const isDark=getTheme()==='dark';
+  // 网格线 - 蓝色调
+  ctx.strokeStyle=isDark?'rgba(147,197,253,0.07)':'rgba(59,130,246,0.08)';
+  ctx.lineWidth=0.5;
+  for(let x=0;x<=COLS;x++){ctx.beginPath();ctx.moveTo(x*CELL,0);ctx.lineTo(x*CELL,ROWS*CELL);ctx.stroke();}
+  for(let y=0;y<=ROWS;y++){ctx.beginPath();ctx.moveTo(0,y*CELL);ctx.lineTo(COLS*CELL,y*CELL);ctx.stroke();}
+  // 食物（单词方块）
+  foods.forEach(f=>{
+    ctx.fillStyle='#D85A30';
+    ctx.beginPath();
+    ctx.roundRect(f.x*CELL+2,f.y*CELL+2,CELL-4,CELL-4,4);
+    ctx.fill();
+    // 高光
+    ctx.fillStyle='rgba(255,255,255,0.18)';
+    ctx.beginPath();
+    ctx.roundRect(f.x*CELL+3,f.y*CELL+3,CELL/2-2,4,2);
+    ctx.fill();
+    ctx.fillStyle='#fff';
+    const fs=Math.max(7,CELL*0.32);
+    ctx.font=`600 ${fs}px -apple-system,sans-serif`;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(f.word.length>5?f.word.slice(0,5):f.word,f.x*CELL+CELL/2,f.y*CELL+CELL/2);
+  });
+  // 蛇身
+  const sc=snakeColor();
+  for(let i=snake.length-1;i>=0;i--){
+    const seg=snake[i];
+    const t=i/Math.max(1,snake.length-1);
+    const alpha=Math.floor((0.28+0.72*(1-t))*255).toString(16).padStart(2,'0');
+    ctx.fillStyle=(i===0)?sc:sc+alpha;
+    ctx.beginPath();
+    ctx.roundRect(seg.x*CELL+(i?2:1),seg.y*CELL+(i?2:1),CELL-(i?4:2),CELL-(i?4:2),i===0?6:4);
+    ctx.fill();
+    if(i===0){
+      const ex=dir.x===1?0.68:dir.x===-1?0.32:0.33,ex2=dir.x===1?0.68:dir.x===-1?0.32:0.67;
+      const ey=dir.y===1?0.68:dir.y===-1?0.32:0.33,ey2=dir.y===1?0.68:dir.y===-1?0.32:0.67;
+      ctx.fillStyle='#fff';
+      ctx.beginPath();ctx.arc(seg.x*CELL+CELL*ex,seg.y*CELL+CELL*ey,2.2,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(seg.x*CELL+CELL*ex2,seg.y*CELL+CELL*ey2,2.2,0,Math.PI*2);ctx.fill();
+    }
+  }
+}
+
+async function callClaude(prompt){
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+  });
+  if(!r.ok)throw new Error('API error '+r.status);
+  const d=await r.json();
+  return d.content?.map(b=>b.type==='text'?b.text:'').join('').trim();
+}
+async function triggerAI(isRemix){
+  poemBox.style.display='none';
+  sceneBox.style.display='none';
+  aiActions.style.display='none';
+  const words=collectedWords.join('、');
+  const dots=['…','.. ','.  ',' ..'];
+  let dotI=0;
+  const timer=setInterval(()=>{aiStatus.textContent='正在创作'+dots[dotI++%4];},300);
+  let pPrompt;
+  if(isRemix&&currentPoem){
+    pPrompt=`你是一位富有诗意的诗人。请用以下8个英文单词创作一首全新的、风格不同的中文诗歌，要求：\n1. 与之前的诗歌风格有所不同（若之前是现代诗，这次尝试古风；若之前是悲郁，这次尝试明朗）\n2. 自然融入或呼应这些单词的意象\n3. 4-8行，情感真挚\n4. 直接输出诗歌内容，不加标题和解释\n\n单词：${words}\n\n之前的诗：\n${currentPoem}`;
+  }else{
+    pPrompt=`你是一位富有诗意的诗人。请用以下8个英文单词创作一首优美的中文诗歌（可以是现代诗或古风诗），要求：\n1. 诗歌要自然地融入或呼应这些单词的意象\n2. 情感真挚，意境深远\n3. 4-8行，每行不超过20字\n4. 直接输出诗歌内容，不加标题和任何解释\n\n单词：${words}`;
+  }
+  try{
+    const poem=await callClaude(pPrompt);
+    currentPoem=poem;
+    clearInterval(timer);
+    aiStatus.textContent='诗歌创作完成';
+    poemBox.textContent=poem;
+    poemBox.style.display='block';
+    aiStatus.textContent='正在生成画面意境…';
+    const sPrompt=`根据以下诗歌，用2-3句话描述一幅与之对应的画面意境，语言优美，富有画面感，像在描述一幅水墨画或油画：\n\n${poem}\n\n直接输出画面描述，不加任何前缀。`;
+    const scene=await callClaude(sPrompt);
+    clearInterval(timer);
+    aiStatus.textContent='';
+    sceneBox.textContent=scene;
+    sceneBox.style.display='block';
+    aiActions.style.display='flex';
+  }catch(e){
+    clearInterval(timer);
+    aiStatus.textContent='⚠️ 请在本地运行并配置 API Key，或检查网络连接。';
+    aiActions.style.display='flex';
+  }
+}
+
+btnRemix.addEventListener('click',()=>triggerAI(true));
+btnSave.addEventListener('click',()=>{
+  const words=collectedWords.join(', ');
+  const txt=`单词蛇 AI 创作\n${'─'.repeat(30)}\n收集单词：${words}\n\n${poemBox.textContent}\n\n${sceneBox.textContent}\n\n生成时间：${new Date().toLocaleString('zh-CN')}`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));
+  a.download='word_snake_poem.txt';a.click();
+});
+btnContinue.addEventListener('click',()=>{
+  poemBox.style.display='none';
+  sceneBox.style.display='none';
+  aiActions.style.display='none';
+  wordTagsEl.innerHTML='';
+  collected=0;collectedWords=[];currentPoem=null;
+  setScore(0);
+  foods=[];placeFood(3);
+  updateDiffUI(0);speed=220;
+  state='running';
+  aiStatus.textContent='继续收集单词～';
+  gameLoop=setInterval(update,speed);
+});
+btnStart.addEventListener('click',()=>{
+  overlay.style.display='none';
+  btnRestart.style.display='';
+  initGame();draw();
+});
+btnRestart.addEventListener('click',()=>{
+  overlay.style.display='none';
+  initGame();draw();
+});
+document.addEventListener('keydown',e=>{
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].includes(e.key))e.preventDefault();
+  if(state!=='running')return;
+  let nd=null;
+  if(e.key==='ArrowUp'||e.key==='w')nd={x:0,y:-1};
+  else if(e.key==='ArrowDown'||e.key==='s')nd={x:0,y:1};
+  else if(e.key==='ArrowLeft'||e.key==='a')nd={x:-1,y:0};
+  else if(e.key==='ArrowRight'||e.key==='d')nd={x:1,y:0};
+  if(nd&&!(nd.x+dir.x===0&&nd.y+dir.y===0))nextDir=nd;
+});
+let touchStart=null;
+canvas.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+canvas.addEventListener('touchend',e=>{
+  if(!touchStart||state!=='running')return;
+  const dx=e.changedTouches[0].clientX-touchStart.x;
+  const dy=e.changedTouches[0].clientY-touchStart.y;
+  let nd=null;
+  if(Math.abs(dx)>Math.abs(dy)){nd=dx>0?{x:1,y:0}:{x:-1,y:0};}
+  else{nd=dy>0?{x:0,y:1}:{x:0,y:-1};}
+  if(nd&&!(nd.x+dir.x===0&&nd.y+dir.y===0))nextDir=nd;
+  touchStart=null;
+},{passive:true});
+
+draw();
+</script>
+</body>
+</html>
