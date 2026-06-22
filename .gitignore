@@ -25,3 +25,4 @@ docs/.vitepress/.temp/*
 docs/archived-components.md
 .claude/skills/*
 temp/*
+fc6-tcss/backend/.env
