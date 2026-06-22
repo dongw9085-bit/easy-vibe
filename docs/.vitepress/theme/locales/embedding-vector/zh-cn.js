@@ -35,30 +35,57 @@ export default {
           { label: '科技', cx: 360, cy: 120, rx: 80, ry: 65, color: '#3b82f6' }
         ],
         points: [
-          { word: '苹果(水果)', x: 110, y: 220, color: '#f59e0b', vec: [0.15, 0.38] },
+          {
+            word: '苹果(水果)',
+            x: 110,
+            y: 220,
+            color: '#f59e0b',
+            vec: [0.15, 0.38]
+          },
           { word: '面包', x: 155, y: 260, color: '#f59e0b', vec: [0.25, 0.28] },
-          { word: '牛奶', x: 130, y: 280, color: '#f59e0b', vec: [0.20, 0.22] },
-          { word: '蛋糕', x: 175, y: 230, color: '#f59e0b', vec: [0.30, 0.35] },
+          { word: '牛奶', x: 130, y: 280, color: '#f59e0b', vec: [0.2, 0.22] },
+          { word: '蛋糕', x: 175, y: 230, color: '#f59e0b', vec: [0.3, 0.35] },
           { word: '电脑', x: 340, y: 100, color: '#3b82f6', vec: [0.78, 0.82] },
           { word: '手机', x: 375, y: 130, color: '#3b82f6', vec: [0.85, 0.75] },
-          { word: '芯片', x: 355, y: 150, color: '#3b82f6', vec: [0.82, 0.70] },
-          { word: '算法', x: 390, y: 110, color: '#3b82f6', vec: [0.88, 0.80] }
+          { word: '芯片', x: 355, y: 150, color: '#3b82f6', vec: [0.82, 0.7] },
+          { word: '算法', x: 390, y: 110, color: '#3b82f6', vec: [0.88, 0.8] }
         ]
       },
       emotions: {
         clusters: [
-          { label: '积极情感', cx: 150, cy: 130, rx: 90, ry: 70, color: '#10b981' },
-          { label: '消极情感', cx: 360, cy: 270, rx: 85, ry: 65, color: '#ef4444' },
-          { label: '中性情感', cx: 260, cy: 200, rx: 60, ry: 45, color: '#6b7280' }
+          {
+            label: '积极情感',
+            cx: 150,
+            cy: 130,
+            rx: 90,
+            ry: 70,
+            color: '#10b981'
+          },
+          {
+            label: '消极情感',
+            cx: 360,
+            cy: 270,
+            rx: 85,
+            ry: 65,
+            color: '#ef4444'
+          },
+          {
+            label: '中性情感',
+            cx: 260,
+            cy: 200,
+            rx: 60,
+            ry: 45,
+            color: '#6b7280'
+          }
         ],
         points: [
           { word: '快乐', x: 120, y: 110, color: '#10b981', vec: [0.15, 0.78] },
           { word: '幸福', x: 155, y: 130, color: '#10b981', vec: [0.22, 0.72] },
           { word: '兴奋', x: 180, y: 100, color: '#10b981', vec: [0.28, 0.82] },
-          { word: '悲伤', x: 340, y: 250, color: '#ef4444', vec: [0.78, 0.30] },
+          { word: '悲伤', x: 340, y: 250, color: '#ef4444', vec: [0.78, 0.3] },
           { word: '愤怒', x: 380, y: 270, color: '#ef4444', vec: [0.85, 0.25] },
           { word: '恐惧', x: 360, y: 295, color: '#ef4444', vec: [0.82, 0.18] },
-          { word: '平静', x: 245, y: 190, color: '#6b7280', vec: [0.50, 0.52] },
+          { word: '平静', x: 245, y: 190, color: '#6b7280', vec: [0.5, 0.52] },
           { word: '淡然', x: 275, y: 210, color: '#6b7280', vec: [0.55, 0.48] }
         ]
       }
@@ -74,33 +101,146 @@ export default {
     processing: '处理中...',
     start: '开始处理',
     finalTitle: '嵌入向量已生成',
-    vectorNote: '实际嵌入向量通常有 768~1536 个维度，这里仅展示前 16 维的模拟值',
+    vectorNote:
+      '实际嵌入向量通常有 768~1536 个维度，这里仅展示前 16 维的模拟值',
     modelOutput: '{count} 个 Token -> {count} x 768 维隐藏状态矩阵',
     poolOutput: 'Mean Pooling: {count} 个向量 -> 1 个 768 维句子向量',
     normalizeOutput: 'L2 归一化: ||v|| = 1.0000',
     steps: [
-      { key: 'tokenize', title: '分词 (Tokenize)', desc: '将文本拆分为模型可处理的 Token 序列', color: '#3b82f6' },
-      { key: 'encode', title: '编码 (Encode)', desc: '将 Token 映射为数字 ID', color: '#8b5cf6' },
-      { key: 'model', title: '模型推理 (Model)', desc: '通过 Transformer 模型生成上下文感知的向量表示', color: '#10b981' },
-      { key: 'pool', title: '池化 (Pooling)', desc: '将多个 Token 向量聚合为单一句子向量', color: '#f59e0b' },
-      { key: 'normalize', title: '归一化 (Normalize)', desc: '将向量缩放到单位长度，便于余弦相似度计算', color: '#ef4444' }
+      {
+        key: 'tokenize',
+        title: '分词 (Tokenize)',
+        desc: '将文本拆分为模型可处理的 Token 序列',
+        color: '#3b82f6'
+      },
+      {
+        key: 'encode',
+        title: '编码 (Encode)',
+        desc: '将 Token 映射为数字 ID',
+        color: '#8b5cf6'
+      },
+      {
+        key: 'model',
+        title: '模型推理 (Model)',
+        desc: '通过 Transformer 模型生成上下文感知的向量表示',
+        color: '#10b981'
+      },
+      {
+        key: 'pool',
+        title: '池化 (Pooling)',
+        desc: '将多个 Token 向量聚合为单一句子向量',
+        color: '#f59e0b'
+      },
+      {
+        key: 'normalize',
+        title: '归一化 (Normalize)',
+        desc: '将向量缩放到单位长度，便于余弦相似度计算',
+        color: '#ef4444'
+      }
     ]
   },
   database: {
     title: '主流向量数据库对比',
     desc: '点击卡片查看详细信息，了解不同向量数据库的特点与适用场景',
-    labels: { license: '开源协议', index: '索引算法', maxDim: '最大维度', useCase: '适用场景', perf: '性能', ease: '易用性', scale: '扩展性' },
+    labels: {
+      license: '开源协议',
+      index: '索引算法',
+      maxDim: '最大维度',
+      useCase: '适用场景',
+      perf: '性能',
+      ease: '易用性',
+      scale: '扩展性'
+    },
     scenarioTitle: '场景推荐',
     databases: [
-      { name: 'Pinecone', type: '全托管云服务', icon: 'P', color: '#3b82f6', tags: ['云原生', 'Serverless'], license: '商业', index: 'Proprietary ANN', maxDim: '20,000', useCase: '快速上线的 AI 应用', description: '全托管向量数据库，无需运维，按用量付费。适合初创团队和快速原型开发。', perf: 85, ease: 95, scale: 80 },
-      { name: 'Milvus', type: '开源分布式', icon: 'M', color: '#10b981', tags: ['开源', '分布式', '高性能'], license: 'Apache 2.0', index: 'IVF / HNSW / DiskANN', maxDim: '32,768', useCase: '大规模企业级检索', description: '支持十亿级向量的分布式数据库，提供丰富的索引类型和混合查询能力。', perf: 95, ease: 65, scale: 95 },
-      { name: 'Weaviate', type: '开源 AI 原生', icon: 'W', color: '#8b5cf6', tags: ['开源', 'GraphQL', '模块化'], license: 'BSD-3', index: 'HNSW', maxDim: '65,536', useCase: '语义搜索与多模态', description: '内置向量化模块，支持文本、图像等多模态数据的自动嵌入和检索。', perf: 80, ease: 85, scale: 80 },
-      { name: 'Chroma', type: '轻量级嵌入式', icon: 'C', color: '#f59e0b', tags: ['开源', '轻量', 'Python'], license: 'Apache 2.0', index: 'HNSW', maxDim: '无限制', useCase: '本地开发与 RAG 原型', description: '极简 API 设计，几行代码即可集成。非常适合 LangChain / LlamaIndex 生态。', perf: 60, ease: 98, scale: 40 },
-      { name: 'pgvector', type: 'PostgreSQL 扩展', icon: 'pg', color: '#ef4444', tags: ['SQL', 'PostgreSQL', '扩展'], license: 'PostgreSQL', index: 'IVFFlat / HNSW', maxDim: '16,000', useCase: '已有 PG 基础设施的团队', description: '在现有 PostgreSQL 中添加向量能力，无需引入新的数据库。支持 SQL 混合查询。', perf: 65, ease: 80, scale: 60 }
+      {
+        name: 'Pinecone',
+        type: '全托管云服务',
+        icon: 'P',
+        color: '#3b82f6',
+        tags: ['云原生', 'Serverless'],
+        license: '商业',
+        index: 'Proprietary ANN',
+        maxDim: '20,000',
+        useCase: '快速上线的 AI 应用',
+        description:
+          '全托管向量数据库，无需运维，按用量付费。适合初创团队和快速原型开发。',
+        perf: 85,
+        ease: 95,
+        scale: 80
+      },
+      {
+        name: 'Milvus',
+        type: '开源分布式',
+        icon: 'M',
+        color: '#10b981',
+        tags: ['开源', '分布式', '高性能'],
+        license: 'Apache 2.0',
+        index: 'IVF / HNSW / DiskANN',
+        maxDim: '32,768',
+        useCase: '大规模企业级检索',
+        description:
+          '支持十亿级向量的分布式数据库，提供丰富的索引类型和混合查询能力。',
+        perf: 95,
+        ease: 65,
+        scale: 95
+      },
+      {
+        name: 'Weaviate',
+        type: '开源 AI 原生',
+        icon: 'W',
+        color: '#8b5cf6',
+        tags: ['开源', 'GraphQL', '模块化'],
+        license: 'BSD-3',
+        index: 'HNSW',
+        maxDim: '65,536',
+        useCase: '语义搜索与多模态',
+        description:
+          '内置向量化模块，支持文本、图像等多模态数据的自动嵌入和检索。',
+        perf: 80,
+        ease: 85,
+        scale: 80
+      },
+      {
+        name: 'Chroma',
+        type: '轻量级嵌入式',
+        icon: 'C',
+        color: '#f59e0b',
+        tags: ['开源', '轻量', 'Python'],
+        license: 'Apache 2.0',
+        index: 'HNSW',
+        maxDim: '无限制',
+        useCase: '本地开发与 RAG 原型',
+        description:
+          '极简 API 设计，几行代码即可集成。非常适合 LangChain / LlamaIndex 生态。',
+        perf: 60,
+        ease: 98,
+        scale: 40
+      },
+      {
+        name: 'pgvector',
+        type: 'PostgreSQL 扩展',
+        icon: 'pg',
+        color: '#ef4444',
+        tags: ['SQL', 'PostgreSQL', '扩展'],
+        license: 'PostgreSQL',
+        index: 'IVFFlat / HNSW',
+        maxDim: '16,000',
+        useCase: '已有 PG 基础设施的团队',
+        description:
+          '在现有 PostgreSQL 中添加向量能力，无需引入新的数据库。支持 SQL 混合查询。',
+        perf: 65,
+        ease: 80,
+        scale: 60
+      }
     ],
     scenarios: [
       { icon: '&#x1F680;', title: '快速原型', recommend: 'Chroma / Pinecone' },
-      { icon: '&#x1F3E2;', title: '企业级部署', recommend: 'Milvus / Weaviate' },
+      {
+        icon: '&#x1F3E2;',
+        title: '企业级部署',
+        recommend: 'Milvus / Weaviate'
+      },
       { icon: '&#x1F4BE;', title: '已有 PG 数据库', recommend: 'pgvector' },
       { icon: '&#x1F916;', title: 'RAG 应用', recommend: 'Chroma / Weaviate' }
     ]

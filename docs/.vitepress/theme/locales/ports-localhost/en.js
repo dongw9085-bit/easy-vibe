@@ -21,8 +21,10 @@ export default {
     postgresqlDesc: 'Local database',
     listening: '🟢 Listening',
     closed: '🔴 Closed',
-    knockOpen: '✅ Port {port} is open! {label} service is listening and ready to receive your requests.',
-    knockClosed: '🚫 Port {port} is closed! No program is listening on this port, connection refused (Connection Refused).',
+    knockOpen:
+      '✅ Port {port} is open! {label} service is listening and ready to receive your requests.',
+    knockClosed:
+      '🚫 Port {port} is closed! No program is listening on this port, connection refused (Connection Refused).',
     core: 'Core Analogy:'
   },
   localhostLoopback: {
@@ -45,10 +47,14 @@ export default {
     portSuffix: '(:3000)',
     noLeave: 'Request stays on local machine',
     aliasTitle: 'Localhost "Aliases" (click to see description)',
-    aliasDesc0: 'This is mapped in your computer\'s <code>/etc/hosts</code> file. When browser sees <code>localhost</code>, it directly resolves to <code>127.0.0.1</code> without asking DNS server.',
-    aliasDesc1: '<code>127.0.0.1</code> is the IPv4 "loopback address". Packets sent to this address never leave the machine, OS internally "loops back" the packets.',
-    aliasDesc2: '<code>::1</code> is the IPv6 version of loopback address, same functionality as <code>127.0.0.1</code>, just in IPv6 format.',
-    aliasDesc3: '<code>0.0.0.0</code> is not "one address" but "all addresses". When a service listens on <code>0.0.0.0:3000</code>, it can be accessed from any network card (including LAN IP and 127.0.0.1).',
+    aliasDesc0:
+      "This is mapped in your computer's <code>/etc/hosts</code> file. When browser sees <code>localhost</code>, it directly resolves to <code>127.0.0.1</code> without asking DNS server.",
+    aliasDesc1:
+      '<code>127.0.0.1</code> is the IPv4 "loopback address". Packets sent to this address never leave the machine, OS internally "loops back" the packets.',
+    aliasDesc2:
+      '<code>::1</code> is the IPv6 version of loopback address, same functionality as <code>127.0.0.1</code>, just in IPv6 format.',
+    aliasDesc3:
+      '<code>0.0.0.0</code> is not "one address" but "all addresses". When a service listens on <code>0.0.0.0:3000</code>, it can be accessed from any network card (including LAN IP and 127.0.0.1).',
     coreConcept: 'Core Concept:'
   },
   commonPorts: {
@@ -65,11 +71,14 @@ export default {
     useExample: 'Example:',
     emptyState: 'No matching ports, try other keywords?',
     systemPorts: 'System Ports',
-    systemPortsDesc: 'Reserved for standard services (HTTP, SSH, etc.), regular users cannot occupy.',
+    systemPortsDesc:
+      'Reserved for standard services (HTTP, SSH, etc.), regular users cannot occupy.',
     registeredPorts: 'Registered Ports',
-    registeredPortsDesc: 'For common applications (MySQL 3306, Redis 6379, etc.), most encountered in development.',
+    registeredPortsDesc:
+      'For common applications (MySQL 3306, Redis 6379, etc.), most encountered in development.',
     dynamicPorts: 'Dynamic Ports',
-    dynamicPortsDesc: 'Temporarily assigned by OS, like when your browser makes requests, system randomly assigns one.',
+    dynamicPortsDesc:
+      'Temporarily assigned by OS, like when your browser makes requests, system randomly assigns one.',
     securityAlert: 'Security Alert:'
   },
   portConflict: {
@@ -83,9 +92,12 @@ export default {
     running: '🟢 Running',
     killService: 'Stop Service',
     solution: 'Solution:',
-    solutionDesc: '① Stop the process occupying the port (click ✕ above); ② Use another port (click "Smart Start"); ③ Command line check: <code>lsof -i :{port}</code>',
-    conflictMsg: '❌ Port {port} is occupied by "{name}"! Error: EADDRINUSE :::{port}',
-    autoResolveMsg: '✅ Port {port} occupied, automatically switched to {newPort}! (Many frameworks do this for you)',
+    solutionDesc:
+      '① Stop the process occupying the port (click ✕ above); ② Use another port (click "Smart Start"); ③ Command line check: <code>lsof -i :{port}</code>',
+    conflictMsg:
+      '❌ Port {port} is occupied by "{name}"! Error: EADDRINUSE :::{port}',
+    autoResolveMsg:
+      '✅ Port {port} occupied, automatically switched to {newPort}! (Many frameworks do this for you)',
     successMsg: '✅ {name} successfully started on port {port}',
     killedMsg: '🗑️ Stopped "{name}", port {port} released',
     core: 'Port Conflict:'
@@ -132,25 +144,32 @@ export default {
     step1Title: '1. You run npm run dev',
     step1Desc: 'You type the start command in terminal',
     step2Title: '2. Vite starts HTTP server',
-    step2Desc: 'Vite starts an HTTP server on port 5173, waiting for connections',
+    step2Desc:
+      'Vite starts an HTTP server on port 5173, waiting for connections',
     step3Title: '3. You open browser',
     step3Desc: 'Browser sends HTTP request to localhost:5173',
     step4Title: '4. Server returns page',
-    step4Desc: 'Vite processes request, returns HTML/JS/CSS, browser renders page',
+    step4Desc:
+      'Vite processes request, returns HTML/JS/CSS, browser renders page',
     step5Title: '5. Hot Update (HMR)',
-    step5Desc: 'After you modify code, Vite notifies browser via WebSocket, page auto-updates',
+    step5Desc:
+      'After you modify code, Vite notifies browser via WebSocket, page auto-updates',
     listening: 'Listening',
     waitForBrowser: 'Waiting for you to open browser...',
     pageAppeared: '🎉 Your page appeared!',
     pageRefreshed: '🔄 Page auto-refreshed!',
     httpTitle: 'What is an HTTP Server?',
     httpAnalogy1: 'Imagine a service window',
-    httpAnalogy1Desc: 'An HTTP server is like a "always-open service window" — it waits there, answers when someone asks, waits quietly when no one comes.',
+    httpAnalogy1Desc:
+      'An HTTP server is like a "always-open service window" — it waits there, answers when someone asks, waits quietly when no one comes.',
     httpAnalogy2: 'Only understands one "code"',
-    httpAnalogy2Desc: 'This window only understands HTTP protocol request format (like <code>GET /index.html</code>), then returns the corresponding file content.',
+    httpAnalogy2Desc:
+      'This window only understands HTTP protocol request format (like <code>GET /index.html</code>), then returns the corresponding file content.',
     httpAnalogy3: 'Dev Server = Enhanced Window',
-    httpAnalogy3Desc: 'Vite/Webpack dev servers don\'t just "return files as-is", they also compile your code in real-time (Vue → JS, TS → JS, Sass → CSS), then return to browser.',
+    httpAnalogy3Desc:
+      'Vite/Webpack dev servers don\'t just "return files as-is", they also compile your code in real-time (Vue → JS, TS → JS, Sass → CSS), then return to browser.',
     summary: 'One-line Summary:',
-    summaryContent: 'Dev server = An HTTP server running on localhost + Real-time code compiler. It listens on a port, and when browser requests, it returns the compiled code.'
+    summaryContent:
+      'Dev server = An HTTP server running on localhost + Real-time code compiler. It listens on a port, and when browser requests, it returns the compiled code.'
   }
 }

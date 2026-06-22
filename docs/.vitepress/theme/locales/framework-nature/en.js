@@ -15,12 +15,49 @@ export default {
     infoStrong: 'Core idea:',
     info: 'Componentization means splitting a large page into independent small pieces. Each component owns its own data, UI, and styles. The same component can be reused in multiple places with different input data.',
     components: [
-      { id: 'app', name: 'App (root component)', icon: '📱', depth: 0, desc: 'The root component of the whole app. It contains all other components.' },
-      { id: 'navbar', name: 'NavBar', icon: '🧭', depth: 1, desc: 'The top navigation bar with the logo, search box, and cart entry.' },
-      { id: 'search', name: 'SearchBox', icon: '🔍', depth: 2, desc: 'An independent search component that manages keywords and results.' },
-      { id: 'cart', name: 'CartIcon', icon: '🛒', depth: 2, desc: 'A small cart indicator. Its data comes from global cart state.' },
-      { id: 'product', name: 'ProductCard', icon: '📦', depth: 1, reused: 3, desc: 'A card for one product. Write the code once, pass in different product data, and reuse it many times.' },
-      { id: 'footer', name: 'Footer', icon: '📄', depth: 1, desc: 'The bottom area of the page, usually containing copyright text.' }
+      {
+        id: 'app',
+        name: 'App (root component)',
+        icon: '📱',
+        depth: 0,
+        desc: 'The root component of the whole app. It contains all other components.'
+      },
+      {
+        id: 'navbar',
+        name: 'NavBar',
+        icon: '🧭',
+        depth: 1,
+        desc: 'The top navigation bar with the logo, search box, and cart entry.'
+      },
+      {
+        id: 'search',
+        name: 'SearchBox',
+        icon: '🔍',
+        depth: 2,
+        desc: 'An independent search component that manages keywords and results.'
+      },
+      {
+        id: 'cart',
+        name: 'CartIcon',
+        icon: '🛒',
+        depth: 2,
+        desc: 'A small cart indicator. Its data comes from global cart state.'
+      },
+      {
+        id: 'product',
+        name: 'ProductCard',
+        icon: '📦',
+        depth: 1,
+        reused: 3,
+        desc: 'A card for one product. Write the code once, pass in different product data, and reuse it many times.'
+      },
+      {
+        id: 'footer',
+        name: 'Footer',
+        icon: '📄',
+        depth: 1,
+        desc: 'The bottom area of the page, usually containing copyright text.'
+      }
     ]
   },
   dataUIGap: {
@@ -73,12 +110,14 @@ export default {
     running: 'Running...',
     start: 'Start comparison',
     slowBadge: 'Update DOM one by one',
-    slowDesc: 'Each data change immediately touches the real DOM, so the browser repeatedly lays out and paints.',
+    slowDesc:
+      'Each data change immediately touches the real DOM, so the browser repeatedly lays out and paints.',
     timeLabel: 'Simulated time',
     slowStep: 'Change → layout → paint',
     repeatStep: '... repeat {count} more times ...',
     fastBadge: 'Batch first, update once',
-    fastDesc: 'All changes are computed in memory first, then committed to the real DOM once.',
+    fastDesc:
+      'All changes are computed in memory first, then committed to the real DOM once.',
     memoryStep: 'Compute {count} changes in memory',
     commitStep: 'Commit once → layout → paint',
     savings: 'Batching saved',
@@ -96,13 +135,71 @@ export default {
     bundleSize: 'Bundle size',
     devExperience: 'Developer experience',
     trendStrong: 'Trend:',
-    trend: 'The trend is clear: frameworks keep moving work from runtime to compile time to improve both developer experience and runtime performance.',
+    trend:
+      'The trend is clear: frameworks keep moving work from runtime to compile time to improve both developer experience and runtime performance.',
     frameworks: {
-      react: { id: 'react', name: 'React', short: 'R', emoji: '⚛️', percent: 20, runtimePercent: 80, compilePercent: 20, bundleSize: 'Medium', devExperience: '★★★★☆', summary: 'Runtime-first: virtual DOM + reconciliation' },
-      vue3: { id: 'vue3', name: 'Vue 3', short: 'V', emoji: '💚', percent: 40, runtimePercent: 60, compilePercent: 40, bundleSize: 'Medium', devExperience: '★★★★★', summary: 'Hybrid: compiled templates + runtime virtual DOM' },
-      vapor: { id: 'vapor', name: 'Vue Vapor', short: 'Vp', emoji: '🌫️', percent: 60, runtimePercent: 40, compilePercent: 60, bundleSize: 'Smaller', devExperience: '★★★★☆', summary: 'Compile-time leaning: skips virtual DOM and generates direct operations' },
-      svelte: { id: 'svelte', name: 'Svelte', short: 'S', emoji: '🔥', percent: 80, runtimePercent: 20, compilePercent: 80, bundleSize: 'Smallest', devExperience: '★★★★☆', summary: 'Compile-time-first: precise DOM update code is generated during build' },
-      solid: { id: 'solid', name: 'Solid.js', short: 'Sd', emoji: '⬆️', percent: 90, runtimePercent: 10, compilePercent: 90, bundleSize: 'Smallest', devExperience: '★★★★☆', summary: 'Fine-grained reactivity with no virtual DOM' }
+      react: {
+        id: 'react',
+        name: 'React',
+        short: 'R',
+        emoji: '⚛️',
+        percent: 20,
+        runtimePercent: 80,
+        compilePercent: 20,
+        bundleSize: 'Medium',
+        devExperience: '★★★★☆',
+        summary: 'Runtime-first: virtual DOM + reconciliation'
+      },
+      vue3: {
+        id: 'vue3',
+        name: 'Vue 3',
+        short: 'V',
+        emoji: '💚',
+        percent: 40,
+        runtimePercent: 60,
+        compilePercent: 40,
+        bundleSize: 'Medium',
+        devExperience: '★★★★★',
+        summary: 'Hybrid: compiled templates + runtime virtual DOM'
+      },
+      vapor: {
+        id: 'vapor',
+        name: 'Vue Vapor',
+        short: 'Vp',
+        emoji: '🌫️',
+        percent: 60,
+        runtimePercent: 40,
+        compilePercent: 60,
+        bundleSize: 'Smaller',
+        devExperience: '★★★★☆',
+        summary:
+          'Compile-time leaning: skips virtual DOM and generates direct operations'
+      },
+      svelte: {
+        id: 'svelte',
+        name: 'Svelte',
+        short: 'S',
+        emoji: '🔥',
+        percent: 80,
+        runtimePercent: 20,
+        compilePercent: 80,
+        bundleSize: 'Smallest',
+        devExperience: '★★★★☆',
+        summary:
+          'Compile-time-first: precise DOM update code is generated during build'
+      },
+      solid: {
+        id: 'solid',
+        name: 'Solid.js',
+        short: 'Sd',
+        emoji: '⬆️',
+        percent: 90,
+        runtimePercent: 10,
+        compilePercent: 90,
+        bundleSize: 'Smallest',
+        devExperience: '★★★★☆',
+        summary: 'Fine-grained reactivity with no virtual DOM'
+      }
     }
   },
   reactivityMechanism: {
@@ -174,9 +271,21 @@ export default {
     parseLabel: 'Browser parses',
     treeTitle: 'DOM tree generated by the browser',
     explanations: [
-      { icon: '📄', title: 'Node', text: 'Every box in the DOM tree is a node. Each HTML tag, such as <code>&lt;h1&gt;</code> or <code>&lt;p&gt;</code>, maps to one node.' },
-      { icon: '🌳', title: 'Parent-child relationship', text: 'When one tag is nested inside another, the DOM tree represents that as a parent-child relationship.' },
-      { icon: '✏️', title: 'DOM operation', text: 'JavaScript can add, remove, or change nodes in the DOM tree. After a node changes, the browser recalculates layout and paints the page again.' }
+      {
+        icon: '📄',
+        title: 'Node',
+        text: 'Every box in the DOM tree is a node. Each HTML tag, such as <code>&lt;h1&gt;</code> or <code>&lt;p&gt;</code>, maps to one node.'
+      },
+      {
+        icon: '🌳',
+        title: 'Parent-child relationship',
+        text: 'When one tag is nested inside another, the DOM tree represents that as a parent-child relationship.'
+      },
+      {
+        icon: '✏️',
+        title: 'DOM operation',
+        text: 'JavaScript can add, remove, or change nodes in the DOM tree. After a node changes, the browser recalculates layout and paints the page again.'
+      }
     ],
     infoStrong: 'Key concept:',
     info: 'The DOM is a tree maintained by the browser in memory. It corresponds to the HTML you wrote. JavaScript changes this DOM tree, and the browser updates the screen from that changed tree.',
@@ -222,7 +331,14 @@ export default {
     separator: ', ',
     infoStrong: 'Core idea:',
     info: 'The essential value of frontend frameworks is automatic synchronization: you change data, and the framework updates every UI location that depends on it.',
-    products: ['Headphones ¥99', 'Keyboard ¥199', 'Mouse ¥59', 'Monitor ¥1299', 'Camera ¥149', 'Speaker ¥79'],
+    products: [
+      'Headphones ¥99',
+      'Keyboard ¥199',
+      'Mouse ¥59',
+      'Monitor ¥1299',
+      'Camera ¥149',
+      'Speaker ¥79'
+    ],
     areas: {
       count: 'Cart count',
       list: 'Product list',
@@ -251,7 +367,8 @@ export default {
     findDom: 'Find DOM nodes',
     detectChange: 'Framework detects the change',
     manualGetDom: 'Call document.getElementById() manually',
-    proxyDetect: 'Proxy intercepts the assignment and notifies the update system',
+    proxyDetect:
+      'Proxy intercepts the assignment and notifies the update system',
     modifyDom: 'Change DOM content',
     frameworkUpdateDom: 'Framework updates all related DOM nodes',
     manualTextContent: 'Set .textContent manually',
@@ -268,9 +385,11 @@ export default {
     runAgain: 'Run again',
     reset: 'Reset',
     nativeInfoStrong: 'Why is it not automatic?',
-    nativeInfo: 'JavaScript variables are not aware of the UI. When you run <code>count = 4</code>, the engine only changes the value in memory. It does not notify anyone, trigger a callback, or check where count is displayed on the page. The UI will not change unless you update the DOM yourself.',
+    nativeInfo:
+      'JavaScript variables are not aware of the UI. When you run <code>count = 4</code>, the engine only changes the value in memory. It does not notify anyone, trigger a callback, or check where count is displayed on the page. The UI will not change unless you update the DOM yourself.',
     frameworkInfoStrong: 'How does the framework do it?',
-    frameworkInfo: 'A framework wraps your data with a special mechanism. Vue uses JavaScript Proxy to intercept assignments. When you write <code>count = 4</code>, Proxy also runs notification code so the framework can find and update every DOM node that depends on count.'
+    frameworkInfo:
+      'A framework wraps your data with a special mechanism. Vue uses JavaScript Proxy to intercept assignments. When you write <code>count = 4</code>, Proxy also runs notification code so the framework can find and update every DOM node that depends on count.'
   },
   frameworkMotivation: {
     cards: [

@@ -5,11 +5,80 @@ export default {
     featureTitle: '核心特性：',
     usecaseTitle: '典型场景：',
     frameworks: [
-      { name: 'Celery', lang: 'Python', rating: 5, desc: 'Python 生态最流行的分布式任务队列，支持多种消息中间件（RabbitMQ、Redis），功能全面且社区活跃。', features: ['定时任务', '任务链', '结果存储', '自动重试', '优先级队列', '任务路由'], usecase: '数据处理管道、邮件发送、报表生成、机器学习训练任务' },
-      { name: 'Sidekiq', lang: 'Ruby', rating: 5, desc: 'Ruby 生态的高性能后台任务处理器，基于 Redis，使用多线程模型，内存效率极高。', features: ['多线程', 'Web UI', '定时任务', '批量处理', '速率限制', '唯一任务'], usecase: 'Rails 应用的邮件、通知、数据导入导出' },
-      { name: 'Bull', lang: 'Node.js', rating: 4, desc: 'Node.js 生态最成熟的任务队列库，基于 Redis，支持优先级、延迟任务、重复任务等。BullMQ 是其下一代版本。', features: ['优先级', '延迟任务', '速率限制', '并发控制', '事件驱动', 'Dashboard'], usecase: 'API 后台处理、文件转换、爬虫任务、通知推送' },
-      { name: 'RQ', lang: 'Python', rating: 3, desc: '轻量级 Python 任务队列，基于 Redis，API 简洁易用。适合不需要 Celery 全部功能的中小项目。', features: ['简洁 API', '任务依赖', 'Worker 管理', '失败重试', 'Dashboard'], usecase: '中小型 Web 应用的后台任务处理' },
-      { name: 'Kafka Streams', lang: 'Java/JVM', rating: 4, desc: '基于 Kafka 的流处理框架，适合高吞吐量的实时数据处理场景，天然支持分布式和容错。', features: ['流处理', '精确一次语义', '状态存储', '窗口操作', '高吞吐', '容错'], usecase: '实时数据管道、事件驱动架构、日志聚合分析' }
+      {
+        name: 'Celery',
+        lang: 'Python',
+        rating: 5,
+        desc: 'Python 生态最流行的分布式任务队列，支持多种消息中间件（RabbitMQ、Redis），功能全面且社区活跃。',
+        features: [
+          '定时任务',
+          '任务链',
+          '结果存储',
+          '自动重试',
+          '优先级队列',
+          '任务路由'
+        ],
+        usecase: '数据处理管道、邮件发送、报表生成、机器学习训练任务'
+      },
+      {
+        name: 'Sidekiq',
+        lang: 'Ruby',
+        rating: 5,
+        desc: 'Ruby 生态的高性能后台任务处理器，基于 Redis，使用多线程模型，内存效率极高。',
+        features: [
+          '多线程',
+          'Web UI',
+          '定时任务',
+          '批量处理',
+          '速率限制',
+          '唯一任务'
+        ],
+        usecase: 'Rails 应用的邮件、通知、数据导入导出'
+      },
+      {
+        name: 'Bull',
+        lang: 'Node.js',
+        rating: 4,
+        desc: 'Node.js 生态最成熟的任务队列库，基于 Redis，支持优先级、延迟任务、重复任务等。BullMQ 是其下一代版本。',
+        features: [
+          '优先级',
+          '延迟任务',
+          '速率限制',
+          '并发控制',
+          '事件驱动',
+          'Dashboard'
+        ],
+        usecase: 'API 后台处理、文件转换、爬虫任务、通知推送'
+      },
+      {
+        name: 'RQ',
+        lang: 'Python',
+        rating: 3,
+        desc: '轻量级 Python 任务队列，基于 Redis，API 简洁易用。适合不需要 Celery 全部功能的中小项目。',
+        features: [
+          '简洁 API',
+          '任务依赖',
+          'Worker 管理',
+          '失败重试',
+          'Dashboard'
+        ],
+        usecase: '中小型 Web 应用的后台任务处理'
+      },
+      {
+        name: 'Kafka Streams',
+        lang: 'Java/JVM',
+        rating: 4,
+        desc: '基于 Kafka 的流处理框架，适合高吞吐量的实时数据处理场景，天然支持分布式和容错。',
+        features: [
+          '流处理',
+          '精确一次语义',
+          '状态存储',
+          '窗口操作',
+          '高吞吐',
+          '容错'
+        ],
+        usecase: '实时数据管道、事件驱动架构、日志聚合分析'
+      }
     ]
   },
   flow: {
@@ -45,12 +114,32 @@ export default {
     retryKind: '重试',
     waitLabel: '等待 {delay}s 后重试',
     formulaLabel: '延迟公式：',
-    statuses: { success: '成功', fail: '失败', waiting: '等待中', running: '执行中' },
+    statuses: {
+      success: '成功',
+      fail: '失败',
+      waiting: '等待中',
+      running: '执行中'
+    },
     errors: ['连接超时', '服务不可用', '网络错误'],
     strategies: [
-      { key: 'fixed', label: '固定间隔', desc: '每次重试等待相同的时间，简单但可能造成"重试风暴"', formula: 'delay = 2s' },
-      { key: 'exponential', label: '指数退避', desc: '每次重试等待时间翻倍，有效避免服务端过载', formula: 'delay = 2^n 秒 (1s, 2s, 4s, 8s...)' },
-      { key: 'jitter', label: '指数退避+抖动', desc: '在指数退避基础上加随机偏移，防止多个客户端同时重试', formula: 'delay = 2^n + random(0, 1s)' }
+      {
+        key: 'fixed',
+        label: '固定间隔',
+        desc: '每次重试等待相同的时间，简单但可能造成"重试风暴"',
+        formula: 'delay = 2s'
+      },
+      {
+        key: 'exponential',
+        label: '指数退避',
+        desc: '每次重试等待时间翻倍，有效避免服务端过载',
+        formula: 'delay = 2^n 秒 (1s, 2s, 4s, 8s...)'
+      },
+      {
+        key: 'jitter',
+        label: '指数退避+抖动',
+        desc: '在指数退避基础上加随机偏移，防止多个客户端同时重试',
+        formula: 'delay = 2^n + random(0, 1s)'
+      }
     ]
   },
   worker: {
@@ -65,6 +154,15 @@ export default {
     emptyDone: '暂无',
     idle: '💤 空闲',
     completedCount: '已完成: {count}',
-    taskTypes: ['发送邮件', '生成报表', '图片压缩', '数据同步', '推送通知', '日志归档', 'PDF 导出', '缓存预热']
+    taskTypes: [
+      '发送邮件',
+      '生成报表',
+      '图片压缩',
+      '数据同步',
+      '推送通知',
+      '日志归档',
+      'PDF 导出',
+      '缓存预热'
+    ]
   }
 }

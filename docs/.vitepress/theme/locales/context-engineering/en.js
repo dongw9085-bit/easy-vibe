@@ -4,25 +4,52 @@ export default {
       {
         title: 'Problem',
         items: [
-          { strong: 'Context is hard to keep consistent', text: 'As conversations grow, earlier and later meaning can drift apart.' },
-          { strong: 'Key facts are easy to lose', text: 'Information given early can be hard to reference accurately later.' },
-          { strong: 'Call cost keeps rising', text: 'Every round has to process a large amount of history again.' }
+          {
+            strong: 'Context is hard to keep consistent',
+            text: 'As conversations grow, earlier and later meaning can drift apart.'
+          },
+          {
+            strong: 'Key facts are easy to lose',
+            text: 'Information given early can be hard to reference accurately later.'
+          },
+          {
+            strong: 'Call cost keeps rising',
+            text: 'Every round has to process a large amount of history again.'
+          }
         ]
       },
       {
         title: 'Likely causes',
         items: [
-          { strong: 'The model only sees the current call', text: 'It can only rely on the context provided in this round.' },
-          { strong: 'Information is not structured', text: 'Important facts and minor details are mixed together, making stable memory hard.' },
-          { strong: 'History is recomputed repeatedly', text: 'Large fixed prefixes are processed again and again across turns.' }
+          {
+            strong: 'The model only sees the current call',
+            text: 'It can only rely on the context provided in this round.'
+          },
+          {
+            strong: 'Information is not structured',
+            text: 'Important facts and minor details are mixed together, making stable memory hard.'
+          },
+          {
+            strong: 'History is recomputed repeatedly',
+            text: 'Large fixed prefixes are processed again and again across turns.'
+          }
         ]
       },
       {
         title: 'Impact',
         items: [
-          { strong: 'Answer quality becomes unstable', text: 'Longer conversations make consistency and traceability harder.' },
-          { strong: 'Cost is hard to estimate', text: 'Context size fluctuates heavily from turn to turn.' },
-          { strong: 'Production systems become hard to maintain', text: 'Without a clear context strategy, systems are hard to operate and extend.' }
+          {
+            strong: 'Answer quality becomes unstable',
+            text: 'Longer conversations make consistency and traceability harder.'
+          },
+          {
+            strong: 'Cost is hard to estimate',
+            text: 'Context size fluctuates heavily from turn to turn.'
+          },
+          {
+            strong: 'Production systems become hard to maintain',
+            text: 'Without a clear context strategy, systems are hard to operate and extend.'
+          }
         ]
       }
     ]
@@ -31,7 +58,8 @@ export default {
     currentRound: 'Current round',
     tokenUsage: 'Token usage',
     currentCost: 'Current cost',
-    overflow: 'Overflow truncation: the first {count} round(s) have been forgotten.',
+    overflow:
+      'Overflow truncation: the first {count} round(s) have been forgotten.',
     safe: 'Memory intact',
     limit: 'Context Window Limit ({limit})',
     systemPrompt: 'System Prompt ({tokens})',
@@ -41,9 +69,11 @@ export default {
     firstRound: 'Round 1',
     maxRound: 'Round {round}',
     normalStrong: 'Everything is normal',
-    normal: 'The current token count ({total}) is still within the window. The model can recall all conversation details.',
+    normal:
+      'The current token count ({total}) is still within the window. The model can recall all conversation details.',
     warningStrong: 'Forgetting happened',
-    warning: 'Total tokens ({total}) exceed the window limit ({limit}). To fit the new turn, the system had to drop the earliest {count} history round(s).'
+    warning:
+      'Total tokens ({total}) exceed the window limit ({limit}). To fit the new turn, the system had to drop the earliest {count} history round(s).'
   },
   contextWindow: {
     usedLabel: 'Tokens written so far',
@@ -57,8 +87,24 @@ export default {
     placeholder: 'Type a few sentences here and watch the board fill up...',
     infoStrong: 'Note:',
     info: 'The context window is like a small board for the model. The board has limited space, so old content must be erased before new content can fit. Once it overflows, the earliest content disappears from the model view.',
-    defaultText: 'Context Engineering means optimizing the information provided to a large language model.',
-    words: ['AI', 'deep learning', 'neural network', 'large model', 'Transformer', 'attention', 'context window', 'Token', 'Embedding', 'fine-tuning', 'pretraining', 'inference', 'generation', 'RAG']
+    defaultText:
+      'Context Engineering means optimizing the information provided to a large language model.',
+    words: [
+      'AI',
+      'deep learning',
+      'neural network',
+      'large model',
+      'Transformer',
+      'attention',
+      'context window',
+      'Token',
+      'Embedding',
+      'fine-tuning',
+      'pretraining',
+      'inference',
+      'generation',
+      'RAG'
+    ]
   },
   kvCache: {
     toggle: 'Enable prefix reuse / KV Cache',
@@ -127,8 +173,10 @@ export default {
     back: 'Near the end',
     middle: 'Middle area, highest risk',
     observationStrong: 'Observation:',
-    observation: 'When a key fact is hidden in the middle of a long context, the model is most likely to miss it.',
-    advice: 'The reliable approach is to place important instructions at the very front in the System Prompt or at the end in the latest user query.'
+    observation:
+      'When a key fact is hidden in the middle of a long context, the model is most likely to miss it.',
+    advice:
+      'The reliable approach is to place important instructions at the very front in the System Prompt or at the end in the latest user query.'
   },
   selectiveContext: {
     totalLabel: 'Messages remembered now',
@@ -164,15 +212,40 @@ export default {
     relevance: '{score}% relevant',
     copyPaste: '✂️ Copy into context',
     finalPrompt: 'Final Prompt',
-    systemPrompt: 'You are a professional AI assistant. Answer the user question using the retrieved materials below.',
+    systemPrompt:
+      'You are a professional AI assistant. Answer the user question using the retrieved materials below.',
     retrievedTitle: '📚 Retrieved materials (Context)',
     noDocs: '(No relevant materials found)',
     waiting: 'Waiting for a question...',
     documents: [
-      { id: 1, title: 'Password reset guide', content: 'Users can reset their password by clicking the "Forgot password" link on the settings page. The system sends a verification email.', score: 0 },
-      { id: 2, title: 'Pricing policy', content: 'Basic is $10 per month, Pro is $29 per month. Enterprise customers should contact sales for a quote.', score: 0 },
-      { id: 3, title: 'API documentation', content: 'All API requests must include a Bearer Token in the Header for authentication.', score: 0 },
-      { id: 4, title: 'Account security', content: 'For account security, enable two-factor authentication and change passwords regularly.', score: 0 }
+      {
+        id: 1,
+        title: 'Password reset guide',
+        content:
+          'Users can reset their password by clicking the "Forgot password" link on the settings page. The system sends a verification email.',
+        score: 0
+      },
+      {
+        id: 2,
+        title: 'Pricing policy',
+        content:
+          'Basic is $10 per month, Pro is $29 per month. Enterprise customers should contact sales for a quote.',
+        score: 0
+      },
+      {
+        id: 3,
+        title: 'API documentation',
+        content:
+          'All API requests must include a Bearer Token in the Header for authentication.',
+        score: 0
+      },
+      {
+        id: 4,
+        title: 'Account security',
+        content:
+          'For account security, enable two-factor authentication and change passwords regularly.',
+        score: 0
+      }
     ],
     keywords: {
       password: 'password',
@@ -183,7 +256,8 @@ export default {
     }
   },
   contextCompression: {
-    originalText: 'Context Engineering means optimizing the prompt and information provided to a large language model so it has what it needs to generate accurate and relevant responses. One major challenge is the limited context window, which restricts how much text a model can process at once. Developers use techniques such as summarization to condense long documents while preserving key information. Retrieval-augmented generation fetches only the most relevant snippets for a user query. Converting unstructured text into structured data such as JSON can also reduce redundancy and increase information density.',
+    originalText:
+      'Context Engineering means optimizing the prompt and information provided to a large language model so it has what it needs to generate accurate and relevant responses. One major challenge is the limited context window, which restricts how much text a model can process at once. Developers use techniques such as summarization to condense long documents while preserving key information. Retrieval-augmented generation fetches only the most relevant snippets for a user query. Converting unstructured text into structured data such as JSON can also reduce redundancy and increase information density.',
     chooseStrategy: '1. Choose compression strategy',
     originalLabel: 'Original text',
     placeholder: 'Enter long text here...',
@@ -197,8 +271,10 @@ export default {
       { id: 'json', label: '⚙️ Structure', desc: 'To JSON' }
     ],
     results: {
-      summary: 'Context Engineering optimizes LLM prompts under context-window limits. Common techniques include summarization, RAG for on-demand retrieval, and structured data conversion for higher information density.',
-      extract: '- Goal: optimize LLM prompts\n- Challenge: limited context window\n- Solution 1: summarization\n- Solution 2: retrieval-augmented generation (RAG)\n- Solution 3: structured data (JSON)'
+      summary:
+        'Context Engineering optimizes LLM prompts under context-window limits. Common techniques include summarization, RAG for on-demand retrieval, and structured data conversion for higher information density.',
+      extract:
+        '- Goal: optimize LLM prompts\n- Challenge: limited context window\n- Solution 1: summarization\n- Solution 2: retrieval-augmented generation (RAG)\n- Solution 3: structured data (JSON)'
     }
   },
   memoryPalace: {
@@ -209,10 +285,38 @@ export default {
     next: '➕ Add next layer',
     why: 'Why this design?',
     steps: [
-      { id: 'base', title: 'Layer 1: Foundation (System)', desc: 'System identity, role, and principles', detail: '✅ Never changes; KV Cache makes it nearly free to reuse', color: 'var(--vp-c-brand)', icon: '🏛️' },
-      { id: 'task', title: 'Layer 2: Pillar (Task)', desc: 'Current task goal and user profile', detail: '📌 Pinned during the task so direction stays stable', color: '#8e44ad', icon: '📌' },
-      { id: 'chat', title: 'Layer 3: Living Room (Chat)', desc: 'Most recent 5-10 conversation turns', detail: '🔄 Sliding window; old turns automatically make room', color: '#e67e22', icon: '💬' },
-      { id: 'rag', title: 'Layer 4: Library (RAG)', desc: 'Knowledge retrieved on demand', detail: '📚 Does not occupy memory until needed and can scale outward', color: '#27ae60', icon: '🔍' }
+      {
+        id: 'base',
+        title: 'Layer 1: Foundation (System)',
+        desc: 'System identity, role, and principles',
+        detail: '✅ Never changes; KV Cache makes it nearly free to reuse',
+        color: 'var(--vp-c-brand)',
+        icon: '🏛️'
+      },
+      {
+        id: 'task',
+        title: 'Layer 2: Pillar (Task)',
+        desc: 'Current task goal and user profile',
+        detail: '📌 Pinned during the task so direction stays stable',
+        color: '#8e44ad',
+        icon: '📌'
+      },
+      {
+        id: 'chat',
+        title: 'Layer 3: Living Room (Chat)',
+        desc: 'Most recent 5-10 conversation turns',
+        detail: '🔄 Sliding window; old turns automatically make room',
+        color: '#e67e22',
+        icon: '💬'
+      },
+      {
+        id: 'rag',
+        title: 'Layer 4: Library (RAG)',
+        desc: 'Knowledge retrieved on demand',
+        detail: '📚 Does not occupy memory until needed and can scale outward',
+        color: '#27ae60',
+        icon: '🔍'
+      }
     ],
     explanations: [
       '**Stable foundation**: put the System Prompt first and let KV Cache reuse it, so later requests are faster and cheaper.',
@@ -239,19 +343,117 @@ export default {
       coding: {
         name: '👨‍💻 Coding assistant scenario',
         steps: [
-          { user: 'Help me write a Python snake game', action: 'Initialize', layers: { base: 'System: You are a senior Python engineer...', task: 'Task: Build a snake game with Pygame...', chat: [], rag: [] }, desc: 'Initialize: load the foundation (System) and task. Layers 1 and 2 are established.' },
-          { user: null, ai_thinking: 'Need to look up the latest Pygame initialization code...', action: 'Retrieve', layers: { base: 'System: You are a senior Python engineer...', task: 'Task: Build a snake game with Pygame...', chat: [], rag: ['Docs: Pygame.init() usage...', 'Docs: Game loop pattern...'] }, desc: 'Think and retrieve: missing knowledge is fetched temporarily into Layer 4.' },
-          { user: null, ai: 'Sure. Here is a basic snake implementation using Pygame...', action: 'Generate', layers: { base: 'System: You are a senior Python engineer...', task: 'Task: Build a snake game with Pygame...', chat: ['User: write snake game', 'AI: [Code Block]'], rag: [] }, desc: 'Generate answer: RAG material is discarded after use to save space, and the conversation enters Layer 3.' },
-          { user: 'The snake moves too fast. How can I slow it down?', action: 'Follow-up', layers: { base: 'System: You are a senior Python engineer...', task: 'Task: Build a snake game with Pygame...', chat: ['User: write snake game', 'AI: [Code Block]', 'User: slow it down'], rag: [] }, desc: 'User follow-up: the new turn is appended to Layer 3. Layers 1 and 2 stay unchanged.' },
-          { user: null, ai: 'You can adjust the value in clock.tick(15)...', action: 'Reply', layers: { base: 'System: You are a senior Python engineer...', task: 'Task: Build a snake game with Pygame...', chat: ['User: write snake game', 'AI: [Code Block]', 'User: slow it down', 'AI: adjust tick value...'], rag: [] }, desc: 'Ongoing chat: Layer 3 grows. If it gets too long, the earliest turns slide out.' }
+          {
+            user: 'Help me write a Python snake game',
+            action: 'Initialize',
+            layers: {
+              base: 'System: You are a senior Python engineer...',
+              task: 'Task: Build a snake game with Pygame...',
+              chat: [],
+              rag: []
+            },
+            desc: 'Initialize: load the foundation (System) and task. Layers 1 and 2 are established.'
+          },
+          {
+            user: null,
+            ai_thinking:
+              'Need to look up the latest Pygame initialization code...',
+            action: 'Retrieve',
+            layers: {
+              base: 'System: You are a senior Python engineer...',
+              task: 'Task: Build a snake game with Pygame...',
+              chat: [],
+              rag: [
+                'Docs: Pygame.init() usage...',
+                'Docs: Game loop pattern...'
+              ]
+            },
+            desc: 'Think and retrieve: missing knowledge is fetched temporarily into Layer 4.'
+          },
+          {
+            user: null,
+            ai: 'Sure. Here is a basic snake implementation using Pygame...',
+            action: 'Generate',
+            layers: {
+              base: 'System: You are a senior Python engineer...',
+              task: 'Task: Build a snake game with Pygame...',
+              chat: ['User: write snake game', 'AI: [Code Block]'],
+              rag: []
+            },
+            desc: 'Generate answer: RAG material is discarded after use to save space, and the conversation enters Layer 3.'
+          },
+          {
+            user: 'The snake moves too fast. How can I slow it down?',
+            action: 'Follow-up',
+            layers: {
+              base: 'System: You are a senior Python engineer...',
+              task: 'Task: Build a snake game with Pygame...',
+              chat: [
+                'User: write snake game',
+                'AI: [Code Block]',
+                'User: slow it down'
+              ],
+              rag: []
+            },
+            desc: 'User follow-up: the new turn is appended to Layer 3. Layers 1 and 2 stay unchanged.'
+          },
+          {
+            user: null,
+            ai: 'You can adjust the value in clock.tick(15)...',
+            action: 'Reply',
+            layers: {
+              base: 'System: You are a senior Python engineer...',
+              task: 'Task: Build a snake game with Pygame...',
+              chat: [
+                'User: write snake game',
+                'AI: [Code Block]',
+                'User: slow it down',
+                'AI: adjust tick value...'
+              ],
+              rag: []
+            },
+            desc: 'Ongoing chat: Layer 3 grows. If it gets too long, the earliest turns slide out.'
+          }
         ]
       },
       support: {
         name: '👩‍💼 Customer support scenario',
         steps: [
-          { user: 'Has my order shipped? Order number 12345', action: 'Receive', layers: { base: 'System: You are a warm e-commerce support agent...', task: 'Task: Handle an order status request...', chat: [], rag: [] }, desc: 'Receive message: load the foundation (System).' },
-          { user: null, ai_thinking: 'Querying the order system API...', action: 'Tool call', layers: { base: 'System: You are a warm e-commerce support agent...', task: 'Task: Handle an order status request...', chat: ['User: order 12345'], rag: ['API_Result: {id:12345, status:"shipped", loc:"Beijing"}'] }, desc: 'Tool/RAG call: fetch live order status and place it into Layer 4.' },
-          { user: null, ai: 'I found it. Your package is now in transit through Beijing.', action: 'Reply', layers: { base: 'System: You are a warm e-commerce support agent...', task: 'Task: Handle an order status request...', chat: ['User: order 12345', 'AI: in transit through Beijing'], rag: [] }, desc: 'Finish reply: Layer 4 is cleared, and the conversation remains in Layer 3.' }
+          {
+            user: 'Has my order shipped? Order number 12345',
+            action: 'Receive',
+            layers: {
+              base: 'System: You are a warm e-commerce support agent...',
+              task: 'Task: Handle an order status request...',
+              chat: [],
+              rag: []
+            },
+            desc: 'Receive message: load the foundation (System).'
+          },
+          {
+            user: null,
+            ai_thinking: 'Querying the order system API...',
+            action: 'Tool call',
+            layers: {
+              base: 'System: You are a warm e-commerce support agent...',
+              task: 'Task: Handle an order status request...',
+              chat: ['User: order 12345'],
+              rag: ['API_Result: {id:12345, status:"shipped", loc:"Beijing"}']
+            },
+            desc: 'Tool/RAG call: fetch live order status and place it into Layer 4.'
+          },
+          {
+            user: null,
+            ai: 'I found it. Your package is now in transit through Beijing.',
+            action: 'Reply',
+            layers: {
+              base: 'System: You are a warm e-commerce support agent...',
+              task: 'Task: Handle an order status request...',
+              chat: ['User: order 12345', 'AI: in transit through Beijing'],
+              rag: []
+            },
+            desc: 'Finish reply: Layer 4 is cleared, and the conversation remains in Layer 3.'
+          }
         ]
       }
     }

@@ -5,4 +5,3 @@ export const dataVisualizationLocale = {
   'zh-cn': zhCn,
   en
 }
-

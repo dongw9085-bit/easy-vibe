@@ -3,10 +3,13 @@ export default {
     boxModel: {
       title: 'CSS Box Model',
       subtitle: 'Understand how much space an element actually occupies',
-      scenario: 'Scenario: you want three cards in one 900px row, and each card has width: 200px. The third card wraps to the next line. Why?',
+      scenario:
+        'Scenario: you want three cards in one 900px row, and each card has width: 200px. The third card wraps to the next line. Why?',
       actualWidth: 'Actual occupied width',
-      includedFormula: '{width}px (already includes padding and border) + {margin}×2 = {total}px',
-      overflowHint: 'Three cards need {width}px, which exceeds the 900px container, so the third card wraps.',
+      includedFormula:
+        '{width}px (already includes padding and border) + {margin}×2 = {total}px',
+      overflowHint:
+        'Three cards need {width}px, which exceeds the 900px container, so the third card wraps.',
       fitHint: 'Three cards use {width}px in total, so they fit.',
       keyDifference: 'Key difference:',
       info: 'content-box, the default, makes width apply only to content. border-box makes width include content + padding + border. A global box-sizing: border-box setting is usually recommended.',
@@ -23,7 +26,8 @@ export default {
       mainAxis: 'Main axis',
       crossAxis: 'Cross axis',
       mainAxisTitle: 'Main Axis',
-      mainAxisDesc: 'The direction items are laid out, controlled by flex-direction.',
+      mainAxisDesc:
+        'The direction items are laid out, controlled by flex-direction.',
       crossAxisTitle: 'Cross Axis',
       crossAxisDesc: 'Perpendicular to the main axis and used to align items.',
       justifyLabel: 'justify-content (main-axis alignment)',
@@ -33,7 +37,8 @@ export default {
       horizontal: 'horizontal →',
       vertical: 'vertical ↓',
       memoryTitle: 'Memory aid:',
-      memory: 'justify-content aligns items along the main axis. align-items aligns them along the cross axis.',
+      memory:
+        'justify-content aligns items along the main axis. align-items aligns them along the cross axis.',
       directions: [
         { id: 'row', label: 'row (horizontal)' },
         { id: 'column', label: 'column (vertical)' }
@@ -71,7 +76,8 @@ export default {
         { code: 'remove()', desc: 'Remove an element' }
       ],
       noticeTitle: 'Note:',
-      notice: 'Frequent DOM operations can hurt performance. Modern frameworks such as Vue and React use a virtual DOM to compute changes in memory and then batch updates to the real DOM.',
+      notice:
+        'Frequent DOM operations can hurt performance. Modern frameworks such as Vue and React use a virtual DOM to compute changes in memory and then batch updates to the real DOM.',
       initialTitle: 'Welcome to DOM',
       initialItems: ['Item 1', 'Item 2'],
       styles: [
@@ -88,11 +94,22 @@ export default {
       button: 'Try me',
       process: 'Execution process',
       principleTitle: 'Division of work:',
-      principle: 'HTML defines structure, CSS defines presentation, and JavaScript defines behavior.',
+      principle:
+        'HTML defines structure, CSS defines presentation, and JavaScript defines behavior.',
       modes: [
-        { id: 'html', label: 'HTML', icon: 'Structure', codeTitle: 'HTML code' },
+        {
+          id: 'html',
+          label: 'HTML',
+          icon: 'Structure',
+          codeTitle: 'HTML code'
+        },
         { id: 'css', label: 'CSS', icon: 'Style', codeTitle: 'CSS code' },
-        { id: 'js', label: 'JavaScript', icon: 'Behavior', codeTitle: 'JavaScript code' }
+        {
+          id: 'js',
+          label: 'JavaScript',
+          icon: 'Behavior',
+          codeTitle: 'JavaScript code'
+        }
       ],
       codeLines: {
         html: [
@@ -116,16 +133,29 @@ export default {
         ]
       },
       steps: {
-        html: ['The browser parses tags and identifies content types', 'h1 is a heading, p is a paragraph, and button is a button', 'The page renders with default styles'],
-        css: ['The browser parses selectors and finds matching elements', 'Color, font size, spacing, and other rules are applied', 'The page appearance changes'],
-        js: ['The script selects the button element', 'It registers a click event listener', 'When clicked, the callback runs and updates the count']
+        html: [
+          'The browser parses tags and identifies content types',
+          'h1 is a heading, p is a paragraph, and button is a button',
+          'The page renders with default styles'
+        ],
+        css: [
+          'The browser parses selectors and finds matching elements',
+          'Color, font size, spacing, and other rules are applied',
+          'The page appearance changes'
+        ],
+        js: [
+          'The script selects the button element',
+          'It registers a click event listener',
+          'When clicked, the callback runs and updates the count'
+        ]
       }
     }
   },
   frameworks: {
     imperativeDeclarative: {
       title: 'Imperative vs Declarative',
-      subtitle: 'Two programming mindsets: manual operations vs automatic response',
+      subtitle:
+        'Two programming mindsets: manual operations vs automatic response',
       imperative: 'Imperative',
       imperativeSub: 'jQuery style - manual operations',
       declarative: 'Declarative',
@@ -149,7 +179,8 @@ export default {
     },
     jqueryState: {
       title: 'What is jQuery? Understand it with a cart count',
-      subtitle: 'Left: manually update the page like jQuery, which is easy to miss. Right: update state like Vue or React.',
+      subtitle:
+        'Left: manually update the page like jQuery, which is easy to miss. Right: update state like Vue or React.',
       jqueryTitle: 'jQuery mindset: update DOM everywhere',
       stateTitle: 'Vue/React mindset: update State only',
       badge: '🛒 Badge:',
@@ -165,13 +196,16 @@ export default {
       emptyLog: '(No actions yet)',
       oneThing: 'You only need one action',
       reset: 'Reset',
-      okHint: 'When State changes, all three UI locations sync automatically. You do not manually find and update DOM nodes.',
+      okHint:
+        'When State changes, all three UI locations sync automatically. You do not manually find and update DOM nodes.',
       termsTitle: 'Two terms here',
-      domTerm: 'The page structure inside the browser, including buttons, text, and images',
+      domTerm:
+        'The page structure inside the browser, including buttons, text, and images',
       stateTerm: 'Page data, such as the cart count',
       unit: 'items',
       consistent: '✅ All three places are consistent.',
-      inconsistent: '⚠️ Data and page are inconsistent. You probably forgot to update one DOM location, which becomes a bug in real projects.',
+      inconsistent:
+        '⚠️ Data and page are inconsistent. You probably forgot to update one DOM location, which becomes a bug in real projects.',
       logs: {
         increase: 'Data +1 (real data = {value})',
         badge: 'Updated badge DOM = {value}',
@@ -186,9 +220,30 @@ export default {
       tti: 'Time to interactive',
       seo: 'SEO friendly',
       strategies: [
-        { key: 'csr', label: 'CSR', ttfb: 450, tti: 1600, seo: 'Fair', note: 'The page renders only after JavaScript loads and fetches data.' },
-        { key: 'ssr', label: 'SSR', ttfb: 220, tti: 1100, seo: 'Good', note: 'The first screen is faster, but the server does more work.' },
-        { key: 'ssg', label: 'SSG', ttfb: 120, tti: 700, seo: 'Excellent', note: 'The page is pre-rendered as static HTML, which suits content sites.' }
+        {
+          key: 'csr',
+          label: 'CSR',
+          ttfb: 450,
+          tti: 1600,
+          seo: 'Fair',
+          note: 'The page renders only after JavaScript loads and fetches data.'
+        },
+        {
+          key: 'ssr',
+          label: 'SSR',
+          ttfb: 220,
+          tti: 1100,
+          seo: 'Good',
+          note: 'The first screen is faster, but the server does more work.'
+        },
+        {
+          key: 'ssg',
+          label: 'SSG',
+          ttfb: 120,
+          tti: 700,
+          seo: 'Excellent',
+          note: 'The page is pre-rendered as static HTML, which suits content sites.'
+        }
       ]
     },
     responsiveGrid: {
@@ -223,7 +278,8 @@ export default {
   },
   network: {
     urlParser: {
-      label: 'URL Parsing -- Translating human text into structured information',
+      label:
+        'URL Parsing -- Translating human text into structured information',
       status: 'Hover over each part to see its responsibility',
       parts: [
         {
@@ -246,11 +302,19 @@ export default {
     dnsLookup: {
       label: 'DNS Lookup -- Finding coordinates in the address book',
       browserTitle: 'Browser',
-      browserDescs: ['Wants to visit www.google.com', 'Asking the directory service...', 'Received 142... ready to go!'],
+      browserDescs: [
+        'Wants to visit www.google.com',
+        'Asking the directory service...',
+        'Received 142... ready to go!'
+      ],
       requestLabel: 'Ask for coordinates',
       responseLabel: 'Return IP',
       dnsTitle: 'Directory service (DNS)',
-      dnsDescs: ['Standing by', 'Looking through the address book...', 'Found it: 142.250.80.46'],
+      dnsDescs: [
+        'Standing by',
+        'Looking through the address book...',
+        'Found it: 142.250.80.46'
+      ],
       buttons: {
         running: 'Looking up...',
         restart: 'Look up again',
@@ -271,9 +335,18 @@ export default {
       start: 'Start connection',
       reset: 'Disconnect and retry',
       messages: [
-        { title: 'Handshake 1: SYN', desc: '"Hi server, are you there? I can send messages. Can you receive them?"' },
-        { title: 'Handshake 2: SYN-ACK', desc: '"Yes, I received it. Can you hear me now?"' },
-        { title: 'Handshake 3: ACK', desc: '"I heard you too. The channel is verified. Let us talk business."' }
+        {
+          title: 'Handshake 1: SYN',
+          desc: '"Hi server, are you there? I can send messages. Can you receive them?"'
+        },
+        {
+          title: 'Handshake 2: SYN-ACK',
+          desc: '"Yes, I received it. Can you hear me now?"'
+        },
+        {
+          title: 'Handshake 3: ACK',
+          desc: '"I heard you too. The channel is verified. Let us talk business."'
+        }
       ],
       status: [
         'Click "Start connection" to simulate the TCP three-way handshake',
@@ -293,7 +366,8 @@ export default {
       responseHeader: '📥 Seller package: HTTP Response',
       okNote: 'success',
       divider: 'Blank line (separates headers from the body)',
-      bodyCode: '<!DOCTYPE html>\n<html>\n  <body>This is the Google search page HTML</body>\n</html>',
+      bodyCode:
+        '<!DOCTYPE html>\n<html>\n  <body>This is the Google search page HTML</body>\n</html>',
       empty: 'The server response package will appear here...',
       status: {
         idle: 'The HTTP request is assembled with a path and supporting headers.',
@@ -303,15 +377,41 @@ export default {
     },
     browserRendering: {
       label: 'Browser Rendering -- Turning plain text into a polished page',
-      status: 'Click each step icon above to see the output of each rendering stage',
+      status:
+        'Click each step icon above to see the output of each rendering stage',
       domInput: 'input (search box)',
       cssResult: 'h1 (red text rule)',
       steps: [
-        { icon: '📄', name: 'Source', title: 'Receive plain text source code', desc: 'The response is just plain HTML and CSS text. It is an instruction manual for the page, not the visual page yet.' },
-        { icon: '🦴', name: 'DOM parse', title: '1. Build the skeleton (DOM parsing)', desc: 'The browser reads HTML tags and builds a tree structure, such as a heading inside the body.' },
-        { icon: '🎨', name: 'CSS parse', title: '2. Attach styles (CSS parsing)', desc: 'The browser reads CSS and attaches matching style rules, such as red title text, to the DOM nodes.' },
-        { icon: '📏', name: 'Layout', title: '3. Compute geometry (Layout)', desc: 'The browser measures each element and calculates exact x/y coordinates, width, and height for the current screen.' },
-        { icon: '🖼️', name: 'Paint', title: '4. Paint pixels (Paint)', desc: 'With structure, style, and geometry ready, the browser paints pixels and the page appears.' }
+        {
+          icon: '📄',
+          name: 'Source',
+          title: 'Receive plain text source code',
+          desc: 'The response is just plain HTML and CSS text. It is an instruction manual for the page, not the visual page yet.'
+        },
+        {
+          icon: '🦴',
+          name: 'DOM parse',
+          title: '1. Build the skeleton (DOM parsing)',
+          desc: 'The browser reads HTML tags and builds a tree structure, such as a heading inside the body.'
+        },
+        {
+          icon: '🎨',
+          name: 'CSS parse',
+          title: '2. Attach styles (CSS parsing)',
+          desc: 'The browser reads CSS and attaches matching style rules, such as red title text, to the DOM nodes.'
+        },
+        {
+          icon: '📏',
+          name: 'Layout',
+          title: '3. Compute geometry (Layout)',
+          desc: 'The browser measures each element and calculates exact x/y coordinates, width, and height for the current screen.'
+        },
+        {
+          icon: '🖼️',
+          name: 'Paint',
+          title: '4. Paint pixels (Paint)',
+          desc: 'With structure, style, and geometry ready, the browser paints pixels and the page appears.'
+        }
       ]
     }
   }

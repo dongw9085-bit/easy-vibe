@@ -10,7 +10,8 @@ export default {
         name: 'Monolithic architecture',
         desc: 'All features are packaged in one application and share one database. It is simple and suitable for early rapid iteration.',
         scale: 'Team < 10 people, DAU < 100k',
-        challenge: 'Code is tightly coupled; a bug in one module may bring down the whole system',
+        challenge:
+          'Code is tightly coupled; a bug in one module may bring down the whole system',
         boxes: [
           { label: 'User module', type: 'module' },
           { label: 'Order module', type: 'module' },
@@ -39,7 +40,8 @@ export default {
         name: 'Service-oriented architecture',
         desc: 'Business capabilities are split into independent services that communicate through an ESB or API gateway. Each service can be deployed independently.',
         scale: 'Team 30-100 people',
-        challenge: 'Service call chains grow longer and require service governance',
+        challenge:
+          'Service call chains grow longer and require service governance',
         boxes: [
           { label: 'User service', type: 'service' },
           { label: 'Order service', type: 'service' },
@@ -53,7 +55,8 @@ export default {
         name: 'Microservices architecture',
         desc: 'Services are split more finely; each can be developed, deployed, and scaled independently, often with containers and Kubernetes.',
         scale: 'Team 100+ people, DAU in the millions',
-        challenge: 'Distributed complexity, data consistency, and operations cost',
+        challenge:
+          'Distributed complexity, data consistency, and operations cost',
         boxes: [
           { label: 'User service', type: 'service' },
           { label: 'Auth service', type: 'service' },

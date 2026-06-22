@@ -27,13 +27,18 @@ const defaultLocales = [
   'vi-vn'
 ]
 
-const locales = (process.env.VITEPRESS_BUILD_LOCALES || defaultLocales.join(','))
+const locales = (
+  process.env.VITEPRESS_BUILD_LOCALES || defaultLocales.join(',')
+)
   .split(',')
   .map((locale) => locale.trim())
   .filter(Boolean)
 
 const heapMb = process.env.BUILD_HEAP_MB || '4096'
-const groupSize = Number.parseInt(process.env.BUILD_LOCALE_GROUP_SIZE || '2', 10)
+const groupSize = Number.parseInt(
+  process.env.BUILD_LOCALE_GROUP_SIZE || '2',
+  10
+)
 const forceBuild = process.argv.includes('--force')
 const finalOutDir = path.join(docsDir, '.vitepress/dist')
 const tempRoot = path.join(docsDir, '.vitepress/dist-locales')

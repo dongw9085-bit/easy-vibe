@@ -30,7 +30,8 @@ export default {
           { name: 'appName', value: '"Todo"', own: false, from: '全局' },
           { name: 'message', value: '"你好"', own: true }
         ],
-        explanation: '在函数作用域，可以使用自己的 message 和全局的 appName（作用域链查找）'
+        explanation:
+          '在函数作用域，可以使用自己的 message 和全局的 appName（作用域链查找）'
       },
       {
         id: 'block',
@@ -41,7 +42,8 @@ export default {
           { name: 'message', value: '"你好"', own: false, from: '函数' },
           { name: 'greeting', value: 'message+appName', own: true }
         ],
-        explanation: '在块级作用域，可以使用自己的 greeting，以及外层的 message 和 appName'
+        explanation:
+          '在块级作用域，可以使用自己的 greeting，以及外层的 message 和 appName'
       }
     ],
     code: `const appName = "Todo"  // 全局作用域
@@ -93,13 +95,24 @@ function greet() {
     codeOrderTitle: '代码书写顺序：',
     notStarted: '还未开始',
     codeOrder: '1, 2, 3, 4, 5',
-    highlight: '代码从上到下写的，但执行顺序不一定从上到下——因为异步操作会被"推迟"到当前代码执行完之后。',
+    highlight:
+      '代码从上到下写的，但执行顺序不一定从上到下——因为异步操作会被"推迟"到当前代码执行完之后。',
     syncSource: '同步代码',
     codeQueueItems: [
       { id: 1, code: 'console.log("1")', type: 'sync', output: '1' },
-      { id: 2, code: 'setTimeout(() => console.log("2"), 0)', type: 'async', output: '2' },
+      {
+        id: 2,
+        code: 'setTimeout(() => console.log("2"), 0)',
+        type: 'async',
+        output: '2'
+      },
       { id: 3, code: 'console.log("3")', type: 'sync', output: '3' },
-      { id: 4, code: 'fetch("/api").then(() => console.log("4"))', type: 'async', output: '4' },
+      {
+        id: 4,
+        code: 'fetch("/api").then(() => console.log("4"))',
+        type: 'async',
+        output: '4'
+      },
       { id: 5, code: 'console.log("5")', type: 'sync', output: '5' }
     ],
     steps: [

@@ -34,9 +34,12 @@ export default {
       coroutine: 'info'
     },
     explanationTexts: {
-      process: '每个进程拥有独立的内存空间，隔离性强但开销大。进程间通信需要 IPC 机制。适合需要强隔离的场景，如浏览器标签页、沙箱程序。',
-      thread: '线程共享进程内存，切换开销较小，但需要同步机制保护共享数据。适合 CPU 密集型任务和需要共享数据的场景。',
-      coroutine: '用户态轻量级线程，由运行时调度，切换极快。适合 I/O 密集型高并发场景，如 Web 服务器、网关、长连接服务。'
+      process:
+        '每个进程拥有独立的内存空间，隔离性强但开销大。进程间通信需要 IPC 机制。适合需要强隔离的场景，如浏览器标签页、沙箱程序。',
+      thread:
+        '线程共享进程内存，切换开销较小，但需要同步机制保护共享数据。适合 CPU 密集型任务和需要共享数据的场景。',
+      coroutine:
+        '用户态轻量级线程，由运行时调度，切换极快。适合 I/O 密集型高并发场景，如 Web 服务器、网关、长连接服务。'
     }
   },
 
@@ -70,8 +73,10 @@ export default {
     },
     algorithmDescriptions: {
       fifo: '按照线程到达的先后顺序执行，直到当前线程完成才执行下一个。简单公平但可能导致短任务等待长任务。',
-      roundrobin: '每个线程轮流执行一个时间片，时间片用完就切换到下一个线程。响应性好，适合交互式系统。',
-      priority: '根据线程优先级决定执行顺序，高优先级线程优先执行。需要处理优先级反转和饥饿问题。'
+      roundrobin:
+        '每个线程轮流执行一个时间片，时间片用完就切换到下一个线程。响应性好，适合交互式系统。',
+      priority:
+        '根据线程优先级决定执行顺序，高优先级线程优先执行。需要处理优先级反转和饥饿问题。'
     }
   },
 
@@ -92,7 +97,8 @@ export default {
     ioWaitTime: 'I/O 等待时间',
     cpuUtilization: 'CPU 利用率',
     alertTitle: 'async/await 的优势',
-    alertDescription: '当一个任务遇到 I/O 操作(如网络请求)时，await 会让出 CPU，事件循环调度其他任务执行。I/O 完成后，任务从断点恢复。这种方式让单个线程可以并发处理数千个任务。'
+    alertDescription:
+      '当一个任务遇到 I/O 操作(如网络请求)时，await 会让出 CPU，事件循环调度其他任务执行。I/O 完成后，任务从断点恢复。这种方式让单个线程可以并发处理数千个任务。'
   },
 
   concurrentVsParallel: {
@@ -172,9 +178,12 @@ export default {
       running: '内存布局'
     },
     infoDescriptions: {
-      empty: '每个进程拥有独立的虚拟地址空间，一个进程崩溃不会影响其他进程。点击"创建进程"开始演示。',
-      crashed: '进程已崩溃但其他进程正常运行，证明进程间内存隔离有效。崩溃的进程会被操作系统回收资源。',
-      running: '当前有 {count} 个进程在运行。每个进程的内存分为代码段、数据段、堆和栈，相互隔离不可访问。'
+      empty:
+        '每个进程拥有独立的虚拟地址空间，一个进程崩溃不会影响其他进程。点击"创建进程"开始演示。',
+      crashed:
+        '进程已崩溃但其他进程正常运行，证明进程间内存隔离有效。崩溃的进程会被操作系统回收资源。',
+      running:
+        '当前有 {count} 个进程在运行。每个进程的内存分为代码段、数据段、堆和栈，相互隔离不可访问。'
     }
   },
 
@@ -190,7 +199,8 @@ export default {
     localQueue: '本地队列',
     bindM: '绑定 M{id}',
     alertTitle: 'GMP 调度模型',
-    alertDescription: 'G (Goroutine): 待执行的任务。M (Machine): 操作系统线程，执行 G 的载体。P (Processor): 逻辑处理器，提供执行上下文。G 先放入 P 的本地队列，P 与 M 绑定后，M 从 P 获取 G 执行。当本地队列空时，会从全局队列或其他 P 偷任务。'
+    alertDescription:
+      'G (Goroutine): 待执行的任务。M (Machine): 操作系统线程，执行 G 的载体。P (Processor): 逻辑处理器，提供执行上下文。G 先放入 P 的本地队列，P 与 M 绑定后，M 从 P 获取 G 执行。当本地队列空时，会从全局队列或其他 P 偷任务。'
   },
 
   coroutineLightweight: {
@@ -212,9 +222,12 @@ export default {
       large: '大规模高并发场景'
     },
     insightDescriptions: {
-      small: '当前 {count} 个并发单元，线程和协程的差别还不明显。建议增加到 1000+ 来观察显著差异。',
-      medium: '使用协程可以节省 {savings}% 的内存（约 {memSaved}MB），创建速度快 {speedup} 倍。',
-      large: '在高并发场景下，协程优势巨大！节省 {savings}% 内存（{memSaved}MB），{threadMem}MB vs {coroutineMem}MB。这是 C10K/C10M 问题的关键解决方案。'
+      small:
+        '当前 {count} 个并发单元，线程和协程的差别还不明显。建议增加到 1000+ 来观察显著差异。',
+      medium:
+        '使用协程可以节省 {savings}% 的内存（约 {memSaved}MB），创建速度快 {speedup} 倍。',
+      large:
+        '在高并发场景下，协程优势巨大！节省 {savings}% 内存（{memSaved}MB），{threadMem}MB vs {coroutineMem}MB。这是 C10K/C10M 问题的关键解决方案。'
     }
   }
 }

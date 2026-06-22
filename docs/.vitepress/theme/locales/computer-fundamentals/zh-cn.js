@@ -77,15 +77,12 @@ export default {
     decimalTitle: '第一步：回顾十进制的"进位"',
     decimalIntro:
       '因为 7 + 5 = 12，这个结果超出了个位能装下的最大数字 (9)。我们把 12 拆成"一个完整的 10"和"剩下的 2"：',
-    decimalSum:
-      '留在当前位置的那个 2 被写在个位上，这叫本位 (Sum)。',
-    decimalCarry:
-      '"完整的 10"向十位进了一个 1，叫进位 (Carry)。',
+    decimalSum: '留在当前位置的那个 2 被写在个位上，这叫本位 (Sum)。',
+    decimalCarry: '"完整的 10"向十位进了一个 1，叫进位 (Carry)。',
     binaryTitle: '第二步：二进制加法的 4 种情况（点点看）',
     explainZero: '0 + 0 = 0。本位写 0，不进位。',
     explainOne: '本位写 1，不进位。',
-    explainCarry:
-      '1 + 1 = 10。二进制"满 2 就进 1"。所以本位写 0，向左进位 1。',
+    explainCarry: '1 + 1 = 10。二进制"满 2 就进 1"。所以本位写 0，向左进位 1。',
     ruleTitle: '第三步：给规律起个名字（电路化）',
     carry: '进位',
     sum: '本位',
@@ -122,15 +119,13 @@ export default {
     explanations: {
       '00': '0 + 0 = 0。这一列写下 0，不需要进位。',
       '01': '0 + 1 = 1。这一列写下 1，不需要进位。',
-      '10': '1 + 0 = 1。这一列写下 1，不需要进位。',
-      '11':
-        '1 + 1 = 2。但二进制这一列最多写 1，所以写下 0，并且向左边那列"进一个 1"（进位）。就像十进制的 9+1=10，个位写 0、十位进 1。'
+      10: '1 + 0 = 1。这一列写下 1，不需要进位。',
+      11: '1 + 1 = 2。但二进制这一列最多写 1，所以写下 0，并且向左边那列"进一个 1"（进位）。就像十进制的 9+1=10，个位写 0、十位进 1。'
     }
   },
   fullAdder: {
     title: '全加器 (Full Adder) -- 交互演示',
-    subtitle:
-      '比半加器多一个输入：来自低位的进位 (Cin)。点击三个输入试试',
+    subtitle: '比半加器多一个输入：来自低位的进位 (Cin)。点击三个输入试试',
     lowCarry: '低位进位',
     carry: '进位',
     sum: '本位',
@@ -825,8 +820,7 @@ ORDER BY created_at DESC
   },
   flipFlop: {
     title: '从触发器到寄存器：记忆的闭环机制',
-    desc:
-      '试着改变数据并观察，没有时钟信号的允许，输出重新反馈回输入端的"闭环"长久保护了记忆。',
+    desc: '试着改变数据并观察，没有时钟信号的允许，输出重新反馈回输入端的"闭环"长久保护了记忆。',
     dataInput: '数据总线 (Data Input)',
     gate: '大门',
     registerState: '4位寄存器 (存储状态)',
@@ -846,8 +840,7 @@ ORDER BY created_at DESC
       { id: 'decoder', name: '译码器 (Decoder)' }
     ],
     mux: {
-      desc:
-        '多路选择器 (MUX)：像铁路道岔一样，根据"选择信号"决定让哪一路数据通过。',
+      desc: '多路选择器 (MUX)：像铁路道岔一样，根据"选择信号"决定让哪一路数据通过。',
       data0: '数据 0 (D0)',
       data1: '数据 1 (D1)',
       select: '选择 (Sel)',
@@ -855,8 +848,7 @@ ORDER BY created_at DESC
       explain: '当前选择信号为 {sel}，因此输出等于 数据 {data} 的值：{result}'
     },
     decoder: {
-      desc:
-        '译码器 (Decoder)：将二进制输入转换为特定输出线的激活信号（例如 2位输入可以激活 4根输出线中的一根）。',
+      desc: '译码器 (Decoder)：将二进制输入转换为特定输出线的激活信号（例如 2位输入可以激活 4根输出线中的一根）。',
       highBit: 'A1 (高位)',
       lowBit: 'A0 (低位)',
       chip: '2-to-4\n译码器',
@@ -866,7 +858,8 @@ ORDER BY created_at DESC
         'Y2 (当输入 10 时)',
         'Y3 (当输入 11 时)'
       ],
-      explain: '当前输入为二进制的 {binary} (十进制 {decimal})，因此只有 Y{decimal} 被激活（输出 1）。'
+      explain:
+        '当前输入为二进制的 {binary} (十进制 {decimal})，因此只有 Y{decimal} 被激活（输出 1）。'
     }
   },
   minCpu: {
@@ -889,8 +882,7 @@ ORDER BY created_at DESC
     flags: '状态标志 (Flags)',
     controlBus: '控制总线 (Control Bus)',
     subCircuitTitle: '底层子电路实现：',
-    empty:
-      '点击左侧 CPU 内部结构图的各个模块，深入探索其微观电路实现。',
+    empty: '点击左侧 CPU 内部结构图的各个模块，深入探索其微观电路实现。',
     modules: {
       alu: {
         title: '算术逻辑单元 (ALU)',
@@ -1022,8 +1014,18 @@ ORDER BY created_at DESC
         done: '排序完成！'
       },
       complexities: [
-        { name: 'O(1)', value: '常数', desc: '最优，如数组访问', class: 'good' },
-        { name: 'O(log n)', value: '对数', desc: '很好，如二分查找', class: 'good' },
+        {
+          name: 'O(1)',
+          value: '常数',
+          desc: '最优，如数组访问',
+          class: 'good'
+        },
+        {
+          name: 'O(log n)',
+          value: '对数',
+          desc: '很好，如二分查找',
+          class: 'good'
+        },
         { name: 'O(n)', value: '线性', desc: '一般，如遍历', class: 'mid' },
         {
           name: 'O(n log n)',
@@ -1031,7 +1033,12 @@ ORDER BY created_at DESC
           desc: '可接受，如快速排序',
           class: 'mid'
         },
-        { name: 'O(n²)', value: '平方', desc: '较慢，如冒泡排序', class: 'bad' },
+        {
+          name: 'O(n²)',
+          value: '平方',
+          desc: '较慢，如冒泡排序',
+          class: 'bad'
+        },
         { name: 'O(2ⁿ)', value: '指数', desc: '很慢，如暴力递归', class: 'bad' }
       ]
     },
@@ -1073,10 +1080,34 @@ ORDER BY created_at DESC
       bubbleDesc: '重复遍历数组，比较相邻元素并交换',
       quickDesc: '选择基准，将数组分成小于和大于基准的两部分',
       comparisonRows: [
-        { name: '冒泡排序', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)', stable: '✓' },
-        { name: '快速排序', average: 'O(n log n)', worst: 'O(n²)', space: 'O(log n)', stable: '✗' },
-        { name: '归并排序', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)', stable: '✓' },
-        { name: '插入排序', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)', stable: '✓' }
+        {
+          name: '冒泡排序',
+          average: 'O(n²)',
+          worst: 'O(n²)',
+          space: 'O(1)',
+          stable: '✓'
+        },
+        {
+          name: '快速排序',
+          average: 'O(n log n)',
+          worst: 'O(n²)',
+          space: 'O(log n)',
+          stable: '✗'
+        },
+        {
+          name: '归并排序',
+          average: 'O(n log n)',
+          worst: 'O(n log n)',
+          space: 'O(n)',
+          stable: '✓'
+        },
+        {
+          name: '插入排序',
+          average: 'O(n²)',
+          worst: 'O(n²)',
+          space: 'O(1)',
+          stable: '✓'
+        }
       ]
     },
     recursive: {
@@ -1385,7 +1416,12 @@ ORDER BY created_at DESC
           ],
           metrics: [
             { label: '运行速度', value: 95, text: '极快', color: '#22c55e' },
-            { label: '启动速度', value: 30, text: '慢（需编译）', color: '#ef4444' },
+            {
+              label: '启动速度',
+              value: 30,
+              text: '慢（需编译）',
+              color: '#ef4444'
+            },
             { label: '跨平台', value: 20, text: '需重新编译', color: '#ef4444' }
           ],
           langs: ['C', 'C++', 'Rust', 'Go']
@@ -1399,7 +1435,12 @@ ORDER BY created_at DESC
           ],
           metrics: [
             { label: '运行速度', value: 30, text: '较慢', color: '#ef4444' },
-            { label: '启动速度', value: 90, text: '快（直接运行）', color: '#22c55e' },
+            {
+              label: '启动速度',
+              value: 90,
+              text: '快（直接运行）',
+              color: '#22c55e'
+            },
             { label: '跨平台', value: 90, text: '天然跨平台', color: '#22c55e' }
           ],
           langs: ['Python', 'Ruby', 'PHP', 'Bash']
@@ -1414,8 +1455,18 @@ ORDER BY created_at DESC
             { icon: '🚀', name: '高速执行', desc: '接近原生速度' }
           ],
           metrics: [
-            { label: '运行速度', value: 75, text: '快（热点接近原生）', color: '#22c55e' },
-            { label: '启动速度', value: 60, text: '中等（需预热）', color: '#eab308' },
+            {
+              label: '运行速度',
+              value: 75,
+              text: '快（热点接近原生）',
+              color: '#22c55e'
+            },
+            {
+              label: '启动速度',
+              value: 60,
+              text: '中等（需预热）',
+              color: '#eab308'
+            },
             { label: '跨平台', value: 85, text: '跨平台', color: '#22c55e' }
           ],
           langs: ['JavaScript (V8)', 'Java (JVM)', 'C# (.NET)']
@@ -1739,7 +1790,13 @@ console.log(z + 1)   // 31`,
           name: '词法分析',
           output: 'Token 流',
           desc: '把源代码拆成一个个"单词"（Token），就像读句子时先认出每个词',
-          tasks: ['识别关键字', '识别标识符', '识别数字', '识别运算符', '过滤空白'],
+          tasks: [
+            '识别关键字',
+            '识别标识符',
+            '识别数字',
+            '识别运算符',
+            '过滤空白'
+          ],
           example: `int x = 10 + 5;
 → [int] [x] [=] [10] [+] [5] [;]
     关键字 标识符 运算符 数字 运算符 数字 分隔符`
@@ -1824,7 +1881,8 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
     overview: {
       title: '数据结构全景图',
       subtitle: '不同场景选择不同的数据组织方式',
-      intro: '数据结构就像整理房间的方式：把衣服放进衣柜、书放在书架、杂物放抽屉',
+      intro:
+        '数据结构就像整理房间的方式：把衣服放进衣柜、书放在书架、杂物放抽屉',
       featuresTitle: '特点',
       scenariosTitle: '适用场景',
       complexityTitle: '操作复杂度',
@@ -1844,9 +1902,21 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
             '可以是连续存储或链式存储'
           ],
           scenarios: [
-            { icon: '📝', title: '数组：列表数据', desc: '存储学生成绩、商品价格等有序数据' },
-            { icon: '🔄', title: '栈：撤销操作', desc: '文本编辑器的撤销功能，后进先出' },
-            { icon: '🎫', title: '队列：任务调度', desc: '打印队列、任务队列，先进先出' }
+            {
+              icon: '📝',
+              title: '数组：列表数据',
+              desc: '存储学生成绩、商品价格等有序数据'
+            },
+            {
+              icon: '🔄',
+              title: '栈：撤销操作',
+              desc: '文本编辑器的撤销功能，后进先出'
+            },
+            {
+              icon: '🎫',
+              title: '队列：任务调度',
+              desc: '打印队列、任务队列，先进先出'
+            }
           ],
           complexity: [
             { operation: '访问元素', time: 'O(1)' },
@@ -1863,11 +1933,27 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           icon: '🗂️',
           desc: '通过关键词快速查找',
           examples: ['哈希表', '字典', '集合'],
-          features: ['通过键值对存储数据', '查找速度极快', '数据之间没有顺序关系'],
+          features: [
+            '通过键值对存储数据',
+            '查找速度极快',
+            '数据之间没有顺序关系'
+          ],
           scenarios: [
-            { icon: '📖', title: '字典：单词查找', desc: '根据英文单词快速找到中文释义' },
-            { icon: '👤', title: '用户信息：ID 查询', desc: '根据用户 ID 快速获取用户资料' },
-            { icon: '🛒', title: '购物车：商品管理', desc: '记录商品 ID 和数量，快速结算' }
+            {
+              icon: '📖',
+              title: '字典：单词查找',
+              desc: '根据英文单词快速找到中文释义'
+            },
+            {
+              icon: '👤',
+              title: '用户信息：ID 查询',
+              desc: '根据用户 ID 快速获取用户资料'
+            },
+            {
+              icon: '🛒',
+              title: '购物车：商品管理',
+              desc: '记录商品 ID 和数量，快速结算'
+            }
           ],
           complexity: [
             { operation: '查找', time: 'O(1)' },
@@ -1884,9 +1970,17 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           icon: '🌳',
           desc: '层级关系，像家谱',
           examples: ['二叉树', 'B 树', '堆'],
-          features: ['一对多的层级关系', '有明确的根节点', '适合表示分类和层级'],
+          features: [
+            '一对多的层级关系',
+            '有明确的根节点',
+            '适合表示分类和层级'
+          ],
           scenarios: [
-            { icon: '📁', title: '文件系统：目录树', desc: '文件夹和文件的层级组织' },
+            {
+              icon: '📁',
+              title: '文件系统：目录树',
+              desc: '文件夹和文件的层级组织'
+            },
             { icon: '🏢', title: '组织架构：管理树', desc: '公司管理层级关系' },
             { icon: '💻', title: 'HTML：DOM 树', desc: '网页元素的嵌套结构' }
           ],
@@ -1905,11 +1999,27 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           icon: '🕸️',
           desc: '复杂关系网络',
           examples: ['有向图', '无向图', '网络图'],
-          features: ['多对多的复杂关系', '节点之间可以任意连接', '可以表示复杂网络'],
+          features: [
+            '多对多的复杂关系',
+            '节点之间可以任意连接',
+            '可以表示复杂网络'
+          ],
           scenarios: [
-            { icon: '🗺️', title: '地图：路径规划', desc: '城市之间的道路连接，导航系统' },
-            { icon: '👥', title: '社交网络：好友关系', desc: '用户之间的关注、好友关系' },
-            { icon: '🔗', title: '网页：链接关系', desc: '网页之间的超链接网络' }
+            {
+              icon: '🗺️',
+              title: '地图：路径规划',
+              desc: '城市之间的道路连接，导航系统'
+            },
+            {
+              icon: '👥',
+              title: '社交网络：好友关系',
+              desc: '用户之间的关注、好友关系'
+            },
+            {
+              icon: '🔗',
+              title: '网页：链接关系',
+              desc: '网页之间的超链接网络'
+            }
           ],
           complexity: [
             { operation: '遍历', time: 'O(V + E)' },
@@ -2073,9 +2183,19 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         { key: 'orange', value: '橙子' }
       ],
       performanceItems: [
-        { label: '哈希表查找', value: 'O(1)', class: 'excellent', desc: '瞬间找到' },
+        {
+          label: '哈希表查找',
+          value: 'O(1)',
+          class: 'excellent',
+          desc: '瞬间找到'
+        },
         { label: '数组查找', value: 'O(n)', class: 'good', desc: '需要遍历' },
-        { label: '二分查找', value: 'O(log n)', class: 'better', desc: '需要排序' }
+        {
+          label: '二分查找',
+          value: 'O(log n)',
+          class: 'better',
+          desc: '需要排序'
+        }
       ],
       applications: [
         { icon: '👤', text: '用户信息表（用户ID → 用户资料）' },
@@ -2107,8 +2227,16 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       featuresTitle: '树形结构的特点',
       features: [
         { icon: '🌲', title: '层级关系', desc: '节点之间是一对多的父子关系' },
-        { icon: '🎯', title: '单一根节点', desc: '除根节点外，每个节点只有一个父节点' },
-        { icon: '🔍', title: '高效查找', desc: '二叉搜索树的查找时间是 O(log n)' },
+        {
+          icon: '🎯',
+          title: '单一根节点',
+          desc: '除根节点外，每个节点只有一个父节点'
+        },
+        {
+          icon: '🔍',
+          title: '高效查找',
+          desc: '二叉搜索树的查找时间是 O(log n)'
+        },
         { icon: '🔄', title: '多种遍历', desc: '前序、中序、后序、层序遍历' }
       ],
       appTitle: '应用场景',
@@ -2167,7 +2295,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '快速查找',
           desc: '根据关键词快速找到对应数据',
           recommendation: '哈希表',
-          reasons: ['平均查找时间 O(1)，瞬间找到', '键值对存储，语义清晰', '无需遍历整个数据集'],
+          reasons: [
+            '平均查找时间 O(1)，瞬间找到',
+            '键值对存储，语义清晰',
+            '无需遍历整个数据集'
+          ],
           example: '用户 ID 查找用户资料、字典查词、缓存系统'
         },
         {
@@ -2176,7 +2308,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '保持顺序',
           desc: '数据需要按插入顺序或特定顺序存储',
           recommendation: '数组 或 链表',
-          reasons: ['数组支持索引直接访问', '链表可以灵活调整大小', '按位置访问速度快'],
+          reasons: [
+            '数组支持索引直接访问',
+            '链表可以灵活调整大小',
+            '按位置访问速度快'
+          ],
           example: '学生成绩列表、时间序列数据、排行榜'
         },
         {
@@ -2185,7 +2321,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '后进先出',
           desc: '最后进入的最先处理',
           recommendation: '栈',
-          reasons: ['只能在栈顶操作', '入栈出栈都是 O(1)', '适合回溯和撤销操作'],
+          reasons: [
+            '只能在栈顶操作',
+            '入栈出栈都是 O(1)',
+            '适合回溯和撤销操作'
+          ],
           example: '浏览器后退、编辑器撤销、函数调用栈'
         },
         {
@@ -2194,7 +2334,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '先进先出',
           desc: '先来的先处理',
           recommendation: '队列',
-          reasons: ['一端入队，另一端出队', '入队出队都是 O(1)', '公平的调度方式'],
+          reasons: [
+            '一端入队，另一端出队',
+            '入队出队都是 O(1)',
+            '公平的调度方式'
+          ],
           example: '打印队列、任务调度、消息队列'
         },
         {
@@ -2203,7 +2347,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '层级关系',
           desc: '数据之间有父子层级关系',
           recommendation: '树',
-          reasons: ['清晰表达层级结构', '查找效率 O(log n)', '支持多种遍历方式'],
+          reasons: [
+            '清晰表达层级结构',
+            '查找效率 O(log n)',
+            '支持多种遍历方式'
+          ],
           example: '文件系统、组织架构、HTML DOM'
         },
         {
@@ -2212,14 +2360,22 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '复杂关系',
           desc: '数据之间有多对多的复杂连接',
           recommendation: '图',
-          reasons: ['可以表示任意关系', '支持路径搜索算法', '适合网络和社交关系'],
+          reasons: [
+            '可以表示任意关系',
+            '支持路径搜索算法',
+            '适合网络和社交关系'
+          ],
           example: '社交网络、地图导航、网页链接'
         }
       ],
       referenceTable: [
         { scenario: '随机访问', structure: '数组', complexity: 'O(1)' },
         { scenario: '快速查找', structure: '哈希表', complexity: 'O(1)' },
-        { scenario: '有序查找', structure: '二叉搜索树', complexity: 'O(log n)' },
+        {
+          scenario: '有序查找',
+          structure: '二叉搜索树',
+          complexity: 'O(log n)'
+        },
         { scenario: '频繁插入删除', structure: '链表', complexity: 'O(1)' },
         { scenario: '撤销操作', structure: '栈', complexity: 'O(1)' },
         { scenario: '任务调度', structure: '队列', complexity: 'O(1)' }
@@ -2236,28 +2392,79 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         { id: 'convert', label: '类型转换' },
         { id: 'infer', label: '类型推断' }
       ],
-      axes: { strong: '强类型', weak: '弱类型', static: '静态', dynamic: '动态' },
+      axes: {
+        strong: '强类型',
+        weak: '弱类型',
+        static: '静态',
+        dynamic: '动态'
+      },
       checkScenarioTitle: '场景：给变量赋不同类型的值',
       inferIntroPrefix: '现代语言的类型推断：',
       inferIntroStrong: '写着像动态语言，保护像静态语言',
       inferArrow: '↓ 编译器自动推断',
       coreIdeaLabel: '核心思想：',
       coreIdeas: {
-        quadrant: '类型系统在两个维度上做选择：何时检查（静态/动态）和是否允许隐式转换（强/弱）。没有最好的组合，只有最适合的场景。',
-        check: '静态类型在编译时就能发现错误，动态类型要到运行时才知道。越早发现 bug，修复成本越低。',
-        convert: '弱类型语言会猜你的意思做隐式转换（常出错），强类型语言要求你明确表达意图（更安全）。',
-        infer: '类型推断让你两全其美：代码像动态语言一样简洁，编译器像静态语言一样严格检查。'
+        quadrant:
+          '类型系统在两个维度上做选择：何时检查（静态/动态）和是否允许隐式转换（强/弱）。没有最好的组合，只有最适合的场景。',
+        check:
+          '静态类型在编译时就能发现错误，动态类型要到运行时才知道。越早发现 bug，修复成本越低。',
+        convert:
+          '弱类型语言会猜你的意思做隐式转换（常出错），强类型语言要求你明确表达意图（更安全）。',
+        infer:
+          '类型推断让你两全其美：代码像动态语言一样简洁，编译器像静态语言一样严格检查。'
       },
       quadrants: [
-        { id: 'strong-static', title: '强 + 静态', langs: ['Java', 'Rust', 'Haskell'], desc: '编译期严格检查，不允许隐式转换。最安全，IDE 支持最好，但写起来相对“啰嗦”。', traits: ['编译期检查', '无隐式转换', '自动补全友好', '重构安全'] },
-        { id: 'weak-static', title: '弱 + 静态', langs: ['C', 'C++'], desc: '编译期检查类型，但允许指针强转等隐式转换。性能极高，但容易踩坑。', traits: ['编译期检查', '允许指针转换', '性能极高', '需要小心使用'] },
-        { id: 'strong-dynamic', title: '强 + 动态', langs: ['Python', 'Ruby'], desc: '运行时检查类型，不允许隐式转换。灵活且安全，但性能较低。', traits: ['运行时检查', '拒绝隐式转换', '开发快速', '性能受限'] },
-        { id: 'weak-dynamic', title: '弱 + 动态', langs: ['JavaScript', 'PHP'], desc: '运行时检查，允许隐式转换。最灵活但最容易出错，“1” + 1 可能让你抓狂。', traits: ['运行时检查', '隐式转换', '灵活自由', '容易出意外'] }
+        {
+          id: 'strong-static',
+          title: '强 + 静态',
+          langs: ['Java', 'Rust', 'Haskell'],
+          desc: '编译期严格检查，不允许隐式转换。最安全，IDE 支持最好，但写起来相对“啰嗦”。',
+          traits: ['编译期检查', '无隐式转换', '自动补全友好', '重构安全']
+        },
+        {
+          id: 'weak-static',
+          title: '弱 + 静态',
+          langs: ['C', 'C++'],
+          desc: '编译期检查类型，但允许指针强转等隐式转换。性能极高，但容易踩坑。',
+          traits: ['编译期检查', '允许指针转换', '性能极高', '需要小心使用']
+        },
+        {
+          id: 'strong-dynamic',
+          title: '强 + 动态',
+          langs: ['Python', 'Ruby'],
+          desc: '运行时检查类型，不允许隐式转换。灵活且安全，但性能较低。',
+          traits: ['运行时检查', '拒绝隐式转换', '开发快速', '性能受限']
+        },
+        {
+          id: 'weak-dynamic',
+          title: '弱 + 动态',
+          langs: ['JavaScript', 'PHP'],
+          desc: '运行时检查，允许隐式转换。最灵活但最容易出错，“1” + 1 可能让你抓狂。',
+          traits: ['运行时检查', '隐式转换', '灵活自由', '容易出意外']
+        }
       ],
       typeChecks: [
-        { lang: 'Java（静态）', code: 'String name = "Alice";\nname = 123; // ❌ 编译错误', result: 'error', badge: '编译期报错', verdict: '还没运行就发现了问题，0 成本修复' },
-        { lang: 'Python（动态强类型）', code: 'name = "Alice"\nname = 123  # ✅ 运行正常\nname + " test"  # ❌ 运行时 TypeError', result: 'warning', badge: '运行时报错', verdict: '赋值没问题，但后续操作可能出错' },
-        { lang: 'JavaScript（动态弱类型）', code: 'let name = "Alice"\nname = 123  // ✅ 运行正常\nname + " test"  // "123 test" 🤔', result: 'success', badge: '静默通过', verdict: '不报错但结果可能不是你想要的' }
+        {
+          lang: 'Java（静态）',
+          code: 'String name = "Alice";\nname = 123; // ❌ 编译错误',
+          result: 'error',
+          badge: '编译期报错',
+          verdict: '还没运行就发现了问题，0 成本修复'
+        },
+        {
+          lang: 'Python（动态强类型）',
+          code: 'name = "Alice"\nname = 123  # ✅ 运行正常\nname + " test"  # ❌ 运行时 TypeError',
+          result: 'warning',
+          badge: '运行时报错',
+          verdict: '赋值没问题，但后续操作可能出错'
+        },
+        {
+          lang: 'JavaScript（动态弱类型）',
+          code: 'let name = "Alice"\nname = 123  // ✅ 运行正常\nname + " test"  // "123 test" 🤔',
+          result: 'success',
+          badge: '静默通过',
+          verdict: '不报错但结果可能不是你想要的'
+        }
       ],
       convertLangs: [
         {
@@ -2265,12 +2472,42 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           summary: '弱类型：隐式转换，结果常出人意料',
           summaryClass: 'weak',
           conversions: [
-            { expr: '"1" + 1', result: '"11"', explain: '字符串拼接', error: false },
-            { expr: '"1" - 1', result: '0', explain: '自动转数字', error: false },
-            { expr: '[] + []', result: '""', explain: '空数组转空字符串', error: false },
-            { expr: '[] + {}', result: '"[object Object]"', explain: '对象转字符串', error: false },
-            { expr: 'true + true', result: '2', explain: '布尔转数字', error: false },
-            { expr: 'null + 1', result: '1', explain: 'null 变成 0', error: false }
+            {
+              expr: '"1" + 1',
+              result: '"11"',
+              explain: '字符串拼接',
+              error: false
+            },
+            {
+              expr: '"1" - 1',
+              result: '0',
+              explain: '自动转数字',
+              error: false
+            },
+            {
+              expr: '[] + []',
+              result: '""',
+              explain: '空数组转空字符串',
+              error: false
+            },
+            {
+              expr: '[] + {}',
+              result: '"[object Object]"',
+              explain: '对象转字符串',
+              error: false
+            },
+            {
+              expr: 'true + true',
+              result: '2',
+              explain: '布尔转数字',
+              error: false
+            },
+            {
+              expr: 'null + 1',
+              result: '1',
+              explain: 'null 变成 0',
+              error: false
+            }
           ]
         },
         {
@@ -2278,11 +2515,36 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           summary: '强类型：拒绝隐式转换，必须显式指定',
           summaryClass: 'strong',
           conversions: [
-            { expr: '"1" + 1', result: 'TypeError', explain: '不允许隐式转换', error: true },
-            { expr: '"1" + str(1)', result: '"11"', explain: '显式转换', error: false },
-            { expr: 'int("1") + 1', result: '2', explain: '显式转换', error: false },
-            { expr: 'True + True', result: '2', explain: '布尔是整数子类（特殊）', error: false },
-            { expr: '[1] + [2]', result: '[1, 2]', explain: '列表拼接（同类型操作）', error: false }
+            {
+              expr: '"1" + 1',
+              result: 'TypeError',
+              explain: '不允许隐式转换',
+              error: true
+            },
+            {
+              expr: '"1" + str(1)',
+              result: '"11"',
+              explain: '显式转换',
+              error: false
+            },
+            {
+              expr: 'int("1") + 1',
+              result: '2',
+              explain: '显式转换',
+              error: false
+            },
+            {
+              expr: 'True + True',
+              result: '2',
+              explain: '布尔是整数子类（特殊）',
+              error: false
+            },
+            {
+              expr: '[1] + [2]',
+              result: '[1, 2]',
+              explain: '列表拼接（同类型操作）',
+              error: false
+            }
           ]
         },
         {
@@ -2290,10 +2552,30 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           summary: '强类型：字符串拼接是特例，其余严格',
           summaryClass: 'strong',
           conversions: [
-            { expr: '"1" + 1', result: '"11"', explain: '字符串拼接（特殊规则）', error: false },
-            { expr: '(String) 1', result: '编译错误', explain: '不允许转换', error: true },
-            { expr: '(int) 1.5', result: '1', explain: '强制类型转换（丢精度）', error: false },
-            { expr: 'Integer.parseInt("1")', result: '1', explain: '显式解析', error: false }
+            {
+              expr: '"1" + 1',
+              result: '"11"',
+              explain: '字符串拼接（特殊规则）',
+              error: false
+            },
+            {
+              expr: '(String) 1',
+              result: '编译错误',
+              explain: '不允许转换',
+              error: true
+            },
+            {
+              expr: '(int) 1.5',
+              result: '1',
+              explain: '强制类型转换（丢精度）',
+              error: false
+            },
+            {
+              expr: 'Integer.parseInt("1")',
+              result: '1',
+              explain: '显式解析',
+              error: false
+            }
           ]
         },
         {
@@ -2301,10 +2583,30 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           summary: '强类型：类型不匹配就报错，零容忍',
           summaryClass: 'strong',
           conversions: [
-            { expr: '1_i32 + 1_i64', result: '编译错误', explain: '类型不匹配', error: true },
-            { expr: '1_i32 as i64 + 1_i64', result: '2', explain: '显式 as 转换', error: false },
-            { expr: '"1".parse::<i32>()', result: 'Ok(1)', explain: '显式解析（返回 Result）', error: false },
-            { expr: '1 as f64', result: '1.0', explain: '显式转换', error: false }
+            {
+              expr: '1_i32 + 1_i64',
+              result: '编译错误',
+              explain: '类型不匹配',
+              error: true
+            },
+            {
+              expr: '1_i32 as i64 + 1_i64',
+              result: '2',
+              explain: '显式 as 转换',
+              error: false
+            },
+            {
+              expr: '"1".parse::<i32>()',
+              result: 'Ok(1)',
+              explain: '显式解析（返回 Result）',
+              error: false
+            },
+            {
+              expr: '1 as f64',
+              result: '1.0',
+              explain: '显式转换',
+              error: false
+            }
           ]
         }
       ],
@@ -2316,7 +2618,12 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         { lang: 'Kotlin', code: 'val x = 1', type: 'Int' },
         { lang: 'Go', code: 'x := 1', type: 'int' }
       ],
-      inferBenefits: ['✅ 少写类型声明', '✅ 编译器仍然严格检查', '✅ IDE 自动补全照样工作', '✅ 重构时编译器帮你找错']
+      inferBenefits: [
+        '✅ 少写类型声明',
+        '✅ 编译器仍然严格检查',
+        '✅ IDE 自动补全照样工作',
+        '✅ 重构时编译器帮你找错'
+      ]
     },
     staticDynamic: {
       title: '🔍 静态类型 vs 动态类型：实时对比',
@@ -2326,9 +2633,43 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       staticTiming: '⏱ 编译时检查',
       dynamicTiming: '⏱ 运行时检查',
       examples: [
-        { label: '变量赋值', staticCode: 'let name: string = "Alice"\nname = 42  // ❌ 编译错误', dynamicCode: 'let name = "Alice"\nname = 42  // ✅ 没问题', staticResult: '❌ Type "number" is not assignable to type "string"', dynamicResult: '✅ 运行正常，name 变成了 42', staticOk: false, dynamicOk: true, insight: '静态类型在你写代码时就发现错误，动态类型要等到运行时才知道。' },
-        { label: '函数参数', staticCode: 'function add(a: number, b: number) {\n  return a + b\n}\nadd("1", 2)  // ❌ 编译错误', dynamicCode: 'function add(a, b) {\n  return a + b\n}\nadd("1", 2)  // ✅ 返回 "12"', staticResult: '❌ Argument of type "string" is not assignable to parameter of type "number"', dynamicResult: '✅ 返回 "12"（字符串拼接，不是数学加法！）', staticOk: false, dynamicOk: true, insight: '动态类型的“灵活”有时是 bug 的温床：你期望 3，却得到 "12"。' },
-        { label: '属性访问', staticCode: 'interface User { name: string }\nlet user: User = { name: "Bob" }\nconsole.log(user.age)  // ❌ 编译错误', dynamicCode: 'let user = { name: "Bob" }\nconsole.log(user.age)  // ✅ 输出 undefined', staticResult: '❌ Property "age" does not exist on type "User"', dynamicResult: '✅ 输出 undefined（不报错，但可能导致后续逻辑出错）', staticOk: false, dynamicOk: true, insight: '静态类型能在编译时捕获拼写错误和属性缺失，动态类型只会默默返回 undefined。' }
+        {
+          label: '变量赋值',
+          staticCode: 'let name: string = "Alice"\nname = 42  // ❌ 编译错误',
+          dynamicCode: 'let name = "Alice"\nname = 42  // ✅ 没问题',
+          staticResult: '❌ Type "number" is not assignable to type "string"',
+          dynamicResult: '✅ 运行正常，name 变成了 42',
+          staticOk: false,
+          dynamicOk: true,
+          insight:
+            '静态类型在你写代码时就发现错误，动态类型要等到运行时才知道。'
+        },
+        {
+          label: '函数参数',
+          staticCode:
+            'function add(a: number, b: number) {\n  return a + b\n}\nadd("1", 2)  // ❌ 编译错误',
+          dynamicCode:
+            'function add(a, b) {\n  return a + b\n}\nadd("1", 2)  // ✅ 返回 "12"',
+          staticResult:
+            '❌ Argument of type "string" is not assignable to parameter of type "number"',
+          dynamicResult: '✅ 返回 "12"（字符串拼接，不是数学加法！）',
+          staticOk: false,
+          dynamicOk: true,
+          insight: '动态类型的“灵活”有时是 bug 的温床：你期望 3，却得到 "12"。'
+        },
+        {
+          label: '属性访问',
+          staticCode:
+            'interface User { name: string }\nlet user: User = { name: "Bob" }\nconsole.log(user.age)  // ❌ 编译错误',
+          dynamicCode:
+            'let user = { name: "Bob" }\nconsole.log(user.age)  // ✅ 输出 undefined',
+          staticResult: '❌ Property "age" does not exist on type "User"',
+          dynamicResult: '✅ 输出 undefined（不报错，但可能导致后续逻辑出错）',
+          staticOk: false,
+          dynamicOk: true,
+          insight:
+            '静态类型能在编译时捕获拼写错误和属性缺失，动态类型只会默默返回 undefined。'
+        }
       ]
     },
     strongWeak: {
@@ -2337,9 +2678,111 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       strong: '强类型',
       weak: '弱类型',
       expressions: [
-        { expr: '"1" + 1', langs: [{ name: 'JavaScript', strong: false, code: '"1" + 1', result: '→ "11"（字符串拼接）', error: false }, { name: 'Python', strong: true, code: '"1" + 1', result: '→ TypeError: can only concatenate str to str', error: true }, { name: 'Java', strong: false, code: '"1" + 1', result: '→ "11"（字符串拼接）', error: false }, { name: 'Rust', strong: true, code: '"1" + 1', result: '→ 编译错误：类型不匹配', error: true }], takeaway: '强类型语言拒绝猜测你的意图，宁可报错也不悄悄转换。弱类型语言会“好心”帮你转，但结果可能不是你想要的。' },
-        { expr: 'true + 1', langs: [{ name: 'JavaScript', strong: false, code: 'true + 1', result: '→ 2（true 被转为 1）', error: false }, { name: 'Python', strong: true, code: 'True + 1', result: '→ 2（Python 中 bool 是 int 子类）', error: false }, { name: 'Java', strong: false, code: 'true + 1', result: '→ 编译错误', error: true }, { name: 'C', strong: false, code: '1 + 1 // true=1', result: '→ 2（C 中没有 bool，用 0/1）', error: false }], takeaway: 'bool 和数字的关系因语言而异。Python 虽是强类型，但 bool 继承自 int，这是设计选择而非弱类型。' },
-        { expr: '"5" == 5', langs: [{ name: 'JavaScript', strong: false, code: '"5" == 5', result: '→ true（隐式转换后比较）', error: false }, { name: 'Python', strong: true, code: '"5" == 5', result: '→ False（类型不同，直接 False）', error: false }, { name: 'TypeScript', strong: false, code: '"5" == 5', result: '→ true（但 TSLint 会警告）', error: false }, { name: 'PHP', strong: false, code: '"5" == 5', result: '→ true（臭名昭著的松散比较）', error: false }], takeaway: 'JavaScript 的 == 会做隐式转换，这是无数 bug 的来源。所以社区推荐始终使用 === 严格比较。' }
+        {
+          expr: '"1" + 1',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: '"1" + 1',
+              result: '→ "11"（字符串拼接）',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: '"1" + 1',
+              result: '→ TypeError: can only concatenate str to str',
+              error: true
+            },
+            {
+              name: 'Java',
+              strong: false,
+              code: '"1" + 1',
+              result: '→ "11"（字符串拼接）',
+              error: false
+            },
+            {
+              name: 'Rust',
+              strong: true,
+              code: '"1" + 1',
+              result: '→ 编译错误：类型不匹配',
+              error: true
+            }
+          ],
+          takeaway:
+            '强类型语言拒绝猜测你的意图，宁可报错也不悄悄转换。弱类型语言会“好心”帮你转，但结果可能不是你想要的。'
+        },
+        {
+          expr: 'true + 1',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: 'true + 1',
+              result: '→ 2（true 被转为 1）',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: 'True + 1',
+              result: '→ 2（Python 中 bool 是 int 子类）',
+              error: false
+            },
+            {
+              name: 'Java',
+              strong: false,
+              code: 'true + 1',
+              result: '→ 编译错误',
+              error: true
+            },
+            {
+              name: 'C',
+              strong: false,
+              code: '1 + 1 // true=1',
+              result: '→ 2（C 中没有 bool，用 0/1）',
+              error: false
+            }
+          ],
+          takeaway:
+            'bool 和数字的关系因语言而异。Python 虽是强类型，但 bool 继承自 int，这是设计选择而非弱类型。'
+        },
+        {
+          expr: '"5" == 5',
+          langs: [
+            {
+              name: 'JavaScript',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true（隐式转换后比较）',
+              error: false
+            },
+            {
+              name: 'Python',
+              strong: true,
+              code: '"5" == 5',
+              result: '→ False（类型不同，直接 False）',
+              error: false
+            },
+            {
+              name: 'TypeScript',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true（但 TSLint 会警告）',
+              error: false
+            },
+            {
+              name: 'PHP',
+              strong: false,
+              code: '"5" == 5',
+              result: '→ true（臭名昭著的松散比较）',
+              error: false
+            }
+          ],
+          takeaway:
+            'JavaScript 的 == 会做隐式转换，这是无数 bug 的来源。所以社区推荐始终使用 === 严格比较。'
+        }
       ]
     },
     inference: {
@@ -2348,11 +2791,51 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       processTitle: '推断过程',
       supportTitle: '各语言的类型推断能力',
       codeLines: [
-        { code: '<span class="kw">let</span> x = <span class="num">42</span>', inferred: 'number', steps: ['右侧是字面量 42', '42 是整数，类型为 number', '推断 x 的类型为 number'] },
-        { code: '<span class="kw">let</span> names = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>]', inferred: 'string[]', steps: ['右侧是数组字面量 [...]', '数组元素 "Alice"、"Bob" 都是 string', '推断数组类型为 string[]'] },
-        { code: '<span class="kw">let</span> result = x > 10 ? <span class="str">"big"</span> : <span class="str">"small"</span>', inferred: 'string', steps: ['三元表达式的两个分支都是 string', '两个分支类型一致', '推断 result 类型为 string'] },
-        { code: '<span class="kw">const</span> add = (a: <span class="type">number</span>, b: <span class="type">number</span>) => a + b', inferred: '(a: number, b: number) => number', steps: ['参数 a 和 b 显式标注为 number', 'number + number 的结果是 number', '推断返回值类型为 number'] },
-        { code: '<span class="kw">let</span> mixed = [<span class="num">1</span>, <span class="str">"two"</span>, <span class="kw">true</span>]', inferred: '(number | string | boolean)[]', steps: ['数组包含 number、string、boolean 三种类型', '取所有元素类型的联合类型', '推断为 (number | string | boolean)[]'] }
+        {
+          code: '<span class="kw">let</span> x = <span class="num">42</span>',
+          inferred: 'number',
+          steps: [
+            '右侧是字面量 42',
+            '42 是整数，类型为 number',
+            '推断 x 的类型为 number'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> names = [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>]',
+          inferred: 'string[]',
+          steps: [
+            '右侧是数组字面量 [...]',
+            '数组元素 "Alice"、"Bob" 都是 string',
+            '推断数组类型为 string[]'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> result = x > 10 ? <span class="str">"big"</span> : <span class="str">"small"</span>',
+          inferred: 'string',
+          steps: [
+            '三元表达式的两个分支都是 string',
+            '两个分支类型一致',
+            '推断 result 类型为 string'
+          ]
+        },
+        {
+          code: '<span class="kw">const</span> add = (a: <span class="type">number</span>, b: <span class="type">number</span>) => a + b',
+          inferred: '(a: number, b: number) => number',
+          steps: [
+            '参数 a 和 b 显式标注为 number',
+            'number + number 的结果是 number',
+            '推断返回值类型为 number'
+          ]
+        },
+        {
+          code: '<span class="kw">let</span> mixed = [<span class="num">1</span>, <span class="str">"two"</span>, <span class="kw">true</span>]',
+          inferred: '(number | string | boolean)[]',
+          steps: [
+            '数组包含 number、string、boolean 三种类型',
+            '取所有元素类型的联合类型',
+            '推断为 (number | string | boolean)[]'
+          ]
+        }
       ],
       langs: [
         { name: 'Rust', level: 95, label: '几乎全推断' },
@@ -2370,9 +2853,36 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       withLabel: '✅ 使用泛型',
       flowTitle: '类型传递过程',
       scenes: [
-        { label: '通用函数', without: '// 要为每种类型写一个函数\nfunction getFirstNumber(arr: number[]): number {\n  return arr[0]\n}\nfunction getFirstString(arr: string[]): string {\n  return arr[0]\n}\n// 还有 boolean、object...写不完', withGeneric: '// 一个泛型函数搞定所有类型\nfunction getFirst<T>(arr: T[]): T {\n  return arr[0]\n}\n\ngetFirst<number>([1, 2, 3])   // → number\ngetFirst<string>(["a", "b"])  // → string', problem: '每种类型都要写一遍，代码重复', benefit: 'T 是类型参数，调用时自动替换为实际类型', flow: ['T = number', 'arr: number[]', '返回值: number'] },
-        { label: '类型安全容器', without: '// 用 any 失去类型安全\nclass Box {\n  value: any\n  get(): any { return this.value }\n}\nconst box = new Box()\nbox.value = 42\nconst v = box.get() // v 是 any，没有类型提示', withGeneric: '// 泛型类保持类型安全\nclass Box<T> {\n  value: T\n  get(): T { return this.value }\n}\nconst box = new Box<number>()\nbox.value = 42\nconst v = box.get() // v 是 number，有完整提示', problem: 'any 类型没有任何类型检查和提示', benefit: '泛型类在实例化时确定类型，全程类型安全', flow: ['Box<number>', 'value: number', 'get(): number'] },
-        { label: '类型约束', without: '// 没有约束，什么都能传\nfunction getLength<T>(item: T): number {\n  return item.length  // ❌ 编译错误！\n  // T 可能没有 length 属性\n}', withGeneric: '// 用 extends 约束 T 必须有 length\ninterface HasLength { length: number }\n\nfunction getLength<T extends HasLength>(item: T) {\n  return item.length  // ✅ 安全！\n}\n\ngetLength("hello")     // ✅ string 有 length\ngetLength([1, 2, 3])   // ✅ array 有 length\ngetLength(42)           // ❌ number 没有 length', problem: '不加约束，泛型太“自由”，无法安全访问属性', benefit: 'extends 约束确保 T 一定有 length 属性', flow: ['T extends HasLength', '确保有 .length', '安全访问'] }
+        {
+          label: '通用函数',
+          without:
+            '// 要为每种类型写一个函数\nfunction getFirstNumber(arr: number[]): number {\n  return arr[0]\n}\nfunction getFirstString(arr: string[]): string {\n  return arr[0]\n}\n// 还有 boolean、object...写不完',
+          withGeneric:
+            '// 一个泛型函数搞定所有类型\nfunction getFirst<T>(arr: T[]): T {\n  return arr[0]\n}\n\ngetFirst<number>([1, 2, 3])   // → number\ngetFirst<string>(["a", "b"])  // → string',
+          problem: '每种类型都要写一遍，代码重复',
+          benefit: 'T 是类型参数，调用时自动替换为实际类型',
+          flow: ['T = number', 'arr: number[]', '返回值: number']
+        },
+        {
+          label: '类型安全容器',
+          without:
+            '// 用 any 失去类型安全\nclass Box {\n  value: any\n  get(): any { return this.value }\n}\nconst box = new Box()\nbox.value = 42\nconst v = box.get() // v 是 any，没有类型提示',
+          withGeneric:
+            '// 泛型类保持类型安全\nclass Box<T> {\n  value: T\n  get(): T { return this.value }\n}\nconst box = new Box<number>()\nbox.value = 42\nconst v = box.get() // v 是 number，有完整提示',
+          problem: 'any 类型没有任何类型检查和提示',
+          benefit: '泛型类在实例化时确定类型，全程类型安全',
+          flow: ['Box<number>', 'value: number', 'get(): number']
+        },
+        {
+          label: '类型约束',
+          without:
+            '// 没有约束，什么都能传\nfunction getLength<T>(item: T): number {\n  return item.length  // ❌ 编译错误！\n  // T 可能没有 length 属性\n}',
+          withGeneric:
+            '// 用 extends 约束 T 必须有 length\ninterface HasLength { length: number }\n\nfunction getLength<T extends HasLength>(item: T) {\n  return item.length  // ✅ 安全！\n}\n\ngetLength("hello")     // ✅ string 有 length\ngetLength([1, 2, 3])   // ✅ array 有 length\ngetLength(42)           // ❌ number 没有 length',
+          problem: '不加约束，泛型太“自由”，无法安全访问属性',
+          benefit: 'extends 约束确保 T 一定有 length 属性',
+          flow: ['T extends HasLength', '确保有 .length', '安全访问']
+        }
       ]
     },
     safety: {
@@ -2382,10 +2892,66 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       safeLabel: '✅ 安全代码',
       tipTitle: '🔑 防御策略',
       traps: [
-        { icon: '💣', name: 'null 引用', dangerCode: 'function getLength(str) {\n  return str.length  // 如果 str 是 null？\n}\ngetLength(null)  // 💥 运行时崩溃', dangerResult: '💥 TypeError: Cannot read properties of null', safeCode: 'function getLength(str: string | null): number {\n  if (str === null) return 0\n  return str.length  // ✅ 编译器确保此处 str 不为 null\n}', safeResult: '✅ 编译器强制你处理 null 的情况', tips: ['使用 strictNullChecks 编译选项', '用联合类型 string | null 显式标注可空', '用可选链 ?. 安全访问属性'] },
-        { icon: '🎭', name: '类型断言滥用', dangerCode: 'const data = fetchAPI() as any\nconst name = data.user.profile.name\n// 如果 API 返回格式变了？', dangerResult: '💥 运行时崩溃，any 绕过了所有类型检查', safeCode: 'interface APIResponse {\n  user: { profile: { name: string } }\n}\nconst data: APIResponse = await fetchAPI()\nconst name = data.user.profile.name', safeResult: '✅ 如果 API 格式变了，编译时就能发现', tips: ['避免使用 any，用 unknown 代替', '为 API 响应定义明确的接口', '使用 zod 等库做运行时校验'] },
-        { icon: '🔄', name: '隐式转换', dangerCode: 'if (userId == 0) {\n  // 当 userId 是 "" 时也会进入！\n  console.log("无效用户")\n}\n// "" == 0 → true（隐式转换）', dangerResult: '💥 空字符串被当成 0，逻辑错误', safeCode: 'if (userId === 0) {\n  console.log("无效用户")\n}\n// "" === 0 → false（严格比较）', safeResult: '✅ 严格比较不做隐式转换', tips: ['始终使用 === 而不是 ==', '开启 ESLint 的 eqeqeq 规则', '用 TypeScript 的严格模式'] },
-        { icon: '📦', name: '数组类型不安全', dangerCode: 'const items = []  // any[] 类型\nitems.push(1)\nitems.push("hello")\nitems.push({ x: 1 })\n// 数组里什么都有，取出来用时容易出错', dangerResult: '💥 数组元素类型不一致，后续操作可能崩溃', safeCode: 'const items: number[] = []\nitems.push(1)\nitems.push("hello")  // ❌ 编译错误！\n// 编译器确保数组元素类型一致', safeResult: '✅ 编译时就阻止了类型不一致的元素', tips: ['声明数组时指定元素类型', '使用 ReadonlyArray 防止意外修改', '用元组类型 [string, number] 表示固定结构'] }
+        {
+          icon: '💣',
+          name: 'null 引用',
+          dangerCode:
+            'function getLength(str) {\n  return str.length  // 如果 str 是 null？\n}\ngetLength(null)  // 💥 运行时崩溃',
+          dangerResult: '💥 TypeError: Cannot read properties of null',
+          safeCode:
+            'function getLength(str: string | null): number {\n  if (str === null) return 0\n  return str.length  // ✅ 编译器确保此处 str 不为 null\n}',
+          safeResult: '✅ 编译器强制你处理 null 的情况',
+          tips: [
+            '使用 strictNullChecks 编译选项',
+            '用联合类型 string | null 显式标注可空',
+            '用可选链 ?. 安全访问属性'
+          ]
+        },
+        {
+          icon: '🎭',
+          name: '类型断言滥用',
+          dangerCode:
+            'const data = fetchAPI() as any\nconst name = data.user.profile.name\n// 如果 API 返回格式变了？',
+          dangerResult: '💥 运行时崩溃，any 绕过了所有类型检查',
+          safeCode:
+            'interface APIResponse {\n  user: { profile: { name: string } }\n}\nconst data: APIResponse = await fetchAPI()\nconst name = data.user.profile.name',
+          safeResult: '✅ 如果 API 格式变了，编译时就能发现',
+          tips: [
+            '避免使用 any，用 unknown 代替',
+            '为 API 响应定义明确的接口',
+            '使用 zod 等库做运行时校验'
+          ]
+        },
+        {
+          icon: '🔄',
+          name: '隐式转换',
+          dangerCode:
+            'if (userId == 0) {\n  // 当 userId 是 "" 时也会进入！\n  console.log("无效用户")\n}\n// "" == 0 → true（隐式转换）',
+          dangerResult: '💥 空字符串被当成 0，逻辑错误',
+          safeCode:
+            'if (userId === 0) {\n  console.log("无效用户")\n}\n// "" === 0 → false（严格比较）',
+          safeResult: '✅ 严格比较不做隐式转换',
+          tips: [
+            '始终使用 === 而不是 ==',
+            '开启 ESLint 的 eqeqeq 规则',
+            '用 TypeScript 的严格模式'
+          ]
+        },
+        {
+          icon: '📦',
+          name: '数组类型不安全',
+          dangerCode:
+            'const items = []  // any[] 类型\nitems.push(1)\nitems.push("hello")\nitems.push({ x: 1 })\n// 数组里什么都有，取出来用时容易出错',
+          dangerResult: '💥 数组元素类型不一致，后续操作可能崩溃',
+          safeCode:
+            'const items: number[] = []\nitems.push(1)\nitems.push("hello")  // ❌ 编译错误！\n// 编译器确保数组元素类型一致',
+          safeResult: '✅ 编译时就阻止了类型不一致的元素',
+          tips: [
+            '声明数组时指定元素类型',
+            '使用 ReadonlyArray 防止意外修改',
+            '用元组类型 [string, number] 表示固定结构'
+          ]
+        }
       ]
     },
     languageModel: {
@@ -2395,18 +2961,50 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       inferenceTitle: '类型推断',
       inferenceDesc: '现代语言可以自动推断变量类型，无需显式声明',
       dimensions: [
-        { id: 'static', title: '类型检查时机', options: [{ name: '静态类型', langs: 'Java, C++, Rust, Go' }, { name: '动态类型', langs: 'Python, JavaScript, Ruby' }] },
-        { id: 'strength', title: '类型强度', options: [{ name: '强类型', langs: 'Python, Java, Rust' }, { name: '弱类型', langs: 'JavaScript, C, PHP' }] }
+        {
+          id: 'static',
+          title: '类型检查时机',
+          options: [
+            { name: '静态类型', langs: 'Java, C++, Rust, Go' },
+            { name: '动态类型', langs: 'Python, JavaScript, Ruby' }
+          ]
+        },
+        {
+          id: 'strength',
+          title: '类型强度',
+          options: [
+            { name: '强类型', langs: 'Python, Java, Rust' },
+            { name: '弱类型', langs: 'JavaScript, C, PHP' }
+          ]
+        }
       ],
       matrixCells: [
-        { title: '静态 + 强', langs: 'Java, C++, Rust, Go', desc: '编译期检查，类型安全' },
+        {
+          title: '静态 + 强',
+          langs: 'Java, C++, Rust, Go',
+          desc: '编译期检查，类型安全'
+        },
         { title: '静态 + 弱', langs: 'C', desc: '编译期检查，可随意转换' },
-        { title: '动态 + 强', langs: 'Python, Ruby', desc: '运行时检查，类型安全' },
-        { title: '动态 + 弱', langs: 'JavaScript, PHP', desc: '运行时检查，类型灵活' }
+        {
+          title: '动态 + 强',
+          langs: 'Python, Ruby',
+          desc: '运行时检查，类型安全'
+        },
+        {
+          title: '动态 + 弱',
+          langs: 'JavaScript, PHP',
+          desc: '运行时检查，类型灵活'
+        }
       ],
       inferenceExamples: [
-        { lang: 'TypeScript', code: 'let x = 5; // 推断为 number\nlet name = "Alice"; // string' },
-        { lang: 'Rust', code: 'let x = 5; // 推断为 i32\nlet name = "Alice"; // &str' }
+        {
+          lang: 'TypeScript',
+          code: 'let x = 5; // 推断为 number\nlet name = "Alice"; // string'
+        },
+        {
+          lang: 'Rust',
+          code: 'let x = 5; // 推断为 i32\nlet name = "Alice"; // &str'
+        }
       ]
     }
   },
@@ -2478,16 +3076,27 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
               icon: '💾',
               name: 'BIOS（传统）',
               what: 'Basic Input/Output System，1980年代开始使用的固件接口。',
-              details: ['存储在主板 ROM 芯片中', '16位实模式运行', '最大支持 2.2TB 硬盘', '蓝色文本界面']
+              details: [
+                '存储在主板 ROM 芯片中',
+                '16位实模式运行',
+                '最大支持 2.2TB 硬盘',
+                '蓝色文本界面'
+              ]
             },
             {
               icon: '✨',
               name: 'UEFI（现代）',
               what: 'Unified Extensible Firmware Interface，BIOS 的现代化替代品。',
-              details: ['支持 32/64位模式', '支持超过 2.2TB 的大硬盘', '图形化设置界面', '安全启动（Secure Boot）']
+              details: [
+                '支持 32/64位模式',
+                '支持超过 2.2TB 的大硬盘',
+                '图形化设置界面',
+                '安全启动（Secure Boot）'
+              ]
             }
           ],
-          analogy: 'BIOS/UEFI 就像是电脑的"守门人"：它第一个醒来，检查一切是否正常，然后决定让谁（操作系统）进来。'
+          analogy:
+            'BIOS/UEFI 就像是电脑的"守门人"：它第一个醒来，检查一切是否正常，然后决定让谁（操作系统）进来。'
         },
         {
           short: 'POST',
@@ -2499,7 +3108,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
               icon: '🧠',
               name: '内存检测',
               what: '向内存写入测试数据并读回验证，确认每个内存条工作正常。',
-              details: ['逐字节写入/读取测试', '检测内存容量和速度', '失败会发出蜂鸣声（1长3短）']
+              details: [
+                '逐字节写入/读取测试',
+                '检测内存容量和速度',
+                '失败会发出蜂鸣声（1长3短）'
+              ]
             },
             {
               icon: '🎮',
@@ -2511,16 +3124,25 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
               icon: '⌨️',
               name: '外设检测',
               what: '扫描 USB/PS2 端口，检测键盘、鼠标等输入设备。',
-              details: ['枚举 USB 设备', '检测键盘响应', '非关键设备，缺失不影响启动']
+              details: [
+                '枚举 USB 设备',
+                '检测键盘响应',
+                '非关键设备，缺失不影响启动'
+              ]
             },
             {
               icon: '💾',
               name: '存储设备检测',
               what: '识别硬盘、SSD、光驱等存储设备，读取设备信息。',
-              details: ['检测 SATA/NVMe 设备', '读取设备型号和容量', '为后续启动做准备']
+              details: [
+                '检测 SATA/NVMe 设备',
+                '读取设备型号和容量',
+                '为后续启动做准备'
+              ]
             }
           ],
-          analogy: '就像飞机起飞前的安全检查：机长逐项确认引擎、仪表、燃油都正常，有任何问题就不能起飞。'
+          analogy:
+            '就像飞机起飞前的安全检查：机长逐项确认引擎、仪表、燃油都正常，有任何问题就不能起飞。'
         },
         {
           short: '初始化',
@@ -2532,28 +3154,45 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
               icon: '🔧',
               name: '设置工作模式',
               what: '配置 CPU 运行频率、内存时序（CAS Latency）等参数。',
-              details: ['读取 CMOS 中的用户设置', '应用超频配置（如果有）', '设置电源管理模式']
+              details: [
+                '读取 CMOS 中的用户设置',
+                '应用超频配置（如果有）',
+                '设置电源管理模式'
+              ]
             },
             {
               icon: '📋',
               name: '中断向量表',
               what: '建立中断号与处理程序的映射表，让硬件事件能被正确响应。',
-              details: ['配置中断控制器（PIC/APIC）', '分配 IRQ 中断号', '设置中断处理程序入口']
+              details: [
+                '配置中断控制器（PIC/APIC）',
+                '分配 IRQ 中断号',
+                '设置中断处理程序入口'
+              ]
             },
             {
               icon: '🔌',
               name: 'PCI 设备枚举',
               what: '扫描 PCI/PCIe 总线，为显卡、网卡、声卡分配资源。',
-              details: ['发现所有 PCI 设备', '分配内存映射 I/O 地址', '分配中断资源']
+              details: [
+                '发现所有 PCI 设备',
+                '分配内存映射 I/O 地址',
+                '分配中断资源'
+              ]
             },
             {
               icon: '🕐',
               name: '时钟初始化',
               what: '读取 CMOS 中的实时时钟（RTC），同步系统时间。',
-              details: ['读取硬件时钟', '校验时间有效性', '为操作系统提供初始时间']
+              details: [
+                '读取硬件时钟',
+                '校验时间有效性',
+                '为操作系统提供初始时间'
+              ]
             }
           ],
-          analogy: '好比乐队演出前的调音：每件乐器（硬件）都要调到正确的音高（工作模式），指挥（中断控制器）要能指挥每个声部。'
+          analogy:
+            '好比乐队演出前的调音：每件乐器（硬件）都要调到正确的音高（工作模式），指挥（中断控制器）要能指挥每个声部。'
         },
         {
           short: '启动',
@@ -2565,28 +3204,45 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
               icon: '📑',
               name: '读取启动顺序',
               what: '从 CMOS/NVRAM 中读取用户设定的设备优先级列表。',
-              details: ['硬盘 → U盘 → 网络（默认顺序）', '用户可在 BIOS 设置中修改', '保存到非易失性存储器']
+              details: [
+                '硬盘 → U盘 → 网络（默认顺序）',
+                '用户可在 BIOS 设置中修改',
+                '保存到非易失性存储器'
+              ]
             },
             {
               icon: '💿',
               name: '检查启动扇区',
               what: '读取设备第一个扇区，验证末尾的 0x55AA 魔数签名。',
-              details: ['读取第 0 扇区（512字节）', '检查 510-511 字节是否为 0x55AA', '验证引导代码有效性']
+              details: [
+                '读取第 0 扇区（512字节）',
+                '检查 510-511 字节是否为 0x55AA',
+                '验证引导代码有效性'
+              ]
             },
             {
               icon: '🔀',
               name: '多设备尝试',
               what: '第一个设备无法启动时，自动尝试下一个。',
-              details: ['硬盘无系统 → 尝试 U盘', 'U盘不存在 → 尝试网络启动', '全部失败 → 显示错误信息']
+              details: [
+                '硬盘无系统 → 尝试 U盘',
+                'U盘不存在 → 尝试网络启动',
+                '全部失败 → 显示错误信息'
+              ]
             },
             {
               icon: '🚀',
               name: '跳转执行',
               what: '将启动扇区代码加载到内存 0x7C00，CPU 跳转到该地址执行。',
-              details: ['加载 512 字节引导代码', '跳转到 0x7C00 执行', '控制权交给引导程序']
+              details: [
+                '加载 512 字节引导代码',
+                '跳转到 0x7C00 执行',
+                '控制权交给引导程序'
+              ]
             }
           ],
-          analogy: '就像你早上出门找交通工具：先看车库有没有车（硬盘），没有就看门口有没有共享单车（U盘），再不行就叫网约车（网络启动）。'
+          analogy:
+            '就像你早上出门找交通工具：先看车库有没有车（硬盘），没有就看门口有没有共享单车（U盘），再不行就叫网约车（网络启动）。'
         }
       ]
     },
@@ -2598,13 +3254,43 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       osComparisonHeaders: ['系统', '特点', '典型设备'],
       bootFlowTitle: 'Windows vs Linux 启动流程',
       osList: [
-        { name: 'Windows', icon: '🪟', feature: '生态丰富，兼容性好', device: '桌面电脑、笔记本' },
-        { name: 'macOS', icon: '🍎', feature: '苹果生态，流畅稳定', device: 'Mac 电脑' },
-        { name: 'Linux', icon: '🐧', feature: '开源免费，服务器首选', device: '服务器、嵌入式' },
-        { name: 'Android', icon: '🤖', feature: '移动端 Linux', device: '手机、平板' },
-        { name: 'iOS', icon: '📱', feature: '苹果移动端', device: 'iPhone、iPad' }
+        {
+          name: 'Windows',
+          icon: '🪟',
+          feature: '生态丰富，兼容性好',
+          device: '桌面电脑、笔记本'
+        },
+        {
+          name: 'macOS',
+          icon: '🍎',
+          feature: '苹果生态，流畅稳定',
+          device: 'Mac 电脑'
+        },
+        {
+          name: 'Linux',
+          icon: '🐧',
+          feature: '开源免费，服务器首选',
+          device: '服务器、嵌入式'
+        },
+        {
+          name: 'Android',
+          icon: '🤖',
+          feature: '移动端 Linux',
+          device: '手机、平板'
+        },
+        {
+          name: 'iOS',
+          icon: '📱',
+          feature: '苹果移动端',
+          device: 'iPhone、iPad'
+        }
       ],
-      bootloaderSteps: ['读取分区表', '找到系统分区', '加载内核到内存', '跳转到内核入口'],
+      bootloaderSteps: [
+        '读取分区表',
+        '找到系统分区',
+        '加载内核到内存',
+        '跳转到内核入口'
+      ],
       kernelModules: ['进程管理', '内存管理', '文件系统', '设备驱动'],
       services: [
         { name: '网络服务', icon: '🌐' },
@@ -2620,7 +3306,15 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         { icon: '📧', label: '邮件' },
         { icon: '⚙️', label: '设置' }
       ],
-      windowsFlow: ['BIOS', 'MBR', 'bootmgr', 'winload.exe', 'ntoskrnl.exe', '系统服务', '桌面'],
+      windowsFlow: [
+        'BIOS',
+        'MBR',
+        'bootmgr',
+        'winload.exe',
+        'ntoskrnl.exe',
+        '系统服务',
+        '桌面'
+      ],
       linuxFlow: ['BIOS', 'GRUB', 'vmlinuz', 'systemd', '系统服务', '桌面环境'],
       stages: [
         {
@@ -2629,11 +3323,42 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '什么是操作系统？',
           desc: '操作系统（OS）是管理计算机硬件和软件资源的程序集合，就像一个"大管家"。',
           operations: [
-            { icon: '🏢', name: '资源管理', what: '操作系统负责管理 CPU、内存、硬盘、网络等所有硬件资源。', details: ['进程管理 - 调度程序运行', '内存管理 - 分配和回收内存', '文件系统 - 管理文件存储', '设备管理 - 控制硬件设备'] },
-            { icon: '🎮', name: '提供接口', what: '为应用程序提供统一的接口，让程序不需要直接操作硬件。', details: ['系统调用接口（API）', '图形用户界面（GUI）', '命令行界面（CLI）', '驱动程序接口'] },
-            { icon: '🔒', name: '安全保护', what: '保护系统资源不被非法访问，确保多用户环境下的隔离。', details: ['用户权限管理', '进程地址空间隔离', '文件访问控制', '网络安全防护'] }
+            {
+              icon: '🏢',
+              name: '资源管理',
+              what: '操作系统负责管理 CPU、内存、硬盘、网络等所有硬件资源。',
+              details: [
+                '进程管理 - 调度程序运行',
+                '内存管理 - 分配和回收内存',
+                '文件系统 - 管理文件存储',
+                '设备管理 - 控制硬件设备'
+              ]
+            },
+            {
+              icon: '🎮',
+              name: '提供接口',
+              what: '为应用程序提供统一的接口，让程序不需要直接操作硬件。',
+              details: [
+                '系统调用接口（API）',
+                '图形用户界面（GUI）',
+                '命令行界面（CLI）',
+                '驱动程序接口'
+              ]
+            },
+            {
+              icon: '🔒',
+              name: '安全保护',
+              what: '保护系统资源不被非法访问，确保多用户环境下的隔离。',
+              details: [
+                '用户权限管理',
+                '进程地址空间隔离',
+                '文件访问控制',
+                '网络安全防护'
+              ]
+            }
           ],
-          analogy: '操作系统就像一座大楼的物业管理：负责水电供应（硬件资源）、分配房间（内存）、管理仓库（文件系统）、维护安全（权限控制），让住户（应用程序）可以安心生活。'
+          analogy:
+            '操作系统就像一座大楼的物业管理：负责水电供应（硬件资源）、分配房间（内存）、管理仓库（文件系统）、维护安全（权限控制），让住户（应用程序）可以安心生活。'
         },
         {
           short: '引导程序',
@@ -2641,12 +3366,53 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '引导程序（Bootloader）',
           desc: '硬盘第一个扇区存放着引导程序，它的任务是把操作系统内核加载到内存。',
           operations: [
-            { icon: '📀', name: '读取分区表', what: '引导程序首先读取硬盘的分区表，找到操作系统所在的分区。', details: ['读取 MBR（主引导记录）', '解析分区表结构', '定位活动分区', 'Windows: bootmgr / Linux: GRUB'] },
-            { icon: '🔍', name: '定位内核', what: '在系统分区中找到操作系统内核文件的位置。', details: ['Windows: 读取 BCD 配置', 'Linux: 显示系统选择菜单', '支持多系统启动', '加载文件系统驱动'] },
-            { icon: '💾', name: '加载到内存', what: '将内核文件从硬盘读取到内存的指定位置。', details: ['解压压缩的内核镜像', '复制到内存 0x100000 以上', 'Windows: ntoskrnl.exe', 'Linux: vmlinuz'] },
-            { icon: '➡️', name: '跳转执行', what: '设置好初始环境后，跳转到内核入口点，把控制权交给内核。', details: ['设置 CPU 保护模式', '初始化页表', '跳转至内核入口', '内核开始执行'] }
+            {
+              icon: '📀',
+              name: '读取分区表',
+              what: '引导程序首先读取硬盘的分区表，找到操作系统所在的分区。',
+              details: [
+                '读取 MBR（主引导记录）',
+                '解析分区表结构',
+                '定位活动分区',
+                'Windows: bootmgr / Linux: GRUB'
+              ]
+            },
+            {
+              icon: '🔍',
+              name: '定位内核',
+              what: '在系统分区中找到操作系统内核文件的位置。',
+              details: [
+                'Windows: 读取 BCD 配置',
+                'Linux: 显示系统选择菜单',
+                '支持多系统启动',
+                '加载文件系统驱动'
+              ]
+            },
+            {
+              icon: '💾',
+              name: '加载到内存',
+              what: '将内核文件从硬盘读取到内存的指定位置。',
+              details: [
+                '解压压缩的内核镜像',
+                '复制到内存 0x100000 以上',
+                'Windows: ntoskrnl.exe',
+                'Linux: vmlinuz'
+              ]
+            },
+            {
+              icon: '➡️',
+              name: '跳转执行',
+              what: '设置好初始环境后，跳转到内核入口点，把控制权交给内核。',
+              details: [
+                '设置 CPU 保护模式',
+                '初始化页表',
+                '跳转至内核入口',
+                '内核开始执行'
+              ]
+            }
           ],
-          analogy: '引导程序就像剧场的报幕员：他先上台确认场地（检查硬件）、找到剧本（定位内核）、把道具摆好（加载到内存），然后宣布“演出开始”（跳转执行）。'
+          analogy:
+            '引导程序就像剧场的报幕员：他先上台确认场地（检查硬件）、找到剧本（定位内核）、把道具摆好（加载到内存），然后宣布“演出开始”（跳转执行）。'
         },
         {
           short: '内核加载',
@@ -2654,12 +3420,53 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '操作系统内核（Kernel）',
           desc: '内核是操作系统的核心，负责管理内存、CPU、进程等核心功能。',
           operations: [
-            { icon: '🧠', name: '进程管理', what: '创建第一个用户进程，建立进程调度机制。', details: ['创建 init/systemd 进程', '建立进程控制块（PCB）', '初始化调度器', '设置进程优先级'] },
-            { icon: '💾', name: '内存管理', what: '建立虚拟内存系统，划分内核空间和用户空间。', details: ['初始化页表', '建立物理内存映射', '设置内存保护', '启用虚拟内存'] },
-            { icon: '📁', name: '文件系统', what: '挂载根文件系统，初始化 VFS 层。', details: ['识别文件系统类型', '挂载根分区（/）', '初始化 inode 缓存', '建立文件描述符表'] },
-            { icon: '🔌', name: '设备驱动', what: '加载核心设备驱动，初始化硬件抽象层。', details: ['加载磁盘驱动', '初始化显示驱动', '加载键盘鼠标驱动', '枚举 PCI 设备'] }
+            {
+              icon: '🧠',
+              name: '进程管理',
+              what: '创建第一个用户进程，建立进程调度机制。',
+              details: [
+                '创建 init/systemd 进程',
+                '建立进程控制块（PCB）',
+                '初始化调度器',
+                '设置进程优先级'
+              ]
+            },
+            {
+              icon: '💾',
+              name: '内存管理',
+              what: '建立虚拟内存系统，划分内核空间和用户空间。',
+              details: [
+                '初始化页表',
+                '建立物理内存映射',
+                '设置内存保护',
+                '启用虚拟内存'
+              ]
+            },
+            {
+              icon: '📁',
+              name: '文件系统',
+              what: '挂载根文件系统，初始化 VFS 层。',
+              details: [
+                '识别文件系统类型',
+                '挂载根分区（/）',
+                '初始化 inode 缓存',
+                '建立文件描述符表'
+              ]
+            },
+            {
+              icon: '🔌',
+              name: '设备驱动',
+              what: '加载核心设备驱动，初始化硬件抽象层。',
+              details: [
+                '加载磁盘驱动',
+                '初始化显示驱动',
+                '加载键盘鼠标驱动',
+                '枚举 PCI 设备'
+              ]
+            }
           ],
-          analogy: '内核就像公司的 CEO 上任：接管所有部门（硬件），安排人事（进程）、财务（内存）、后勤（设备）各就各位，建立公司的基本运作框架。'
+          analogy:
+            '内核就像公司的 CEO 上任：接管所有部门（硬件），安排人事（进程）、财务（内存）、后勤（设备）各就各位，建立公司的基本运作框架。'
         },
         {
           short: '服务启动',
@@ -2667,12 +3474,53 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '系统服务启动',
           desc: '内核拉起第一个用户进程，按依赖顺序启动各种后台服务。',
           operations: [
-            { icon: '🚀', name: '初始化进程', what: '启动第一个用户态进程（PID=1），它是所有其他进程的"祖先"。', details: ['Linux: systemd 或 init', 'Windows: smss.exe → csrss.exe', '读取服务配置文件', '按依赖关系排序'] },
-            { icon: '🌐', name: '网络服务', what: '初始化网卡驱动，配置网络连接。', details: ['加载网卡驱动', 'DHCP 获取 IP 地址', '配置 DNS 服务器', '启动防火墙'] },
-            { icon: '🔒', name: '安全服务', what: '启动用户认证和安全监控服务。', details: ['启动登录管理器', '初始化权限系统', '启动杀毒软件', '配置安全策略'] },
-            { icon: '🔊', name: '多媒体服务', what: '启动音频、显示等多媒体相关服务。', details: ['启动音频服务', '初始化显示管理器', '加载主题和字体', '准备用户界面'] }
+            {
+              icon: '🚀',
+              name: '初始化进程',
+              what: '启动第一个用户态进程（PID=1），它是所有其他进程的"祖先"。',
+              details: [
+                'Linux: systemd 或 init',
+                'Windows: smss.exe → csrss.exe',
+                '读取服务配置文件',
+                '按依赖关系排序'
+              ]
+            },
+            {
+              icon: '🌐',
+              name: '网络服务',
+              what: '初始化网卡驱动，配置网络连接。',
+              details: [
+                '加载网卡驱动',
+                'DHCP 获取 IP 地址',
+                '配置 DNS 服务器',
+                '启动防火墙'
+              ]
+            },
+            {
+              icon: '🔒',
+              name: '安全服务',
+              what: '启动用户认证和安全监控服务。',
+              details: [
+                '启动登录管理器',
+                '初始化权限系统',
+                '启动杀毒软件',
+                '配置安全策略'
+              ]
+            },
+            {
+              icon: '🔊',
+              name: '多媒体服务',
+              what: '启动音频、显示等多媒体相关服务。',
+              details: [
+                '启动音频服务',
+                '初始化显示管理器',
+                '加载主题和字体',
+                '准备用户界面'
+              ]
+            }
           ],
-          analogy: '就像商场开门营业前：保安到岗（安全）、空调开启（后台服务）、收银上线（网络），一切就绪迎接顾客（用户）。'
+          analogy:
+            '就像商场开门营业前：保安到岗（安全）、空调开启（后台服务）、收银上线（网络），一切就绪迎接顾客（用户）。'
         },
         {
           short: '桌面就绪',
@@ -2680,24 +3528,95 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           name: '显示桌面',
           desc: '图形界面启动完成，用户熟悉的桌面环境呈现出来。',
           operations: [
-            { icon: '🎮', name: '显卡驱动', what: '初始化 GPU，设置屏幕分辨率和色彩。', details: ['加载显卡驱动', '设置分辨率（如 1920×1080）', '启用硬件加速', '配置多显示器'] },
-            { icon: '🪟', name: '窗口系统', what: '启动窗口管理器，负责窗口的绘制和交互。', details: ['Windows: DWM', 'Linux: X11/Wayland', 'macOS: WindowServer', '管理窗口层叠关系'] },
-            { icon: '🎨', name: '桌面环境', what: '绘制壁纸、桌面图标、任务栏等界面元素。', details: ['加载桌面壁纸', '显示桌面图标', '渲染任务栏', '加载系统托盘'] },
-            { icon: '👆', name: '用户交互', what: '鼠标光标出现，系统进入完全可交互状态。', details: ['显示鼠标指针', '响应键盘输入', '加载用户配置', '启动自启动程序'] }
+            {
+              icon: '🎮',
+              name: '显卡驱动',
+              what: '初始化 GPU，设置屏幕分辨率和色彩。',
+              details: [
+                '加载显卡驱动',
+                '设置分辨率（如 1920×1080）',
+                '启用硬件加速',
+                '配置多显示器'
+              ]
+            },
+            {
+              icon: '🪟',
+              name: '窗口系统',
+              what: '启动窗口管理器，负责窗口的绘制和交互。',
+              details: [
+                'Windows: DWM',
+                'Linux: X11/Wayland',
+                'macOS: WindowServer',
+                '管理窗口层叠关系'
+              ]
+            },
+            {
+              icon: '🎨',
+              name: '桌面环境',
+              what: '绘制壁纸、桌面图标、任务栏等界面元素。',
+              details: [
+                '加载桌面壁纸',
+                '显示桌面图标',
+                '渲染任务栏',
+                '加载系统托盘'
+              ]
+            },
+            {
+              icon: '👆',
+              name: '用户交互',
+              what: '鼠标光标出现，系统进入完全可交互状态。',
+              details: [
+                '显示鼠标指针',
+                '响应键盘输入',
+                '加载用户配置',
+                '启动自启动程序'
+              ]
+            }
           ],
-          analogy: '幕布拉开，灯光亮起：舞台（窗口）搭好，演员（图标）就位，等待观众（你）的第一次操作。'
+          analogy:
+            '幕布拉开，灯光亮起：舞台（窗口）搭好，演员（图标）就位，等待观众（你）的第一次操作。'
         }
       ]
     },
     browser: {
       title: '浏览器架构 ── 点击模块查看详情',
       modules: [
-        { icon: '🎨', name: '用户界面', desc: '你直接看到和操作的部分：地址栏、标签页、书签、前进/后退按钮', tags: ['地址栏', '标签页', '书签栏'] },
-        { icon: '🔗', name: '浏览器引擎', desc: '连接用户界面和渲染引擎的桥梁，负责协调两者之间的通信', tags: ['Blink', 'Gecko', 'WebKit'] },
-        { icon: '📄', name: '渲染引擎', desc: '解析 HTML 和 CSS，将代码转换成你看到的网页画面', tags: ['HTML 解析', 'CSS 计算', '布局绘制'] },
-        { icon: '⚡', name: 'JavaScript 引擎', desc: '执行网页中的 JavaScript 代码，实现页面的动态交互效果', tags: ['V8', 'SpiderMonkey', 'JavaScriptCore'] },
-        { icon: '🌐', name: '网络模块', desc: '负责发送 HTTP 请求、接收服务器响应，是浏览器与外界通信的通道', tags: ['HTTP/2', 'HTTP/3', 'WebSocket'] },
-        { icon: '💾', name: '数据存储', desc: '在本地保存网站数据，让你下次访问更快、不用重复登录', tags: ['Cookie', 'LocalStorage', 'Cache'] }
+        {
+          icon: '🎨',
+          name: '用户界面',
+          desc: '你直接看到和操作的部分：地址栏、标签页、书签、前进/后退按钮',
+          tags: ['地址栏', '标签页', '书签栏']
+        },
+        {
+          icon: '🔗',
+          name: '浏览器引擎',
+          desc: '连接用户界面和渲染引擎的桥梁，负责协调两者之间的通信',
+          tags: ['Blink', 'Gecko', 'WebKit']
+        },
+        {
+          icon: '📄',
+          name: '渲染引擎',
+          desc: '解析 HTML 和 CSS，将代码转换成你看到的网页画面',
+          tags: ['HTML 解析', 'CSS 计算', '布局绘制']
+        },
+        {
+          icon: '⚡',
+          name: 'JavaScript 引擎',
+          desc: '执行网页中的 JavaScript 代码，实现页面的动态交互效果',
+          tags: ['V8', 'SpiderMonkey', 'JavaScriptCore']
+        },
+        {
+          icon: '🌐',
+          name: '网络模块',
+          desc: '负责发送 HTTP 请求、接收服务器响应，是浏览器与外界通信的通道',
+          tags: ['HTTP/2', 'HTTP/3', 'WebSocket']
+        },
+        {
+          icon: '💾',
+          name: '数据存储',
+          desc: '在本地保存网站数据，让你下次访问更快、不用重复登录',
+          tags: ['Cookie', 'LocalStorage', 'Cache']
+        }
       ]
     },
     url: {
@@ -2707,35 +3626,108 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       browser: '浏览器',
       server: '服务器',
       steps: [
-        { name: 'URL 解析', dir: 'right', detail: 'https://example.com → 协议: https, 域名: example.com, 路径: /' },
-        { name: 'DNS 解析', dir: 'right', detail: '向 DNS 服务器查询，将域名翻译为 IP 地址 93.184.216.34' },
-        { name: 'TCP 三次握手', dir: 'right', detail: 'SYN → SYN-ACK → ACK，建立可靠的传输连接' },
-        { name: 'TLS 握手', dir: 'right', detail: '交换密钥、验证证书，建立 HTTPS 加密通道' },
-        { name: '发送 HTTP 请求', dir: 'right', detail: 'GET /index.html HTTP/1.1  Host: example.com' },
-        { name: '服务器处理', dir: 'left', detail: '解析请求 → 执行业务逻辑 → 查询数据库 → 组装响应' },
-        { name: '返回 HTTP 响应', dir: 'left', detail: 'HTTP/1.1 200 OK  Content-Type: text/html' },
-        { name: '浏览器渲染', dir: 'left', detail: 'HTML → DOM 树 → 样式计算 → 布局 → 绘制到屏幕' }
+        {
+          name: 'URL 解析',
+          dir: 'right',
+          detail:
+            'https://example.com → 协议: https, 域名: example.com, 路径: /'
+        },
+        {
+          name: 'DNS 解析',
+          dir: 'right',
+          detail: '向 DNS 服务器查询，将域名翻译为 IP 地址 93.184.216.34'
+        },
+        {
+          name: 'TCP 三次握手',
+          dir: 'right',
+          detail: 'SYN → SYN-ACK → ACK，建立可靠的传输连接'
+        },
+        {
+          name: 'TLS 握手',
+          dir: 'right',
+          detail: '交换密钥、验证证书，建立 HTTPS 加密通道'
+        },
+        {
+          name: '发送 HTTP 请求',
+          dir: 'right',
+          detail: 'GET /index.html HTTP/1.1  Host: example.com'
+        },
+        {
+          name: '服务器处理',
+          dir: 'left',
+          detail: '解析请求 → 执行业务逻辑 → 查询数据库 → 组装响应'
+        },
+        {
+          name: '返回 HTTP 响应',
+          dir: 'left',
+          detail: 'HTTP/1.1 200 OK  Content-Type: text/html'
+        },
+        {
+          name: '浏览器渲染',
+          dir: 'left',
+          detail: 'HTML → DOM 树 → 样式计算 → 布局 → 绘制到屏幕'
+        }
       ]
     },
     rendering: {
       title: '浏览器渲染管线',
       stages: [
-        { name: 'HTML 解析', desc: '将 HTML 文本解析为 DOM 树（文档对象模型）' },
-        { name: 'CSS 解析', desc: '将 CSS 规则解析为样式表，计算每个元素的最终样式' },
-        { name: '构建渲染树', desc: 'DOM 树 + 样式规则 = 渲染树（只包含可见元素）' },
+        {
+          name: 'HTML 解析',
+          desc: '将 HTML 文本解析为 DOM 树（文档对象模型）'
+        },
+        {
+          name: 'CSS 解析',
+          desc: '将 CSS 规则解析为样式表，计算每个元素的最终样式'
+        },
+        {
+          name: '构建渲染树',
+          desc: 'DOM 树 + 样式规则 = 渲染树（只包含可见元素）'
+        },
         { name: '布局计算', desc: '计算每个元素在页面上的精确位置和大小' },
-        { name: '绘制', desc: '将元素的文字、颜色、图片、边框等绘制到像素缓冲区' },
-        { name: '合成显示', desc: '将多个图层合成为最终画面，由 GPU 输出到屏幕' }
+        {
+          name: '绘制',
+          desc: '将元素的文字、颜色、图片、边框等绘制到像素缓冲区'
+        },
+        {
+          name: '合成显示',
+          desc: '将多个图层合成为最终画面，由 GPU 输出到屏幕'
+        }
       ]
     },
     full: {
       title: '从按下电源到看到网页 ── 完整链路',
       phases: [
-        { icon: '🔌', name: '硬件启动', color: '#f59e0b', steps: '电源 → 主板 → CPU → BIOS' },
-        { icon: '🔍', name: '固件自检', color: '#ef4444', steps: 'POST → 初始化 → 找启动盘' },
-        { icon: '💻', name: '系统启动', color: '#8b5cf6', steps: '引导 → 内核 → 服务 → 桌面' },
-        { icon: '🌐', name: '浏览器启动', color: '#3b82f6', steps: '创建进程 → 加载代码 → 就绪' },
-        { icon: '📡', name: '网络请求与渲染', color: '#10b981', steps: 'DNS → TCP → HTTP → 渲染' }
+        {
+          icon: '🔌',
+          name: '硬件启动',
+          color: '#f59e0b',
+          steps: '电源 → 主板 → CPU → BIOS'
+        },
+        {
+          icon: '🔍',
+          name: '固件自检',
+          color: '#ef4444',
+          steps: 'POST → 初始化 → 找启动盘'
+        },
+        {
+          icon: '💻',
+          name: '系统启动',
+          color: '#8b5cf6',
+          steps: '引导 → 内核 → 服务 → 桌面'
+        },
+        {
+          icon: '🌐',
+          name: '浏览器启动',
+          color: '#3b82f6',
+          steps: '创建进程 → 加载代码 → 就绪'
+        },
+        {
+          icon: '📡',
+          name: '网络请求与渲染',
+          color: '#10b981',
+          steps: 'DNS → TCP → HTTP → 渲染'
+        }
       ]
     }
   },
@@ -2790,8 +3782,7 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         '[译码 1/2] 控制单元解析 IR 中的指令 "{inst}"，识别操作码与操作数',
       decode2:
         '[译码 2/2] 控制单元生成控制信号 "{op}"，激活对应功能部件，准备操作数路径',
-      load1:
-        '[执行 1/2] 将操作数地址 {src} 送入 MAR，通过地址总线访问主存',
+      load1: '[执行 1/2] 将操作数地址 {src} 送入 MAR，通过地址总线访问主存',
       load2:
         '[执行 2/2] 主存数据 42 经数据总线送入 MDR，再写入目标寄存器 {dst}',
       loadi: '[执行] 立即数 #{imm} 直接从 IR 中提取，写入寄存器 {dst}',
@@ -2801,9 +3792,12 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         '[执行 1/2] 将目标地址 {addr} 送入 MAR，将 {src} 的值送入 MDR，准备写入主存',
       store2: '[执行 2/2] MDR 的值经数据总线写入主存地址 {addr}',
       wbAdd1: '[写回 1/2] 将 ACC 中的运算结果写回目标寄存器 R0',
-      wbAdd2: '[写回 2/2] 写回完成，PC 已在取指阶段自增，指向下一条指令 {nextPc}',
-      wbStore: '[写回] STORE 指令结果已在执行阶段写入主存，写回阶段确认完成，PC={nextPc}',
-      wbDefault: '[写回] 结果已写入目标寄存器，PC 已自增至 {nextPc}，准备执行下一条指令',
+      wbAdd2:
+        '[写回 2/2] 写回完成，PC 已在取指阶段自增，指向下一条指令 {nextPc}',
+      wbStore:
+        '[写回] STORE 指令结果已在执行阶段写入主存，写回阶段确认完成，PC={nextPc}',
+      wbDefault:
+        '[写回] 结果已写入目标寄存器，PC 已自增至 {nextPc}，准备执行下一条指令',
       signal: {
         marPc: 'MAR ← PC ({pc})',
         addr: '地址总线: {pc}',
@@ -3170,7 +4164,12 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       principleTextSuffix: '（空间局部性）',
       principleExample: '利用局部性原理，缓存可以显著提高性能',
       levels: [
-        { className: 'register', name: '寄存器', speed: '最快', size: '最小 (KB)' },
+        {
+          className: 'register',
+          name: '寄存器',
+          speed: '最快',
+          size: '最小 (KB)'
+        },
         { className: 'cache', name: '缓存', speed: '很快', size: '小 (MB)' },
         { className: 'ram', name: '内存', speed: '快', size: '中等 (GB)' },
         { className: 'disk', name: '硬盘', speed: '慢', size: '大 (TB)' },
@@ -3208,7 +4207,11 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         { num: '6', name: '表示层', data: '数据编码: UTF-8' },
         { num: '5', name: '会话层', data: '会话ID: sess_123' },
         { num: '4', name: '传输层', data: 'TCP 头: 端口 25' },
-        { num: '3', name: '网络层', data: 'IP 头: 192.168.1.100 → 192.168.1.200' },
+        {
+          num: '3',
+          name: '网络层',
+          data: 'IP 头: 192.168.1.100 → 192.168.1.200'
+        },
         { num: '2', name: '数据链路层', data: '以太网帧: MAC 地址' },
         { num: '1', name: '物理层', data: '比特流: 01010101...' }
       ],
@@ -3231,11 +4234,18 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       totalCycles: '总周期数',
       completedInstructions: '已完成指令',
       explanationTitle: '流水线原理',
-      sequentialText: '顺序执行：每条指令执行完才执行下一条，N条指令需要 N × 5 个周期',
+      sequentialText:
+        '顺序执行：每条指令执行完才执行下一条，N条指令需要 N × 5 个周期',
       pipelineText: '流水线执行：多条指令同时处于不同阶段，理想情况下 CPI ≈ 1',
       hazardWarning: '⚠️ 流水线冒险：数据冒险、控制冒险、结构冒险',
       stages: ['取指(IF)', '译码(ID)', '执行(EX)', '访存(MEM)', '写回(WB)'],
-      instructions: ['ADD R1,R2,R3', 'SUB R4,R1,R5', 'LOAD R6,[R4]', 'STORE R6,[R7]', 'AND R8,R1,R6']
+      instructions: [
+        'ADD R1,R2,R3',
+        'SUB R4,R1,R5',
+        'LOAD R6,[R4]',
+        'STORE R6,[R7]',
+        'AND R8,R1,R6'
+      ]
     },
     busSystem: {
       title: '计算机总线系统',
@@ -3297,9 +4307,18 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       currentMicroinstruction: '当前微指令',
       conceptTitle: '控制器核心概念',
       concepts: [
-        { label: '控制信号：', desc: '由控制器发出的电信号，用于控制数据通路中各个部件的动作' },
-        { label: '时序：', desc: 'CPU 操作按时钟节拍进行，每个节拍执行特定微操作' },
-        { label: '硬布线 vs 微程序：', desc: '硬布线控制器速度快但设计复杂；微程序控制器灵活但速度稍慢' }
+        {
+          label: '控制信号：',
+          desc: '由控制器发出的电信号，用于控制数据通路中各个部件的动作'
+        },
+        {
+          label: '时序：',
+          desc: 'CPU 操作按时钟节拍进行，每个节拍执行特定微操作'
+        },
+        {
+          label: '硬布线 vs 微程序：',
+          desc: '硬布线控制器速度快但设计复杂；微程序控制器灵活但速度稍慢'
+        }
       ],
       ops: {
         fetch1: 'PC→MAR: 将PC中的地址送入MAR',
@@ -3328,20 +4347,104 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       resultLabel: '运算结果：',
       usageTitle: '标志位的典型用途',
       flags: [
-        ['CF', '进位标志', 'Carry Flag', 0, '无符号数运算产生进位或借位时置 1', '加法产生进位，或减法产生借位', '多位数无符号运算、循环计数'],
-        ['PF', '奇偶标志', 'Parity Flag', 0, '结果的低 8 位中 1 的个数为偶数时置 1', '结果低 8 位有偶数个 1', '数据通信中的错误检测'],
-        ['AF', '辅助进位', 'Auxiliary Carry Flag', 0, '低 4 位产生进位或借位时置 1', '第 3 位（低 4 位）产生进位', 'BCD 码运算调整'],
-        ['ZF', '零标志', 'Zero Flag', 0, '运算结果为 0 时置 1', '结果 = 0', '条件跳转、循环控制、比较操作'],
-        ['SF', '符号标志', 'Sign Flag', 0, '运算结果为负数时置 1（等于结果最高位）', '结果最高位 = 1（负数）', '有符号数大小比较、负数判断'],
-        ['TF', '陷阱标志', 'Trap Flag', 0, '置 1 时 CPU 进入单步调试模式', '软件设置', '程序调试'],
-        ['IF', '中断标志', 'Interrupt Flag', 1, '置 1 时 CPU 响应可屏蔽中断', '软件设置', '中断开关'],
-        ['DF', '方向标志', 'Direction Flag', 0, '置 1 时字符串操作从高地址向低地址', '软件设置', '字符串操作方向控制'],
-        ['OF', '溢出标志', 'Overflow Flag', 0, '有符号数运算结果超出表示范围时置 1', '正溢出或负溢出', '有符号数运算、溢出检测']
+        [
+          'CF',
+          '进位标志',
+          'Carry Flag',
+          0,
+          '无符号数运算产生进位或借位时置 1',
+          '加法产生进位，或减法产生借位',
+          '多位数无符号运算、循环计数'
+        ],
+        [
+          'PF',
+          '奇偶标志',
+          'Parity Flag',
+          0,
+          '结果的低 8 位中 1 的个数为偶数时置 1',
+          '结果低 8 位有偶数个 1',
+          '数据通信中的错误检测'
+        ],
+        [
+          'AF',
+          '辅助进位',
+          'Auxiliary Carry Flag',
+          0,
+          '低 4 位产生进位或借位时置 1',
+          '第 3 位（低 4 位）产生进位',
+          'BCD 码运算调整'
+        ],
+        [
+          'ZF',
+          '零标志',
+          'Zero Flag',
+          0,
+          '运算结果为 0 时置 1',
+          '结果 = 0',
+          '条件跳转、循环控制、比较操作'
+        ],
+        [
+          'SF',
+          '符号标志',
+          'Sign Flag',
+          0,
+          '运算结果为负数时置 1（等于结果最高位）',
+          '结果最高位 = 1（负数）',
+          '有符号数大小比较、负数判断'
+        ],
+        [
+          'TF',
+          '陷阱标志',
+          'Trap Flag',
+          0,
+          '置 1 时 CPU 进入单步调试模式',
+          '软件设置',
+          '程序调试'
+        ],
+        [
+          'IF',
+          '中断标志',
+          'Interrupt Flag',
+          1,
+          '置 1 时 CPU 响应可屏蔽中断',
+          '软件设置',
+          '中断开关'
+        ],
+        [
+          'DF',
+          '方向标志',
+          'Direction Flag',
+          0,
+          '置 1 时字符串操作从高地址向低地址',
+          '软件设置',
+          '字符串操作方向控制'
+        ],
+        [
+          'OF',
+          '溢出标志',
+          'Overflow Flag',
+          0,
+          '有符号数运算结果超出表示范围时置 1',
+          '正溢出或负溢出',
+          '有符号数运算、溢出检测'
+        ]
       ],
       usageCards: [
-        { icon: '🔀', name: '条件跳转', desc: 'JE (相等跳转)、JNE、JG、JL 等指令根据 ZF、SF、OF 决定是否跳转' },
-        { icon: '➕', name: '算术运算', desc: '多位数运算需要 CF 判断进位，OF 判断溢出' },
-        { icon: '🔄', name: '循环控制', desc: '循环指令使用 ZF 判断循环结束条件' }
+        {
+          icon: '🔀',
+          name: '条件跳转',
+          desc: 'JE (相等跳转)、JNE、JG、JL 等指令根据 ZF、SF、OF 决定是否跳转'
+        },
+        {
+          icon: '➕',
+          name: '算术运算',
+          desc: '多位数运算需要 CF 判断进位，OF 判断溢出'
+        },
+        {
+          icon: '🔄',
+          name: '循环控制',
+          desc: '循环指令使用 ZF 判断循环结束条件'
+        }
       ]
     },
     cache: {
@@ -3373,9 +4476,30 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       h: '命中率 (H):',
       avgTime: '平均访问时间 = {time} ns',
       mappings: [
-        { id: 'direct', type: '直接映射', desc: '每个主存块只能映射到唯一的缓存行', speed: '最快', hitRate: '较低', complexity: '最低' },
-        { id: 'set', type: '组相联', desc: '每个主存块可以映射到 N 个缓存行（N路组相联）', speed: '较快', hitRate: '较高', complexity: '中等' },
-        { id: 'full', type: '全相联', desc: '主存块可以放到任意缓存行中', speed: '最慢', hitRate: '最高', complexity: '最高' }
+        {
+          id: 'direct',
+          type: '直接映射',
+          desc: '每个主存块只能映射到唯一的缓存行',
+          speed: '最快',
+          hitRate: '较低',
+          complexity: '最低'
+        },
+        {
+          id: 'set',
+          type: '组相联',
+          desc: '每个主存块可以映射到 N 个缓存行（N路组相联）',
+          speed: '较快',
+          hitRate: '较高',
+          complexity: '中等'
+        },
+        {
+          id: 'full',
+          type: '全相联',
+          desc: '主存块可以放到任意缓存行中',
+          speed: '最慢',
+          hitRate: '最高',
+          complexity: '最高'
+        }
       ],
       logs: {
         read: '读取地址 {address}',
@@ -3412,9 +4536,56 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       interruptTitle: '中断处理流程',
       nextStep: '下一步',
       methods: [
-        { id: 'programmed', name: '程序查询', english: 'Programmed I/O', cpuLevel: '高', cpuLevelClass: 'level-high', speed: '慢', complexity: '低', steps: ['CPU 轮询检查 I/O 设备状态', '设备忙？继续等待', '设备就绪，发送读写命令', 'CPU 逐字节读取/写入数据', '判断是否传输完成', '未完成则继续查询'] },
-        { id: 'interrupt', name: '中断方式', english: 'Interrupt-Driven I/O', cpuLevel: '中', cpuLevelClass: 'level-medium', speed: '中', complexity: '中', steps: ['CPU 启动 I/O 设备', 'CPU 继续执行其他任务', 'I/O 完成后发送中断请求', 'CPU 响应中断，保存现场', '执行中断处理程序', '恢复现场，继续执行'] },
-        { id: 'dma', name: 'DMA', english: 'Direct Memory Access', cpuLevel: '低', cpuLevelClass: 'level-low', speed: '快', complexity: '高', steps: ['CPU 设置 DMA 控制器', '告诉 DMA 源地址、目标地址、传输长度', 'CPU 去执行其他任务', 'DMA 控制器直接与内存交换数据', '传输完成，DMA 发送中断通知 CPU'] }
+        {
+          id: 'programmed',
+          name: '程序查询',
+          english: 'Programmed I/O',
+          cpuLevel: '高',
+          cpuLevelClass: 'level-high',
+          speed: '慢',
+          complexity: '低',
+          steps: [
+            'CPU 轮询检查 I/O 设备状态',
+            '设备忙？继续等待',
+            '设备就绪，发送读写命令',
+            'CPU 逐字节读取/写入数据',
+            '判断是否传输完成',
+            '未完成则继续查询'
+          ]
+        },
+        {
+          id: 'interrupt',
+          name: '中断方式',
+          english: 'Interrupt-Driven I/O',
+          cpuLevel: '中',
+          cpuLevelClass: 'level-medium',
+          speed: '中',
+          complexity: '中',
+          steps: [
+            'CPU 启动 I/O 设备',
+            'CPU 继续执行其他任务',
+            'I/O 完成后发送中断请求',
+            'CPU 响应中断，保存现场',
+            '执行中断处理程序',
+            '恢复现场，继续执行'
+          ]
+        },
+        {
+          id: 'dma',
+          name: 'DMA',
+          english: 'Direct Memory Access',
+          cpuLevel: '低',
+          cpuLevelClass: 'level-low',
+          speed: '快',
+          complexity: '高',
+          steps: [
+            'CPU 设置 DMA 控制器',
+            '告诉 DMA 源地址、目标地址、传输长度',
+            'CPU 去执行其他任务',
+            'DMA 控制器直接与内存交换数据',
+            '传输完成，DMA 发送中断通知 CPU'
+          ]
+        }
       ],
       interruptFlow: [
         { title: '中断请求', desc: 'I/O 设备向 CPU 发送中断请求信号' },
@@ -3431,7 +4602,15 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         vibeLabel: 'Vibe Coding 流程',
         traditionalLoop: '↑ 反复循环 ↓',
         vibeLoop: '↑ 快速迭代 ↓',
-        traditionalSteps: ['你', '学习语法', '写代码', '调试', '查文档', '修改', '运行'],
+        traditionalSteps: [
+          '你',
+          '学习语法',
+          '写代码',
+          '调试',
+          '查文档',
+          '修改',
+          '运行'
+        ],
         vibeSteps: [
           { text: '你', highlight: false },
           { text: '用自然语言描述需求', highlight: true },
@@ -3446,7 +4625,8 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         beforeTitle: '传统时代更重要',
         afterTitle: 'AI 时代更重要',
         insightLabel: '关键洞察：',
-        insight: 'AI 能帮你写代码，但判断力、架构思维、领域知识、调试能力是 AI 替代不了的。',
+        insight:
+          'AI 能帮你写代码，但判断力、架构思维、领域知识、调试能力是 AI 替代不了的。',
         beforeSkills: [
           { name: '语法记忆', level: 90, desc: '熟记 API 和语法细节' },
           { name: '手写代码速度', level: 85, desc: '快速敲代码的能力' },
@@ -3463,38 +4643,105 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         title: '计算机领域全景图',
         subtitle: '点击查看详情',
         adviceLabel: '建议：',
-        advice: '不要试图一次学完所有方向。先选一个方向深入，建立"根据地"，再横向扩展。',
+        advice:
+          '不要试图一次学完所有方向。先选一个方向深入，建立"根据地"，再横向扩展。',
         fields: [
-          { name: '前端', desc: '用户能看到、能交互的一切', techs: ['HTML/CSS', 'JavaScript', 'React/Vue'] },
-          { name: '后端', desc: '服务器端的业务逻辑和数据处理', techs: ['Node.js', 'Go', 'Java', 'Python'] },
-          { name: '移动端', desc: '手机上的应用体验', techs: ['Swift', 'Kotlin', 'Flutter'] },
-          { name: 'AI/算法', desc: '让系统变"聪明"', techs: ['PyTorch', 'TensorFlow', '机器学习'] },
-          { name: '运维/DevOps', desc: '保证系统稳定运行', techs: ['Docker', 'K8s', 'CI/CD'] },
-          { name: '数据工程', desc: '数据采集、存储、分析', techs: ['SQL', 'Spark', '数据仓库'] }
+          {
+            name: '前端',
+            desc: '用户能看到、能交互的一切',
+            techs: ['HTML/CSS', 'JavaScript', 'React/Vue']
+          },
+          {
+            name: '后端',
+            desc: '服务器端的业务逻辑和数据处理',
+            techs: ['Node.js', 'Go', 'Java', 'Python']
+          },
+          {
+            name: '移动端',
+            desc: '手机上的应用体验',
+            techs: ['Swift', 'Kotlin', 'Flutter']
+          },
+          {
+            name: 'AI/算法',
+            desc: '让系统变"聪明"',
+            techs: ['PyTorch', 'TensorFlow', '机器学习']
+          },
+          {
+            name: '运维/DevOps',
+            desc: '保证系统稳定运行',
+            techs: ['Docker', 'K8s', 'CI/CD']
+          },
+          {
+            name: '数据工程',
+            desc: '数据采集、存储、分析',
+            techs: ['SQL', 'Spark', '数据仓库']
+          }
         ]
       },
       frontendTriad: {
         title: '前端三件套',
         subtitle: '网页开发的三大基石',
         relationshipLabel: '协作关系：',
-        relationship: 'HTML 搭骨架，CSS 穿衣服，JavaScript 让它动起来。三者缺一不可。',
+        relationship:
+          'HTML 搭骨架，CSS 穿衣服，JavaScript 让它动起来。三者缺一不可。',
         triad: [
-          { name: 'HTML', role: '结构层', analogy: '房子的骨架：墙、门、窗', examples: ['div', 'span', 'form', 'input'] },
-          { name: 'CSS', role: '表现层', analogy: '房子的装修：颜色、位置、大小', examples: ['color', 'flex', 'grid', 'animation'] },
-          { name: 'JavaScript', role: '行为层', analogy: '房子的智能：开关灯、开门', examples: ['事件', 'DOM操作', '网络请求'] }
+          {
+            name: 'HTML',
+            role: '结构层',
+            analogy: '房子的骨架：墙、门、窗',
+            examples: ['div', 'span', 'form', 'input']
+          },
+          {
+            name: 'CSS',
+            role: '表现层',
+            analogy: '房子的装修：颜色、位置、大小',
+            examples: ['color', 'flex', 'grid', 'animation']
+          },
+          {
+            name: 'JavaScript',
+            role: '行为层',
+            analogy: '房子的智能：开关灯、开门',
+            examples: ['事件', 'DOM操作', '网络请求']
+          }
         ]
       },
       frontendFramework: {
         title: '前端框架演进',
         subtitle: '从 jQuery 到现代框架',
         essenceLabel: '框架的本质：',
-        essence: '解决"数据变化后如何高效更新 UI"的问题。现代框架让你只需关注"数据是什么"，框架自动处理"UI 怎么变"。',
+        essence:
+          '解决"数据变化后如何高效更新 UI"的问题。现代框架让你只需关注"数据是什么"，框架自动处理"UI 怎么变"。',
         eras: [
-          { name: '原生时代', time: '1990s', desc: '直接用代码操控页面元素，一切从零开始', techs: ['HTML', 'CSS', 'JavaScript'] },
-          { name: 'jQuery 时代', time: '2006-2015', desc: '简化页面操控，跨浏览器兼容', techs: ['jQuery', 'Bootstrap'] },
-          { name: 'MVVM 时代', time: '2010-2015', desc: '数据驱动视图，双向绑定', techs: ['Angular.js', 'Knockout'] },
-          { name: '组件化时代', time: '2013-至今', desc: '声明式、组件化，框架自动更新页面', techs: ['React', 'Vue', 'Angular'] },
-          { name: '新时代', time: '2020-至今', desc: '编译时优化，更少运行时开销', techs: ['Svelte', 'Solid'] }
+          {
+            name: '原生时代',
+            time: '1990s',
+            desc: '直接用代码操控页面元素，一切从零开始',
+            techs: ['HTML', 'CSS', 'JavaScript']
+          },
+          {
+            name: 'jQuery 时代',
+            time: '2006-2015',
+            desc: '简化页面操控，跨浏览器兼容',
+            techs: ['jQuery', 'Bootstrap']
+          },
+          {
+            name: 'MVVM 时代',
+            time: '2010-2015',
+            desc: '数据驱动视图，双向绑定',
+            techs: ['Angular.js', 'Knockout']
+          },
+          {
+            name: '组件化时代',
+            time: '2013-至今',
+            desc: '声明式、组件化，框架自动更新页面',
+            techs: ['React', 'Vue', 'Angular']
+          },
+          {
+            name: '新时代',
+            time: '2020-至今',
+            desc: '编译时优化，更少运行时开销',
+            techs: ['Svelte', 'Solid']
+          }
         ]
       },
       backendCore: {
@@ -3502,14 +4749,39 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         subtitle: '服务器端的核心职责',
         flowTitle: '请求处理流程',
         valueLabel: '后端的核心价值：',
-        value: '不是写代码，而是设计系统。如何让系统稳定、安全、高效、可扩展，才是后端工程师的真正能力。',
+        value:
+          '不是写代码，而是设计系统。如何让系统稳定、安全、高效、可扩展，才是后端工程师的真正能力。',
         coreConcepts: [
-          { name: 'API 设计', desc: '定义客户端如何与服务端交互', examples: ['RESTful', 'GraphQL'] },
-          { name: '业务逻辑', desc: '处理核心业务规则和流程', examples: ['订单处理', '支付流程'] },
-          { name: '数据存储', desc: '数据的持久化和查询', examples: ['MySQL', 'Redis'] },
-          { name: '认证授权', desc: '用户身份验证和权限控制', examples: ['JWT', 'OAuth'] },
-          { name: '性能优化', desc: '缓存、异步、并发处理', examples: ['缓存', '消息队列'] },
-          { name: '安全防护', desc: '防止攻击和数据泄露', examples: ['SQL注入防护', 'HTTPS'] }
+          {
+            name: 'API 设计',
+            desc: '定义客户端如何与服务端交互',
+            examples: ['RESTful', 'GraphQL']
+          },
+          {
+            name: '业务逻辑',
+            desc: '处理核心业务规则和流程',
+            examples: ['订单处理', '支付流程']
+          },
+          {
+            name: '数据存储',
+            desc: '数据的持久化和查询',
+            examples: ['MySQL', 'Redis']
+          },
+          {
+            name: '认证授权',
+            desc: '用户身份验证和权限控制',
+            examples: ['JWT', 'OAuth']
+          },
+          {
+            name: '性能优化',
+            desc: '缓存、异步、并发处理',
+            examples: ['缓存', '消息队列']
+          },
+          {
+            name: '安全防护',
+            desc: '防止攻击和数据泄露',
+            examples: ['SQL注入防护', 'HTTPS']
+          }
         ],
         flowSteps: ['接收请求', '路由解析', '业务处理', '数据操作', '返回响应']
       },
@@ -3525,17 +4797,45 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         ],
         classifications: {
           type: [
-            { name: '静态类型', desc: '变量类型在编译时确定', examples: ['Java', 'C++', 'Go', 'TypeScript'] },
-            { name: '动态类型', desc: '变量类型在运行时确定', examples: ['Python', 'JavaScript', 'Ruby'] }
+            {
+              name: '静态类型',
+              desc: '变量类型在编译时确定',
+              examples: ['Java', 'C++', 'Go', 'TypeScript']
+            },
+            {
+              name: '动态类型',
+              desc: '变量类型在运行时确定',
+              examples: ['Python', 'JavaScript', 'Ruby']
+            }
           ],
           level: [
-            { name: '低级语言', desc: '接近硬件，执行效率高', examples: ['C', '汇编'] },
-            { name: '高级语言', desc: '接近人类语言，开发效率高', examples: ['Python', 'Java', 'JavaScript'] }
+            {
+              name: '低级语言',
+              desc: '接近硬件，执行效率高',
+              examples: ['C', '汇编']
+            },
+            {
+              name: '高级语言',
+              desc: '接近人类语言，开发效率高',
+              examples: ['Python', 'Java', 'JavaScript']
+            }
           ],
           paradigm: [
-            { name: '面向对象', desc: '以对象为中心组织代码', examples: ['Java', 'C++', 'Python'] },
-            { name: '函数式', desc: '以函数为中心，强调不可变', examples: ['Haskell', 'Elixir', 'Clojure'] },
-            { name: '多范式', desc: '支持多种编程风格', examples: ['Python', 'JavaScript', 'Rust'] }
+            {
+              name: '面向对象',
+              desc: '以对象为中心组织代码',
+              examples: ['Java', 'C++', 'Python']
+            },
+            {
+              name: '函数式',
+              desc: '以函数为中心，强调不可变',
+              examples: ['Haskell', 'Elixir', 'Clojure']
+            },
+            {
+              name: '多范式',
+              desc: '支持多种编程风格',
+              examples: ['Python', 'JavaScript', 'Rust']
+            }
           ]
         }
       },
@@ -3544,14 +4844,39 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         subtitle: '根据目标选语言',
         recommend: '推荐：',
         principleLabel: '核心原则：',
-        principle: '语言只是工具，重要的是解决问题的能力。先精通一门，再触类旁通。',
+        principle:
+          '语言只是工具，重要的是解决问题的能力。先精通一门，再触类旁通。',
         selections: [
-          { goal: 'Web 前端', desc: '网页、小程序、H5', langs: ['JavaScript', 'TypeScript'] },
-          { goal: 'Web 后端', desc: 'API 服务、业务系统', langs: ['Node.js', 'Go', 'Java', 'Python'] },
-          { goal: '移动端', desc: 'iOS / Android 应用', langs: ['Swift', 'Kotlin', 'Flutter'] },
-          { goal: 'AI / 数据科学', desc: '机器学习、数据分析', langs: ['Python'] },
-          { goal: '系统编程', desc: '操作系统、嵌入式', langs: ['C', 'C++', 'Rust'] },
-          { goal: '快速原型', desc: '脚本、自动化、小工具', langs: ['Python', 'Shell'] }
+          {
+            goal: 'Web 前端',
+            desc: '网页、小程序、H5',
+            langs: ['JavaScript', 'TypeScript']
+          },
+          {
+            goal: 'Web 后端',
+            desc: 'API 服务、业务系统',
+            langs: ['Node.js', 'Go', 'Java', 'Python']
+          },
+          {
+            goal: '移动端',
+            desc: 'iOS / Android 应用',
+            langs: ['Swift', 'Kotlin', 'Flutter']
+          },
+          {
+            goal: 'AI / 数据科学',
+            desc: '机器学习、数据分析',
+            langs: ['Python']
+          },
+          {
+            goal: '系统编程',
+            desc: '操作系统、嵌入式',
+            langs: ['C', 'C++', 'Rust']
+          },
+          {
+            goal: '快速原型',
+            desc: '脚本、自动化、小工具',
+            langs: ['Python', 'Shell']
+          }
         ]
       },
       fullstackSkill: {
@@ -3577,9 +4902,24 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         down: '重要性下降',
         up: '重要性上升',
         competitivenessLabel: 'AI 时代的核心竞争力：',
-        competitiveness: '不是"会写代码"，而是"会描述需求、会判断对错、会设计方案"。AI 是你的编程助手，但决策者永远是你。',
-        traditionalSteps: ['理解需求', '查阅文档学习语法', '手写代码实现', '调试修复 Bug', '优化代码性能', '编写测试用例'],
-        aiSteps: ['理解需求', '用自然语言描述给 AI', '审核 AI 生成的代码', '判断是否符合预期', '调整需求重新生成', '整合到项目中'],
+        competitiveness:
+          '不是"会写代码"，而是"会描述需求、会判断对错、会设计方案"。AI 是你的编程助手，但决策者永远是你。',
+        traditionalSteps: [
+          '理解需求',
+          '查阅文档学习语法',
+          '手写代码实现',
+          '调试修复 Bug',
+          '优化代码性能',
+          '编写测试用例'
+        ],
+        aiSteps: [
+          '理解需求',
+          '用自然语言描述给 AI',
+          '审核 AI 生成的代码',
+          '判断是否符合预期',
+          '调整需求重新生成',
+          '整合到项目中'
+        ],
         skillShift: [
           { from: '语法记忆', to: '需求描述能力' },
           { from: '手写代码速度', to: '代码审核能力' },
@@ -3595,24 +4935,75 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
         keyLabel: '成长关键点：',
         key: '前 1-2 年打基础，建立独立完成任务的能力；2-3 年选方向，建立深度；3-5 年横向扩展，培养架构思维；5 年+ 技术决策与团队影响力。',
         stages: [
-          { name: '入门期', icon: '🌱', time: '0-1 年', desc: '学习基础语法和工具，能完成简单任务', skills: ['一门语言基础', 'Git 使用', '调试技巧', '阅读文档'], output: '能独立完成小功能、修复简单 Bug' },
-          { name: '成长期', icon: '🌿', time: '1-2 年', desc: '熟悉常用框架和最佳实践，能独立负责模块', skills: ['框架熟练', '代码规范', '单元测试', 'API 设计'], output: '独立负责一个功能模块，代码质量稳定' },
-          { name: '进阶期', icon: '🌳', time: '2-3 年', desc: '深入某个领域，开始有技术选型能力', skills: ['领域深入', '性能优化', '架构设计', '技术选型'], output: '主导技术方案设计，解决复杂问题' },
-          { name: '成熟期', icon: '🌲', time: '3-5 年', desc: '全栈能力或领域专家，能带领小团队', skills: ['全栈能力', '团队协作', '技术分享', '项目管理'], output: '负责核心系统，指导新人成长' },
-          { name: '专家期', icon: '🏔️', time: '5 年+', desc: '技术决策者，有行业影响力', skills: ['技术战略', '团队建设', '行业洞察', '创新引领'], output: '技术方向决策，培养技术团队' }
+          {
+            name: '入门期',
+            icon: '🌱',
+            time: '0-1 年',
+            desc: '学习基础语法和工具，能完成简单任务',
+            skills: ['一门语言基础', 'Git 使用', '调试技巧', '阅读文档'],
+            output: '能独立完成小功能、修复简单 Bug'
+          },
+          {
+            name: '成长期',
+            icon: '🌿',
+            time: '1-2 年',
+            desc: '熟悉常用框架和最佳实践，能独立负责模块',
+            skills: ['框架熟练', '代码规范', '单元测试', 'API 设计'],
+            output: '独立负责一个功能模块，代码质量稳定'
+          },
+          {
+            name: '进阶期',
+            icon: '🌳',
+            time: '2-3 年',
+            desc: '深入某个领域，开始有技术选型能力',
+            skills: ['领域深入', '性能优化', '架构设计', '技术选型'],
+            output: '主导技术方案设计，解决复杂问题'
+          },
+          {
+            name: '成熟期',
+            icon: '🌲',
+            time: '3-5 年',
+            desc: '全栈能力或领域专家，能带领小团队',
+            skills: ['全栈能力', '团队协作', '技术分享', '项目管理'],
+            output: '负责核心系统，指导新人成长'
+          },
+          {
+            name: '专家期',
+            icon: '🏔️',
+            time: '5 年+',
+            desc: '技术决策者，有行业影响力',
+            skills: ['技术战略', '团队建设', '行业洞察', '创新引领'],
+            output: '技术方向决策，培养技术团队'
+          }
         ]
       },
       learningStrategy: {
         title: 'Vibe Coding 学习策略',
         subtitle: 'AI 时代怎么学更高效',
         principleLabel: '核心原则：',
-        principle: 'AI 是你的编程助手，但决策者永远是你。学会提问、学会判断、学会整合，比学会写代码更重要。',
+        principle:
+          'AI 是你的编程助手，但决策者永远是你。学会提问、学会判断、学会整合，比学会写代码更重要。',
         strategies: [
-          { title: '先理解，再让 AI 写', desc: '不要一上来就让 AI 写代码。先理解问题是什么，想清楚解决方案，再用 AI 加速实现。' },
-          { title: '把 AI 当结对编程伙伴', desc: '遇到不懂的概念，问 AI 解释。遇到复杂问题，和 AI 讨论方案。AI 是你的知识渊博的同事。' },
-          { title: '学会审核 AI 的输出', desc: 'AI 生成的代码不一定对。你需要有能力判断：逻辑对不对？有没有安全隐患？性能如何？' },
-          { title: '建立自己的知识体系', desc: 'AI 能帮你查漏补缺，但核心知识框架要自己建立。知道"有什么"，才能问出"怎么用"。' },
-          { title: '在实践中学习', desc: '做真实的项目，解决真实的问题。AI 帮你扫清语法障碍，你专注于解决业务问题。' }
+          {
+            title: '先理解，再让 AI 写',
+            desc: '不要一上来就让 AI 写代码。先理解问题是什么，想清楚解决方案，再用 AI 加速实现。'
+          },
+          {
+            title: '把 AI 当结对编程伙伴',
+            desc: '遇到不懂的概念，问 AI 解释。遇到复杂问题，和 AI 讨论方案。AI 是你的知识渊博的同事。'
+          },
+          {
+            title: '学会审核 AI 的输出',
+            desc: 'AI 生成的代码不一定对。你需要有能力判断：逻辑对不对？有没有安全隐患？性能如何？'
+          },
+          {
+            title: '建立自己的知识体系',
+            desc: 'AI 能帮你查漏补缺，但核心知识框架要自己建立。知道"有什么"，才能问出"怎么用"。'
+          },
+          {
+            title: '在实践中学习',
+            desc: '做真实的项目，解决真实的问题。AI 帮你扫清语法障碍，你专注于解决业务问题。'
+          }
         ]
       }
     },
@@ -3625,13 +5016,29 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
       productsLabel: '代表产品：',
       realWorldTitle: '🌍 现实中的选择',
       dimensions: [
-        { label: '指令数量', cisc: '上千条复杂指令', risc: '几十到几百条精简指令' },
+        {
+          label: '指令数量',
+          cisc: '上千条复杂指令',
+          risc: '几十到几百条精简指令'
+        },
         { label: '单条指令', cisc: '一条能做很多事', risc: '一条只做一件事' },
-        { label: '指令长度', cisc: '变长（1-15字节）', risc: '定长（通常4字节）' },
+        {
+          label: '指令长度',
+          cisc: '变长（1-15字节）',
+          risc: '定长（通常4字节）'
+        },
         { label: '执行速度', cisc: '复杂指令多周期', risc: '大多数单周期完成' },
         { label: '功耗', cisc: '较高', risc: '较低' },
-        { label: '流水线', cisc: '难优化（指令长度不一）', risc: '易优化（指令整齐）' },
-        { label: '编译器负担', cisc: '轻（硬件做更多）', risc: '重（软件做更多优化）' }
+        {
+          label: '流水线',
+          cisc: '难优化（指令长度不一）',
+          risc: '易优化（指令整齐）'
+        },
+        {
+          label: '编译器负担',
+          cisc: '轻（硬件做更多）',
+          risc: '重（软件做更多优化）'
+        }
       ],
       archData: {
         cisc: {
@@ -3642,26 +5049,45 @@ mov  dword ptr [x], eax ; 存到变量 x 的内存地址`
           exampleTitle: '用一条指令完成「内存加法」',
           example:
             'ADD [0x1000], R1\n; 一条指令完成：读内存 → 加法 → 写回内存\n; CPU 内部拆成多个微操作执行',
-          exampleNote: 'CISC 允许指令直接操作内存，一条指令背后可能是 5-6 个微操作',
+          exampleNote:
+            'CISC 允许指令直接操作内存，一条指令背后可能是 5-6 个微操作',
           products: ['Intel Core', 'AMD Ryzen', 'x86 服务器']
         },
         risc: {
           name: 'RISC',
           full: 'Reduced Instruction Set Computer',
-          philosophy: '让每条指令尽可能简单快速，复杂操作由多条简单指令组合完成',
+          philosophy:
+            '让每条指令尽可能简单快速，复杂操作由多条简单指令组合完成',
           analogy: '像一套专业工具——每个工具只做一件事，但做得又快又好',
           exampleTitle: '用三条指令完成同样的「内存加法」',
           example:
             'LOAD  R2, [0x1000]  ; 第1步：从内存读数据到寄存器\nADD   R2, R2, R1    ; 第2步：寄存器之间做加法\nSTORE R2, [0x1000]  ; 第3步：把结果写回内存',
-          exampleNote: 'RISC 要求数据先加载到寄存器，运算只在寄存器间进行，结果再存回内存',
+          exampleNote:
+            'RISC 要求数据先加载到寄存器，运算只在寄存器间进行，结果再存回内存',
           products: ['Apple M 系列', '高通骁龙', 'AWS Graviton', 'RISC-V']
         }
       },
       realWorld: [
-        { device: '💻 你的电脑', arch: 'x86 (CISC)', why: '兼容几十年的软件生态' },
-        { device: '📱 你的手机', arch: 'ARM (RISC)', why: '低功耗，电池续航更久' },
-        { device: '🍎 Apple Silicon', arch: 'ARM (RISC)', why: '高性能低功耗，颠覆了笔记本市场' },
-        { device: '🔬 RISC-V 开发板', arch: 'RISC-V (RISC)', why: '开源免费，IoT 和教育领域崛起' }
+        {
+          device: '💻 你的电脑',
+          arch: 'x86 (CISC)',
+          why: '兼容几十年的软件生态'
+        },
+        {
+          device: '📱 你的手机',
+          arch: 'ARM (RISC)',
+          why: '低功耗，电池续航更久'
+        },
+        {
+          device: '🍎 Apple Silicon',
+          arch: 'ARM (RISC)',
+          why: '高性能低功耗，颠覆了笔记本市场'
+        },
+        {
+          device: '🔬 RISC-V 开发板',
+          arch: 'RISC-V (RISC)',
+          why: '开源免费，IoT 和教育领域崛起'
+        }
       ]
     }
   }

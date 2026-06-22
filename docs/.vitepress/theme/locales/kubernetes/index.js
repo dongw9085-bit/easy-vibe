@@ -5,4 +5,3 @@ export const kubernetesLocale = {
   'zh-cn': zhCn,
   en
 }
-

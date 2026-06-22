@@ -65,7 +65,8 @@ export default {
     principleMiddle: '时，多余的请求会被存入',
     queue: '消息队列',
     orangeArea: '（橙色区域）。',
-    principleEnd: '一旦流量高峰过去，系统会继续全速处理队列中的积压，直到队列清空。这就是"削峰填谷"。'
+    principleEnd:
+      '一旦流量高峰过去，系统会继续全速处理队列中的积压，直到队列清空。这就是"削峰填谷"。'
   },
   reliability: {
     title: '消息可靠性演示',

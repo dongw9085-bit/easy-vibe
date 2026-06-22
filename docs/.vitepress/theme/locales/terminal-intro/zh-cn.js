@@ -31,13 +31,15 @@ export default {
     sendDesc: '发送指令 (字符信号)',
     charStream: '字符流',
     textGrid: '文本网格反馈',
-    cliModeDesc: '这种模式下，计算机只认识字符。你的每一次按键都会被转换成编码发送给系统，系统处理后返回文字结果。它不关心你在哪里点击，只关心你输入了什么。',
+    cliModeDesc:
+      '这种模式下，计算机只认识字符。你的每一次按键都会被转换成编码发送给系统，系统处理后返回文字结果。它不关心你在哪里点击，只关心你输入了什么。',
     playSimulation: '演示输入流',
     simulating: '演示中',
     sendEvent: '发送事件 (坐标/点击)',
     eventLoop: '事件循环',
     pixelRender: '像素图形渲染',
-    guiModeDesc: '这种模式下，计算机实时追踪鼠标坐标和点击事件，并每秒刷新 60 次屏幕像素。它更直观，但需要消耗大量资源来处理图形渲染。',
+    guiModeDesc:
+      '这种模式下，计算机实时追踪鼠标坐标和点击事件，并每秒刷新 60 次屏幕像素。它更直观，但需要消耗大量资源来处理图形渲染。',
     playInteraction: '演示交互'
   },
   terminalOSDemo: {
@@ -49,19 +51,28 @@ export default {
     macTerminal: 'macOS 终端',
     linuxTerminal: 'Linux 终端',
     ready: '准备输入命令...',
-    dirCmd: '输入 `dir` (Directory)。这是 Windows 系统用来**列出当前文件夹内容**的命令。',
-    dirOutput: '系统返回了文件列表。`<DIR>` 表示这是一个文件夹，数字表示文件大小。',
-    getDateCmd: '输入 `Get-Date`。PowerShell 使用动词-名词的命名方式，这里是**获取当前时间**。',
+    dirCmd:
+      '输入 `dir` (Directory)。这是 Windows 系统用来**列出当前文件夹内容**的命令。',
+    dirOutput:
+      '系统返回了文件列表。`<DIR>` 表示这是一个文件夹，数字表示文件大小。',
+    getDateCmd:
+      '输入 `Get-Date`。PowerShell 使用动词-名词的命名方式，这里是**获取当前时间**。',
     getDateOutput: '系统返回了当前的日期和时间。',
-    echoCmd: '输入 `echo`。这是让计算机**复读**你说的话，常用于测试或打印信息。',
+    echoCmd:
+      '输入 `echo`。这是让计算机**复读**你说的话，常用于测试或打印信息。',
     echoOutput: '计算机乖乖地输出了 "Hello World"。',
-    lsCmd: '输入 `ls` (List)。这是 Mac/Linux 系统用来**列出文件**的命令。`-G` 参数让输出带颜色。',
+    lsCmd:
+      '输入 `ls` (List)。这是 Mac/Linux 系统用来**列出文件**的命令。`-G` 参数让输出带颜色。',
     lsOutput: '系统列出了你的主目录下的文件夹。',
-    swVersCmd: '输入 `sw_vers` (Software Version)。这是 macOS 特有的命令，查看**系统版本**。',
+    swVersCmd:
+      '输入 `sw_vers` (Software Version)。这是 macOS 特有的命令，查看**系统版本**。',
     swVersOutput: '系统返回了当前的 macOS 版本信息。',
-    lsLaCmd: '输入 `ls` (List)。这是 Linux/Mac 系统用来**列出文件**的命令。`-la` 是参数，表示"列出所有文件(all)的详细信息(long)"。',
-    lsLaOutput: '系统返回了文件列表。左边的 `drwxr-xr-x` 看起来像乱码，其实是**权限描述**（谁能读、谁能写）。',
-    whoamiCmd: '输入 `whoami` (Who am I)。这是一个经典的哲学命令（笑），告诉计算机：**我是谁？**（当前登录用户）。',
+    lsLaCmd:
+      '输入 `ls` (List)。这是 Linux/Mac 系统用来**列出文件**的命令。`-la` 是参数，表示"列出所有文件(all)的详细信息(long)"。',
+    lsLaOutput:
+      '系统返回了文件列表。左边的 `drwxr-xr-x` 看起来像乱码，其实是**权限描述**（谁能读、谁能写）。',
+    whoamiCmd:
+      '输入 `whoami` (Who am I)。这是一个经典的哲学命令（笑），告诉计算机：**我是谁？**（当前登录用户）。',
     whoamiOutput: '系统回答：你是 "user"。'
   },
   architecture: {
@@ -84,14 +95,15 @@ export default {
     reset: '重置',
     clickHint: '点击"开始演示"查看 \'ls\' 命令如何在系统中流转。',
     step1Title: '1. 用户输入',
-    step1Desc: '你在终端窗口输入 \'ls\'。终端会捕获你的按键操作。',
+    step1Desc: "你在终端窗口输入 'ls'。终端会捕获你的按键操作。",
     step1Tech: '终端在"加工模式 (Cooked Mode)"下缓冲输入，直到你按下回车键。',
     step2Title: '2. 传输',
-    step2Desc: '终端将字符 \'l\'、\'s\' 和 \'回车\' 发送给 Shell。',
+    step2Desc: "终端将字符 'l'、's' 和 '回车' 发送给 Shell。",
     step2Tech: '数据通过标准输入 (stdin) 以字节流的形式传输。',
     step3Title: '3. Shell 解析',
     step3Desc: 'Shell（服务员）接收指令，并将其翻译成内核能听懂的请求。',
-    step3Tech: 'Shell 对输入进行分词，并在 $PATH 环境变量中查找 \'ls\' 可执行文件。',
+    step3Tech:
+      "Shell 对输入进行分词，并在 $PATH 环境变量中查找 'ls' 可执行文件。",
     step4Title: '4. 系统调用',
     step4Desc: 'Shell 请求内核从磁盘读取文件列表。',
     step4Tech: 'Shell 调用 `execve()` 和 `getdents()` 等系统调用。',
@@ -146,17 +158,24 @@ export default {
     t4Goal: '创建一个名为 "hello.txt" 的文件。',
     t4Query: '我想新建一个空文件叫 hello.txt，怎么做？',
     t4AiMac: '在 Mac/Linux 上，使用 `touch hello.txt` 可以快速创建一个空文件。',
-    t4AiLinux: '在 Mac/Linux 上，使用 `touch hello.txt` 可以快速创建一个空文件。',
-    t4AiPs: '在 PowerShell 中，可以使用 `ni hello.txt` 或 `echo "" > hello.txt`。',
-    t4AiCmd: '在 CMD 中，可以使用 `type nul > hello.txt` 或 `echo. > hello.txt`。',
+    t4AiLinux:
+      '在 Mac/Linux 上，使用 `touch hello.txt` 可以快速创建一个空文件。',
+    t4AiPs:
+      '在 PowerShell 中，可以使用 `ni hello.txt` 或 `echo "" > hello.txt`。',
+    t4AiCmd:
+      '在 CMD 中，可以使用 `type nul > hello.txt` 或 `echo. > hello.txt`。',
     t5Title: '第五步：安装程序 (系统软件 & Python库)',
-    t5Desc: '终端不仅能管理文件，还能安装软件。我们来尝试两种常见的安装场景：安装系统工具（如 wget/git）和安装 Python 库（如 requests）。',
+    t5Desc:
+      '终端不仅能管理文件，还能安装软件。我们来尝试两种常见的安装场景：安装系统工具（如 wget/git）和安装 Python 库（如 requests）。',
     t5Goal: '任选其一：安装系统工具或 Python 库。',
     t5Query: '怎么用命令行安装软件？我想装 git 或者 python 的 requests 库。',
     t5AiMac: 'macOS 推荐使用 Homebrew 安装系统软件，使用 pip 安装 Python 库。',
-    t5AiLinux: 'Linux (Ubuntu/Debian) 使用 apt 安装系统软件，使用 pip 安装 Python 库。',
-    t5AiPs: 'Windows PowerShell 推荐使用 winget 安装系统软件，使用 pip 安装 Python 库。',
-    t5AiCmd: 'Windows CMD 推荐使用 winget 安装系统软件，使用 pip 安装 Python 库。',
+    t5AiLinux:
+      'Linux (Ubuntu/Debian) 使用 apt 安装系统软件，使用 pip 安装 Python 库。',
+    t5AiPs:
+      'Windows PowerShell 推荐使用 winget 安装系统软件，使用 pip 安装 Python 库。',
+    t5AiCmd:
+      'Windows CMD 推荐使用 winget 安装系统软件，使用 pip 安装 Python 库。',
     t5AiCommon: '不同系统有不同的包管理器。',
     t5InstallWget: '安装 wget (系统)',
     t5InstallRequests: '安装 requests (Python)',
@@ -165,8 +184,10 @@ export default {
     t6Desc: '练习结束了，我们把刚才创建的文件删除掉，保持环境整洁。',
     t6Goal: '删除 "hello.txt" 文件。',
     t6Query: '我不想要 hello.txt 了，怎么删除它？',
-    t6AiMac: '删除文件使用 `rm` 命令 (Remove)。小心，这个操作通常不可撤销！输入 `rm hello.txt`。',
-    t6AiLinux: '删除文件使用 `rm` 命令 (Remove)。小心，这个操作通常不可撤销！输入 `rm hello.txt`。',
+    t6AiMac:
+      '删除文件使用 `rm` 命令 (Remove)。小心，这个操作通常不可撤销！输入 `rm hello.txt`。',
+    t6AiLinux:
+      '删除文件使用 `rm` 命令 (Remove)。小心，这个操作通常不可撤销！输入 `rm hello.txt`。',
     t6AiPs: '在 PowerShell 中使用 `rm` 或 `del`。输入 `rm hello.txt`。',
     t6AiCmd: '在 CMD 中使用 `del` 命令 (Delete)。输入 `del hello.txt`。'
   }

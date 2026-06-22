@@ -75,7 +75,12 @@ export default {
     ],
     specs: [
       { id: 'small', name: '1核2G', scene: '测试环境、个人博客', price: 89 },
-      { id: 'medium', name: '2核4G', scene: '中小型应用、开发环境', price: 199 },
+      {
+        id: 'medium',
+        name: '2核4G',
+        scene: '中小型应用、开发环境',
+        price: 199
+      },
       { id: 'large', name: '4核8G', scene: '生产环境、中型网站', price: 399 },
       { id: 'xlarge', name: '8核16G', scene: '大型应用、数据库', price: 799 }
     ],
@@ -97,31 +102,55 @@ export default {
         name: '准备代码',
         time: '5分钟',
         description: '将网站代码打包成可部署的格式',
-        tasks: ['整理 HTML/CSS/JS 文件', '压缩图片和静态资源', '检查文件路径是否正确']
+        tasks: [
+          '整理 HTML/CSS/JS 文件',
+          '压缩图片和静态资源',
+          '检查文件路径是否正确'
+        ]
       },
       {
         name: '创建存储桶',
         time: '2分钟',
         description: '在对象存储服务中创建存储空间',
-        tasks: ['登录云控制台', '进入对象存储 OSS/S3', '点击"创建 Bucket"', '设置 Bucket 名称和地域']
+        tasks: [
+          '登录云控制台',
+          '进入对象存储 OSS/S3',
+          '点击"创建 Bucket"',
+          '设置 Bucket 名称和地域'
+        ]
       },
       {
         name: '上传文件',
         time: '3分钟',
         description: '将网站文件上传到存储桶',
-        tasks: ['进入 Bucket 管理页面', '点击"上传文件"', '选择本地网站文件', '等待上传完成']
+        tasks: [
+          '进入 Bucket 管理页面',
+          '点击"上传文件"',
+          '选择本地网站文件',
+          '等待上传完成'
+        ]
       },
       {
         name: '配置 CDN',
         time: '5分钟',
         description: '配置内容分发网络加速访问',
-        tasks: ['进入 CDN 控制台', '添加加速域名', '配置源站为存储桶', '等待 CDN 部署完成']
+        tasks: [
+          '进入 CDN 控制台',
+          '添加加速域名',
+          '配置源站为存储桶',
+          '等待 CDN 部署完成'
+        ]
       },
       {
         name: '域名绑定',
         time: '10分钟',
         description: '将自定义域名绑定到 CDN',
-        tasks: ['添加域名解析记录', '配置 CNAME 到 CDN', '申请 SSL 证书', '测试 HTTPS 访问']
+        tasks: [
+          '添加域名解析记录',
+          '配置 CNAME 到 CDN',
+          '申请 SSL 证书',
+          '测试 HTTPS 访问'
+        ]
       }
     ]
   },

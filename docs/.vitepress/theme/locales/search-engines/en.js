@@ -50,12 +50,34 @@ export default {
       }
     ],
     documents: [
-      { title: 'MySQL Database Basics', snippet: 'A database stores and manages data, and MySQL is one of the most popular relational databases.', keywords: { database: 3, data: 2, MySQL: 2, storage: 1 } },
-      { title: 'Redis Cache Design', snippet: 'Redis is an in-memory database often used as a cache layer to improve data read performance.', keywords: { Redis: 2, cache: 2, database: 1, data: 1, performance: 1 } },
-      { title: 'Python Data Analysis', snippet: 'Use Python for data cleaning, analysis, and visualization.', keywords: { Python: 2, data: 3, analysis: 2, visualization: 1 } },
-      { title: 'Distributed Database Architecture', snippet: 'Distributed databases use sharding and replication for high availability and horizontal scaling.', keywords: { distributed: 2, database: 2, sharding: 1, availability: 1 } },
-      { title: 'API Interface Design', snippet: 'RESTful API design guidelines and best practices.', keywords: { API: 3, design: 2, RESTful: 1 } }
+      {
+        title: 'MySQL Database Basics',
+        snippet:
+          'A database stores and manages data, and MySQL is one of the most popular relational databases.',
+        keywords: { database: 3, data: 2, MySQL: 2, storage: 1 }
+      },
+      {
+        title: 'Redis Cache Design',
+        snippet:
+          'Redis is an in-memory database often used as a cache layer to improve data read performance.',
+        keywords: { Redis: 2, cache: 2, database: 1, data: 1, performance: 1 }
+      },
+      {
+        title: 'Python Data Analysis',
+        snippet: 'Use Python for data cleaning, analysis, and visualization.',
+        keywords: { Python: 2, data: 3, analysis: 2, visualization: 1 }
+      },
+      {
+        title: 'Distributed Database Architecture',
+        snippet:
+          'Distributed databases use sharding and replication for high availability and horizontal scaling.',
+        keywords: { distributed: 2, database: 2, sharding: 1, availability: 1 }
+      },
+      {
+        title: 'API Interface Design',
+        snippet: 'RESTful API design guidelines and best practices.',
+        keywords: { API: 3, design: 2, RESTful: 1 }
+      }
     ]
   }
 }
-

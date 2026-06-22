@@ -8,17 +8,44 @@ export default {
       example: '{name} 示例'
     },
     types: [
-      { id: 'function', icon: '📦', name: '函数 API', target: '本地代码库', comm: '函数调用', latency: '纳秒级', scenarios: '数据处理、文件操作', example: `len("hello")           # 返回 5
+      {
+        id: 'function',
+        icon: '📦',
+        name: '函数 API',
+        target: '本地代码库',
+        comm: '函数调用',
+        latency: '纳秒级',
+        scenarios: '数据处理、文件操作',
+        example: `len("hello")           # 返回 5
 max([1, 5, 3])         # 返回 5
-open("file.txt").read() # 读取文件` },
-      { id: 'system', icon: '⚙️', name: '操作系统 API', target: '操作系统内核', comm: '系统调用', latency: '微秒级', scenarios: '文件操作、进程管理', example: `with open("file.txt", "r") as f:
+open("file.txt").read() # 读取文件`
+      },
+      {
+        id: 'system',
+        icon: '⚙️',
+        name: '操作系统 API',
+        target: '操作系统内核',
+        comm: '系统调用',
+        latency: '微秒级',
+        scenarios: '文件操作、进程管理',
+        example: `with open("file.txt", "r") as f:
     content = f.read()
 
-subprocess.run(["ls", "-l"])` },
-      { id: 'web', icon: '🌐', name: 'Web API', target: '远程服务器', comm: 'HTTP 请求', latency: '毫秒级', scenarios: 'AI 调用、数据获取', example: `requests.post(
+subprocess.run(["ls", "-l"])`
+      },
+      {
+        id: 'web',
+        icon: '🌐',
+        name: 'Web API',
+        target: '远程服务器',
+        comm: 'HTTP 请求',
+        latency: '毫秒级',
+        scenarios: 'AI 调用、数据获取',
+        example: `requests.post(
     "https://api.deepseek.com/v1/chat/completions",
     json={"model": "deepseek-chat", "messages": [...]}
-)` }
+)`
+      }
     ]
   },
   statusCategories: {
@@ -28,10 +55,34 @@ subprocess.run(["ls", "-l"])` },
     tip4: '4️⃣ 客户端错',
     tip5: '5️⃣ 服务器错',
     categories: [
-      { id: 'success', code: '2', name: '成功', desc: '请求被成功接收、理解并处理', examples: ['200 OK', '201 Created', '204 No Content'] },
-      { id: 'redirect', code: '3', name: '重定向', desc: '需要进一步操作才能完成请求', examples: ['301 永久移动', '304 未修改', '307 临时重定向'] },
-      { id: 'client-error', code: '4', name: '客户端错误', desc: '请求包含错误或无法完成', examples: ['400 参数错误', '401 未认证', '403 无权限', '404 不存在'] },
-      { id: 'server-error', code: '5', name: '服务器错误', desc: '服务器无法处理有效请求', examples: ['500 内部错误', '502 网关错误', '503 服务不可用'] }
+      {
+        id: 'success',
+        code: '2',
+        name: '成功',
+        desc: '请求被成功接收、理解并处理',
+        examples: ['200 OK', '201 Created', '204 No Content']
+      },
+      {
+        id: 'redirect',
+        code: '3',
+        name: '重定向',
+        desc: '需要进一步操作才能完成请求',
+        examples: ['301 永久移动', '304 未修改', '307 临时重定向']
+      },
+      {
+        id: 'client-error',
+        code: '4',
+        name: '客户端错误',
+        desc: '请求包含错误或无法完成',
+        examples: ['400 参数错误', '401 未认证', '403 无权限', '404 不存在']
+      },
+      {
+        id: 'server-error',
+        code: '5',
+        name: '服务器错误',
+        desc: '服务器无法处理有效请求',
+        examples: ['500 内部错误', '502 网关错误', '503 服务不可用']
+      }
     ]
   },
   httpMethods: {
@@ -39,22 +90,62 @@ subprocess.run(["ls", "-l"])` },
     notIdempotent: '不幂等',
     analogy: '餐厅类比:',
     methods: [
-      { id: 'get', name: '获取', use: '查询数据', idempotent: true, desc: '从服务器获取资源,不会修改任何数据', analogy: '"服务员,菜单给我看看"', example: `GET /api/users           # 获取用户列表
+      {
+        id: 'get',
+        name: '获取',
+        use: '查询数据',
+        idempotent: true,
+        desc: '从服务器获取资源,不会修改任何数据',
+        analogy: '"服务员,菜单给我看看"',
+        example: `GET /api/users           # 获取用户列表
 GET /api/users/123       # 获取单个用户
-GET /api/products?cat=phone  # 查询手机商品` },
-      { id: 'post', name: '创建', use: '新增数据', idempotent: false, desc: '向服务器提交数据,创建新资源', analogy: '"给我来份宫保鸡丁"', example: `POST /api/users
+GET /api/products?cat=phone  # 查询手机商品`
+      },
+      {
+        id: 'post',
+        name: '创建',
+        use: '新增数据',
+        idempotent: false,
+        desc: '向服务器提交数据,创建新资源',
+        analogy: '"给我来份宫保鸡丁"',
+        example: `POST /api/users
 Body: {"name": "张三", "email": "zhang@example.com"}
 
 POST /api/orders
-Body: {"items": [{"id": 1, "qty": 2}]}` },
-      { id: 'put', name: '全量更新', use: '替换资源', idempotent: true, desc: '用新数据完整替换旧资源', analogy: '"把宫保鸡丁改成糖醋里脊"', example: `PUT /api/users/123
+Body: {"items": [{"id": 1, "qty": 2}]}`
+      },
+      {
+        id: 'put',
+        name: '全量更新',
+        use: '替换资源',
+        idempotent: true,
+        desc: '用新数据完整替换旧资源',
+        analogy: '"把宫保鸡丁改成糖醋里脊"',
+        example: `PUT /api/users/123
 Body: {"name": "李四", "email": "li@example.com", "age": 25}
-# 注意:必须提供所有字段` },
-      { id: 'patch', name: '部分更新', use: '修改字段', idempotent: false, desc: '只修改资源的部分字段', analogy: '"宫保鸡丁不要放花生"', example: `PATCH /api/users/123
+# 注意:必须提供所有字段`
+      },
+      {
+        id: 'patch',
+        name: '部分更新',
+        use: '修改字段',
+        idempotent: false,
+        desc: '只修改资源的部分字段',
+        analogy: '"宫保鸡丁不要放花生"',
+        example: `PATCH /api/users/123
 Body: {"name": "王五"}
-# 只修改 name,其他字段保持不变` },
-      { id: 'delete', name: '删除', use: '删除资源', idempotent: true, desc: '从服务器删除资源', analogy: '"算了,那道菜不要了"', example: `DELETE /api/users/123       # 删除指定用户
-DELETE /api/orders/456      # 取消订单` }
+# 只修改 name,其他字段保持不变`
+      },
+      {
+        id: 'delete',
+        name: '删除',
+        use: '删除资源',
+        idempotent: true,
+        desc: '从服务器删除资源',
+        analogy: '"算了,那道菜不要了"',
+        example: `DELETE /api/users/123       # 删除指定用户
+DELETE /api/orders/456      # 取消订单`
+      }
     ]
   },
   apiDocument: {
@@ -67,7 +158,8 @@ DELETE /api/orders/456      # 取消订单` }
     temperatureDesc: '0-2，默认1',
     resultTitle: '翻译成代码',
     coreTitle: '核心思想：',
-    coreText: '看文档找三样：地址（Base URL）、鉴权（Authorization）、参数（Parameters）。',
+    coreText:
+      '看文档找三样：地址（Base URL）、鉴权（Authorization）、参数（Parameters）。',
     userGreeting: '你好'
   },
   apiPlayground: {
@@ -237,13 +329,34 @@ Response:
     scenarioTitle: '使用场景对比',
     scenarioHeaders: ['场景', '推荐方式', '原因'],
     scenarios: [
-      { scenario: '本地数据处理', mode: '函数 API', badgeClass: 'function', reason: '快速、无需网络' },
-      { scenario: '调用 AI 模型', mode: 'HTTP API', badgeClass: 'http', reason: '模型在远程服务器' },
-      { scenario: '获取天气数据', mode: 'HTTP API', badgeClass: 'http', reason: '数据在服务商那里' },
-      { scenario: '文件读写操作', mode: '函数 API', badgeClass: 'function', reason: '直接操作本地文件' }
+      {
+        scenario: '本地数据处理',
+        mode: '函数 API',
+        badgeClass: 'function',
+        reason: '快速、无需网络'
+      },
+      {
+        scenario: '调用 AI 模型',
+        mode: 'HTTP API',
+        badgeClass: 'http',
+        reason: '模型在远程服务器'
+      },
+      {
+        scenario: '获取天气数据',
+        mode: 'HTTP API',
+        badgeClass: 'http',
+        reason: '数据在服务商那里'
+      },
+      {
+        scenario: '文件读写操作',
+        mode: '函数 API',
+        badgeClass: 'function',
+        reason: '直接操作本地文件'
+      }
     ],
     infoTitle: '核心要点：',
-    infoText: '函数 API 是"本地办事"，HTTP API 是"远程通信"。看文档时，函数关注参数和返回值，HTTP API 关注 Endpoint、认证和请求/响应格式。'
+    infoText:
+      '函数 API 是"本地办事"，HTTP API 是"远程通信"。看文档时，函数关注参数和返回值，HTTP API 关注 Endpoint、认证和请求/响应格式。'
   },
   documentTypes: {
     title: '📋 不同文档类型怎么看',
@@ -265,7 +378,8 @@ Response:
       ['先看什么', '函数签名', 'Base URL + Auth', 'Quick Start']
     ],
     infoTitle: '阅读建议：',
-    infoText: '函数文档看签名，API 文档看请求格式，SDK 文档看示例。遇到不会的，先找「Quick Start」或「Getting Started」章节。',
+    infoText:
+      '函数文档看签名，API 文档看请求格式，SDK 文档看示例。遇到不会的，先找「Quick Start」或「Getting Started」章节。',
     docTypes: [
       {
         id: 'function',
@@ -306,7 +420,14 @@ Response:
         name: 'REST API 文档',
         scenario: '调用远程 HTTP 接口',
         difficulty: '⭐⭐⭐',
-        keyPoints: ['Base URL', '认证方式', 'Endpoint', '请求参数', '响应格式', '错误码'],
+        keyPoints: [
+          'Base URL',
+          '认证方式',
+          'Endpoint',
+          '请求参数',
+          '响应格式',
+          '错误码'
+        ],
         example: `## POST /v1/chat/completions
 
 创建聊天完成请求
@@ -353,7 +474,13 @@ Authorization: Bearer {api_key}
         name: 'SDK 文档',
         scenario: '使用官方封装好的开发工具包',
         difficulty: '⭐⭐',
-        keyPoints: ['安装方式', '初始化', '核心类/方法', '配置选项', '最佳实践'],
+        keyPoints: [
+          '安装方式',
+          '初始化',
+          '核心类/方法',
+          '配置选项',
+          '最佳实践'
+        ],
         example: `## OpenAI Python SDK
 
 ### 安装
@@ -402,7 +529,14 @@ for chunk in stream:
         name: 'WebSocket 文档',
         scenario: '实时双向通信',
         difficulty: '⭐⭐⭐⭐',
-        keyPoints: ['连接地址', '连接建立', '消息格式', '事件处理', '心跳机制', '断开重连'],
+        keyPoints: [
+          '连接地址',
+          '连接建立',
+          '消息格式',
+          '事件处理',
+          '心跳机制',
+          '断开重连'
+        ],
         example: `## WebSocket API
 
 ### 连接地址

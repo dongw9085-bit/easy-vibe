@@ -17,25 +17,120 @@ export default {
       0: 'One-time'
     },
     rows: [
-      { cmd: 'git init', desc: 'Initialize a Git repository in the current directory', level: 0, freqLabel: 'Once at project start' },
-      { cmd: 'git status', desc: 'Check working tree and staging area status', level: 5, freqLabel: 'Very frequent' },
-      { cmd: 'git add <file>', desc: 'Put a specific file into the staging area', level: 5, freqLabel: 'Before each commit' },
-      { cmd: 'git add .', desc: 'Stage all changed files', level: 5, freqLabel: '' },
-      { cmd: 'git commit -m "..."', desc: 'Commit staged content with a message', level: 5, freqLabel: '' },
-      { cmd: 'git push', desc: 'Push commits to the remote repository', level: 5, freqLabel: '' },
-      { cmd: 'git pull', desc: 'Pull the latest remote changes', level: 5, freqLabel: '' },
-      { cmd: 'git log --oneline', desc: 'View a compact commit history', level: 4, freqLabel: '' },
-      { cmd: 'git checkout -b <branch>', desc: 'Create and switch to a new branch', level: 4, freqLabel: '' },
-      { cmd: 'git checkout <branch>', desc: 'Switch to an existing branch', level: 4, freqLabel: '' },
-      { cmd: 'git clone <url>', desc: 'Clone a remote repository locally', level: 4, freqLabel: '' },
-      { cmd: 'git branch', desc: 'List local branches', level: 3, freqLabel: '' },
-      { cmd: 'git merge <branch>', desc: 'Merge a branch into the current branch', level: 3, freqLabel: '' },
-      { cmd: 'git stash', desc: 'Temporarily save uncommitted changes', level: 3, freqLabel: '' },
-      { cmd: 'git stash pop', desc: 'Restore the previous stash', level: 3, freqLabel: '' },
-      { cmd: 'git reset HEAD~1', desc: 'Undo the latest commit while keeping changes', level: 3, freqLabel: '' },
-      { cmd: 'git diff', desc: 'Inspect detailed file differences', level: 3, freqLabel: '' },
-      { cmd: 'git branch -d <branch>', desc: 'Delete a merged branch', level: 2, freqLabel: '' },
-      { cmd: 'git remote add origin <url>', desc: 'Connect a remote repository once', level: 0, freqLabel: 'At project setup' }
+      {
+        cmd: 'git init',
+        desc: 'Initialize a Git repository in the current directory',
+        level: 0,
+        freqLabel: 'Once at project start'
+      },
+      {
+        cmd: 'git status',
+        desc: 'Check working tree and staging area status',
+        level: 5,
+        freqLabel: 'Very frequent'
+      },
+      {
+        cmd: 'git add <file>',
+        desc: 'Put a specific file into the staging area',
+        level: 5,
+        freqLabel: 'Before each commit'
+      },
+      {
+        cmd: 'git add .',
+        desc: 'Stage all changed files',
+        level: 5,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git commit -m "..."',
+        desc: 'Commit staged content with a message',
+        level: 5,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git push',
+        desc: 'Push commits to the remote repository',
+        level: 5,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git pull',
+        desc: 'Pull the latest remote changes',
+        level: 5,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git log --oneline',
+        desc: 'View a compact commit history',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git checkout -b <branch>',
+        desc: 'Create and switch to a new branch',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git checkout <branch>',
+        desc: 'Switch to an existing branch',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git clone <url>',
+        desc: 'Clone a remote repository locally',
+        level: 4,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git branch',
+        desc: 'List local branches',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git merge <branch>',
+        desc: 'Merge a branch into the current branch',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git stash',
+        desc: 'Temporarily save uncommitted changes',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git stash pop',
+        desc: 'Restore the previous stash',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git reset HEAD~1',
+        desc: 'Undo the latest commit while keeping changes',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git diff',
+        desc: 'Inspect detailed file differences',
+        level: 3,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git branch -d <branch>',
+        desc: 'Delete a merged branch',
+        level: 2,
+        freqLabel: ''
+      },
+      {
+        cmd: 'git remote add origin <url>',
+        desc: 'Connect a remote repository once',
+        level: 0,
+        freqLabel: 'At project setup'
+      }
     ]
   },
   sync: {
@@ -53,9 +148,18 @@ export default {
     ops: {
       remote: {
         output: [
-          { kind: 'dim', text: '# Link the local repository to the remote once' },
-          { kind: 'grn', text: 'origin  https://github.com/you/project.git (fetch)' },
-          { kind: 'grn', text: 'origin  https://github.com/you/project.git (push)' }
+          {
+            kind: 'dim',
+            text: '# Link the local repository to the remote once'
+          },
+          {
+            kind: 'grn',
+            text: 'origin  https://github.com/you/project.git (fetch)'
+          },
+          {
+            kind: 'grn',
+            text: 'origin  https://github.com/you/project.git (push)'
+          }
         ],
         hint: '"origin" is the remote alias, a short contact name for the GitHub URL.'
       },
@@ -71,7 +175,10 @@ export default {
         cmd: 'git commit -m "fix: fix login bug"',
         output: [
           { kind: 'dim', text: '[main b5e6f7a] fix: fix login bug' },
-          { kind: 'yel', text: "Your branch is 1 commit ahead of 'origin/main'." }
+          {
+            kind: 'yel',
+            text: "Your branch is 1 commit ahead of 'origin/main'."
+          }
         ],
         hint: 'A new local commit exists, but it has not been pushed. The remote is still behind.',
         commitMsg: 'fix: fix login bug'
@@ -87,7 +194,10 @@ export default {
         output: [
           { kind: 'grn', text: 'From https://github.com/you/project.git' },
           { kind: 'grn', text: '   b5e6f7a..d8c9e0f  main -> origin/main' },
-          { kind: 'dim', text: 'Fast-forward: readme.md | 5 +++++ 1 file changed' }
+          {
+            kind: 'dim',
+            text: 'Fast-forward: readme.md | 5 +++++ 1 file changed'
+          }
         ],
         hint: 'pull = fetch + merge. A teammate’s pushed commit is now synced to your local repository.',
         commitMsg: 'teammate: update README'
@@ -95,8 +205,10 @@ export default {
     }
   },
   branch: {
-    initialLine: '# main already has 2 commits. Follow the steps to see branching',
-    initialHint: 'Click the command buttons in order and watch the branch graph change',
+    initialLine:
+      '# main already has 2 commits. Follow the steps to see branching',
+    initialHint:
+      'Click the command buttons in order and watch the branch graph change',
     legend: {
       main: 'main branch',
       feature: 'feature-login branch',
@@ -109,7 +221,9 @@ export default {
     ],
     ops: {
       create: {
-        output: [{ kind: 'grn', text: "Switched to a new branch 'feature-login'" }],
+        output: [
+          { kind: 'grn', text: "Switched to a new branch 'feature-login'" }
+        ],
         hint: 'The new branch points to the same commit as main, but it now has its own timeline. You are on feature-login, so main will not move.'
       },
       c1: {
@@ -144,8 +258,10 @@ export default {
     }
   },
   commitFlow: {
-    initialLine: '# You changed 3 files. This demo shows the add -> commit flow',
-    initialHint: 'Click the command buttons in order and watch files move across the three areas.',
+    initialLine:
+      '# You changed 3 files. This demo shows the add -> commit flow',
+    initialHint:
+      'Click the command buttons in order and watch files move across the three areas.',
     areas: {
       work: {
         title: 'Working tree',
@@ -188,7 +304,10 @@ export default {
       },
       add: {
         output: [
-          { kind: 'dim', text: '# git add only stages the files you name; debug.log is skipped' },
+          {
+            kind: 'dim',
+            text: '# git add only stages the files you name; debug.log is skipped'
+          },
           { kind: 'dim', text: '' },
           { kind: 'dim', text: 'On branch main' },
           { kind: 'dim', text: '' },
@@ -197,7 +316,10 @@ export default {
           { kind: 'grn', text: '  modified:   style.css' },
           { kind: 'dim', text: '' },
           { kind: 'red', text: 'Untracked files:' },
-          { kind: 'red', text: '  debug.log   <- not added, so it will not be committed' }
+          {
+            kind: 'red',
+            text: '  debug.log   <- not added, so it will not be committed'
+          }
         ],
         hint: 'Green means staged. login.js and style.css moved into the staging area; debug.log remains unstaged.'
       },
@@ -214,7 +336,10 @@ export default {
       },
       log: {
         output: [
-          { kind: 'yel', text: 'a1b2c3d (HEAD -> main) feat: add login feature' },
+          {
+            kind: 'yel',
+            text: 'a1b2c3d (HEAD -> main) feat: add login feature'
+          },
           { kind: 'yel', text: '9f3e1b2 init: initialize project' }
         ],
         hint: 'Each line is one commit, newest first. The repository area shows the history, while debug.log remains uncommitted.'

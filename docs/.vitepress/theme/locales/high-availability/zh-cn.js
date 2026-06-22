@@ -9,10 +9,42 @@ export default {
       examples: '典型场景：'
     },
     slaLevels: [
-      { nines: '2', label: '2 个 9', percent: '99%', yearly: '3.65 天', monthly: '7.3 小时', weekly: '1.68 小时', examples: '内部工具、非关键系统' },
-      { nines: '3', label: '3 个 9', percent: '99.9%', yearly: '8.76 小时', monthly: '43.8 分钟', weekly: '10.1 分钟', examples: '普通 Web 应用、企业系统' },
-      { nines: '4', label: '4 个 9', percent: '99.99%', yearly: '52.6 分钟', monthly: '4.38 分钟', weekly: '1.01 分钟', examples: '电商平台、SaaS 服务' },
-      { nines: '5', label: '5 个 9', percent: '99.999%', yearly: '5.26 分钟', monthly: '26.3 秒', weekly: '6.05 秒', examples: '金融交易、电信核心网' }
+      {
+        nines: '2',
+        label: '2 个 9',
+        percent: '99%',
+        yearly: '3.65 天',
+        monthly: '7.3 小时',
+        weekly: '1.68 小时',
+        examples: '内部工具、非关键系统'
+      },
+      {
+        nines: '3',
+        label: '3 个 9',
+        percent: '99.9%',
+        yearly: '8.76 小时',
+        monthly: '43.8 分钟',
+        weekly: '10.1 分钟',
+        examples: '普通 Web 应用、企业系统'
+      },
+      {
+        nines: '4',
+        label: '4 个 9',
+        percent: '99.99%',
+        yearly: '52.6 分钟',
+        monthly: '4.38 分钟',
+        weekly: '1.01 分钟',
+        examples: '电商平台、SaaS 服务'
+      },
+      {
+        nines: '5',
+        label: '5 个 9',
+        percent: '99.999%',
+        yearly: '5.26 分钟',
+        monthly: '26.3 秒',
+        weekly: '6.05 秒',
+        examples: '金融交易、电信核心网'
+      }
     ]
   },
   failover: {
@@ -70,4 +102,3 @@ export default {
     ]
   }
 }
-

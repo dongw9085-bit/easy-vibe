@@ -8,14 +8,26 @@ export default {
     ],
     layers: {
       vm: [
-        { label: '应用 A / 应用 B / 应用 C', type: 'app', items: ['App A + Bins/Libs', 'App B + Bins/Libs', 'App C + Bins/Libs'] },
-        { label: '客户操作系统（Guest OS）', type: 'os', items: ['Ubuntu', 'CentOS', 'Debian'] },
+        {
+          label: '应用 A / 应用 B / 应用 C',
+          type: 'app',
+          items: ['App A + Bins/Libs', 'App B + Bins/Libs', 'App C + Bins/Libs']
+        },
+        {
+          label: '客户操作系统（Guest OS）',
+          type: 'os',
+          items: ['Ubuntu', 'CentOS', 'Debian']
+        },
         { label: 'Hypervisor（VMware / KVM）', type: 'hypervisor' },
         { label: '宿主操作系统（Host OS）', type: 'host' },
         { label: '物理硬件', type: 'hardware' }
       ],
       container: [
-        { label: '应用 A / 应用 B / 应用 C', type: 'app', items: ['App A + Bins/Libs', 'App B + Bins/Libs', 'App C + Bins/Libs'] },
+        {
+          label: '应用 A / 应用 B / 应用 C',
+          type: 'app',
+          items: ['App A + Bins/Libs', 'App B + Bins/Libs', 'App C + Bins/Libs']
+        },
         { label: 'Docker Engine', type: 'docker' },
         { label: '宿主操作系统（Host OS）', type: 'host' },
         { label: '物理硬件', type: 'hardware' }
@@ -24,14 +36,22 @@ export default {
     info: {
       vm: [
         { label: '启动速度', value: '分钟级', highlight: false },
-        { label: '资源占用', value: '每个 VM 需要完整 OS（GB 级）', highlight: false },
+        {
+          label: '资源占用',
+          value: '每个 VM 需要完整 OS（GB 级）',
+          highlight: false
+        },
         { label: '隔离性', value: '强（硬件级隔离）', highlight: true },
         { label: '密度', value: '单机通常 10-20 个 VM', highlight: false },
         { label: '镜像大小', value: 'GB 级', highlight: false }
       ],
       container: [
         { label: '启动速度', value: '秒级', highlight: true },
-        { label: '资源占用', value: '共享宿主 OS 内核（MB 级）', highlight: true },
+        {
+          label: '资源占用',
+          value: '共享宿主 OS 内核（MB 级）',
+          highlight: true
+        },
         { label: '隔离性', value: '较强（进程级隔离）', highlight: false },
         { label: '密度', value: '单机可运行数百个容器', highlight: true },
         { label: '镜像大小', value: 'MB 级', highlight: true }
@@ -75,7 +95,10 @@ export default {
         icon: '☁️',
         desc: '将构建好的镜像推送到镜像仓库（Registry），如 Docker Hub、阿里云 ACR、AWS ECR。团队成员和部署环境可以从仓库拉取镜像，实现"一次构建，到处运行"。',
         commands: [
-          { cmd: 'docker tag myapp:1.0 registry/myapp:1.0', desc: '给镜像打远程标签' },
+          {
+            cmd: 'docker tag myapp:1.0 registry/myapp:1.0',
+            desc: '给镜像打远程标签'
+          },
           { cmd: 'docker push registry/myapp:1.0', desc: '推送到仓库' },
           { cmd: 'docker pull registry/myapp:1.0', desc: '从仓库拉取' }
         ]
@@ -86,7 +109,10 @@ export default {
         icon: '▶️',
         desc: '容器是镜像的运行实例。一个镜像可以启动多个容器，每个容器有独立的文件系统、网络和进程空间。容器是轻量级的，启动只需秒级。',
         commands: [
-          { cmd: 'docker run -d -p 3000:3000 myapp:1.0', desc: '后台运行并映射端口' },
+          {
+            cmd: 'docker run -d -p 3000:3000 myapp:1.0',
+            desc: '后台运行并映射端口'
+          },
           { cmd: 'docker ps', desc: '查看运行中的容器' },
           { cmd: 'docker logs <container>', desc: '查看容器日志' },
           { cmd: 'docker exec -it <container> sh', desc: '进入容器终端' }
@@ -107,4 +133,3 @@ export default {
     ]
   }
 }
-

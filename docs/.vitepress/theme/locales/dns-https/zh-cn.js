@@ -33,42 +33,66 @@ export default {
         name: 'Address 记录',
         desc: '将域名映射到一个 IPv4 地址。这是最常见的 DNS 记录类型，浏览器访问网站时最终需要的就是这条记录。',
         example: 'example.com.  IN  A  93.184.216.34',
-        usages: ['网站域名指向服务器 IP', '子域名指向不同的服务器', '配合负载均衡返回多个 IP']
+        usages: [
+          '网站域名指向服务器 IP',
+          '子域名指向不同的服务器',
+          '配合负载均衡返回多个 IP'
+        ]
       },
       {
         type: 'AAAA',
         name: 'IPv6 Address 记录',
         desc: '将域名映射到一个 IPv6 地址。随着 IPv4 地址耗尽，AAAA 记录变得越来越重要。',
         example: 'example.com.  IN  AAAA  2606:2800:220:1:248:1893:25c8:1946',
-        usages: ['支持 IPv6 网络的设备访问', '双栈部署（同时配置 A 和 AAAA）', '面向未来的网络架构']
+        usages: [
+          '支持 IPv6 网络的设备访问',
+          '双栈部署（同时配置 A 和 AAAA）',
+          '面向未来的网络架构'
+        ]
       },
       {
         type: 'CNAME',
         name: 'Canonical Name 记录',
         desc: '将一个域名指向另一个域名（别名）。浏览器会继续解析目标域名，直到找到 A 记录。',
         example: 'www.example.com.  IN  CNAME  example.com.',
-        usages: ['www 子域名指向主域名', 'CDN 加速（指向 CDN 提供商域名）', '多个域名指向同一服务']
+        usages: [
+          'www 子域名指向主域名',
+          'CDN 加速（指向 CDN 提供商域名）',
+          '多个域名指向同一服务'
+        ]
       },
       {
         type: 'MX',
         name: 'Mail Exchange 记录',
         desc: '指定负责接收该域名邮件的邮件服务器地址和优先级。数字越小优先级越高。',
         example: 'example.com.  IN  MX  10 mail.example.com.',
-        usages: ['配置企业邮箱（如 Gmail、Outlook）', '设置邮件服务器优先级', '邮件备份和容灾']
+        usages: [
+          '配置企业邮箱（如 Gmail、Outlook）',
+          '设置邮件服务器优先级',
+          '邮件备份和容灾'
+        ]
       },
       {
         type: 'TXT',
         name: 'Text 记录',
         desc: '存储任意文本信息。常用于域名所有权验证、邮件安全策略（SPF/DKIM/DMARC）等场景。',
         example: 'example.com.  IN  TXT  "v=spf1 include:_spf.google.com ~all"',
-        usages: ['SPF 记录防止邮件伪造', 'SSL 证书申请时的域名验证', '第三方服务的域名所有权确认']
+        usages: [
+          'SPF 记录防止邮件伪造',
+          'SSL 证书申请时的域名验证',
+          '第三方服务的域名所有权确认'
+        ]
       },
       {
         type: 'NS',
         name: 'Name Server 记录',
         desc: '指定该域名由哪些 DNS 服务器负责解析。这是 DNS 委派机制的核心。',
         example: 'example.com.  IN  NS  ns1.exampledns.com.',
-        usages: ['将域名托管到指定 DNS 服务商', '子域名委派给不同团队管理', 'DNS 服务迁移']
+        usages: [
+          '将域名托管到指定 DNS 服务商',
+          '子域名委派给不同团队管理',
+          'DNS 服务迁移'
+        ]
       }
     ]
   },
@@ -104,7 +128,8 @@ export default {
     reset: '重置',
     client: '客户端（浏览器）',
     server: '服务器',
-    success: '✅ TLS 握手完成！后续所有 HTTP 数据都将通过对称加密传输，第三方无法窃听。',
+    success:
+      '✅ TLS 握手完成！后续所有 HTTP 数据都将通过对称加密传输，第三方无法窃听。',
     messages: [
       {
         name: 'Client Hello',
@@ -173,7 +198,10 @@ export default {
           '中间证书由根 CA 签发，作为根证书和服务器证书之间的桥梁。这种分层设计的好处是：即使中间证书被泄露，也可以单独吊销它而不影响根证书。中间 CA 负责日常的证书签发工作，根 CA 的私钥因此可以保持离线状态。',
         details: [
           { label: '签发者', value: 'DigiCert Global Root G2' },
-          { label: '持有者', value: 'DigiCert SHA2 Extended Validation Server CA' },
+          {
+            label: '持有者',
+            value: 'DigiCert SHA2 Extended Validation Server CA'
+          },
           { label: '有效期', value: '10 年' },
           { label: '用途', value: '签发终端实体（服务器）证书' },
           { label: '可吊销', value: '是（通过 CRL 或 OCSP）' }
@@ -187,7 +215,10 @@ export default {
         explain:
           '服务器证书是网站向浏览器证明自己身份的凭证。它由中间 CA 签发，包含网站的域名、公钥和有效期等信息。当浏览器收到这张证书后，会沿着信任链向上验证，直到找到一个已经信任的根证书为止。',
         details: [
-          { label: '签发者', value: 'DigiCert SHA2 Extended Validation Server CA' },
+          {
+            label: '签发者',
+            value: 'DigiCert SHA2 Extended Validation Server CA'
+          },
           { label: '持有者', value: 'www.example.com' },
           { label: '有效期', value: '1 年（行业标准）' },
           { label: '包含公钥', value: 'ECDSA P-256 公钥' },

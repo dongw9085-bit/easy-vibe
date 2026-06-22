@@ -51,22 +51,56 @@ export default {
     playingLabel: '演示中...',
     playLabel: '播放流程',
     verdicts: {
-      proxy: '⚠️ 服务端中转：文件经过你的服务器，占用带宽和内存，大文件容易超时',
-      direct: '✅ 客户端直传：文件直接上传到 OSS，服务器只负责签发凭证，高效且省资源'
+      proxy:
+        '⚠️ 服务端中转：文件经过你的服务器，占用带宽和内存，大文件容易超时',
+      direct:
+        '✅ 客户端直传：文件直接上传到 OSS，服务器只负责签发凭证，高效且省资源'
     },
     steps: {
       proxy: [
-        { title: '客户端 → 服务器', desc: '用户选择文件，上传到你的后端服务器', note: '大文件会占用服务器带宽和内存' },
-        { title: '服务器接收文件', desc: '后端将文件暂存到本地磁盘或内存', note: '可能触发 Nginx 的 body size 限制' },
-        { title: '服务器 → OSS', desc: '后端再将文件转发到对象存储', note: '文件传输了两次，效率低' },
+        {
+          title: '客户端 → 服务器',
+          desc: '用户选择文件，上传到你的后端服务器',
+          note: '大文件会占用服务器带宽和内存'
+        },
+        {
+          title: '服务器接收文件',
+          desc: '后端将文件暂存到本地磁盘或内存',
+          note: '可能触发 Nginx 的 body size 限制'
+        },
+        {
+          title: '服务器 → OSS',
+          desc: '后端再将文件转发到对象存储',
+          note: '文件传输了两次，效率低'
+        },
         { title: 'OSS 返回 URL', desc: '对象存储返回文件的访问地址', note: '' },
-        { title: '服务器 → 客户端', desc: '后端将文件 URL 返回给前端', note: '' }
+        {
+          title: '服务器 → 客户端',
+          desc: '后端将文件 URL 返回给前端',
+          note: ''
+        }
       ],
       direct: [
-        { title: '客户端 → 服务器', desc: '前端请求一个临时上传凭证（Pre-signed URL）', note: '只传少量 JSON 数据，毫秒级' },
-        { title: '服务器签发凭证', desc: '后端用 OSS SDK 生成带签名的临时上传 URL', note: '凭证有效期通常 5-15 分钟' },
-        { title: '客户端 → OSS', desc: '前端直接将文件上传到对象存储', note: '文件不经过你的服务器，节省带宽' },
-        { title: 'OSS 回调通知', desc: '上传完成后 OSS 回调你的服务器确认', note: '服务器记录文件元信息到数据库' }
+        {
+          title: '客户端 → 服务器',
+          desc: '前端请求一个临时上传凭证（Pre-signed URL）',
+          note: '只传少量 JSON 数据，毫秒级'
+        },
+        {
+          title: '服务器签发凭证',
+          desc: '后端用 OSS SDK 生成带签名的临时上传 URL',
+          note: '凭证有效期通常 5-15 分钟'
+        },
+        {
+          title: '客户端 → OSS',
+          desc: '前端直接将文件上传到对象存储',
+          note: '文件不经过你的服务器，节省带宽'
+        },
+        {
+          title: 'OSS 回调通知',
+          desc: '上传完成后 OSS 回调你的服务器确认',
+          note: '服务器记录文件元信息到数据库'
+        }
       ]
     }
   },
@@ -85,8 +119,20 @@ export default {
     },
     cacheMiss: '缓存未命中时回源',
     metrics: [
-      { label: '首字节时间 (TTFB)', enabledValue: '~30ms', disabledValue: '~200ms', enabledWidth: '15%', disabledWidth: '100%' },
-      { label: '下载 1MB 图片', enabledValue: '~50ms', disabledValue: '~800ms', enabledWidth: '20%', disabledWidth: '100%' }
+      {
+        label: '首字节时间 (TTFB)',
+        enabledValue: '~30ms',
+        disabledValue: '~200ms',
+        enabledWidth: '15%',
+        disabledWidth: '100%'
+      },
+      {
+        label: '下载 1MB 图片',
+        enabledValue: '~50ms',
+        disabledValue: '~800ms',
+        enabledWidth: '20%',
+        disabledWidth: '100%'
+      }
     ]
   }
 }

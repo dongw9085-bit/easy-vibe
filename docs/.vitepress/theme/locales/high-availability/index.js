@@ -5,4 +5,3 @@ export const highAvailabilityLocale = {
   'zh-cn': zhCn,
   en
 }
-

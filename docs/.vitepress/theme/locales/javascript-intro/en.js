@@ -20,7 +20,8 @@ export default {
         name: 'Global scope',
         color: '#a0aec0',
         vars: [{ name: 'appName', value: '"Todo"', own: true }],
-        explanation: 'In global scope, only the global variable appName is available.'
+        explanation:
+          'In global scope, only the global variable appName is available.'
       },
       {
         id: 'function',
@@ -30,7 +31,8 @@ export default {
           { name: 'appName', value: '"Todo"', own: false, from: 'global' },
           { name: 'message', value: '"Hello"', own: true }
         ],
-        explanation: 'In function scope, JavaScript can use its own message and the global appName through the scope chain.'
+        explanation:
+          'In function scope, JavaScript can use its own message and the global appName through the scope chain.'
       },
       {
         id: 'block',
@@ -41,7 +43,8 @@ export default {
           { name: 'message', value: '"Hello"', own: false, from: 'function' },
           { name: 'greeting', value: 'message+appName', own: true }
         ],
-        explanation: 'In block scope, JavaScript can use its own greeting and variables from outer scopes.'
+        explanation:
+          'In block scope, JavaScript can use its own greeting and variables from outer scopes.'
       }
     ],
     code: `const appName = "Todo"  // global scope
@@ -93,20 +96,37 @@ function greet() {
     codeOrderTitle: 'Written order: ',
     notStarted: 'not started',
     codeOrder: '1, 2, 3, 4, 5',
-    highlight: 'Code is written top to bottom, but it does not always run top to bottom because async work is delayed until the current code finishes.',
+    highlight:
+      'Code is written top to bottom, but it does not always run top to bottom because async work is delayed until the current code finishes.',
     syncSource: 'sync code',
     codeQueueItems: [
       { id: 1, code: 'console.log("1")', type: 'sync', output: '1' },
-      { id: 2, code: 'setTimeout(() => console.log("2"), 0)', type: 'async', output: '2' },
+      {
+        id: 2,
+        code: 'setTimeout(() => console.log("2"), 0)',
+        type: 'async',
+        output: '2'
+      },
       { id: 3, code: 'console.log("3")', type: 'sync', output: '3' },
-      { id: 4, code: 'fetch("/api").then(() => console.log("4"))', type: 'async', output: '4' },
+      {
+        id: 4,
+        code: 'fetch("/api").then(() => console.log("4"))',
+        type: 'async',
+        output: '4'
+      },
       { id: 5, code: 'console.log("5")', type: 'sync', output: '5' }
     ],
     steps: [
       { description: 'Run console.log("1")', output: '1' },
-      { description: 'Meet setTimeout and place its callback in the task queue', output: null },
+      {
+        description: 'Meet setTimeout and place its callback in the task queue',
+        output: null
+      },
       { description: 'Run console.log("3")', output: '3' },
-      { description: 'Meet fetch and place its callback in the task queue', output: null },
+      {
+        description: 'Meet fetch and place its callback in the task queue',
+        output: null
+      },
       { description: 'Run console.log("5")', output: '5' },
       { description: 'Run the setTimeout callback', output: '2' },
       { description: 'Run the fetch callback', output: '4' }

@@ -170,12 +170,30 @@ export default {
     introText:
       'Before MCP, AI could only read and respond. With MCP, AI can finally take action by operating programs and helping with real work.',
     popularUses: [
-      { title: 'AI editors such as Cursor and Claude', desc: 'Read and write files, execute code, and operate Git directly.' },
-      { title: 'Browser automation', desc: 'AI opens pages, clicks buttons, and fills forms automatically.' },
-      { title: 'Database queries', desc: 'Query and write databases directly without manual exports.' },
-      { title: 'Computer control by AI', desc: 'Windows-MCP lets AI control the mouse and keyboard directly.' },
-      { title: 'Automated deployment', desc: 'Vercel-MCP deploys websites online in one flow.' },
-      { title: 'Design to code', desc: 'Figma-MCP reads designs and generates web pages automatically.' }
+      {
+        title: 'AI editors such as Cursor and Claude',
+        desc: 'Read and write files, execute code, and operate Git directly.'
+      },
+      {
+        title: 'Browser automation',
+        desc: 'AI opens pages, clicks buttons, and fills forms automatically.'
+      },
+      {
+        title: 'Database queries',
+        desc: 'Query and write databases directly without manual exports.'
+      },
+      {
+        title: 'Computer control by AI',
+        desc: 'Windows-MCP lets AI control the mouse and keyboard directly.'
+      },
+      {
+        title: 'Automated deployment',
+        desc: 'Vercel-MCP deploys websites online in one flow.'
+      },
+      {
+        title: 'Design to code',
+        desc: 'Figma-MCP reads designs and generates web pages automatically.'
+      }
     ],
     usageTitle: 'How do you use MCP?',
     usageIntro:
@@ -185,10 +203,22 @@ export default {
         title: 'Find an MCP Server',
         desc: 'Find the MCP Server you need from an MCP directory or GitHub.',
         resources: [
-          { name: 'Official server list', href: 'https://github.com/modelcontextprotocol/servers', label: 'github.com/modelcontextprotocol/servers' },
+          {
+            name: 'Official server list',
+            href: 'https://github.com/modelcontextprotocol/servers',
+            label: 'github.com/modelcontextprotocol/servers'
+          },
           { name: 'MCP.so', href: 'https://mcp.so', label: 'mcp.so' },
-          { name: 'Pulse MCP', href: 'https://www.pulsemcp.com', label: 'pulsemcp.com' },
-          { name: 'Smithery', href: 'https://smithery.ai', label: 'smithery.ai' }
+          {
+            name: 'Pulse MCP',
+            href: 'https://www.pulsemcp.com',
+            label: 'pulsemcp.com'
+          },
+          {
+            name: 'Smithery',
+            href: 'https://smithery.ai',
+            label: 'smithery.ai'
+          }
         ]
       },
       {
@@ -207,7 +237,10 @@ export default {
     configTitle: 'Common mcp.json locations',
     configLocations: [
       { name: 'Cursor', path: '~/.cursor/mcp.json' },
-      { name: 'Claude Desktop', path: '~/Library/Application Support/Claude/claude_desktop_config.json (macOS)' },
+      {
+        name: 'Claude Desktop',
+        path: '~/Library/Application Support/Claude/claude_desktop_config.json (macOS)'
+      },
       { name: 'Windsurf', path: '~/.windsurf/mcp.json' }
     ],
     implementTitle: 'How do you implement an MCP Server?',
@@ -236,11 +269,20 @@ export default {
     techJsonRpcTitle: 'Deep Dive: JSON-RPC 2.0 Message Format',
     requestTitle: 'Request Message Structure',
     responseTitle: 'Response Message Structure',
-    jsonRpcNote: 'JSON-RPC 2.0 is stateless. Every request includes an id so the client can match the response.',
+    jsonRpcNote:
+      'JSON-RPC 2.0 is stateless. Every request includes an id so the client can match the response.',
     techTransportTitle: 'Deep Dive: Two Transport Modes',
     transportCards: [
-      { name: 'stdio (local process)', desc: 'Used for local tools through standard input and output.', codeKey: 'stdioExample' },
-      { name: 'HTTP + SSE (remote)', desc: 'Used for remote services with long-lived push connections.', codeKey: 'httpExample' }
+      {
+        name: 'stdio (local process)',
+        desc: 'Used for local tools through standard input and output.',
+        codeKey: 'stdioExample'
+      },
+      {
+        name: 'HTTP + SSE (remote)',
+        desc: 'Used for remote services with long-lived push connections.',
+        codeKey: 'httpExample'
+      }
     ],
     techApiTitle: 'Deep Dive: MCP Core APIs',
     flowSteps: [
@@ -472,12 +514,36 @@ const transport = new StdioServerTransport()
 await server.connect(transport)`
     },
     apis: [
-      { method: 'initialize', name: 'Initialize', desc: 'Server declares protocol version and capabilities to the client.' },
-      { method: 'tools/list', name: 'Tool list', desc: 'Get all available tools provided by the server.' },
-      { method: 'tools/call', name: 'Call tool', desc: 'Call a specific tool and receive the result.' },
-      { method: 'resources/list', name: 'Resource list', desc: 'Get accessible resources such as files and databases.' },
-      { method: 'resources/read', name: 'Read resource', desc: 'Read content from a specific resource.' },
-      { method: 'prompts/list', name: 'Prompt templates', desc: 'Get predefined prompt templates.' }
+      {
+        method: 'initialize',
+        name: 'Initialize',
+        desc: 'Server declares protocol version and capabilities to the client.'
+      },
+      {
+        method: 'tools/list',
+        name: 'Tool list',
+        desc: 'Get all available tools provided by the server.'
+      },
+      {
+        method: 'tools/call',
+        name: 'Call tool',
+        desc: 'Call a specific tool and receive the result.'
+      },
+      {
+        method: 'resources/list',
+        name: 'Resource list',
+        desc: 'Get accessible resources such as files and databases.'
+      },
+      {
+        method: 'resources/read',
+        name: 'Read resource',
+        desc: 'Read content from a specific resource.'
+      },
+      {
+        method: 'prompts/list',
+        name: 'Prompt templates',
+        desc: 'Get predefined prompt templates.'
+      }
     ]
   },
   a2aDetailed: {
@@ -487,12 +553,30 @@ await server.connect(transport)`
     introText:
       'A2A lets multiple AI agents collaborate instead of working alone. A complex task can be assigned to specialized agents, each doing what it is best at.',
     popularUses: [
-      { title: 'Software development pipeline', desc: 'Requirements agent → code agent → test agent → deployment agent' },
-      { title: 'Multi-vendor agent integration', desc: 'Agents from Google, Anthropic, and OpenAI can call each other.' },
-      { title: 'Enterprise workflows', desc: 'HR, finance, and approval agents coordinate business processes.' },
-      { title: 'Customer support escalation', desc: 'Reception agent → business agent → human agent handoff' },
-      { title: 'Research collaboration', desc: 'Literature agent → experiment agent → analysis agent → report agent' },
-      { title: 'Automated operations', desc: 'Monitoring agent → diagnosis agent → repair agent → notification agent' }
+      {
+        title: 'Software development pipeline',
+        desc: 'Requirements agent → code agent → test agent → deployment agent'
+      },
+      {
+        title: 'Multi-vendor agent integration',
+        desc: 'Agents from Google, Anthropic, and OpenAI can call each other.'
+      },
+      {
+        title: 'Enterprise workflows',
+        desc: 'HR, finance, and approval agents coordinate business processes.'
+      },
+      {
+        title: 'Customer support escalation',
+        desc: 'Reception agent → business agent → human agent handoff'
+      },
+      {
+        title: 'Research collaboration',
+        desc: 'Literature agent → experiment agent → analysis agent → report agent'
+      },
+      {
+        title: 'Automated operations',
+        desc: 'Monitoring agent → diagnosis agent → repair agent → notification agent'
+      }
     ],
     usageTitle: 'How do you use A2A?',
     usageIntro:
@@ -518,18 +602,29 @@ await server.connect(transport)`
     statusTextAfter: ' for current progress.',
     flowTitle: 'Communication Flow (5 Steps)',
     techAgentCardTitle: 'Deep Dive: Agent Card Format',
-    agentCardIntro: 'An Agent Card is a JSON file, usually hosted at /.well-known/agent.json.',
+    agentCardIntro:
+      'An Agent Card is a JSON file, usually hosted at /.well-known/agent.json.',
     agentCardExampleTitle: 'Agent Card Example',
-    agentCardNote: 'With Agent Cards, agents can discover each other, understand capabilities and versions, and interoperate.',
+    agentCardNote:
+      'With Agent Cards, agents can discover each other, understand capabilities and versions, and interoperate.',
     techHttpTitle: 'Deep Dive: HTTP + SSE Communication',
     taskSendTitle: 'Task Send (HTTP POST)',
     sseTitle: 'Real-time Push (SSE)',
-    sseNote: 'SSE (Server-Sent Events) lets the server push messages, which works well for long-running task status updates.',
+    sseNote:
+      'SSE (Server-Sent Events) lets the server push messages, which works well for long-running task status updates.',
     techApiTitle: 'Deep Dive: A2A Core APIs',
     techAuthTitle: 'Deep Dive: Authentication',
     authCards: [
-      { name: 'API Key', desc: 'Simple authentication for internal agent communication.', codeKey: 'apiKeyExample' },
-      { name: 'OAuth 2.0', desc: 'Enterprise authentication with token refresh and permission control.', codeKey: 'oauthExample' }
+      {
+        name: 'API Key',
+        desc: 'Simple authentication for internal agent communication.',
+        codeKey: 'apiKeyExample'
+      },
+      {
+        name: 'OAuth 2.0',
+        desc: 'Enterprise authentication with token refresh and permission control.',
+        codeKey: 'oauthExample'
+      }
     ],
     flowSteps: [
       {
@@ -726,10 +821,26 @@ POST /oauth/token
 }`
     },
     apis: [
-      { method: 'GET', name: 'agents/get', desc: 'Fetch the target agent Agent Card and inspect capabilities.' },
-      { method: 'POST', name: 'tasks/send', desc: 'Send a task to the target agent and wait synchronously for the result.' },
-      { method: 'POST', name: 'tasks/sendSubscribe', desc: 'Send a task and subscribe to SSE progress updates.' },
-      { method: 'GET', name: 'tasks/get', desc: 'Fetch task status and result by task ID.' },
+      {
+        method: 'GET',
+        name: 'agents/get',
+        desc: 'Fetch the target agent Agent Card and inspect capabilities.'
+      },
+      {
+        method: 'POST',
+        name: 'tasks/send',
+        desc: 'Send a task to the target agent and wait synchronously for the result.'
+      },
+      {
+        method: 'POST',
+        name: 'tasks/sendSubscribe',
+        desc: 'Send a task and subscribe to SSE progress updates.'
+      },
+      {
+        method: 'GET',
+        name: 'tasks/get',
+        desc: 'Fetch task status and result by task ID.'
+      },
       { method: 'GET', name: 'tasks/cancel', desc: 'Cancel a running task.' }
     ]
   }

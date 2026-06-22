@@ -3,9 +3,11 @@ export default {
     boxModel: {
       title: 'CSS 盒模型',
       subtitle: '理解元素实际占用空间的构成',
-      scenario: '场景：你要做三个并排卡片，容器宽度 900px，每个卡片设 width: 200px。结果第三个掉下去了——为什么？',
+      scenario:
+        '场景：你要做三个并排卡片，容器宽度 900px，每个卡片设 width: 200px。结果第三个掉下去了——为什么？',
       actualWidth: '实际占用宽度',
-      includedFormula: '{width}px（已包含 padding 和 border） + {margin}×2 = {total}px',
+      includedFormula:
+        '{width}px（已包含 padding 和 border） + {margin}×2 = {total}px',
       overflowHint: '三个卡片需要 {width}px，超出容器 900px，第三个会掉下去',
       fitHint: '三个卡片共 {width}px，可以放下',
       keyDifference: '关键区别：',
@@ -33,7 +35,8 @@ export default {
       horizontal: '水平 →',
       vertical: '垂直 ↓',
       memoryTitle: '记忆方法：',
-      memory: 'justify-content 控制主轴方向的对齐（水平时左右，垂直时上下）；align-items 控制交叉轴方向的对齐。',
+      memory:
+        'justify-content 控制主轴方向的对齐（水平时左右，垂直时上下）；align-items 控制交叉轴方向的对齐。',
       directions: [
         { id: 'row', label: 'row（水平）' },
         { id: 'column', label: 'column（垂直）' }
@@ -71,7 +74,8 @@ export default {
         { code: 'remove()', desc: '删除元素' }
       ],
       noticeTitle: '注意：',
-      notice: '频繁操作 DOM 会影响性能。现代框架（Vue/React）使用虚拟 DOM 来优化这个过程——先在内存中计算差异，再批量更新真实 DOM。',
+      notice:
+        '频繁操作 DOM 会影响性能。现代框架（Vue/React）使用虚拟 DOM 来优化这个过程——先在内存中计算差异，再批量更新真实 DOM。',
       initialTitle: '欢迎学习 DOM',
       initialItems: ['项目 1', '项目 2'],
       styles: [
@@ -88,11 +92,17 @@ export default {
       button: '点我试试',
       process: '执行过程',
       principleTitle: '分工原则：',
-      principle: 'HTML 定义结构（是什么），CSS 定义样式（长什么样），JavaScript 定义行为（能做什么）。',
+      principle:
+        'HTML 定义结构（是什么），CSS 定义样式（长什么样），JavaScript 定义行为（能做什么）。',
       modes: [
         { id: 'html', label: 'HTML', icon: '结构', codeTitle: 'HTML 代码' },
         { id: 'css', label: 'CSS', icon: '样式', codeTitle: 'CSS 代码' },
-        { id: 'js', label: 'JavaScript', icon: '行为', codeTitle: 'JavaScript 代码' }
+        {
+          id: 'js',
+          label: 'JavaScript',
+          icon: '行为',
+          codeTitle: 'JavaScript 代码'
+        }
       ],
       codeLines: {
         html: [
@@ -116,9 +126,21 @@ export default {
         ]
       },
       steps: {
-        html: ['浏览器解析标签，识别内容类型', 'h1 是标题，p 是段落，button 是按钮', '按默认样式渲染（此时看起来很朴素）'],
-        css: ['解析选择器，找到对应元素', '应用颜色、字号、间距等样式规则', '页面外观发生变化'],
-        js: ['通过选择器获取按钮元素', '注册 click 事件监听器', '点击时执行回调函数，更新计数']
+        html: [
+          '浏览器解析标签，识别内容类型',
+          'h1 是标题，p 是段落，button 是按钮',
+          '按默认样式渲染（此时看起来很朴素）'
+        ],
+        css: [
+          '解析选择器，找到对应元素',
+          '应用颜色、字号、间距等样式规则',
+          '页面外观发生变化'
+        ],
+        js: [
+          '通过选择器获取按钮元素',
+          '注册 click 事件监听器',
+          '点击时执行回调函数，更新计数'
+        ]
       }
     }
   },
@@ -149,7 +171,8 @@ export default {
     },
     jqueryState: {
       title: '什么是 jQuery？用“购物车数量”秒懂',
-      subtitle: '左边：像 jQuery 一样手动改页面（容易漏）。右边：像 Vue/React 一样只改状态。',
+      subtitle:
+        '左边：像 jQuery 一样手动改页面（容易漏）。右边：像 Vue/React 一样只改状态。',
       jqueryTitle: 'jQuery 思路：到处改 DOM',
       stateTitle: 'Vue/React 思路：只改 State',
       badge: '🛒 角标：',
@@ -171,7 +194,8 @@ export default {
       stateTerm: '页面的数据（比如购物车数量）',
       unit: '件',
       consistent: '✅ 三处显示一致（恭喜你都改对了）',
-      inconsistent: '⚠️ 数据和页面不一致：你可能漏更新了某一处 DOM（真实项目里这就是 bug）',
+      inconsistent:
+        '⚠️ 数据和页面不一致：你可能漏更新了某一处 DOM（真实项目里这就是 bug）',
       logs: {
         increase: '数据 +1（现在真实数据 = {value}）',
         badge: '更新角标 DOM = {value}',
@@ -186,9 +210,30 @@ export default {
       tti: '可交互时间',
       seo: 'SEO 友好',
       strategies: [
-        { key: 'csr', label: 'CSR', ttfb: 450, tti: 1600, seo: '一般', note: 'JS 拉取完成后才渲染' },
-        { key: 'ssr', label: 'SSR', ttfb: 220, tti: 1100, seo: '好', note: '首屏更快，但服务器压力更大' },
-        { key: 'ssg', label: 'SSG', ttfb: 120, tti: 700, seo: '很好', note: '静态预渲染，适合内容站点' }
+        {
+          key: 'csr',
+          label: 'CSR',
+          ttfb: 450,
+          tti: 1600,
+          seo: '一般',
+          note: 'JS 拉取完成后才渲染'
+        },
+        {
+          key: 'ssr',
+          label: 'SSR',
+          ttfb: 220,
+          tti: 1100,
+          seo: '好',
+          note: '首屏更快，但服务器压力更大'
+        },
+        {
+          key: 'ssg',
+          label: 'SSG',
+          ttfb: 120,
+          tti: 700,
+          seo: '很好',
+          note: '静态预渲染，适合内容站点'
+        }
       ]
     },
     responsiveGrid: {
@@ -246,7 +291,11 @@ export default {
     dnsLookup: {
       label: 'DNS 解析 -- 查地址簿找坐标',
       browserTitle: '浏览器',
-      browserDescs: ['要去 www.google.com', '问 114查号台...', '收到: 142... 发车!'],
+      browserDescs: [
+        '要去 www.google.com',
+        '问 114查号台...',
+        '收到: 142... 发车!'
+      ],
       requestLabel: '询问坐标',
       responseLabel: '返回 IP',
       dnsTitle: '114查号台 (DNS)',
@@ -271,9 +320,18 @@ export default {
       start: '发起连接',
       reset: '断开重连',
       messages: [
-        { title: '第1次握手: SYN', desc: '"喂，服务器老哥在吗？我能发信息，你能收到吗？"' },
-        { title: '第2次握手: SYN-ACK', desc: '"在！我收到了！那你现在能听到我说话吗？"' },
-        { title: '第3次握手: ACK', desc: '"我就知道你听到了，证实通道没问题，准备聊正事！"' }
+        {
+          title: '第1次握手: SYN',
+          desc: '"喂，服务器老哥在吗？我能发信息，你能收到吗？"'
+        },
+        {
+          title: '第2次握手: SYN-ACK',
+          desc: '"在！我收到了！那你现在能听到我说话吗？"'
+        },
+        {
+          title: '第3次握手: ACK',
+          desc: '"我就知道你听到了，证实通道没问题，准备聊正事！"'
+        }
       ],
       status: [
         '点击【发起连接】模拟 TCP 三次握手过程',
@@ -293,7 +351,8 @@ export default {
       responseHeader: '📥 【卖方回包裹】 HTTP Response',
       okNote: '交易成功',
       divider: '空行 (分隔快递单和物品正文)',
-      bodyCode: '<!DOCTYPE html>\n<html>\n  <body>这里是Google搜索页面的代码</body>\n</html>',
+      bodyCode:
+        '<!DOCTYPE html>\n<html>\n  <body>这里是Google搜索页面的代码</body>\n</html>',
       empty: '这里将显示服务器返回的包裹...',
       status: {
         idle: '组装好 HTTP 请求单，包含请求路径和各项补充情报。',
@@ -307,11 +366,36 @@ export default {
       domInput: 'input (搜索框)',
       cssResult: 'h1 (红色文字规则)',
       steps: [
-        { icon: '📄', name: '源码', title: '拿到纯文本源代码', desc: '刚传回来的只是一堆干瘪的 HTML, CSS 等代码字符。这只是建造网页的说明书，不是真正的画面。' },
-        { icon: '🦴', name: 'DOM解析', title: '1. 搭骨架 (DOM 解析)', desc: '第一步通读 HTML 标签，构建树状骨架图（DOM 树），了解结构关系，例如"标题框在身体(body)里"。' },
-        { icon: '🎨', name: 'CSS解析', title: '2. 样式附加 (CSS 解析)', desc: '第二步读 CSS，把对应的样式规则（如"标题为红色"）关联并绑定到我们刚才搭建好的特定骨架节点上。' },
-        { icon: '📏', name: 'Layout排版', title: '3. 几何排版 (Layout)', desc: '第三步拿尺子量每个骨架的大小。结合你的屏幕尺寸，精确计算出每个元素所在的绝对坐标 x, y 和明确的长宽高尺寸。' },
-        { icon: '🖼️', name: 'Paint绘制', title: '4. 像素涂色 (Paint)', desc: '最后，有了骨架、颜色规则、和精准坐标尺寸，浏览器控制像素画笔，在一瞬间完成上色和填充！' }
+        {
+          icon: '📄',
+          name: '源码',
+          title: '拿到纯文本源代码',
+          desc: '刚传回来的只是一堆干瘪的 HTML, CSS 等代码字符。这只是建造网页的说明书，不是真正的画面。'
+        },
+        {
+          icon: '🦴',
+          name: 'DOM解析',
+          title: '1. 搭骨架 (DOM 解析)',
+          desc: '第一步通读 HTML 标签，构建树状骨架图（DOM 树），了解结构关系，例如"标题框在身体(body)里"。'
+        },
+        {
+          icon: '🎨',
+          name: 'CSS解析',
+          title: '2. 样式附加 (CSS 解析)',
+          desc: '第二步读 CSS，把对应的样式规则（如"标题为红色"）关联并绑定到我们刚才搭建好的特定骨架节点上。'
+        },
+        {
+          icon: '📏',
+          name: 'Layout排版',
+          title: '3. 几何排版 (Layout)',
+          desc: '第三步拿尺子量每个骨架的大小。结合你的屏幕尺寸，精确计算出每个元素所在的绝对坐标 x, y 和明确的长宽高尺寸。'
+        },
+        {
+          icon: '🖼️',
+          name: 'Paint绘制',
+          title: '4. 像素涂色 (Paint)',
+          desc: '最后，有了骨架、颜色规则、和精准坐标尺寸，浏览器控制像素画笔，在一瞬间完成上色和填充！'
+        }
       ]
     }
   }

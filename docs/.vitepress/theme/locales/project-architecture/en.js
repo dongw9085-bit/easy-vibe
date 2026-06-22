@@ -20,7 +20,11 @@ export default {
         example: 'Home.vue, UserProfile.vue',
         arrow: 'Compose',
         files: ['Home/index.vue', 'User/Profile.vue', 'pages/about.tsx'],
-        principles: ['Keep pages thin and move logic into hooks', 'Page-level state management', 'Route lazy loading']
+        principles: [
+          'Keep pages thin and move logic into hooks',
+          'Page-level state management',
+          'Route lazy loading'
+        ]
       },
       {
         id: 'components',
@@ -32,7 +36,11 @@ export default {
         example: 'Button.vue, Modal.vue, UserCard.vue',
         arrow: 'Call',
         files: ['common/Button/', 'business/UserCard/', 'layout/Header/'],
-        principles: ['Single responsibility: one component does one thing', 'Clear and predictable props', 'Style isolation with scoped CSS or CSS modules']
+        principles: [
+          'Single responsibility: one component does one thing',
+          'Clear and predictable props',
+          'Style isolation with scoped CSS or CSS modules'
+        ]
       },
       {
         id: 'hooks',
@@ -44,7 +52,11 @@ export default {
         example: 'useAuth(), useLoading(), useForm()',
         arrow: 'Use',
         files: ['useAuth.js', 'usePagination.ts', 'composables/useFetch.js'],
-        principles: ['Prefer pure functions', 'One focused capability, easy to test', 'Name with the use prefix']
+        principles: [
+          'Prefer pure functions',
+          'One focused capability, easy to test',
+          'Name with the use prefix'
+        ]
       },
       {
         id: 'services',
@@ -56,7 +68,11 @@ export default {
         example: 'userApi.getProfile(), orderApi.create()',
         arrow: 'Request',
         files: ['services/user.js', 'api/request.ts', 'clients/http.js'],
-        principles: ['Centralized error handling', 'Request/response interceptors', 'Manage interfaces in one place']
+        principles: [
+          'Centralized error handling',
+          'Request/response interceptors',
+          'Manage interfaces in one place'
+        ]
       },
       {
         id: 'utils',
@@ -68,7 +84,11 @@ export default {
         example: 'formatDate(), storage.set(), validator.email()',
         arrow: '',
         files: ['utils/format.js', 'helpers/storage.ts', 'lib/validator.js'],
-        principles: ['Pure functions with no side effects', 'Single responsibility', 'Useful JSDoc comments']
+        principles: [
+          'Pure functions with no side effects',
+          'Single responsibility',
+          'Useful JSDoc comments'
+        ]
       }
     ],
     backendLayers: [
@@ -82,7 +102,11 @@ export default {
         example: 'UserController.getById(), OrderController.create()',
         arrow: 'Call',
         files: ['userController.js', 'routes/api.js', 'handlers/order.ts'],
-        principles: ['Handle only HTTP-related logic', 'Validate parameters', 'Do not access the database directly']
+        principles: [
+          'Handle only HTTP-related logic',
+          'Validate parameters',
+          'Do not access the database directly'
+        ]
       },
       {
         id: 'service',
@@ -94,7 +118,11 @@ export default {
         example: 'UserService.createUser(), OrderService.process()',
         arrow: 'Call',
         files: ['userService.js', 'services/order.ts', 'business/user.js'],
-        principles: ['Contain core business rules', 'Coordinate multiple repositories', 'Manage transaction boundaries']
+        principles: [
+          'Contain core business rules',
+          'Coordinate multiple repositories',
+          'Manage transaction boundaries'
+        ]
       },
       {
         id: 'repository',
@@ -106,7 +134,11 @@ export default {
         example: 'UserRepository.findById(), OrderRepository.save()',
         arrow: 'Query',
         files: ['userRepository.js', 'dao/order.ts', 'models/user.js'],
-        principles: ['Only handle data access', 'Wrap ORM details', 'Do not include business logic']
+        principles: [
+          'Only handle data access',
+          'Wrap ORM details',
+          'Do not include business logic'
+        ]
       },
       {
         id: 'model',
@@ -118,7 +150,11 @@ export default {
         example: 'User class, Order entity, DTO definitions',
         arrow: '',
         files: ['models/User.js', 'entities/order.ts', 'dto/userDto.js'],
-        principles: ['Define data structures', 'Define field validation rules', 'Stay decoupled from other layers']
+        principles: [
+          'Define data structures',
+          'Define field validation rules',
+          'Stay decoupled from other layers'
+        ]
       }
     ]
   }

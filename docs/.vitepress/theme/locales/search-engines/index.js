@@ -5,4 +5,3 @@ export const searchEnginesLocale = {
   'zh-cn': zhCn,
   en
 }
-

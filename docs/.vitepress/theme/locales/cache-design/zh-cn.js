@@ -2,7 +2,11 @@ export default {
   performanceComparison: {
     scenarios: [
       { name: '无缓存', metric: '5-8 秒响应，数据库压力高', width: '95%' },
-      { name: '有缓存', metric: '50 毫秒响应，大多数读取由内存承载', width: '24%' }
+      {
+        name: '有缓存',
+        metric: '50 毫秒响应，大多数读取由内存承载',
+        width: '24%'
+      }
     ]
   },
   lifecycle: {
@@ -59,7 +63,8 @@ export default {
         name: '缓存穿透',
         icon: '🕳️',
         introTitle: '什么是缓存穿透？',
-        introHtml: '查询一个<strong>不存在的数据</strong>（如恶意请求 id=-1），缓存没有，数据库也没有。导致每次请求都直接打到数据库。',
+        introHtml:
+          '查询一个<strong>不存在的数据</strong>（如恶意请求 id=-1），缓存没有，数据库也没有。导致每次请求都直接打到数据库。',
         flow: ['请求 id=-999', '缓存未命中', '数据库查询（不存在）'],
         solutions: [
           {
@@ -80,7 +85,8 @@ export default {
         name: '缓存击穿',
         icon: '🔥',
         introTitle: '什么是缓存击穿？',
-        introHtml: '某个<strong>热点数据</strong>过期（如微博热搜），瞬间几百万请求同时打到数据库。',
+        introHtml:
+          '某个<strong>热点数据</strong>过期（如微博热搜），瞬间几百万请求同时打到数据库。',
         hotData: '热点数据',
         concurrentRequests: '并发请求',
         requestPrefix: '请求',
@@ -112,7 +118,8 @@ export default {
         name: '缓存雪崩',
         icon: '❄️',
         introTitle: '什么是缓存雪崩？',
-        introHtml: '大量缓存<strong>同时过期</strong>（如系统重启后，所有缓存都在 00:00:00 过期），数据库瞬间被打爆。',
+        introHtml:
+          '大量缓存<strong>同时过期</strong>（如系统重启后，所有缓存都在 00:00:00 过期），数据库瞬间被打爆。',
         expiredTogether: '同时过期！',
         solutions: [
           {
@@ -137,21 +144,36 @@ export default {
       }
     ],
     comparisonRows: [
-      ['缓存穿透', '查询不存在的数据', '数据库压力增加', '布隆过滤器、缓存空对象'],
+      [
+        '缓存穿透',
+        '查询不存在的数据',
+        '数据库压力增加',
+        '布隆过滤器、缓存空对象'
+      ],
       ['缓存击穿', '热点数据过期', '数据库瞬间压力', '互斥锁、逻辑过期'],
       ['缓存雪崩', '大量缓存同时过期', '数据库被打爆', '随机 TTL、缓存预热']
     ]
   },
   consistency: {
     strategies: [
-      { name: '先更新数据库，再删除缓存', desc: '复杂度低，不一致窗口短，适用于大多数商品类场景。' },
-      { name: '延迟双删', desc: '删除两次缓存，降低高一致性场景中的脏读概率。' },
-      { name: '避免先删缓存再更新数据库', desc: '并发下先删缓存可能重新加载旧数据库值。' }
+      {
+        name: '先更新数据库，再删除缓存',
+        desc: '复杂度低，不一致窗口短，适用于大多数商品类场景。'
+      },
+      {
+        name: '延迟双删',
+        desc: '删除两次缓存，降低高一致性场景中的脏读概率。'
+      },
+      {
+        name: '避免先删缓存再更新数据库',
+        desc: '并发下先删缓存可能重新加载旧数据库值。'
+      }
     ]
   },
   ecommerceArchitecture: {
     title: '电商缓存架构演示',
-    description: '展示电商系统中的多级缓存架构设计，包括商品缓存、库存缓存、用户缓存等',
+    description:
+      '展示电商系统中的多级缓存架构设计，包括商品缓存、库存缓存、用户缓存等',
     placeholder: '电商缓存架构演示组件占位符 - 待实现具体交互'
   }
 }

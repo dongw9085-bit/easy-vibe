@@ -6,35 +6,75 @@ export default {
     db: 'Database (MySQL / PostgreSQL)',
     commonMistakes: 'Common mistakes:',
     layers: [
-      { id: 'controller', name: 'Controller', badge: 'Entry', duty: 'Receive requests, validate parameters, call Service' },
-      { id: 'service', name: 'Service', badge: 'Business core', duty: 'Orchestrate business logic, manage transactions, coordinate modules' },
-      { id: 'repository', name: 'Repository', badge: 'Data access', duty: 'Persistence, query encapsulation, ORM mapping' },
-      { id: 'domain', name: 'Domain', badge: 'Domain model', duty: 'Entities, business rules, value objects' }
+      {
+        id: 'controller',
+        name: 'Controller',
+        badge: 'Entry',
+        duty: 'Receive requests, validate parameters, call Service'
+      },
+      {
+        id: 'service',
+        name: 'Service',
+        badge: 'Business core',
+        duty: 'Orchestrate business logic, manage transactions, coordinate modules'
+      },
+      {
+        id: 'repository',
+        name: 'Repository',
+        badge: 'Data access',
+        duty: 'Persistence, query encapsulation, ORM mapping'
+      },
+      {
+        id: 'domain',
+        name: 'Domain',
+        badge: 'Domain model',
+        duty: 'Entities, business rules, value objects'
+      }
     ],
     infoMap: {
       controller: {
         title: 'Controller Layer - Request Reception',
         desc: 'Receives HTTP requests, parses parameters, performs basic validation, and delegates business work to the Service layer.',
-        analogy: 'Like a restaurant host: greets guests, checks reservations, and guides them to a table, but does not cook.',
-        mistakes: ['Putting business logic in Controller', 'Accessing database directly', 'Skipping parameter validation']
+        analogy:
+          'Like a restaurant host: greets guests, checks reservations, and guides them to a table, but does not cook.',
+        mistakes: [
+          'Putting business logic in Controller',
+          'Accessing database directly',
+          'Skipping parameter validation'
+        ]
       },
       service: {
         title: 'Service Layer - Business Orchestration',
         desc: 'Coordinates business logic, transactions, and multiple repositories. It owns business rules and workflows.',
-        analogy: 'Like a chef: follows recipes, coordinates ingredients, and controls output quality.',
-        mistakes: ['Circular dependencies between services', 'Writing SQL directly', 'Overlong methods covering many scenarios']
+        analogy:
+          'Like a chef: follows recipes, coordinates ingredients, and controls output quality.',
+        mistakes: [
+          'Circular dependencies between services',
+          'Writing SQL directly',
+          'Overlong methods covering many scenarios'
+        ]
       },
       repository: {
         title: 'Repository Layer - Data Gateway',
         desc: 'Encapsulates all data access so upper layers do not care about database type or SQL details.',
-        analogy: 'Like warehouse staff: fetches and stores ingredients while the chef only states what is needed.',
-        mistakes: ['Putting business logic in Repository', 'Returning entities directly to frontend', 'One repository operating many unrelated tables']
+        analogy:
+          'Like warehouse staff: fetches and stores ingredients while the chef only states what is needed.',
+        mistakes: [
+          'Putting business logic in Repository',
+          'Returning entities directly to frontend',
+          'One repository operating many unrelated tables'
+        ]
       },
       domain: {
         title: 'Domain Layer - Business Blueprint',
         desc: 'Defines entities, value objects, and business rules. Other layers depend on it, but it depends on no other layer.',
-        analogy: 'Like a menu and dish standard: defines what a dish is, which ingredients it uses, and how it should taste.',
-        mistakes: ['Embedding persistence concerns in Domain', 'Writing database operations in Domain', 'Circular dependencies between domain objects']
+        analogy:
+          'Like a menu and dish standard: defines what a dish is, which ingredients it uses, and how it should taste.',
+        mistakes: [
+          'Embedding persistence concerns in Domain',
+          'Writing database operations in Domain',
+          'Circular dependencies between domain objects'
+        ]
       }
     }
   },
@@ -56,7 +96,11 @@ Content-Type: application/json
     @Size(min = 6, message = "Password needs at least 6 characters") private String password;
 }`,
     validationDetailTitle: 'Why validate in Controller?',
-    validationDetails: ['First defense: reject invalid requests early', 'Reduce downstream burden: Service can assume cleaned data', 'Separate concerns: Service focuses on business, not format validation'],
+    validationDetails: [
+      'First defense: reject invalid requests early',
+      'Reduce downstream burden: Service can assume cleaned data',
+      'Separate concerns: Service focuses on business, not format validation'
+    ],
     responseArrow: '↓ Return result',
     responseLabel: 'Controller wraps response',
     responseCode: `HTTP/1.1 200 OK
@@ -72,7 +116,8 @@ Content-Type: application/json
   },
   service: {
     title: 'Service Layer: Business Orchestration',
-    subtitle: 'Choose a business scenario to see how Service coordinates logic.',
+    subtitle:
+      'Choose a business scenario to see how Service coordinates logic.',
     scenarios: [
       { id: 'order', name: 'Order flow' },
       { id: 'refund', name: 'Refund handling' },
@@ -108,10 +153,30 @@ public OrderDTO createOrder(CreateOrderRequest request) {
     return convertToDTO(order);
 }`,
             subs: [
-              { icon: '✅', name: 'Check and deduct inventory', desc: 'Ensure stock is sufficient', status: 'Success' },
-              { icon: '📝', name: 'Create order record', desc: 'Generate order header', status: 'Success' },
-              { icon: '💳', name: 'Create payment record', desc: 'Initialize pending payment', status: 'Success' },
-              { icon: '🔄', name: 'Commit transaction', desc: 'Atomic commit', status: 'Committed' }
+              {
+                icon: '✅',
+                name: 'Check and deduct inventory',
+                desc: 'Ensure stock is sufficient',
+                status: 'Success'
+              },
+              {
+                icon: '📝',
+                name: 'Create order record',
+                desc: 'Generate order header',
+                status: 'Success'
+              },
+              {
+                icon: '💳',
+                name: 'Create payment record',
+                desc: 'Initialize pending payment',
+                status: 'Success'
+              },
+              {
+                icon: '🔄',
+                name: 'Commit transaction',
+                desc: 'Atomic commit',
+                status: 'Committed'
+              }
             ]
           },
           {
@@ -152,11 +217,36 @@ public RefundDTO processRefund(Long orderId, RefundRequest request) {
     return convertToDTO(saveRefundRecord(orderId, amount, request));
 }`,
             subs: [
-              { icon: '🔍', name: 'Validate order state', desc: 'Check whether refund is allowed', status: 'Passed' },
-              { icon: '💰', name: 'Calculate refund amount', desc: 'Apply refund rules', status: 'Done' },
-              { icon: '🏦', name: 'Call payment channel', desc: 'Request third-party refund', status: 'Processing' },
-              { icon: '📝', name: 'Update order status', desc: 'Mark as refunding', status: 'Updated' },
-              { icon: '🔄', name: 'Restore inventory async', desc: 'Restore stock in background', status: 'Submitted' }
+              {
+                icon: '🔍',
+                name: 'Validate order state',
+                desc: 'Check whether refund is allowed',
+                status: 'Passed'
+              },
+              {
+                icon: '💰',
+                name: 'Calculate refund amount',
+                desc: 'Apply refund rules',
+                status: 'Done'
+              },
+              {
+                icon: '🏦',
+                name: 'Call payment channel',
+                desc: 'Request third-party refund',
+                status: 'Processing'
+              },
+              {
+                icon: '📝',
+                name: 'Update order status',
+                desc: 'Mark as refunding',
+                status: 'Updated'
+              },
+              {
+                icon: '🔄',
+                name: 'Restore inventory async',
+                desc: 'Restore stock in background',
+                status: 'Submitted'
+              }
             ]
           }
         ]
@@ -191,10 +281,30 @@ public void generateReportAsync(Long taskId) {
     reportTaskRepository.save(task);
 }`,
             subs: [
-              { icon: '📥', name: 'Query multiple data sources', desc: 'Orders/Payments/Refunds', status: 'Queried' },
-              { icon: '🔄', name: 'Aggregate and clean data', desc: 'Join data and handle missing values', status: 'Done' },
-              { icon: '📊', name: 'Calculate business metrics', desc: 'GMV, order count, average order value', status: 'Calculated' },
-              { icon: '📄', name: 'Export Excel', desc: 'Generate and upload file', status: 'Done' }
+              {
+                icon: '📥',
+                name: 'Query multiple data sources',
+                desc: 'Orders/Payments/Refunds',
+                status: 'Queried'
+              },
+              {
+                icon: '🔄',
+                name: 'Aggregate and clean data',
+                desc: 'Join data and handle missing values',
+                status: 'Done'
+              },
+              {
+                icon: '📊',
+                name: 'Calculate business metrics',
+                desc: 'GMV, order count, average order value',
+                status: 'Calculated'
+              },
+              {
+                icon: '📄',
+                name: 'Export Excel',
+                desc: 'Generate and upload file',
+                status: 'Done'
+              }
             ]
           }
         ]
@@ -202,15 +312,32 @@ public void generateReportAsync(Long taskId) {
     },
     principlesTitle: 'Service Layer Design Principles',
     principles: [
-      { title: 'Single responsibility', desc: 'One Service owns one business area', example: 'UserService handles users, OrderService handles orders' },
-      { title: 'Transaction boundary', desc: 'Manage transactions declaratively in Service', example: 'Put @Transactional on Service methods' },
-      { title: 'Avoid cycles', desc: 'Services should not call each other in loops', example: 'A→B→A creates a cycle' },
-      { title: 'DTO conversion', desc: 'Convert to DTO before returning; do not expose entities', example: 'return new UserDTO(user)' }
+      {
+        title: 'Single responsibility',
+        desc: 'One Service owns one business area',
+        example: 'UserService handles users, OrderService handles orders'
+      },
+      {
+        title: 'Transaction boundary',
+        desc: 'Manage transactions declaratively in Service',
+        example: 'Put @Transactional on Service methods'
+      },
+      {
+        title: 'Avoid cycles',
+        desc: 'Services should not call each other in loops',
+        example: 'A→B→A creates a cycle'
+      },
+      {
+        title: 'DTO conversion',
+        desc: 'Convert to DTO before returning; do not expose entities',
+        example: 'return new UserDTO(user)'
+      }
     ]
   },
   repository: {
     title: 'Repository Layer: Data Access Boundary',
-    subtitle: 'Repository encapsulates data access so upper layers do not need database details.',
+    subtitle:
+      'Repository encapsulates data access so upper layers do not need database details.',
     bad: 'Poor approach',
     good: 'Clean approach',
     badPanel: 'Write SQL directly in Service',
@@ -258,19 +385,51 @@ public class OrderService {
         return orders.stream().map(OrderDTO::from).collect(Collectors.toList());
     }
 }`,
-    problems: ['Database coupling: SQL is scattered through business code', 'Hard to test: unit tests become database integration tests', 'Duplicate code: same query conditions repeated everywhere', 'Security risk: handwritten SQL can miss injection safeguards'],
-    benefits: ['Separation of concerns: Service handles business, Repository handles data', 'High testability: mocks can replace the real database', 'Code reuse: common queries are defined once and reused', 'Low switching cost: changing database mostly affects Repository implementation'],
+    problems: [
+      'Database coupling: SQL is scattered through business code',
+      'Hard to test: unit tests become database integration tests',
+      'Duplicate code: same query conditions repeated everywhere',
+      'Security risk: handwritten SQL can miss injection safeguards'
+    ],
+    benefits: [
+      'Separation of concerns: Service handles business, Repository handles data',
+      'High testability: mocks can replace the real database',
+      'Code reuse: common queries are defined once and reused',
+      'Low switching cost: changing database mostly affects Repository implementation'
+    ],
     tableTitle: 'Repository Implementation Options',
     headers: ['Implementation', 'Pros', 'Cons', 'Best for'],
     repos: [
-      { name: 'Spring Data JPA', tag: 'Mainstream', tagClass: '', pros: 'Method-name query derivation, built-in pagination', cons: 'Complex queries may be less efficient', scene: 'Fast development, standard CRUD' },
-      { name: 'MyBatis / MyBatis-Plus', tag: 'SQL control', tagClass: 'blue', pros: 'Full SQL control and strong dynamic SQL', cons: 'Requires handwritten SQL', scene: 'Complex queries, performance-sensitive paths' },
-      { name: 'Spring Data JDBC', tag: 'Lightweight', tagClass: 'green', pros: 'Simple, lightweight, fast startup', cons: 'No complex mapping', scene: 'Microservices, simple aggregate roots' }
+      {
+        name: 'Spring Data JPA',
+        tag: 'Mainstream',
+        tagClass: '',
+        pros: 'Method-name query derivation, built-in pagination',
+        cons: 'Complex queries may be less efficient',
+        scene: 'Fast development, standard CRUD'
+      },
+      {
+        name: 'MyBatis / MyBatis-Plus',
+        tag: 'SQL control',
+        tagClass: 'blue',
+        pros: 'Full SQL control and strong dynamic SQL',
+        cons: 'Requires handwritten SQL',
+        scene: 'Complex queries, performance-sensitive paths'
+      },
+      {
+        name: 'Spring Data JDBC',
+        tag: 'Lightweight',
+        tagClass: 'green',
+        pros: 'Simple, lightweight, fast startup',
+        cons: 'No complex mapping',
+        scene: 'Microservices, simple aggregate roots'
+      }
     ]
   },
   domain: {
     title: 'Domain Layer: Domain Model Design',
-    subtitle: 'Domain carries business concepts and forms the dependency base for all layers.',
+    subtitle:
+      'Domain carries business concepts and forms the dependency base for all layers.',
     tabs: [
       { id: 'comparison', name: 'Anemic vs Rich' },
       { id: 'valueobject', name: 'Value object design' }
@@ -280,11 +439,21 @@ public class OrderService {
     traditional: 'Traditional approach',
     recommended: 'Recommended approach',
     anemicProblemsTitle: 'Problems with anemic model',
-    anemicProblems: ['Violates object orientation: objects have data but no behavior', 'Scattered logic: same rule may repeat in multiple Services', 'Hard to maintain: changing a rule requires finding all usages'],
+    anemicProblems: [
+      'Violates object orientation: objects have data but no behavior',
+      'Scattered logic: same rule may repeat in multiple Services',
+      'Hard to maintain: changing a rule requires finding all usages'
+    ],
     richBenefitsTitle: 'Benefits of rich domain model',
-    richBenefits: ['Object-oriented: data and behavior are encapsulated together', 'Business cohesion: rules stay with objects and change in one place', 'Testable: domain objects are in-memory and do not require database', 'Expressive: order.cancel() is more natural than orderService.cancel(order)'],
+    richBenefits: [
+      'Object-oriented: data and behavior are encapsulated together',
+      'Business cohesion: rules stay with objects and change in one place',
+      'Testable: domain objects are in-memory and do not require database',
+      'Expressive: order.cancel() is more natural than orderService.cancel(order)'
+    ],
     valueObjectTitle: 'What is a Value Object?',
-    valueObjectDesc: 'An immutable object without a unique identity. It describes a feature or property. Two value objects are equal when all properties are equal.',
+    valueObjectDesc:
+      'An immutable object without a unique identity. It describes a feature or property. Two value objects are equal when all properties are equal.',
     addressTitle: 'Address',
     moneyTitle: 'Money',
     anemicEntity: `@Entity
@@ -363,7 +532,8 @@ Money total = price.add(shipping); // ¥209.99`
   },
   dto: {
     title: 'DTO Flow: Data Conversion Between Layers',
-    subtitle: 'DTO means Data Transfer Object, the carrier for data passed between layers.',
+    subtitle:
+      'DTO means Data Transfer Object, the carrier for data passed between layers.',
     controllerLayer: 'Controller Layer',
     controllerCode: `// Receive Request DTO
 public ResponseEntity<UserDTO> createUser(
@@ -386,63 +556,160 @@ public ResponseEntity<UserDTO> createUser(
     tableTitle: 'DTO Responsibility by Layer',
     headers: ['Layer', 'DTO type', 'Responsibility', 'Example'],
     rows: [
-      { layer: 'Controller', cls: 'green', type: 'Request / Response DTO', purpose: 'Define API contract and validation', example: 'UserCreateRequest' },
-      { layer: 'Service', cls: 'orange', type: 'Param / Result DTO', purpose: 'Wrap business method parameters and decouple layers', example: 'UserCreateParam' },
-      { layer: 'Repository', cls: 'blue', type: 'Entity / DO', purpose: 'Map database table structure', example: 'UserEntity' }
+      {
+        layer: 'Controller',
+        cls: 'green',
+        type: 'Request / Response DTO',
+        purpose: 'Define API contract and validation',
+        example: 'UserCreateRequest'
+      },
+      {
+        layer: 'Service',
+        cls: 'orange',
+        type: 'Param / Result DTO',
+        purpose: 'Wrap business method parameters and decouple layers',
+        example: 'UserCreateParam'
+      },
+      {
+        layer: 'Repository',
+        cls: 'blue',
+        type: 'Entity / DO',
+        purpose: 'Map database table structure',
+        example: 'UserEntity'
+      }
     ]
   },
   dependency: {
     title: 'Dependency Direction: Core Rule of Layered Architecture',
-    subtitle: 'Understanding dependency direction is essential to layered architecture.',
+    subtitle:
+      'Understanding dependency direction is essential to layered architecture.',
     outer: 'Outer layer (UI / external systems)',
     middle: 'Middle layer (application layer)',
     inner: 'Inner layer (domain layer)',
     depends: '↓ depends on',
     principleTitle: 'Core principle: Dependency Inversion Principle',
-    principleDesc: 'High-level modules should not depend on low-level implementation details. They should depend on abstractions.',
+    principleDesc:
+      'High-level modules should not depend on low-level implementation details. They should depend on abstractions.',
     rules: [
-      { title: 'Controller → Service interface', desc: 'Controller depends on the Service interface, not implementation class' },
-      { title: 'Service → Repository interface', desc: 'Service depends on Repository interface and does not care how data is stored' },
-      { title: 'All layers depend on Domain', desc: 'Domain is the core and is depended on by upper layers, but Domain depends on no layer' }
+      {
+        title: 'Controller → Service interface',
+        desc: 'Controller depends on the Service interface, not implementation class'
+      },
+      {
+        title: 'Service → Repository interface',
+        desc: 'Service depends on Repository interface and does not care how data is stored'
+      },
+      {
+        title: 'All layers depend on Domain',
+        desc: 'Domain is the core and is depended on by upper layers, but Domain depends on no layer'
+      }
     ]
   },
   clean: {
     title: 'Clean Architecture vs Layered Architecture',
-    subtitle: 'Layered architecture is a foundation for clean architecture. Understanding the relationship helps build more flexible systems.',
+    subtitle:
+      'Layered architecture is a foundation for clean architecture. Understanding the relationship helps build more flexible systems.',
     tabs: [
       { id: 'layered', name: 'Traditional layered' },
       { id: 'clean', name: 'Clean architecture' },
       { id: 'compare', name: 'Comparison' }
     ],
     layeredLayers: [
-      { name: 'Controller Layer', desc: 'Receive requests, validate parameters', cls: 'green' },
-      { name: 'Service Layer', desc: 'Business logic, transaction management', cls: 'orange' },
-      { name: 'Repository Layer', desc: 'Data access, ORM mapping', cls: 'blue' },
+      {
+        name: 'Controller Layer',
+        desc: 'Receive requests, validate parameters',
+        cls: 'green'
+      },
+      {
+        name: 'Service Layer',
+        desc: 'Business logic, transaction management',
+        cls: 'orange'
+      },
+      {
+        name: 'Repository Layer',
+        desc: 'Data access, ORM mapping',
+        cls: 'blue'
+      },
       { name: 'Domain Layer', desc: 'Entities, business rules', cls: 'teal' }
     ],
     layeredTitle: 'Traditional Layered Architecture Traits',
-    layeredTraits: ['Vertical dependency: upper layers directly depend on lower layers', 'Simple and intuitive: clear structure, easy to understand', 'Good for small and medium projects: quick development', 'Potential issue: lower-layer changes may affect upper layers'],
-    cleanLayers: [
-      { name: 'Domain layer (core)', items: 'Entity / ValueObject / DomainService', cls: 'teal' },
-      { name: 'Application layer', items: 'Service / UseCase / DTO', cls: 'orange' },
-      { name: 'Interface adapters', items: 'Controller / Gateway / Presenter', cls: 'blue' },
-      { name: 'Frameworks and drivers', items: 'Web / DB / UI / external APIs', cls: 'gray' }
+    layeredTraits: [
+      'Vertical dependency: upper layers directly depend on lower layers',
+      'Simple and intuitive: clear structure, easy to understand',
+      'Good for small and medium projects: quick development',
+      'Potential issue: lower-layer changes may affect upper layers'
     ],
-    depRule: 'Dependency direction: outer → inner. Inner layers do not know outer layers exist.',
+    cleanLayers: [
+      {
+        name: 'Domain layer (core)',
+        items: 'Entity / ValueObject / DomainService',
+        cls: 'teal'
+      },
+      {
+        name: 'Application layer',
+        items: 'Service / UseCase / DTO',
+        cls: 'orange'
+      },
+      {
+        name: 'Interface adapters',
+        items: 'Controller / Gateway / Presenter',
+        cls: 'blue'
+      },
+      {
+        name: 'Frameworks and drivers',
+        items: 'Web / DB / UI / external APIs',
+        cls: 'gray'
+      }
+    ],
+    depRule:
+      'Dependency direction: outer → inner. Inner layers do not know outer layers exist.',
     cleanTitle: 'Clean Architecture Traits',
-    cleanTraits: ['Dependency inversion: dependencies point from outside to inside through interfaces', 'Domain at core: business logic is central and independent of frameworks', 'Highly testable: core business can be unit-tested without frameworks', 'Technology independent: database and framework can be replaced more easily'],
+    cleanTraits: [
+      'Dependency inversion: dependencies point from outside to inside through interfaces',
+      'Domain at core: business logic is central and independent of frameworks',
+      'Highly testable: core business can be unit-tested without frameworks',
+      'Technology independent: database and framework can be replaced more easily'
+    ],
     headers: ['Feature', 'Traditional layered', 'Clean architecture'],
     compareRows: [
-      { feature: 'Dependency direction', layered: 'Top to bottom', clean: 'Outside to inside' },
-      { feature: 'Core business location', layered: 'Service layer', clean: 'Domain layer at center' },
-      { feature: 'Framework dependency', layered: 'Deeper', clean: 'Shallower through interfaces' },
-      { feature: 'Testability', layered: 'Often needs integration tests', clean: 'Core can be unit-tested' },
+      {
+        feature: 'Dependency direction',
+        layered: 'Top to bottom',
+        clean: 'Outside to inside'
+      },
+      {
+        feature: 'Core business location',
+        layered: 'Service layer',
+        clean: 'Domain layer at center'
+      },
+      {
+        feature: 'Framework dependency',
+        layered: 'Deeper',
+        clean: 'Shallower through interfaces'
+      },
+      {
+        feature: 'Testability',
+        layered: 'Often needs integration tests',
+        clean: 'Core can be unit-tested'
+      },
       { feature: 'Learning curve', layered: 'Gentle', clean: 'Steeper' },
-      { feature: 'Best fit', layered: 'Small/medium, fast iteration', clean: 'Large, complex, long-term maintenance' }
+      {
+        feature: 'Best fit',
+        layered: 'Small/medium, fast iteration',
+        clean: 'Large, complex, long-term maintenance'
+      }
     ],
     layeredChoice: 'Choose traditional layered when...',
-    layeredChoiceItems: ['Project is small and business is simple', 'Team is not familiar with DDD', 'You need fast launch and market validation'],
+    layeredChoiceItems: [
+      'Project is small and business is simple',
+      'Team is not familiar with DDD',
+      'You need fast launch and market validation'
+    ],
     cleanChoice: 'Choose clean architecture when...',
-    cleanChoiceItems: ['Business is complex with rich domain model', 'Long-term maintenance and evolution matter', 'Technology stack may change frequently']
+    cleanChoiceItems: [
+      'Business is complex with rich domain model',
+      'Long-term maintenance and evolution matter',
+      'Technology stack may change frequently'
+    ]
   }
 }

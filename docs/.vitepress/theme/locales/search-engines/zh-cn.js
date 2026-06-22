@@ -50,12 +50,32 @@ export default {
       }
     ],
     documents: [
-      { title: 'MySQL 数据库入门', snippet: '数据库是存储和管理数据的系统，MySQL 是最流行的关系型数据库之一', keywords: { 数据库: 3, 数据: 2, MySQL: 2, 存储: 1 } },
-      { title: 'Redis 缓存设计', snippet: 'Redis 是内存数据库，常用作缓存层，提升数据读取性能', keywords: { Redis: 2, 缓存: 2, 数据库: 1, 数据: 1, 性能: 1 } },
-      { title: 'Python 数据分析', snippet: '使用 Python 进行数据清洗、分析和可视化', keywords: { Python: 2, 数据: 3, 分析: 2, 可视化: 1 } },
-      { title: '分布式数据库架构', snippet: '分布式数据库通过分片和复制实现高可用和水平扩展', keywords: { 分布式: 2, 数据库: 2, 分片: 1, 高可用: 1 } },
-      { title: 'API 接口设计', snippet: 'RESTful API 设计规范与最佳实践', keywords: { API: 3, 设计: 2, RESTful: 1 } }
+      {
+        title: 'MySQL 数据库入门',
+        snippet:
+          '数据库是存储和管理数据的系统，MySQL 是最流行的关系型数据库之一',
+        keywords: { 数据库: 3, 数据: 2, MySQL: 2, 存储: 1 }
+      },
+      {
+        title: 'Redis 缓存设计',
+        snippet: 'Redis 是内存数据库，常用作缓存层，提升数据读取性能',
+        keywords: { Redis: 2, 缓存: 2, 数据库: 1, 数据: 1, 性能: 1 }
+      },
+      {
+        title: 'Python 数据分析',
+        snippet: '使用 Python 进行数据清洗、分析和可视化',
+        keywords: { Python: 2, 数据: 3, 分析: 2, 可视化: 1 }
+      },
+      {
+        title: '分布式数据库架构',
+        snippet: '分布式数据库通过分片和复制实现高可用和水平扩展',
+        keywords: { 分布式: 2, 数据库: 2, 分片: 1, 高可用: 1 }
+      },
+      {
+        title: 'API 接口设计',
+        snippet: 'RESTful API 设计规范与最佳实践',
+        keywords: { API: 3, 设计: 2, RESTful: 1 }
+      }
     ]
   }
 }
-

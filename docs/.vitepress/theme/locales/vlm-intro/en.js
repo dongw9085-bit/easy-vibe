@@ -36,7 +36,8 @@ export default {
     dataTitle: 'Current training data example:',
     stage1Code: '<Image: 🐱>, <Text: "a cat">',
     stage1Task: 'Task: make the image vector closer to the text vector.',
-    stage2Code: 'User: <Image: 🐱> What is this cat doing?<br>Assistant: It is sleeping.',
+    stage2Code:
+      'User: <Image: 🐱> What is this cat doing?<br>Assistant: It is sleeping.',
     stage2Task: 'Task: generate an answer from the image and question.'
   },
   featureAlignment: {
@@ -66,7 +67,8 @@ export default {
     prev: '⬅ Previous',
     next: 'Next ➡',
     done: 'Done',
-    sequenceLabel: 'Token Sequence: 196×D (each token is a D-dimensional vector)',
+    sequenceLabel:
+      'Token Sequence: 196×D (each token is a D-dimensional vector)',
     stepDescriptions: [
       '1. Original Image: the raw input seen by the computer.',
       '2. Digitization: an image is essentially a numeric matrix (H x W x C).',
@@ -101,8 +103,10 @@ export default {
     insights: {
       catHead: 'The cat head attends most to the paw and butterfly.',
       paws: 'The paw attends strongly to the yarn and cat head.',
-      butterfly: 'The butterfly attends to the cat, possibly because it is a threat.',
-      grass: 'Grass patches mostly attend to nearby grass to confirm background texture.',
+      butterfly:
+        'The butterfly attends to the cat, possibly because it is a threat.',
+      grass:
+        'Grass patches mostly attend to nearby grass to confirm background texture.',
       yarn: 'The yarn and cat paw have a strong interaction.',
       fallback: 'Self-attention lets every part find contextual relationships.'
     }
@@ -132,9 +136,18 @@ export default {
     standardFlow: 'Prompt → Embedding → Token Sequence → LLM → Response.',
     vlmTitle: 'VLM = LLM + Vision Encoder',
     principles: [
-      { strong: 'ViT (The Eye):', text: 'encodes the image into visual features.' },
-      { strong: 'Projector (The Translator):', text: 'maps visual features into the LLM token space.' },
-      { strong: 'Concatenation:', text: 'puts visual tokens before text tokens as one input sequence.' }
+      {
+        strong: 'ViT (The Eye):',
+        text: 'encodes the image into visual features.'
+      },
+      {
+        strong: 'Projector (The Translator):',
+        text: 'maps visual features into the LLM token space.'
+      },
+      {
+        strong: 'Concatenation:',
+        text: 'puts visual tokens before text tokens as one input sequence.'
+      }
     ]
   },
   vitOutput: {
@@ -144,22 +157,78 @@ export default {
     typeLabel: 'Type: {type}',
     vectorValue: 'Vector Value:',
     semanticStrong: '🤖 What ViT sees (Semantic):',
-    placeholder: 'Hover over a patch or vector to inspect the semantic features produced by ViT',
+    placeholder:
+      'Hover over a patch or vector to inspect the semantic features produced by ViT',
     items: [
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Recognized as outdoor nature elements (Trees/Greenery). Low relevance to main subject.' },
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Redundant background info. Contextualizes the scene as "Outdoors".' },
-      { icon: '☁️', label: 'Sky', type: 'Environment', color: '#2196f3', desc: 'Spatial context: Upper region, open area.' },
-      { icon: '👂', label: 'Cat Ear', type: 'Subject Part', color: '#ff9800', desc: 'High Importance. Identified as "Feline Feature". Strongly linked to "Cat Face".' },
-      { icon: '😼', label: 'Cat Face', type: 'Subject Core', color: '#ff5722', desc: 'Global Focus Center. Contains "Eyes", "Whiskers". Aggregates info from surrounding patches.' },
-      { icon: '🌲', label: 'Background', type: 'Environment', color: '#4caf50', desc: 'Background noise.' },
-      { icon: '🐾', label: 'Cat Paw', type: 'Subject Part', color: '#ff9800', desc: 'Action component. Suggests "Standing" or "Walking" posture.' },
-      { icon: '🧶', label: 'Yarn', type: 'Object', color: '#e91e63', desc: 'Interacting Object. Semantically linked to "Play" or "Toy".' },
-      { icon: '🌱', label: 'Grass', type: 'Environment', color: '#8bc34a', desc: 'Ground context. Confirms "Ground level" view.' }
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Recognized as outdoor nature elements (Trees/Greenery). Low relevance to main subject.'
+      },
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Redundant background info. Contextualizes the scene as "Outdoors".'
+      },
+      {
+        icon: '☁️',
+        label: 'Sky',
+        type: 'Environment',
+        color: '#2196f3',
+        desc: 'Spatial context: Upper region, open area.'
+      },
+      {
+        icon: '👂',
+        label: 'Cat Ear',
+        type: 'Subject Part',
+        color: '#ff9800',
+        desc: 'High Importance. Identified as "Feline Feature". Strongly linked to "Cat Face".'
+      },
+      {
+        icon: '😼',
+        label: 'Cat Face',
+        type: 'Subject Core',
+        color: '#ff5722',
+        desc: 'Global Focus Center. Contains "Eyes", "Whiskers". Aggregates info from surrounding patches.'
+      },
+      {
+        icon: '🌲',
+        label: 'Background',
+        type: 'Environment',
+        color: '#4caf50',
+        desc: 'Background noise.'
+      },
+      {
+        icon: '🐾',
+        label: 'Cat Paw',
+        type: 'Subject Part',
+        color: '#ff9800',
+        desc: 'Action component. Suggests "Standing" or "Walking" posture.'
+      },
+      {
+        icon: '🧶',
+        label: 'Yarn',
+        type: 'Object',
+        color: '#e91e63',
+        desc: 'Interacting Object. Semantically linked to "Play" or "Toy".'
+      },
+      {
+        icon: '🌱',
+        label: 'Grass',
+        type: 'Environment',
+        color: '#8bc34a',
+        desc: 'Ground context. Confirms "Ground level" view.'
+      }
     ]
   },
   quickStart: {
     title: '👁️ First VLM Experience: More Than Image Captioning',
-    subtitle: 'Choose different scenarios to experience multimodal capabilities.',
+    subtitle:
+      'Choose different scenarios to experience multimodal capabilities.',
     upload: 'Upload image (simulated)',
     safetySign: '⚠️ Safety Production',
     ready: 'Image is ready. Choose an instruction.',
@@ -197,8 +266,10 @@ export default {
     },
     answers: {
       chat: {
-        place: 'This is a mountain landscape. Snow-covered peaks rise in the distance, with dense pine forest near the base.',
-        weather: 'The weather looks clear and sunny, with high visibility and blue sky. It would be a good day for hiking or skiing.',
+        place:
+          'This is a mountain landscape. Snow-covered peaks rise in the distance, with dense pine forest near the base.',
+        weather:
+          'The weather looks clear and sunny, with high visibility and blue sky. It would be a good day for hiking or skiing.',
         poem: '🏔️ Snow peaks touch the sky,\n🌲 Pines whisper in bright air.\n☀️ Sun warms the silent ridge,\n🏞️ The wide view settles there.'
       },
       detection: {
@@ -223,12 +294,14 @@ export default {
         date: 'The purchase date is 2023-10-24.'
       },
       analysis: {
-        helmet: 'The image shows one worker (👷) correctly wearing a red safety helmet (⛑️).',
+        helmet:
+          'The image shows one worker (👷) correctly wearing a red safety helmet (⛑️).',
         hazards: {
           type: 'json',
           text: '{\n  "hazards": [],\n  "safety_score": 100,\n  "status": "SAFE"\n}'
         },
-        riskReport: '✅ **Safety compliant**\n- Personnel: 1\n- Protective equipment: complete\n- Machinery: operating normally\n- Risk level: low'
+        riskReport:
+          '✅ **Safety compliant**\n- Personnel: 1\n- Protective equipment: complete\n- Machinery: operating normally\n- Risk level: low'
       }
     },
     imageLabels: {

@@ -20,7 +20,11 @@ export default {
         example: 'Home.vue、UserProfile.vue',
         arrow: '组合',
         files: ['Home/index.vue', 'User/Profile.vue', 'pages/about.tsx'],
-        principles: ['保持"薄"，逻辑下沉到 hooks', '页面级状态管理', '路由懒加载']
+        principles: [
+          '保持"薄"，逻辑下沉到 hooks',
+          '页面级状态管理',
+          '路由懒加载'
+        ]
       },
       {
         id: 'components',
@@ -32,7 +36,11 @@ export default {
         example: 'Button.vue、Modal.vue、UserCard.vue',
         arrow: '调用',
         files: ['common/Button/', 'business/UserCard/', 'layout/Header/'],
-        principles: ['单一职责，一个组件只做一件事', 'Props 清晰可预测', '样式隔离（scoped/css-modules）']
+        principles: [
+          '单一职责，一个组件只做一件事',
+          'Props 清晰可预测',
+          '样式隔离（scoped/css-modules）'
+        ]
       },
       {
         id: 'hooks',
