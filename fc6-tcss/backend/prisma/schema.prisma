@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  BUSINESS
+  FINANCE
+  CEO
+  ADMIN
+}
+
+enum ApprovalStatus {
+  DRAFT
+  SUBMITTED
+  FINANCE_REVIEWED
+  CEO_APPROVED
+  LOCKED
+  REJECTED
+}
+
+enum BusinessUnit {
+  DOMESTIC_MEDICAL
+  ECOMMERCE
+  INTERNATIONAL_MEDICAL
+  PET
+  PRODUCTION_OPS
+  RD_TECH
+  ADMIN_SUPPORT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      Role
+  buAccess  BusinessUnit[]
+  createdAt DateTime @default(now())
+
+  forecastVersions ForecastVersion[]
+  approvalRecords  ApprovalRecord[]
+  auditLogs        AuditLog[]
+}
+
+model ForecastVersion {
+  id          String         @id @default(cuid())
+  name        String
+  period      String         // e.g. "2026H2"
+  status      ApprovalStatus @default(DRAFT)
+  createdBy   User           @relation(fields: [createdById], references: [id])
+  createdById String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  lockedAt    DateTime?
+
+  revenueRecords  RevenueRecord[]
+  expenseRecords  ExpenseRecord[]
+  hcPlans         HCPlan[]
+  capexPlans      CapexPlan[]
+  productionCosts ProductionCost[]
+  approvalRecords ApprovalRecord[]
+  auditLogs       AuditLog[]
+}
+
+model RevenueRecord {
+  id              String          @id @default(cuid())
+  versionId       String
+  version         ForecastVersion @relation(fields: [versionId], references: [id])
+  bu              BusinessUnit
+  productLine     String
+  sku             String?
+  month           Int             // 1-12
+  year            Int
+  isActual        Boolean         @default(false) // true = YTD6, false = FC7-12
+  baselineVolume  Decimal?        @db.Decimal(18, 4)
+  incrementVolume Decimal?        @db.Decimal(18, 4)
+  unitPrice       Decimal?        @db.Decimal(18, 4)
+  baselineRevenue Decimal?        @db.Decimal(18, 4)
+  growthRevenue   Decimal?        @db.Decimal(18, 4)
+  grossMarginPct  Decimal?        @db.Decimal(8, 4)
+  dso             Decimal?        @db.Decimal(8, 2)
+  notes           String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model ExpenseRecord {
+  id          String          @id @default(cuid())
+  versionId   String
+  version     ForecastVersion @relation(fields: [versionId], references: [id])
+  bu          BusinessUnit
+  category    String          // e.g. "MAINTENANCE", "ECOMMERCE", "HC_CB", "PACKAGING"
+  subcategory String?
+  month       Int
+  year        Int
+  isActual    Boolean         @default(false)
+  amount      Decimal         @db.Decimal(18, 4)
+  notes       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model ProductionCost {
+  id               String          @id @default(cuid())
+  versionId        String
+  version          ForecastVersion @relation(fields: [versionId], references: [id])
+  site             String          // XIAMEN, CHANGTING, BEIJING, SUZHOU_INSTRUMENT, SUZHOU_REAGENT
+  sku              String
+  month            Int
+  year             Int
+  isActual         Boolean         @default(false)
+  plannedVolume    Decimal?        @db.Decimal(18, 4)
+  directMaterial   Decimal?        @db.Decimal(18, 4)
+  externalMaterial Decimal?        @db.Decimal(18, 4)
+  directLabor      Decimal?        @db.Decimal(18, 4)
+  consumables      Decimal?        @db.Decimal(18, 4)
+  energy           Decimal?        @db.Decimal(18, 4)
+  qcCost           Decimal?        @db.Decimal(18, 4)
+  indirectMfg      Decimal?        @db.Decimal(18, 4)
+  depreciationAmt  Decimal?        @db.Decimal(18, 4)
+  yieldRate        Decimal?        @db.Decimal(8, 4)
+  oee              Decimal?        @db.Decimal(8, 4)
+  inventoryDays    Decimal?        @db.Decimal(8, 2)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+model HCPlan {
+  id           String          @id @default(cuid())
+  versionId    String
+  version      ForecastVersion @relation(fields: [versionId], references: [id])
+  bu           BusinessUnit
+  department   String
+  month        Int
+  year         Int
+  isActual     Boolean         @default(false)
+  headcount    Int
+  fte          Decimal         @db.Decimal(8, 2)
+  baseSalary   Decimal?        @db.Decimal(18, 4)
+  bonus        Decimal?        @db.Decimal(18, 4)
+  socialInsur  Decimal?        @db.Decimal(18, 4)
+  totalCB      Decimal?        @db.Decimal(18, 4)
+  notes        String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model CapexPlan {
+  id               String          @id @default(cuid())
+  versionId        String
+  version          ForecastVersion @relation(fields: [versionId], references: [id])
+  bu               BusinessUnit
+  projectName      String
+  category         String          // INSTRUMENT_DEPLOYMENT, AUTOMATION, OTHER
+  month            Int
+  year             Int
+  amount           Decimal         @db.Decimal(18, 4)
+  depreciationLife Int             // months
+  monthlyDepr      Decimal?        @db.Decimal(18, 4)
+  efficiencyGain   Decimal?        @db.Decimal(8, 4)
+  roi              Decimal?        @db.Decimal(8, 4)
+  notes            String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+model KPIBenchmark {
+  id          String       @id @default(cuid())
+  bu          BusinessUnit
+  kpiName     String
+  kpiCode     String
+  unit        String
+  historical  Decimal?     @db.Decimal(18, 4)
+  budget      Decimal?     @db.Decimal(18, 4)
+  tenYearPlan Decimal?     @db.Decimal(18, 4)
+  warnLow     Decimal?     @db.Decimal(18, 4)
+  warnHigh    Decimal?     @db.Decimal(18, 4)
+  year        Int
+  updatedAt   DateTime     @updatedAt
+}
+
+model ApprovalRecord {
+  id          String          @id @default(cuid())
+  versionId   String
+  version     ForecastVersion @relation(fields: [versionId], references: [id])
+  approver    User            @relation(fields: [approverId], references: [id])
+  approverId  String
+  action      String          // SUBMIT, FINANCE_REVIEW, CEO_APPROVE, REJECT, UNLOCK
+  comment     String?
+  createdAt   DateTime        @default(now())
+}
+
+model AuditLog {
+  id          String          @id @default(cuid())
+  versionId   String
+  version     ForecastVersion @relation(fields: [versionId], references: [id])
+  user        User            @relation(fields: [userId], references: [id])
+  userId      String
+  action      String
+  tableName   String
+  recordId    String
+  oldValues   Json?
+  newValues   Json?
+  createdAt   DateTime        @default(now())
+}

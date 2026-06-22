@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-gray-50 text-gray-900 font-sans; }
+  h1 { @apply text-2xl font-bold; }
+  h2 { @apply text-xl font-semibold; }
+}
+
+@layer components {
+  .btn { @apply px-4 py-2 rounded-lg font-medium transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-primary-600 text-white hover:bg-primary-700; }
+  .btn-secondary { @apply btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50; }
+  .btn-danger { @apply btn bg-red-600 text-white hover:bg-red-700; }
+  .btn-success { @apply btn bg-green-600 text-white hover:bg-green-700; }
+  .card { @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6; }
+  .badge { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium; }
+  .badge-draft { @apply badge bg-gray-100 text-gray-700; }
+  .badge-submitted { @apply badge bg-blue-100 text-blue-700; }
+  .badge-finance { @apply badge bg-purple-100 text-purple-700; }
+  .badge-approved { @apply badge bg-green-100 text-green-700; }
+  .badge-locked { @apply badge bg-gray-800 text-white; }
+  .badge-rejected { @apply badge bg-red-100 text-red-700; }
+  .input { @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent; }
+  .label { @apply block text-sm font-medium text-gray-700 mb-1; }
+  .table-th { @apply px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider; }
+  .table-td { @apply px-4 py-3 text-sm text-gray-900; }
+  .sidebar-link { @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors; }
+  .sidebar-link-active { @apply sidebar-link bg-primary-50 text-primary-700; }
+  .sidebar-link-inactive { @apply sidebar-link text-gray-600 hover:bg-gray-100 hover:text-gray-900; }
+}
