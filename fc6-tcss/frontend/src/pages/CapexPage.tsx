@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import api from '../utils/api'
+import { svc } from '../utils/service'
 import { CapexPlan, BU_LABELS, BusinessUnit } from '../types'
 import { fmtMoney, fmtPct, MONTHS } from '../utils/format'
 import { useAuthStore } from '../store/auth'
@@ -20,14 +20,14 @@ export default function CapexPage() {
   const [form, setForm] = useState(EMPTY)
 
   const canEdit = user?.role !== 'CEO'
-  const load = () => api.get(`/capex?versionId=${id}`).then(r => setRecords(r.data))
+  const load = () => svc.getCapex(id!).then(setRecords)
   useEffect(() => { load() }, [id])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     const data: any = { ...form, versionId: id, month: Number(form.month), year: Number(form.year), amount: Number(form.amount), depreciationLife: Number(form.depreciationLife) }
-    ;['monthlyDepr', 'efficiencyGain', 'roi'].forEach(f => { if (data[f]) data[f] = Number(data[f]) })
-    await api.post('/capex', data)
+    ;['monthlyDepr','efficiencyGain','roi'].forEach(f => { if (data[f]) data[f] = Number(data[f]) })
+    await svc.createCapex(data)
     toast.success('已添加'); setShowForm(false); setForm(EMPTY); load()
   }
 
@@ -48,7 +48,7 @@ export default function CapexPage() {
 
       <div className="card p-0 overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-50"><tr>{['BU', '项目名称', '类别', '月份', '投资金额', '折旧月数', '月折旧', '效率提升', 'ROI'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
+          <thead className="bg-gray-50"><tr>{['BU','项目名称','类别','月份','投资金额','折旧月数','月折旧','效率提升','ROI'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
           <tbody className="divide-y divide-gray-100">
             {records.map(r => (
               <tr key={r.id} className="hover:bg-gray-50">

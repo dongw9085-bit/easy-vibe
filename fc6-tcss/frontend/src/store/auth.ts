@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User } from '../types'
 import api from '../utils/api'
+import { IS_MOCK, mockApi } from '../utils/mockApi'
 
 interface AuthState {
   user: User | null
@@ -16,6 +17,11 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       login: async (email, password) => {
+        if (IS_MOCK) {
+          const data = await mockApi.login(email, password)
+          set({ user: data.user, token: data.token })
+          return
+        }
         const res = await api.post('/auth/login', { email, password })
         set({ user: res.data.user, token: res.data.token })
         api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`

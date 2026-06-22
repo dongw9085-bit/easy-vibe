@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import api from '../utils/api'
+import { svc } from '../utils/service'
 import { BU_LABELS, BusinessUnit } from '../types'
 import { useAuthStore } from '../store/auth'
 import toast from 'react-hot-toast'
@@ -15,14 +15,14 @@ export default function KPIPage() {
   const [form, setForm] = useState(EMPTY)
 
   const canEdit = user?.role === 'FINANCE' || user?.role === 'ADMIN'
-  const load = () => api.get('/kpi').then(r => setBenchmarks(r.data))
+  const load = () => svc.getKPI().then(setBenchmarks)
   useEffect(() => { load() }, [])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     const data: any = { ...form, year: Number(form.year) }
-    ;['historical', 'budget', 'tenYearPlan', 'warnLow', 'warnHigh'].forEach(f => { if (data[f] !== '') data[f] = Number(data[f]) })
-    await api.post('/kpi', data)
+    ;['historical','budget','tenYearPlan','warnLow','warnHigh'].forEach(f => { if (data[f] !== '') data[f] = Number(data[f]) })
+    await svc.createKPI(data)
     toast.success('已添加'); setShowForm(false); setForm(EMPTY); load()
   }
 
@@ -36,18 +36,16 @@ export default function KPIPage() {
         {canEdit && <button onClick={() => setShowForm(true)} className="btn-primary flex items-center gap-2"><Plus className="w-4 h-4" />新增基准</button>}
       </div>
 
-      {benchmarks.length === 0 && (
+      {benchmarks.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
           <Target className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p>暂无 KPI 基准数据</p>
           {canEdit && <button onClick={() => setShowForm(true)} className="btn-primary mt-4">添加第一个 KPI 基准</button>}
         </div>
-      )}
-
-      {benchmarks.length > 0 && (
+      ) : (
         <div className="card p-0 overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50"><tr>{['BU', 'KPI 名称', '代码', '单位', '历史实际', '年度预算', '10年规划', '预警下限', '预警上限', '年份'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
+            <thead className="bg-gray-50"><tr>{['BU','KPI 名称','代码','单位','历史实际','年度预算','10年规划','预警下限','预警上限','年份'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
             <tbody className="divide-y divide-gray-100">
               {benchmarks.map(b => (
                 <tr key={b.id} className="hover:bg-gray-50">
@@ -77,7 +75,7 @@ export default function KPIPage() {
               <div><label className="label">KPI 名称</label><input className="input" value={form.kpiName} onChange={e => setForm(f => ({ ...f, kpiName: e.target.value }))} required /></div>
               <div><label className="label">KPI 代码</label><input className="input" value={form.kpiCode} onChange={e => setForm(f => ({ ...f, kpiCode: e.target.value }))} required /></div>
               <div><label className="label">单位</label><input className="input" value={form.unit} onChange={e => setForm(f => ({ ...f, unit: e.target.value }))} /></div>
-              {[['historical', '历史实际'], ['budget', '年度预算'], ['tenYearPlan', '10年规划'], ['warnLow', '预警下限（触发低警告）'], ['warnHigh', '预警上限（触发高警告）']].map(([k, l]) => (
+              {[['historical','历史实际'],['budget','年度预算'],['tenYearPlan','10年规划'],['warnLow','预警下限'],['warnHigh','预警上限']].map(([k, l]) => (
                 <div key={k}><label className="label">{l}</label><input type="number" step="any" className="input" value={(form as any)[k]} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} /></div>
               ))}
               <div><label className="label">年份</label><input type="number" className="input" value={form.year} onChange={e => setForm(f => ({ ...f, year: Number(e.target.value) }))} /></div>

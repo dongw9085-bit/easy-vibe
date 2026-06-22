@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import api from '../utils/api'
-import { ForecastVersion, STATUS_LABELS, BU_LABELS } from '../types'
+import { svc } from '../utils/service'
+import { ForecastVersion, STATUS_LABELS } from '../types'
 import { useAuthStore } from '../store/auth'
 import { fmtMoney } from '../utils/format'
 import toast from 'react-hot-toast'
-import { TrendingUp, Receipt, Users, Building2, Factory, BarChart3, Download, CheckCircle, XCircle, Clock } from 'lucide-react'
+import { TrendingUp, Receipt, Users, Building2, Factory, BarChart3, Download, CheckCircle, Clock } from 'lucide-react'
 
 const APPROVAL_ACTIONS: Record<string, { label: string; action: string; style: string; roles: string[] }[]> = {
   DRAFT: [{ label: '提交审批', action: 'SUBMIT', style: 'btn-primary', roles: ['BUSINESS', 'FINANCE', 'ADMIN'] }],
@@ -15,34 +15,33 @@ const APPROVAL_ACTIONS: Record<string, { label: string; action: string; style: s
   ],
   FINANCE_REVIEWED: [{ label: 'CEO 审批通过', action: 'CEO_APPROVE', style: 'btn-success', roles: ['CEO', 'ADMIN'] }],
   CEO_APPROVED: [{ label: '锁定版本', action: 'LOCK', style: 'btn-primary', roles: ['ADMIN', 'CEO'] }],
-  LOCKED: [],
-  REJECTED: [{ label: '重新提交', action: 'SUBMIT', style: 'btn-primary', roles: ['BUSINESS', 'FINANCE', 'ADMIN'] }]
+  LOCKED: [], REJECTED: [{ label: '重新提交', action: 'SUBMIT', style: 'btn-primary', roles: ['BUSINESS', 'FINANCE', 'ADMIN'] }]
 }
 
 export default function VersionDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { user } = useAuthStore()
   const navigate = useNavigate()
-  const [version, setVersion] = useState<ForecastVersion | null>(null)
+  const [versions, setVersions] = useState<ForecastVersion[]>([])
   const [summary, setSummary] = useState<any>(null)
   const [history, setHistory] = useState<any[]>([])
   const [comment, setComment] = useState('')
 
+  const version = versions.find(v => v.id === id) || null
+
   const load = () => {
-    api.get(`/versions`).then(r => setVersion(r.data.find((v: ForecastVersion) => v.id === id) || null))
-    api.get(`/versions/${id}/summary`).then(r => setSummary(r.data))
-    api.get(`/approvals/${id}/history`).then(r => setHistory(r.data))
+    svc.getVersions().then(setVersions)
+    svc.getVersionSummary(id!).then(setSummary)
+    svc.getApprovalHistory(id!).then(setHistory)
   }
   useEffect(() => { load() }, [id])
 
   const doAction = async (action: string) => {
-    await api.post(`/approvals/${id}/action`, { action, comment })
+    await svc.doApprovalAction(id!, action, comment, user!.role)
     toast.success('操作成功')
     setComment('')
     load()
   }
-
-  const downloadReport = () => window.open(`/api/reports/${id}/excel`, '_blank')
 
   const modules = [
     { label: '收入预测', icon: TrendingUp, to: 'revenue' },
@@ -54,6 +53,7 @@ export default function VersionDetailPage() {
   ]
 
   const actions = version ? (APPROVAL_ACTIONS[version.status] || []).filter(a => user && a.roles.includes(user.role)) : []
+  const statuses = ['DRAFT', 'SUBMITTED', 'FINANCE_REVIEWED', 'CEO_APPROVED', 'LOCKED']
 
   if (!version) return <div className="p-6 text-gray-500">加载中...</div>
 
@@ -69,20 +69,18 @@ export default function VersionDetailPage() {
             {version.lockedAt && <span className="text-xs text-gray-400">锁定于 {new Date(version.lockedAt).toLocaleString('zh-CN')}</span>}
           </div>
         </div>
-        <button onClick={downloadReport} className="btn-secondary flex items-center gap-2">
-          <Download className="w-4 h-4" />
-          导出 Excel
+        <button onClick={() => svc.downloadExcel(id!)} className="btn-secondary flex items-center gap-2">
+          <Download className="w-4 h-4" />导出 Excel
         </button>
       </div>
 
-      {/* Summary */}
       {summary && (
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {[
             { label: '预测收入', value: fmtMoney(summary.totalRevenue) },
             { label: '预测费用', value: fmtMoney(summary.totalExpenses) },
             { label: 'EBIT估算', value: fmtMoney(summary.totalRevenue * 0.2 - summary.totalExpenses) },
-            { label: '总 FTE', value: `${Number(summary.totalFTE).toFixed(1)} 人` },
+            { label: '总 FTE', value: `${Number(summary.totalFTE).toFixed(0)} 人` },
             { label: '总 Capex', value: fmtMoney(summary.totalCapex) },
           ].map(({ label, value }) => (
             <div key={label} className="card py-4">
@@ -93,7 +91,6 @@ export default function VersionDetailPage() {
         </div>
       )}
 
-      {/* Modules */}
       <div>
         <h2 className="mb-3">数据模块</h2>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -111,28 +108,25 @@ export default function VersionDetailPage() {
         </div>
       </div>
 
-      {/* Approval Workflow */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
           <h2 className="mb-4">审批工作流</h2>
-          <div className="flex items-center justify-between mb-6">
-            {['DRAFT', 'SUBMITTED', 'FINANCE_REVIEWED', 'CEO_APPROVED', 'LOCKED'].map((s, i) => {
-              const statuses = ['DRAFT', 'SUBMITTED', 'FINANCE_REVIEWED', 'CEO_APPROVED', 'LOCKED']
+          <div className="flex items-start justify-between mb-6 overflow-x-auto">
+            {statuses.map((s, i) => {
               const curIdx = statuses.indexOf(version.status)
               const done = i < curIdx
               const current = i === curIdx
               return (
                 <div key={s} className="flex items-center">
-                  <div className={`flex flex-col items-center ${i > 0 ? 'ml-2' : ''}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium
-                      ${done ? 'bg-green-100 text-green-700' : current ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
+                  <div className={`flex flex-col items-center ${i > 0 ? 'ml-1' : ''}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${done ? 'bg-green-100 text-green-700' : current ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
                       {done ? <CheckCircle className="w-4 h-4" /> : i + 1}
                     </div>
-                    <div className={`text-xs mt-1 text-center ${current ? 'text-primary-600 font-medium' : 'text-gray-400'}`}>
+                    <div className={`text-xs mt-1 text-center w-14 ${current ? 'text-primary-600 font-medium' : 'text-gray-400'}`}>
                       {STATUS_LABELS[s as keyof typeof STATUS_LABELS]}
                     </div>
                   </div>
-                  {i < 4 && <div className={`h-0.5 w-8 mt-[-10px] ${i < curIdx ? 'bg-green-300' : 'bg-gray-200'}`} />}
+                  {i < 4 && <div className={`h-0.5 w-6 mt-[-12px] ${i < curIdx ? 'bg-green-300' : 'bg-gray-200'}`} />}
                 </div>
               )
             })}
@@ -141,9 +135,7 @@ export default function VersionDetailPage() {
             <div className="space-y-3">
               <textarea className="input" rows={2} placeholder="审批意见（选填）" value={comment} onChange={e => setComment(e.target.value)} />
               <div className="flex gap-2">
-                {actions.map(a => (
-                  <button key={a.action} onClick={() => doAction(a.action)} className={`${a.style} flex-1`}>{a.label}</button>
-                ))}
+                {actions.map(a => <button key={a.action} onClick={() => doAction(a.action)} className={`${a.style} flex-1`}>{a.label}</button>)}
               </div>
             </div>
           )}

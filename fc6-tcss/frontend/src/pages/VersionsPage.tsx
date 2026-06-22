@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from '../utils/api'
+import { svc } from '../utils/service'
 import { ForecastVersion, STATUS_LABELS } from '../types'
 import { useAuthStore } from '../store/auth'
 import { Plus, FolderOpen } from 'lucide-react'
@@ -13,12 +13,12 @@ export default function VersionsPage() {
   const { user } = useAuthStore()
   const navigate = useNavigate()
 
-  const load = () => api.get('/versions').then(r => setVersions(r.data))
+  const load = () => svc.getVersions().then(setVersions)
   useEffect(() => { load() }, [])
 
   const create = async (e: React.FormEvent) => {
     e.preventDefault()
-    await api.post('/versions', form)
+    await svc.createVersion(form)
     toast.success('版本已创建')
     setShowModal(false)
     setForm({ name: '', period: '2026H2' })
@@ -33,8 +33,7 @@ export default function VersionsPage() {
         <h1>预测版本管理</h1>
         {canCreate && (
           <button onClick={() => setShowModal(true)} className="btn-primary flex items-center gap-2">
-            <Plus className="w-4 h-4" />
-            新建版本
+            <Plus className="w-4 h-4" />新建版本
           </button>
         )}
       </div>

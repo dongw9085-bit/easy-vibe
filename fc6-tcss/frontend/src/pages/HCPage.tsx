@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import api from '../utils/api'
+import { svc } from '../utils/service'
 import { HCPlan, BU_LABELS, BusinessUnit } from '../types'
 import { fmtMoney, MONTHS } from '../utils/format'
 import { useAuthStore } from '../store/auth'
@@ -9,7 +9,7 @@ import { Plus, ArrowLeft } from 'lucide-react'
 import ReactECharts from 'echarts-for-react'
 
 const BUS = Object.keys(BU_LABELS) as BusinessUnit[]
-const EMPTY = { bu: 'DOMESTIC_MEDICAL' as BusinessUnit, department: '', month: 7, year: 2026, isActual: false, headcount: '', fte: '', baseSalary: '', bonus: '', socialInsur: '', totalCB: '', notes: '' }
+const EMPTY = { bu: 'DOMESTIC_MEDICAL' as BusinessUnit, department: '', month: 7, year: 2026, isActual: false, headcount: '', fte: '', baseSalary: '', bonus: '', socialInsur: '', totalCB: '' }
 
 export default function HCPage() {
   const { id } = useParams<{ id: string }>()
@@ -20,20 +20,20 @@ export default function HCPage() {
   const [form, setForm] = useState(EMPTY)
 
   const canEdit = user?.role !== 'CEO'
-  const load = () => api.get(`/hc?versionId=${id}`).then(r => setRecords(r.data))
+  const load = () => svc.getHC(id!).then(setRecords)
   useEffect(() => { load() }, [id])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     const data: any = { ...form, versionId: id, month: Number(form.month), year: Number(form.year), headcount: Number(form.headcount), fte: Number(form.fte) }
-    ;['baseSalary', 'bonus', 'socialInsur', 'totalCB'].forEach(f => { if (data[f]) data[f] = Number(data[f]) })
-    await api.post('/hc', data)
+    ;['baseSalary','bonus','socialInsur','totalCB'].forEach(f => { if (data[f]) data[f] = Number(data[f]) })
+    await svc.createHC(data)
     toast.success('已添加'); setShowForm(false); setForm(EMPTY); load()
   }
 
   const fteByBU = BUS.map(bu => ({
     name: BU_LABELS[bu],
-    value: records.filter(r => r.bu === bu).reduce((s, r) => s + Number(r.fte), 0)
+    value: Number(records.filter(r => r.bu === bu).reduce((s, r) => s + Number(r.fte), 0).toFixed(1))
   })).filter(d => d.value > 0)
 
   return (
@@ -49,16 +49,13 @@ export default function HCPage() {
       {fteByBU.length > 0 && (
         <div className="card">
           <h2 className="mb-4">FTE 分布（各 BU）</h2>
-          <ReactECharts option={{
-            tooltip: { formatter: (p: any) => `${p.name}: ${p.value.toFixed(1)} FTE` },
-            series: [{ type: 'pie', radius: ['40%', '65%'], data: fteByBU }]
-          }} style={{ height: 220 }} />
+          <ReactECharts option={{ tooltip: { formatter: (p: any) => `${p.name}: ${p.value.toFixed(1)} FTE` }, series: [{ type: 'pie', radius: ['40%', '65%'], data: fteByBU }] }} style={{ height: 220 }} />
         </div>
       )}
 
       <div className="card p-0 overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-50"><tr>{['BU', '部门', '月份', '人数', 'FTE', '基薪', '奖金', '社保', 'C&B合计'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
+          <thead className="bg-gray-50"><tr>{['BU','部门','月份','人数','FTE','基薪','奖金','社保','C&B合计'].map(h => <th key={h} className="table-th">{h}</th>)}</tr></thead>
           <tbody className="divide-y divide-gray-100">
             {records.map(r => (
               <tr key={r.id} className="hover:bg-gray-50">
@@ -89,7 +86,7 @@ export default function HCPage() {
               <div><label className="label">年份</label><input type="number" className="input" value={form.year} onChange={e => setForm(f => ({ ...f, year: Number(e.target.value) }))} /></div>
               <div><label className="label">人数</label><input type="number" className="input" value={form.headcount} onChange={e => setForm(f => ({ ...f, headcount: e.target.value }))} required /></div>
               <div><label className="label">FTE</label><input type="number" step="0.01" className="input" value={form.fte} onChange={e => setForm(f => ({ ...f, fte: e.target.value }))} required /></div>
-              {[['baseSalary', '基本薪资（元）'], ['bonus', '奖金（元）'], ['socialInsur', '社保（元）'], ['totalCB', 'C&B合计（元）']].map(([k, l]) => (
+              {[['baseSalary','基本薪资（元）'],['bonus','奖金（元）'],['socialInsur','社保（元）'],['totalCB','C&B合计（元）']].map(([k, l]) => (
                 <div key={k}><label className="label">{l}</label><input type="number" step="any" className="input" value={(form as any)[k]} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} /></div>
               ))}
               <div className="col-span-2 flex gap-3"><button type="submit" className="btn-primary flex-1">保存</button><button type="button" onClick={() => setShowForm(false)} className="btn-secondary flex-1">取消</button></div>

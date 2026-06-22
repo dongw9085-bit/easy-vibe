@@ -26,3 +26,4 @@ docs/archived-components.md
 .claude/skills/*
 temp/*
 fc6-tcss/backend/.env
+fc6-tcss/frontend/dist/
