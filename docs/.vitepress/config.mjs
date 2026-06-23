@@ -2531,6 +2531,10 @@ const zhCnStage3Sidebar = [
       {
         text: '中高级 RAG 与工作流编排 - 以 LangGraph 为例',
         link: '/zh-cn/stage-3/ai-advanced/langgraph-advanced-rag/'
+      },
+      {
+        text: 'FC6+6 AI财务预测系统 — Vibe Coding 实战指南',
+        link: '/zh-cn/stage-3/ai-advanced/fc66-financial-forecasting/'
       }
     ]
   }
