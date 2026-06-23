@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FC6+6 TCSS — Vibe Coding 实战全记录</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #1c2128;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --purple: #d2a8ff;
+      --orange: #f0883e;
+      --red: #ff7b72;
+      --yellow: #e3b341;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ── Layout ── */
+    .wrap { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    /* ── Header ── */
+    .hero {
+      text-align: center;
+      padding: 56px 0 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+    .hero .pill {
+      display: inline-block;
+      background: #1f6feb33;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text2); font-size: 16px; max-width: 580px; margin: 0 auto 24px; }
+    .hero .meta-row {
+      display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+      font-size: 13px; color: var(--text2);
+    }
+    .hero .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 56px;
+    }
+    .toc h3 { font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 6px 0; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── Step blocks ── */
+    .step { margin-bottom: 64px; }
+    .step-label {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--accent); color: #0d1117;
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step h2 { font-size: 20px; font-weight: 700; }
+    .step .desc { color: var(--text2); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+
+    /* ── Chat bubbles ── */
+    .chat { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .bubble {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .bubble.user {
+      align-self: flex-end;
+      background: #1f6feb;
+      color: #fff;
+      border-bottom-right-radius: 3px;
+    }
+    .bubble.user::before {
+      content: '👤 你';
+      display: block; font-size: 11px; font-weight: 700;
+      opacity: .75; margin-bottom: 6px;
+    }
+    .bubble.ai {
+      align-self: flex-start;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 3px;
+    }
+    .bubble.ai::before {
+      content: '🤖 Claude';
+      display: block; font-size: 11px; font-weight: 700;
+      color: var(--green); margin-bottom: 6px;
+    }
+
+    /* ── Code blocks ── */
+    .code-wrap {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 16px 0;
+      overflow: hidden;
+    }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+    }
+    .code-header .filename {
+      font-size: 12px; color: var(--text2); font-family: monospace;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .code-header .lang-tag {
+      font-size: 10px; background: var(--bg); color: var(--text2);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 1px 7px;
+    }
+    .copy-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text2); font-size: 11px; padding: 3px 10px;
+      border-radius: 5px; cursor: pointer; transition: all .15s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.ok { border-color: var(--green); color: var(--green); }
+    pre {
+      padding: 16px 20px;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 13px; line-height: 1.7;
+      color: #cdd9e5;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    /* Syntax colors */
+    .kw { color: #ff7b72; }   /* keywords */
+    .ty { color: #79c0ff; }   /* types */
+    .st { color: #a5d6ff; }   /* strings */
+    .cm { color: #8b949e; font-style: italic; } /* comments */
+    .fn { color: #d2a8ff; }   /* functions */
+    .nm { color: #e3b341; }   /* numbers */
+    .op { color: #ff7b72; }   /* operators */
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-radius: 8px; padding: 14px 18px;
+      margin: 16px 0; font-size: 14px;
+      border-left: 3px solid;
+    }
+    .callout.tip { background: #1f6feb1a; border-color: var(--accent); }
+    .callout.tip::before { content: '💡 Vibe Tip  '; font-weight: 700; color: var(--accent); }
+    .callout.result { background: #3fb9501a; border-color: var(--green); }
+    .callout.result::before { content: '✅ 运行结果  '; font-weight: 700; color: var(--green); }
+    .callout.warn { background: #f0883e1a; border-color: var(--orange); }
+    .callout.warn::before { content: '⚠️ 注意  '; font-weight: 700; color: var(--orange); }
+    .callout.iter { background: #d2a8ff1a; border-color: var(--purple); }
+    .callout.iter::before { content: '🔄 迭代修正  '; font-weight: 700; color: var(--purple); }
+
+    /* ── Result panels ── */
+    .result-panel {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+    }
+    .result-panel .rp-title {
+      font-size: 11px; font-weight: 700; color: var(--text2);
+      text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px;
+    }
+    .result-panel table { font-size: 13px; }
+    .result-panel th { background: var(--bg3); padding: 7px 12px; border: 1px solid var(--border); font-size: 11px; color: var(--text2); text-transform: uppercase; }
+    .result-panel td { padding: 7px 12px; border: 1px solid var(--border); }
+    .result-panel tr:nth-child(even) td { background: #1c212844; }
+
+    /* ── Flow diagram ── */
+    .flow {
+      display: flex; align-items: center; gap: 0;
+      flex-wrap: wrap; margin: 20px 0; font-size: 13px;
+    }
+    .flow-node {
+      background: var(--bg2); border: 1px solid var(--accent);
+      border-radius: 6px; padding: 8px 14px;
+      color: var(--accent); font-weight: 600; white-space: nowrap;
+    }
+    .flow-arrow { color: var(--text2); padding: 0 8px; font-size: 18px; }
+
+    /* ── Status badge ── */
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+    .badge.done { background: #3fb9501a; color: var(--green); border: 1px solid var(--green); }
+    .badge.code { background: #58a6ff1a; color: var(--accent); border: 1px solid var(--accent); }
+
+    /* ── Section divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="pill">⚡ Vibe Coding 实战全记录</div>
+    <h1>用 AI 从零构建<br><span>FC6+6 TCSS</span> 财务预测系统</h1>
+    <p>完整的 AI 辅助编码过程 — 从需求到运行代码，包含真实对话、迭代修正和最终产出</p>
+    <div class="meta-row">
+      <span>📅 2026-06-23</span>
+      <span>🤖 Claude Sonnet 4.6</span>
+      <span>⏱ 约 3-5 小时完成原型</span>
+      <span>📦 React + Node + PostgreSQL</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>目录</h3>
+    <ol>
+      <li><a href="#s0">Vibe Coding 是什么 — 在开始之前</a></li>
+      <li><a href="#s1">Step 1 · 架构设计 — 让 AI 做总设计师</a></li>
+      <li><a href="#s2">Step 2 · 数据库 Schema — Prisma 表结构</a></li>
+      <li><a href="#s3">Step 3 · 后端 API — Express 路由实现</a></li>
+      <li><a href="#s4">Step 4 · 审批流引擎 — 状态机编码</a></li>
+      <li><a href="#s5">Step 5 · 前端页面 — React 组件与图表</a></li>
+      <li><a href="#s6">Step 6 · Mock 模式 — 无后端也能跑</a></li>
+      <li><a href="#s7">Step 7 · 部署上线 — GitHub Pages 静态发布</a></li>
+      <li><a href="#s8">Vibe Coding 经验总结</a></li>
+    </ol>
+  </div>
+
+  <!-- S0 -->
+  <div class="step" id="s0">
+    <div class="step-label">
+      <div class="step-num">0</div>
+      <h2>Vibe Coding 是什么 — 在开始之前</h2>
+    </div>
+    <p class="desc">
+      Vibe Coding 不是「让 AI 帮你写代码」那么简单。它是一种<strong>人机协作的编程范式</strong>：
+      你提供业务直觉和架构判断，AI 负责把想法转化成可运行的代码。
+      关键在于——你要知道自己要什么，并能验证 AI 的输出是否正确。
+    </p>
+
+    <div class="flow">
+      <div class="flow-node">📋 需求/SAD</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🧠 你的判断</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🤖 AI 生成代码</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🔍 你来验证</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🔄 迭代修正</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">✅ 可运行系统</div>
+    </div>
+
+    <div class="callout tip">
+      本文档记录的是构建 FC6+6 TCSS 财务预测系统的真实 Vibe Coding 过程。
+      每个 Step 都包含：你对 AI 说了什么、AI 输出了什么代码、运行结果如何、出了什么问题、怎么修正的。
+    </div>
+
+    <p class="desc" style="margin-top:16px;">
+      <strong>本项目技术栈：</strong>React 18 + TypeScript + Vite + Tailwind CSS + ECharts（前端）／
+      Node.js + Express + TypeScript（后端）／PostgreSQL + Prisma ORM（数据库）／
+      JWT + RBAC（认证权限）／SheetJS（Excel 处理）
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- S1 -->
+  <div class="step" id="s1">
+    <div class="step-label">
+      <div class="step-num">1</div>
+      <h2>架构设计 — 让 AI 做总设计师</h2>
+    </div>
+    <p class="desc">第一步不是写代码，而是让 AI 帮你把 SAD 文档中的架构描述转化成具体的技术决策。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        你是一位全栈架构师。我要构建 FC6+6 TCSS 企业财务预测系统。<br><br>
+        系统有五大模块：M1 数据采集、M2 预测引擎、M3 KPI 预警、M4 权限审批、M5 报表生成。<br>
+        用户角色：BUSINESS（录入）/ FINANCE（财务复核）/ CEO（终审）/ ADMIN。<br>
+        审批流：DRAFT → SUBMITTED → FINANCE_REVIEWED → CEO_APPROVED → LOCKED。<br><br>
+        请先帮我规划项目目录结构和技术栈选型理由。
+      </div>
+      <div class="bubble ai">
+        好的，基于你的需求，我推荐以下目录结构和技术选型：<br><br>
+        <strong>为什么选这套栈？</strong><br>
+        • React + TypeScript：大型表单和数据表格场景下类型安全至关重要<br>
+        • Prisma ORM：自动生成类型，前后端类型可共享<br>
+        • Zustand：比 Redux 轻量，适合中型应用的状态管理<br>
+        • ECharts：财务图表（瀑布图、雷达图、甘特图）支持最完整<br><br>
+        目录结构如下：
+      </div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📁 项目结构</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre>fc6-tcss/
+├── backend/
+│   ├── prisma/
+│   │   ├── schema.prisma        <span class="cm"># 数据库表结构</span>
+│   │   └── seed.ts              <span class="cm"># 演示数据</span>
+│   └── src/
+│       ├── index.ts             <span class="cm"># Express 入口</span>
+│       ├── middleware/
+│       │   └── auth.ts          <span class="cm"># JWT + RBAC 中间件</span>
+│       └── routes/
+│           ├── auth.ts          <span class="cm"># 登录接口</span>
+│           ├── versions.ts      <span class="cm"># 预测版本 CRUD</span>
+│           ├── revenue.ts       <span class="cm"># 收入数据</span>
+│           ├── expenses.ts      <span class="cm"># 费用数据</span>
+│           ├── hc.ts            <span class="cm"># 人员计划</span>
+│           ├── capex.ts         <span class="cm"># 资本支出</span>
+│           ├── approvals.ts     <span class="cm"># 审批流引擎</span>
+│           ├── reports.ts       <span class="cm"># Excel 导出</span>
+│           └── kpi.ts           <span class="cm"># KPI 基准库</span>
+└── frontend/
+    └── src/
+        ├── pages/               <span class="cm"># 11 个页面组件</span>
+        ├── components/          <span class="cm"># 通用组件</span>
+        ├── store/               <span class="cm"># Zustand 状态</span>
+        ├── utils/
+        │   ├── api.ts           <span class="cm"># axios 封装</span>
+        │   ├── mockData.ts      <span class="cm"># 静态演示数据</span>
+        │   ├── mockApi.ts       <span class="cm"># Mock API 层</span>
+        │   └── service.ts       <span class="cm"># 统一服务层（自动切换 mock/real）</span>
+        └── types/index.ts       <span class="cm"># 全局 TypeScript 类型</span></pre>
+    </div>
+
+    <div class="callout tip">
+      架构阶段最重要的输出不是代码，而是<strong>统一的目录约定</strong>。目录定了，后续所有 AI 对话都能直接引用文件路径，减少歧义。
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S2 -->
+  <div class="step" id="s2">
+    <div class="step-label">
+      <div class="step-num">2</div>
+      <h2>数据库 Schema — Prisma 表结构</h2>
+    </div>
+    <p class="desc">把 SAD 文档中的数据字典告诉 AI，让它生成完整的 Prisma Schema。核心是把业务语言翻译成数据库字段。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        请生成 FC6+6 系统的完整 Prisma Schema。需要包含：<br>
+        • 用户表（User）：id、name、email、role（BUSINESS/FINANCE/CEO/ADMIN）<br>
+        • 预测版本表（ForecastVersion）：id、name、year、period、status、lockedAt<br>
+        • 收入记录（RevenueRecord）：versionId、bu（7个业务单元）、productLine、sku、month、dataType（YTD/FC）、baseVolume、growthVolume、price、amount、grossMargin、dso<br>
+        • 费用记录、HC计划、Capex计划、KPI基准、审批记录、审计日志<br>
+        审批状态枚举：DRAFT / SUBMITTED / FINANCE_REVIEWED / CEO_APPROVED / LOCKED / REJECTED
+      </div>
+      <div class="bubble ai">好的，这是完整的 Prisma Schema：</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 prisma/schema.prisma</span>
+        <span class="lang-tag">Prisma</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">datasource</span> db {
+  provider = <span class="st">"postgresql"</span>
+  url      = env(<span class="st">"DATABASE_URL"</span>)
+}
+
+<span class="kw">generator</span> client {
+  provider = <span class="st">"prisma-client-js"</span>
+}
+
+<span class="kw">enum</span> <span class="ty">Role</span> { BUSINESS FINANCE CEO ADMIN }
+
+<span class="kw">enum</span> <span class="ty">ApprovalStatus</span> {
+  DRAFT SUBMITTED FINANCE_REVIEWED CEO_APPROVED LOCKED REJECTED
+}
+
+<span class="kw">enum</span> <span class="ty">BusinessUnit</span> {
+  DOMESTIC_MEDICAL ECOMMERCE
+  INTL_PUBLIC INTL_PRIVATE PET
+  OPERATIONS RD
+}
+
+<span class="kw">model</span> <span class="ty">User</span> {
+  id        <span class="ty">String</span>   @id @default(cuid())
+  name      <span class="ty">String</span>
+  email     <span class="ty">String</span>   @unique
+  password  <span class="ty">String</span>
+  role      <span class="ty">Role</span>     @default(BUSINESS)
+  createdAt <span class="ty">DateTime</span> @default(now())
+  approvals <span class="ty">ApprovalRecord</span>[]
+  auditLogs <span class="ty">AuditLog</span>[]
+}
+
+<span class="kw">model</span> <span class="ty">ForecastVersion</span> {
+  id          <span class="ty">String</span>         @id @default(cuid())
+  name        <span class="ty">String</span>
+  year        <span class="ty">Int</span>
+  period      <span class="ty">String</span>         <span class="cm">// "H2"</span>
+  status      <span class="ty">ApprovalStatus</span> @default(DRAFT)
+  lockedAt    <span class="ty">DateTime</span>?
+  createdAt   <span class="ty">DateTime</span>       @default(now())
+  updatedAt   <span class="ty">DateTime</span>       @updatedAt
+  createdById <span class="ty">String</span>
+  createdBy   <span class="ty">User</span>           @relation(fields: [createdById], references: [id])
+  revenues    <span class="ty">RevenueRecord</span>[]
+  expenses    <span class="ty">ExpenseRecord</span>[]
+  hcPlans     <span class="ty">HCPlan</span>[]
+  capexPlans  <span class="ty">CapexPlan</span>[]
+  approvals   <span class="ty">ApprovalRecord</span>[]
+}
+
+<span class="kw">model</span> <span class="ty">RevenueRecord</span> {
+  id           <span class="ty">String</span>       @id @default(cuid())
+  versionId    <span class="ty">String</span>
+  version      <span class="ty">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  bu           <span class="ty">BusinessUnit</span>
+  productLine  <span class="ty">String</span>
+  sku          <span class="ty">String</span>?
+  month        <span class="ty">Int</span>          <span class="cm">// 1-12</span>
+  dataType     <span class="ty">String</span>       <span class="cm">// "YTD" | "FC"</span>
+  baseVolume   <span class="ty">Float</span>        @default(0)
+  growthVolume <span class="ty">Float</span>        @default(0)
+  price        <span class="ty">Float</span>        @default(0)
+  amount       <span class="ty">Float</span>        @default(0)
+  grossMargin  <span class="ty">Float</span>        @default(0)
+  dso          <span class="ty">Float</span>?
+}
+
+<span class="kw">model</span> <span class="ty">ExpenseRecord</span> {
+  id         <span class="ty">String</span>          @id @default(cuid())
+  versionId  <span class="ty">String</span>
+  version    <span class="ty">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  bu         <span class="ty">BusinessUnit</span>
+  category   <span class="ty">String</span>
+  subCategory <span class="ty">String</span>?
+  month      <span class="ty">Int</span>
+  dataType   <span class="ty">String</span>
+  amount     <span class="ty">Float</span>
+  note       <span class="ty">String</span>?
+}
+
+<span class="kw">model</span> <span class="ty">HCPlan</span> {
+  id         <span class="ty">String</span>          @id @default(cuid())
+  versionId  <span class="ty">String</span>
+  version    <span class="ty">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  bu         <span class="ty">BusinessUnit</span>
+  department <span class="ty">String</span>
+  month      <span class="ty">Int</span>
+  dataType   <span class="ty">String</span>
+  headcount  <span class="ty">Int</span>
+  fte        <span class="ty">Float</span>
+  baseSalary <span class="ty">Float</span>
+  bonus      <span class="ty">Float</span>        @default(0)
+  insurance  <span class="ty">Float</span>        @default(0)
+  totalCB    <span class="ty">Float</span>
+}
+
+<span class="kw">model</span> <span class="ty">CapexPlan</span> {
+  id              <span class="ty">String</span>          @id @default(cuid())
+  versionId       <span class="ty">String</span>
+  version         <span class="ty">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  bu              <span class="ty">BusinessUnit</span>
+  projectName     <span class="ty">String</span>
+  category        <span class="ty">String</span>
+  month           <span class="ty">Int</span>
+  amount          <span class="ty">Float</span>
+  depreciationMonths <span class="ty">Int</span>
+  monthlyDepreciation <span class="ty">Float</span>
+  efficiencyGain  <span class="ty">Float</span>?
+  roi             <span class="ty">Float</span>?
+}
+
+<span class="kw">model</span> <span class="ty">KPIBenchmark</span> {
+  id          <span class="ty">String</span>       @id @default(cuid())
+  bu          <span class="ty">BusinessUnit</span>
+  kpiCode     <span class="ty">String</span>
+  kpiName     <span class="ty">String</span>
+  year        <span class="ty">Int</span>
+  targetValue <span class="ty">Float</span>
+  minValue    <span class="ty">Float</span>?
+  maxValue    <span class="ty">Float</span>?
+  unit        <span class="ty">String</span>?
+}
+
+<span class="kw">model</span> <span class="ty">ApprovalRecord</span> {
+  id        <span class="ty">String</span>          @id @default(cuid())
+  versionId <span class="ty">String</span>
+  version   <span class="ty">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  approverId <span class="ty">String</span>
+  approver  <span class="ty">User</span>            @relation(fields: [approverId], references: [id])
+  action    <span class="ty">String</span>
+  comment   <span class="ty">String</span>?
+  createdAt <span class="ty">DateTime</span>        @default(now())
+}
+
+<span class="kw">model</span> <span class="ty">AuditLog</span> {
+  id        <span class="ty">String</span>   @id @default(cuid())
+  userId    <span class="ty">String</span>
+  user      <span class="ty">User</span>     @relation(fields: [userId], references: [id])
+  action    <span class="ty">String</span>
+  entity    <span class="ty">String</span>
+  entityId  <span class="ty">String</span>
+  oldValue  <span class="ty">Json</span>?
+  newValue  <span class="ty">Json</span>?
+  createdAt <span class="ty">DateTime</span> @default(now())
+}</pre>
+    </div>
+
+    <div class="callout result">
+      运行 <code>npx prisma migrate dev --name init</code> 后，PostgreSQL 自动创建 9 张表，
+      并生成完整的 TypeScript 类型定义（PrismaClient）。
+    </div>
+
+    <div class="callout iter">
+      <strong>遇到问题：</strong>Prisma 迁移时报 P3014 错误（shadow database 权限不足）。<br>
+      <strong>修正方式：</strong>告诉 AI 错误信息，AI 立即给出修复命令：
+      <code>sudo -u postgres psql -c "ALTER USER tcss CREATEDB;"</code>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S3 -->
+  <div class="step" id="s3">
+    <div class="step-label">
+      <div class="step-num">3</div>
+      <h2>后端 API — Express 路由实现</h2>
+    </div>
+    <p class="desc">Schema 完成后，让 AI 按模块逐个生成 Express 路由。关键是给 AI 提供足够的业务规则约束。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        实现收入数据的 CRUD API。要求：<br>
+        1. GET /api/revenue?versionId=&bu= — 按版本和BU过滤<br>
+        2. POST /api/revenue — 新增，需要验证版本未锁定<br>
+        3. PUT /api/revenue/:id — 修改，LOCKED 版本禁止<br>
+        4. DELETE /api/revenue/:id — 删除<br>
+        使用 Prisma Client，加 JWT 认证中间件，BUSINESS 和 FINANCE 角色可操作。
+      </div>
+      <div class="bubble ai">好的，这是收入路由的完整实现：</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 backend/src/routes/revenue.ts</span>
+        <span class="lang-tag">TypeScript</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">import</span> { Router } <span class="kw">from</span> <span class="st">'express'</span>
+<span class="kw">import</span> { prisma } <span class="kw">from</span> <span class="st">'../db'</span>
+<span class="kw">import</span> { authenticate, authorize, checkVersionAccess } <span class="kw">from</span> <span class="st">'../middleware/auth'</span>
+
+<span class="kw">const</span> router = <span class="fn">Router</span>()
+
+<span class="cm">// GET /api/revenue?versionId=&bu=</span>
+router.<span class="fn">get</span>(<span class="st">'/'</span>, authenticate, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { versionId, bu } = req.query
+  <span class="kw">const</span> records = <span class="kw">await</span> prisma.revenueRecord.<span class="fn">findMany</span>({
+    where: {
+      versionId: versionId <span class="kw">as</span> <span class="ty">string</span>,
+      ...(bu ? { bu: bu <span class="kw">as</span> <span class="kw">any</span> } : {})
+    },
+    orderBy: [{ bu: <span class="st">'asc'</span> }, { month: <span class="st">'asc'</span> }]
+  })
+  res.<span class="fn">json</span>(records)
+})
+
+<span class="cm">// POST /api/revenue</span>
+router.<span class="fn">post</span>(<span class="st">'/'</span>,
+  authenticate,
+  <span class="fn">authorize</span>(<span class="st">'BUSINESS'</span>, <span class="st">'FINANCE'</span>, <span class="st">'ADMIN'</span>),
+  checkVersionAccess,
+  <span class="kw">async</span> (req, res) => {
+    <span class="kw">const</span> record = <span class="kw">await</span> prisma.revenueRecord.<span class="fn">create</span>({ data: req.body })
+    res.<span class="fn">status</span>(<span class="nm">201</span>).<span class="fn">json</span>(record)
+  }
+)
+
+<span class="cm">// PUT /api/revenue/:id</span>
+router.<span class="fn">put</span>(<span class="st">'/:id'</span>,
+  authenticate,
+  <span class="fn">authorize</span>(<span class="st">'BUSINESS'</span>, <span class="st">'FINANCE'</span>, <span class="st">'ADMIN'</span>),
+  checkVersionAccess,
+  <span class="kw">async</span> (req, res) => {
+    <span class="kw">const</span> record = <span class="kw">await</span> prisma.revenueRecord.<span class="fn">update</span>({
+      where: { id: req.params.id },
+      data: req.body
+    })
+    res.<span class="fn">json</span>(record)
+  }
+)
+
+<span class="cm">// DELETE /api/revenue/:id</span>
+router.<span class="fn">delete</span>(<span class="st">'/:id'</span>,
+  authenticate,
+  <span class="fn">authorize</span>(<span class="st">'BUSINESS'</span>, <span class="st">'FINANCE'</span>, <span class="st">'ADMIN'</span>),
+  checkVersionAccess,
+  <span class="kw">async</span> (req, res) => {
+    <span class="kw">await</span> prisma.revenueRecord.<span class="fn">delete</span>({ where: { id: req.params.id } })
+    res.<span class="fn">status</span>(<span class="nm">204</span>).<span class="fn">end</span>()
+  }
+)
+
+<span class="kw">export default</span> router</pre>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 backend/src/middleware/auth.ts — checkVersionAccess 关键逻辑</span>
+        <span class="lang-tag">TypeScript</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="cm">// 检查版本是否已锁定，ADMIN 可绕过</span>
+<span class="kw">export const</span> <span class="fn">checkVersionAccess</span> = <span class="kw">async</span> (req, res, next) => {
+  <span class="kw">const</span> versionId = req.body.versionId || req.params.versionId
+  <span class="kw">if</span> (!versionId) <span class="kw">return</span> <span class="fn">next</span>()
+
+  <span class="kw">const</span> version = <span class="kw">await</span> prisma.forecastVersion.<span class="fn">findUnique</span>({
+    where: { id: versionId }
+  })
+  <span class="kw">if</span> (version?.status === <span class="st">'LOCKED'</span> && req.user?.role !== <span class="st">'ADMIN'</span>) {
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="nm">403</span>).<span class="fn">json</span>({
+      error: { code: <span class="st">'VERSION_LOCKED'</span>, message: <span class="st">'版本已锁定，禁止修改'</span> }
+    })
+  }
+  <span class="fn">next</span>()
+}</pre>
+    </div>
+
+    <div class="callout tip">
+      <strong>Vibe Tip：</strong>每次只让 AI 实现一个路由文件，不要一次让它写完所有后端代码。
+      分步骤让你能及时验证，出错也容易定位。
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S4 -->
+  <div class="step" id="s4">
+    <div class="step-label">
+      <div class="step-num">4</div>
+      <h2>审批流引擎 — 状态机编码</h2>
+    </div>
+    <p class="desc">审批流是 FC6+6 最核心的业务逻辑。用状态机思维描述给 AI，让它生成原子化的事务操作。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        实现审批流状态机。规则如下：<br>
+        SUBMIT：DRAFT → SUBMITTED（BUSINESS 角色）<br>
+        FINANCE_REVIEW：SUBMITTED → FINANCE_REVIEWED（FINANCE 角色）<br>
+        CEO_APPROVE：FINANCE_REVIEWED → CEO_APPROVED（CEO 角色）<br>
+        LOCK：CEO_APPROVED → LOCKED（ADMIN 或 CEO）<br>
+        REJECT：任意状态 → DRAFT（FINANCE 或 CEO）<br><br>
+        要求：用数据库事务原子执行（更新版本状态 + 写审批记录 + 写审计日志），
+        任何状态不合法时返回 400 错误。
+      </div>
+      <div class="bubble ai">明白，这是基于状态机的审批路由，使用 prisma.$transaction 保证原子性：</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 backend/src/routes/approvals.ts — 核心状态机</span>
+        <span class="lang-tag">TypeScript</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">const</span> TRANSITIONS: Record&lt;<span class="ty">string</span>, {
+  from: <span class="ty">ApprovalStatus</span>[]; to: <span class="ty">ApprovalStatus</span>; roles: <span class="ty">Role</span>[]
+}&gt; = {
+  SUBMIT:         { from: [<span class="st">'DRAFT'</span>],             to: <span class="st">'SUBMITTED'</span>,        roles: [<span class="st">'BUSINESS'</span>, <span class="st">'ADMIN'</span>] },
+  FINANCE_REVIEW: { from: [<span class="st">'SUBMITTED'</span>],        to: <span class="st">'FINANCE_REVIEWED'</span>,  roles: [<span class="st">'FINANCE'</span>, <span class="st">'ADMIN'</span>] },
+  CEO_APPROVE:    { from: [<span class="st">'FINANCE_REVIEWED'</span>], to: <span class="st">'CEO_APPROVED'</span>,      roles: [<span class="st">'CEO'</span>, <span class="st">'ADMIN'</span>] },
+  LOCK:           { from: [<span class="st">'CEO_APPROVED'</span>],     to: <span class="st">'LOCKED'</span>,            roles: [<span class="st">'CEO'</span>, <span class="st">'ADMIN'</span>] },
+  REJECT:         { from: [<span class="st">'SUBMITTED'</span>, <span class="st">'FINANCE_REVIEWED'</span>, <span class="st">'CEO_APPROVED'</span>],
+                    to: <span class="st">'DRAFT'</span>,              roles: [<span class="st">'FINANCE'</span>, <span class="st">'CEO'</span>, <span class="st">'ADMIN'</span>] }
+}
+
+<span class="cm">// POST /api/approvals/:versionId/action</span>
+router.<span class="fn">post</span>(<span class="st">'/:versionId/action'</span>, authenticate, <span class="kw">async</span> (req, res) => {
+  <span class="kw">const</span> { action, comment } = req.body
+  <span class="kw">const</span> { versionId } = req.params
+  <span class="kw">const</span> userRole = req.user!.role
+
+  <span class="kw">const</span> transition = TRANSITIONS[action]
+  <span class="kw">if</span> (!transition) <span class="kw">return</span> res.<span class="fn">status</span>(<span class="nm">400</span>).<span class="fn">json</span>({ error: <span class="st">'未知操作'</span> })
+  <span class="kw">if</span> (!transition.roles.<span class="fn">includes</span>(userRole))
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="nm">403</span>).<span class="fn">json</span>({ error: <span class="st">'角色无权执行此操作'</span> })
+
+  <span class="kw">const</span> version = <span class="kw">await</span> prisma.forecastVersion.<span class="fn">findUniqueOrThrow</span>({
+    where: { id: versionId }
+  })
+  <span class="kw">if</span> (!transition.from.<span class="fn">includes</span>(version.status))
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="nm">400</span>).<span class="fn">json</span>({ error: <span class="st">`当前状态 ${version.status} 不允许执行 ${action}`</span> })
+
+  <span class="cm">// 原子事务：更新状态 + 写审批记录 + 写审计日志</span>
+  <span class="kw">const</span> [updated] = <span class="kw">await</span> prisma.<span class="fn">$transaction</span>([
+    prisma.forecastVersion.<span class="fn">update</span>({
+      where: { id: versionId },
+      data: {
+        status: transition.to,
+        ...(transition.to === <span class="st">'LOCKED'</span> ? { lockedAt: <span class="kw">new</span> <span class="ty">Date</span>() } : {})
+      }
+    }),
+    prisma.approvalRecord.<span class="fn">create</span>({
+      data: { versionId, approverId: req.user!.id, action, comment }
+    }),
+    prisma.auditLog.<span class="fn">create</span>({
+      data: {
+        userId: req.user!.id, action: <span class="st">`APPROVAL_${action}`</span>,
+        entity: <span class="st">'ForecastVersion'</span>, entityId: versionId,
+        oldValue: { status: version.status },
+        newValue: { status: transition.to }
+      }
+    })
+  ])
+  res.<span class="fn">json</span>(updated)
+})</pre>
+    </div>
+
+    <div class="result-panel">
+      <div class="rp-title">📊 审批流状态机 — 完整路径示意</div>
+      <table>
+        <tr><th>操作</th><th>当前状态</th><th>变更为</th><th>执行角色</th></tr>
+        <tr><td>提交审批</td><td>DRAFT</td><td>SUBMITTED</td><td>BUSINESS</td></tr>
+        <tr><td>财务复核</td><td>SUBMITTED</td><td>FINANCE_REVIEWED</td><td>FINANCE</td></tr>
+        <tr><td>CEO 审批</td><td>FINANCE_REVIEWED</td><td>CEO_APPROVED</td><td>CEO</td></tr>
+        <tr><td>锁定版本</td><td>CEO_APPROVED</td><td>LOCKED</td><td>CEO / ADMIN</td></tr>
+        <tr><td>驳回退回</td><td>任意</td><td>DRAFT</td><td>FINANCE / CEO</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S5 -->
+  <div class="step" id="s5">
+    <div class="step-label">
+      <div class="step-num">5</div>
+      <h2>前端页面 — React 组件与 ECharts 图表</h2>
+    </div>
+    <p class="desc">前端是 Vibe Coding 最能节省时间的环节。大量重复的表格页面让 AI 批量生成，只需验证核心交互逻辑。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        实现仪表板页面（DashboardPage.tsx）。需要：<br>
+        1. 顶部 4 个 KPI 卡片：总收入、EBIT、总FTE、Capex<br>
+        2. ECharts 柱状图：各 BU 收入 vs EBIT 对比<br>
+        3. ECharts 雷达图：各 BU 毛利率 vs KPI 基准<br>
+        4. KPI 预警列表（红/黄/绿三色）<br>
+        数据通过 svc.getVersionSummary() 和 svc.getKPIAlerts() 获取，用 Zustand auth store 读取当前用户。
+      </div>
+      <div class="bubble ai">好的，这是仪表板的完整实现：</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 frontend/src/pages/DashboardPage.tsx — ECharts 柱状图核心</span>
+        <span class="lang-tag">TypeScript · React</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">import</span> ReactECharts <span class="kw">from</span> <span class="st">'echarts-for-react'</span>
+<span class="kw">import</span> { useEffect, useState } <span class="kw">from</span> <span class="st">'react'</span>
+<span class="kw">import</span> { svc } <span class="kw">from</span> <span class="st">'../utils/service'</span>
+<span class="kw">import</span> { useAuthStore } <span class="kw">from</span> <span class="st">'../store/auth'</span>
+
+<span class="kw">export function</span> <span class="fn">DashboardPage</span>() {
+  <span class="kw">const</span> { selectedVersion } = <span class="fn">useAuthStore</span>()
+  <span class="kw">const</span> [summary, setSummary] = <span class="fn">useState</span>&lt;<span class="kw">any</span>&gt;(<span class="kw">null</span>)
+  <span class="kw">const</span> [alerts, setAlerts] = <span class="fn">useState</span>&lt;<span class="kw">any</span>[]&gt;([])
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">if</span> (!selectedVersion) <span class="kw">return</span>
+    <span class="ty">Promise</span>.<span class="fn">all</span>([
+      svc.<span class="fn">getVersionSummary</span>(selectedVersion.id),
+      svc.<span class="fn">getKPIAlerts</span>(selectedVersion.id)
+    ]).<span class="fn">then</span>(([s, a]) => { <span class="fn">setSummary</span>(s); <span class="fn">setAlerts</span>(a) })
+  }, [selectedVersion])
+
+  <span class="kw">const</span> buBarOption = {
+    tooltip: { trigger: <span class="st">'axis'</span> },
+    legend: { data: [<span class="st">'收入'</span>, <span class="st">'毛利润'</span>, <span class="st">'费用'</span>, <span class="st">'EBIT'</span>] },
+    xAxis: { type: <span class="st">'category'</span>, data: summary?.byBU.<span class="fn">map</span>(b => b.buLabel) || [] },
+    yAxis: { type: <span class="st">'value'</span>, name: <span class="st">'万元'</span> },
+    series: [
+      { name: <span class="st">'收入'</span>,  type: <span class="st">'bar'</span>, data: summary?.byBU.<span class="fn">map</span>(b => b.revenue)     || [], itemStyle: { color: <span class="st">'#58a6ff'</span> } },
+      { name: <span class="st">'毛利润'</span>, type: <span class="st">'bar'</span>, data: summary?.byBU.<span class="fn">map</span>(b => b.grossProfit) || [], itemStyle: { color: <span class="st">'#1f6feb'</span> } },
+      { name: <span class="st">'费用'</span>,  type: <span class="st">'bar'</span>, data: summary?.byBU.<span class="fn">map</span>(b => b.expense)    || [], itemStyle: { color: <span class="st">'#ff7b72'</span> } },
+      { name: <span class="st">'EBIT'</span>,  type: <span class="st">'bar'</span>, data: summary?.byBU.<span class="fn">map</span>(b => b.ebit)       || [], itemStyle: { color: <span class="st">'#3fb950'</span> } }
+    ]
+  }
+
+  <span class="kw">return</span> (
+    &lt;<span class="ty">div</span> className=<span class="st">"p-6 space-y-6"</span>&gt;
+      {<span class="cm">/* KPI 卡片行 */</span>}
+      &lt;<span class="ty">div</span> className=<span class="st">"grid grid-cols-4 gap-4"</span>&gt;
+        &lt;<span class="fn">KPICard</span> label=<span class="st">"总收入"</span> value={summary?.totalRevenue} unit=<span class="st">"万元"</span> color=<span class="st">"blue"</span> /&gt;
+        &lt;<span class="fn">KPICard</span> label=<span class="st">"EBIT"</span>   value={summary?.totalEBIT}    unit=<span class="st">"万元"</span> color=<span class="st">"green"</span> /&gt;
+        &lt;<span class="fn">KPICard</span> label=<span class="st">"总 FTE"</span> value={summary?.totalFTE}     unit=<span class="st">"人"</span>   color=<span class="st">"purple"</span> /&gt;
+        &lt;<span class="fn">KPICard</span> label=<span class="st">"Capex"</span>  value={summary?.totalCapex}   unit=<span class="st">"万元"</span> color=<span class="st">"orange"</span> /&gt;
+      &lt;/<span class="ty">div</span>&gt;
+
+      {<span class="cm">/* 图表区 */</span>}
+      &lt;<span class="ty">div</span> className=<span class="st">"grid grid-cols-2 gap-6"</span>&gt;
+        &lt;<span class="ty">div</span> className=<span class="st">"bg-gray-900 rounded-xl p-4"</span>&gt;
+          &lt;<span class="ty">h3</span> className=<span class="st">"text-sm font-semibold mb-3"</span>&gt;各 BU 收入 &amp; EBIT&lt;/<span class="ty">h3</span>&gt;
+          &lt;<span class="fn">ReactECharts</span> option={buBarOption} style={{ height: <span class="st">'260px'</span> }} /&gt;
+        &lt;/<span class="ty">div</span>&gt;
+        &lt;<span class="fn">KPIAlertPanel</span> alerts={alerts} /&gt;
+      &lt;/<span class="ty">div</span>&gt;
+    &lt;/<span class="ty">div</span>&gt;
+  )
+}</pre>
+    </div>
+
+    <div class="callout iter">
+      <strong>遇到类型错误：</strong>RevenuePage 中 <code>sku: string | undefined</code> 无法赋值给 <code>string</code>。<br>
+      <strong>修正：</strong>在 setForm 时补充 fallback：<code>sku: r.sku || ''</code>，只需告诉 AI 错误信息，它秒出修复方案。
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S6 -->
+  <div class="step" id="s6">
+    <div class="step-label">
+      <div class="step-num">6</div>
+      <h2>Mock 模式 — 无后端也能完整运行</h2>
+    </div>
+    <p class="desc">
+      远程开发环境无法暴露端口，用户无法访问 localhost。
+      解决方案：实现一个完整的 Mock API 层，前端用 <code>VITE_MOCK_MODE=true</code> 切换到纯浏览器内存模式。
+    </p>
+
+    <div class="chat">
+      <div class="bubble user">
+        我的系统部署在远程云环境，用户无法连接 localhost:3001 后端。<br>
+        请实现一个 Mock API 层，在 VITE_MOCK_MODE=true 时替代所有真实接口，
+        数据保存在内存中（本次 session 内可进行完整的 CRUD 操作），
+        同时提供覆盖所有 BU 和 12 个月的演示数据集。
+      </div>
+      <div class="bubble ai">好的，我来实现三层结构：mockData（静态数据）→ mockApi（内存操作）→ service（统一入口，自动切换）</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 frontend/src/utils/service.ts — 统一服务层（自动切换）</span>
+        <span class="lang-tag">TypeScript</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">import</span> { IS_MOCK, mockApi } <span class="kw">from</span> <span class="st">'./mockApi'</span>
+<span class="kw">import</span> * <span class="kw">as</span> api <span class="kw">from</span> <span class="st">'./api'</span>
+
+<span class="cm">// 所有页面只调用 svc.* — 不感知底层是 mock 还是真实后端</span>
+<span class="kw">export const</span> svc = {
+  <span class="fn">getVersions</span>:      () => IS_MOCK ? mockApi.<span class="fn">getVersions</span>()      : api.<span class="fn">getVersions</span>(),
+  <span class="fn">createVersion</span>:   (d) => IS_MOCK ? mockApi.<span class="fn">createVersion</span>(d)   : api.<span class="fn">createVersion</span>(d),
+  <span class="fn">getVersionSummary</span>:(id)=> IS_MOCK ? mockApi.<span class="fn">getVersionSummary</span>(id): api.<span class="fn">getVersionSummary</span>(id),
+  <span class="fn">getRevenue</span>:      (v,b)=> IS_MOCK ? mockApi.<span class="fn">getRevenue</span>(v,b)    : api.<span class="fn">getRevenue</span>(v,b),
+  <span class="fn">createRevenue</span>:   (d) => IS_MOCK ? mockApi.<span class="fn">createRevenue</span>(d)   : api.<span class="fn">createRevenue</span>(d),
+  <span class="fn">updateRevenue</span>:   (id,d)=> IS_MOCK ? mockApi.<span class="fn">updateRevenue</span>(id,d): api.<span class="fn">updateRevenue</span>(id,d),
+  <span class="fn">deleteRevenue</span>:   (id)=> IS_MOCK ? mockApi.<span class="fn">deleteRevenue</span>(id)  : api.<span class="fn">deleteRevenue</span>(id),
+  <span class="fn">doApprovalAction</span>:(v,a,c,r)=> IS_MOCK
+    ? mockApi.<span class="fn">doApprovalAction</span>(v,a,c,r)
+    : api.<span class="fn">doApprovalAction</span>(v,a,c,r),
+  <span class="fn">getEBIT</span>:         (id)=> IS_MOCK ? mockApi.<span class="fn">getEBIT</span>(id)         : api.<span class="fn">getEBIT</span>(id),
+  <span class="fn">downloadExcel</span>:   (id)=> IS_MOCK ? mockApi.<span class="fn">downloadExcel</span>()     : api.<span class="fn">downloadExcel</span>(id),
+  <span class="cm">// ... 其他方法同样结构</span>
+}</pre>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 frontend/src/utils/mockData.ts — 演示数据（节选）</span>
+        <span class="lang-tag">TypeScript</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="cm">// 48 条收入记录：4 个 BU × 12 个月，覆盖完整财年</span>
+<span class="kw">const</span> BUS = [<span class="st">'DOMESTIC_MEDICAL'</span>, <span class="st">'ECOMMERCE'</span>, <span class="st">'INTL_PUBLIC'</span>, <span class="st">'PET'</span>]
+<span class="kw">const</span> BASE: Record&lt;<span class="ty">string</span>, <span class="ty">number</span>&gt; = {
+  DOMESTIC_MEDICAL: <span class="nm">3200</span>, ECOMMERCE: <span class="nm">800</span>, INTL_PUBLIC: <span class="nm">1500</span>, PET: <span class="nm">600</span>
+}
+
+<span class="kw">export const</span> MOCK_REVENUE = BUS.<span class="fn">flatMap</span>(bu =>
+  <span class="ty">Array</span>.<span class="fn">from</span>({ length: <span class="nm">12</span> }, (_, i) => ({
+    id: `rev-${bu}-${i+<span class="nm">1</span>}`,
+    versionId: <span class="st">'demo-v1'</span>,
+    bu,
+    productLine: <span class="st">'主要产品线'</span>,
+    month: i + <span class="nm">1</span>,
+    dataType: i < <span class="nm">6</span> ? <span class="st">'YTD'</span> : <span class="st">'FC'</span>,
+    baseVolume: <span class="nm">10000</span>,
+    growthVolume: i >= <span class="nm">6</span> ? <span class="nm">500</span> : <span class="nm">0</span>,
+    price: <span class="nm">280</span>,
+    amount: <span class="ty">Math</span>.<span class="fn">round</span>(BASE[bu] * (<span class="nm">0.8</span> + <span class="ty">Math</span>.<span class="fn">random</span>() * <span class="nm">0.4</span>)),
+    grossMargin: <span class="nm">0.58</span> + <span class="ty">Math</span>.<span class="fn">random</span>() * <span class="nm">0.1</span>,
+    dso: <span class="nm">45</span> + <span class="ty">Math</span>.<span class="fn">floor</span>(<span class="ty">Math</span>.<span class="fn">random</span>() * <span class="nm">20</span>)
+  }))
+)
+
+<span class="kw">export function</span> <span class="fn">getMockSummary</span>(versionId: <span class="ty">string</span>) {
+  <span class="kw">const</span> byBU = BUS.<span class="fn">map</span>(bu => {
+    <span class="kw">const</span> records = MOCK_REVENUE.<span class="fn">filter</span>(r => r.versionId === versionId && r.bu === bu)
+    <span class="kw">const</span> revenue = records.<span class="fn">reduce</span>((s, r) => s + r.amount, <span class="nm">0</span>)
+    <span class="kw">const</span> grossProfit = <span class="ty">Math</span>.<span class="fn">round</span>(revenue * <span class="nm">0.58</span>)
+    <span class="kw">const</span> expense = <span class="ty">Math</span>.<span class="fn">round</span>(revenue * <span class="nm">0.35</span>)
+    <span class="kw">return</span> { bu, buLabel: BU_LABELS[bu], revenue, grossProfit, expense, ebit: grossProfit - expense }
+  })
+  <span class="kw">return</span> {
+    byBU,
+    totalRevenue: byBU.<span class="fn">reduce</span>((s, b) => s + b.revenue, <span class="nm">0</span>),
+    totalEBIT:    byBU.<span class="fn">reduce</span>((s, b) => s + b.ebit, <span class="nm">0</span>),
+    totalFTE: <span class="nm">328</span>, totalCapex: <span class="nm">1240</span>
+  }
+}</pre>
+    </div>
+
+    <div class="callout tip">
+      Mock 层的设计是这个项目最聪明的决策之一。它让系统在任何环境（GitHub Pages、本地、演示）都能运行，
+      同时保留了接入真实后端的能力——只需改一个环境变量。
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S7 -->
+  <div class="step" id="s7">
+    <div class="step-label">
+      <div class="step-num">7</div>
+      <h2>部署上线 — GitHub Pages 静态发布</h2>
+    </div>
+    <p class="desc">Mock 模式让我们可以把完整的前端系统部署到 GitHub Pages，零运维成本，永久在线。</p>
+
+    <div class="chat">
+      <div class="bubble user">
+        帮我写 GitHub Actions workflow，在 push 到 main 时自动构建前端（VITE_MOCK_MODE=true）
+        并部署到 GitHub Pages。同时处理 React Router 在 GitHub Pages 上的 404 问题。
+      </div>
+      <div class="bubble ai">好的，需要两个部分：CI/CD workflow + SPA 路由支持补丁</div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 .github/workflows/deploy-fc6-tcss.yml</span>
+        <span class="lang-tag">YAML</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="kw">name:</span> Deploy FC6-TCSS to GitHub Pages
+
+<span class="kw">on:</span>
+  push:
+    branches: [main]
+    paths: [<span class="st">'fc6-tcss/frontend/**'</span>]
+  workflow_dispatch:
+
+<span class="kw">permissions:</span>
+  contents: read
+  pages: write
+  id-token: write
+
+<span class="kw">jobs:</span>
+  <span class="kw">build:</span>
+    <span class="kw">runs-on:</span> ubuntu-latest
+    <span class="kw">steps:</span>
+      - <span class="kw">uses:</span> actions/checkout@v4
+      - <span class="kw">uses:</span> actions/setup-node@v4
+        <span class="kw">with:</span> { <span class="kw">node-version:</span> <span class="st">'20'</span>, <span class="kw">cache:</span> <span class="st">'npm'</span>, <span class="kw">cache-dependency-path:</span> <span class="st">'fc6-tcss/frontend/package-lock.json'</span> }
+      - <span class="kw">run:</span> npm ci --legacy-peer-deps
+        <span class="kw">working-directory:</span> fc6-tcss/frontend
+      - <span class="kw">run:</span> npm run build
+        <span class="kw">working-directory:</span> fc6-tcss/frontend
+        <span class="kw">env:</span>
+          VITE_MOCK_MODE: <span class="st">'true'</span>       <span class="cm"># 关键：启用 Mock 模式</span>
+      - <span class="kw">uses:</span> actions/upload-pages-artifact@v3
+        <span class="kw">with:</span> { <span class="kw">path:</span> <span class="st">'fc6-tcss/frontend/dist'</span> }
+
+  <span class="kw">deploy:</span>
+    <span class="kw">needs:</span> build
+    <span class="kw">runs-on:</span> ubuntu-latest
+    <span class="kw">environment:</span> { <span class="kw">name:</span> github-pages, <span class="kw">url:</span> <span class="st">'${{ steps.deployment.outputs.page_url }}'</span> }
+    <span class="kw">steps:</span>
+      - <span class="kw">id:</span> deployment
+        <span class="kw">uses:</span> actions/deploy-pages@v4</pre>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header">
+        <span class="filename">📄 public/404.html — React Router SPA 路由补丁</span>
+        <span class="lang-tag">HTML</span>
+        <button class="copy-btn" onclick="cp(this)">复制</button>
+      </div>
+<pre><span class="cm">&lt;!-- GitHub Pages 把所有未知路径重定向到 404.html --&gt;
+&lt;!-- 这里把路径编码成 query string 再跳回首页，由 index.html 的 JS 还原 --&gt;</span>
+&lt;script&gt;
+  var l = window.location
+  l.replace(
+    l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    l.pathname.split('/').slice(0, 2).join('/') +
+    '/?/' + l.pathname.slice(1).split('/').slice(1).join('/') +
+    (l.search ? '&amp;' + l.search.slice(1) : '') + l.hash
+  )
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="result-panel">
+      <div class="rp-title">🚀 部署完成后的访问地址</div>
+      <table>
+        <tr><th>环境</th><th>地址</th><th>模式</th></tr>
+        <tr><td>GitHub Pages 演示</td><td>https://[用户名].github.io/easy-vibe/app/</td><td>Mock（纯前端）</td></tr>
+        <tr><td>本地开发</td><td>http://localhost:5173</td><td>代理到 localhost:3001</td></tr>
+        <tr><td>生产环境</td><td>自定义域名</td><td>真实后端</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- S8 -->
+  <div class="step" id="s8">
+    <div class="step-label">
+      <div class="step-num">8</div>
+      <h2>Vibe Coding 经验总结</h2>
+    </div>
+    <p class="desc">构建 FC6+6 TCSS 的过程提炼出的 10 条 Vibe Coding 实战原则：</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;">
+
+      <div class="result-panel">
+        <div class="rp-title">✅ 高效的做法</div>
+        <div style="font-size:14px;line-height:2;color:var(--text);">
+          🎯 一次只让 AI 实现一个文件<br>
+          📋 把业务规则写进 Prompt（不让 AI 猜）<br>
+          🔍 收到代码立即运行验证<br>
+          📌 把错误信息直接粘给 AI<br>
+          🏗 先定目录结构再写代码<br>
+          🔄 用统一服务层隔离 mock/real<br>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="rp-title">⚠️ 常见陷阱</div>
+        <div style="font-size:14px;line-height:2;color:var(--text);">
+          ❌ 一次让 AI 生成整个系统<br>
+          ❌ 不运行只看代码就信任 AI<br>
+          ❌ 跳过类型定义直接写业务<br>
+          ❌ 让 AI 自己决定数据库设计<br>
+          ❌ 忽略状态机的非法转换<br>
+          ❌ .env 文件忘记加入 .gitignore<br>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="result-panel" style="margin-top:16px;">
+      <div class="rp-title">⏱ 时间消耗分布（3小时原型）</div>
+      <table>
+        <tr><th>阶段</th><th>任务</th><th>耗时</th><th>AI 贡献</th></tr>
+        <tr><td>架构设计</td><td>目录规划、技术选型</td><td>20 分钟</td><td>50%</td></tr>
+        <tr><td>数据库</td><td>Schema 设计 + 迁移</td><td>30 分钟</td><td>80%</td></tr>
+        <tr><td>后端 API</td><td>10 个路由文件</td><td>60 分钟</td><td>85%</td></tr>
+        <tr><td>前端页面</td><td>11 个页面 + ECharts</td><td>50 分钟</td><td>75%</td></tr>
+        <tr><td>Mock 层</td><td>mockData + mockApi + service</td><td>20 分钟</td><td>90%</td></tr>
+        <tr><td>部署</td><td>GitHub Actions + 路由补丁</td><td>20 分钟</td><td>80%</td></tr>
+      </table>
+    </div>
+
+    <div class="callout tip" style="margin-top:20px;font-size:15px;">
+      <strong>最重要的一条：</strong>Vibe Coding 的速度来自于你对业务的深度理解，而不是 AI 的能力上限。
+      你越清楚自己要什么，AI 给出的代码就越准确，迭代次数就越少。
+      FC6+6 这套系统从零到可演示原型只用了约 3 小时，核心原因是需求文档（SAD）足够清晰。
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:48px 0 0;border-top:1px solid var(--border);margin-top:32px;">
+    <div style="font-size:13px;color:var(--text2);">
+      FC6+6 TCSS Vibe Coding 实战全记录 · 2026-06-23<br>
+      <span style="color:var(--accent);">React + TypeScript + Node.js + PostgreSQL + ECharts</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function cp(btn) {
+    const pre = btn.closest('.code-wrap').querySelector('pre')
+    const text = pre.innerText
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '已复制 ✅'
+      btn.classList.add('ok')
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('ok') }, 2000)
+    })
+  }
+</script>
+</body>
+</html>
