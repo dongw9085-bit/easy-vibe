@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FC6+6 TCSS — 全公司预测支持系统 DEMO</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--border:#30363d;
+  --text:#e6edf3;--text2:#8b949e;
+  --blue:#58a6ff;--green:#3fb950;--purple:#d2a8ff;
+  --orange:#f0883e;--red:#ff7b72;--yellow:#e3b341;
+  --sidebar:220px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ── Login ── */
+#login-screen{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;z-index:999;
+}
+.login-box{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:40px 48px;width:400px;
+}
+.login-box h1{font-size:22px;font-weight:800;margin-bottom:4px;}
+.login-box p{color:var(--text2);font-size:13px;margin-bottom:28px;}
+.login-roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.role-btn{
+  background:var(--bg3);border:1px solid var(--border);color:var(--text2);
+  border-radius:8px;padding:12px;cursor:pointer;transition:.15s;text-align:left;
+}
+.role-btn:hover{border-color:var(--blue);color:var(--text);}
+.role-btn.selected{border-color:var(--blue);background:#1f6feb22;color:var(--blue);}
+.role-btn .role-name{font-weight:700;font-size:13px;}
+.role-btn .role-email{font-size:11px;color:var(--text2);margin-top:2px;}
+.login-btn{
+  width:100%;padding:11px;background:var(--blue);color:#0d1117;
+  border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;
+  transition:.15s;
+}
+.login-btn:hover{background:#79c0ff;}
+
+/* ── App shell ── */
+#app{display:none;flex-direction:column;height:100vh;}
+
+/* ── Top bar ── */
+.topbar{
+  height:52px;background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;
+  position:sticky;top:0;z-index:100;
+}
+.topbar .logo{font-weight:800;font-size:15px;color:var(--blue);letter-spacing:.5px;}
+.topbar .logo span{color:var(--text2);font-weight:400;}
+.topbar .version-select{
+  background:var(--bg3);border:1px solid var(--border);color:var(--text);
+  padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;
+}
+.topbar .spacer{flex:1;}
+.topbar .user-badge{
+  display:flex;align-items:center;gap:8px;font-size:13px;
+}
+.topbar .user-badge .avatar{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:12px;
+}
+.topbar .logout-btn{
+  background:none;border:1px solid var(--border);color:var(--text2);
+  padding:4px 10px;border-radius:5px;cursor:pointer;font-size:12px;
+}
+.topbar .logout-btn:hover{color:var(--red);border-color:var(--red);}
+
+/* ── Body ── */
+.app-body{display:flex;flex:1;overflow:hidden;}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:var(--sidebar);background:var(--bg2);border-right:1px solid var(--border);
+  padding:12px 0;overflow-y:auto;flex-shrink:0;
+}
+.sidebar .nav-group{margin-bottom:4px;}
+.sidebar .nav-label{
+  font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.8px;
+  text-transform:uppercase;padding:8px 16px 4px;
+}
+.sidebar .nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 16px;cursor:pointer;color:var(--text2);
+  border-left:2px solid transparent;transition:.12s;font-size:13px;
+}
+.sidebar .nav-item:hover{background:var(--bg3);color:var(--text);}
+.sidebar .nav-item.active{
+  background:#1f6feb1a;color:var(--blue);border-left-color:var(--blue);
+}
+.sidebar .nav-item .icon{font-size:15px;width:18px;text-align:center;}
+
+/* ── Content ── */
+.content{flex:1;overflow-y:auto;padding:24px;}
+
+/* ── Page header ── */
+.page-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
+.page-hd h2{font-size:18px;font-weight:700;}
+.page-hd p{color:var(--text2);font-size:13px;margin-top:2px;}
+
+/* ── Cards ── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.kpi-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  padding:16px 18px;
+}
+.kpi-card .kpi-label{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.kpi-card .kpi-value{font-size:24px;font-weight:800;margin:6px 0 2px;}
+.kpi-card .kpi-change{font-size:12px;}
+.kpi-card .kpi-change.up{color:var(--green);}
+.kpi-card .kpi-change.down{color:var(--red);}
+
+/* ── Chart grid ── */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.chart-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;
+}
+.chart-card h3{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;}
+.chart-card canvas{max-height:220px;}
+
+/* ── Table ── */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;}
+.table-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-bottom:1px solid var(--border);
+}
+.table-toolbar h3{font-size:14px;font-weight:600;}
+.btn{
+  padding:7px 14px;border-radius:6px;font-size:13px;cursor:pointer;
+  border:1px solid;transition:.12s;font-weight:500;
+}
+.btn-primary{background:var(--blue);color:#0d1117;border-color:var(--blue);}
+.btn-primary:hover{background:#79c0ff;}
+.btn-sm{padding:4px 10px;font-size:12px;}
+.btn-ghost{background:none;color:var(--text2);border-color:var(--border);}
+.btn-ghost:hover{color:var(--text);border-color:var(--text2);}
+.btn-danger{background:none;color:var(--red);border-color:var(--red);}
+table{width:100%;border-collapse:collapse;}
+th{
+  background:var(--bg3);padding:10px 14px;text-align:left;
+  font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;
+  border-bottom:1px solid var(--border);
+}
+td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg3);}
+
+/* ── Badge ── */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;
+}
+.badge-draft{background:#30363d;color:var(--text2);}
+.badge-submitted{background:#1f6feb22;color:var(--blue);border:1px solid var(--blue);}
+.badge-finance{background:#d2a8ff22;color:var(--purple);border:1px solid var(--purple);}
+.badge-ceo{background:#e3b34122;color:var(--yellow);border:1px solid var(--yellow);}
+.badge-locked{background:#3fb95022;color:var(--green);border:1px solid var(--green);}
+.badge-alert-red{background:#ff7b7222;color:var(--red);}
+.badge-alert-yellow{background:#e3b34122;color:var(--yellow);}
+.badge-alert-green{background:#3fb95022;color:var(--green);}
+
+/* ── Approval flow ── */
+.approval-flow{
+  display:flex;align-items:center;gap:0;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:20px 24px;margin-bottom:16px;overflow-x:auto;
+}
+.flow-step{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  min-width:100px;
+}
+.flow-step .circle{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;border:2px solid var(--border);color:var(--text2);
+  background:var(--bg3);
+}
+.flow-step.done .circle{background:#3fb95022;border-color:var(--green);color:var(--green);}
+.flow-step.active .circle{background:#1f6feb22;border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 3px #1f6feb33;}
+.flow-step .step-label{font-size:11px;color:var(--text2);text-align:center;}
+.flow-step.done .step-label{color:var(--green);}
+.flow-step.active .step-label{color:var(--blue);font-weight:700;}
+.flow-arrow{color:var(--border);padding:0 8px;font-size:18px;margin-bottom:18px;}
+
+/* ── Action buttons ── */
+.action-row{
+  display:flex;gap:10px;flex-wrap:wrap;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:16px;margin-bottom:16px;
+}
+
+/* ── Toast ── */
+#toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:12px 18px;font-size:13px;
+  transform:translateY(80px);opacity:0;transition:.25s;z-index:9999;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px #00000066;
+}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ── Modal ── */
+#modal-overlay{
+  position:fixed;inset:0;background:#00000088;
+  display:none;align-items:center;justify-content:center;z-index:500;
+}
+#modal-overlay.open{display:flex;}
+.modal{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:28px;width:460px;max-width:90vw;
+}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:16px;}
+.modal .form-group{margin-bottom:14px;}
+.modal label{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;font-weight:600;}
+.modal input,.modal select,.modal textarea{
+  width:100%;background:var(--bg3);border:1px solid var(--border);
+  color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;
+}
+.modal input:focus,.modal select:focus,.modal textarea:focus{
+  outline:none;border-color:var(--blue);
+}
+.modal .btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+
+/* ── Empty state ── */
+.empty{text-align:center;padding:48px;color:var(--text2);}
+.empty .icon{font-size:40px;margin-bottom:12px;}
+.empty p{font-size:14px;}
+
+/* ── KPI alert list ── */
+.alert-list{display:flex;flex-direction:column;gap:8px;}
+.alert-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg3);border-radius:7px;padding:10px 14px;
+}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.alert-item .al-label{font-size:13px;flex:1;}
+.alert-item .al-val{font-size:12px;color:var(--text2);}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .chart-grid{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>FC6+6 TCSS</h1>
+    <p>全公司预测支持系统 · 请选择演示角色登录</p>
+    <div class="login-roles">
+      <div class="role-btn selected" onclick="selectRole(this,'business@tcss.com','王业务','BUSINESS','#3fb950')">
+        <div class="role-name">👤 业务负责人</div>
+        <div class="role-email">business@tcss.com</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:4px;">数据录入 · 提交审批</div>
+      </div>
+      <div class="role-btn" onclick="selectRole(this,'finance@tcss.com','李财务','FINANCE','#58a6ff')">
+        <div class="role-name">💼 财务总监</div>
+        <div class="role-email">finance@tcss.com</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:4px;">财务复核 · 全量查看</div>
+      </div>
+      <div class="role-btn" onclick="selectRole(this,'ceo@tcss.com','张总','CEO','#e3b341')">
+        <div class="role-name">👔 CEO</div>
+        <div class="role-email">ceo@tcss.com</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:4px;">最终审批 · 锁定版本</div>
+      </div>
+      <div class="role-btn" onclick="selectRole(this,'admin@tcss.com','系统管理员','ADMIN','#d2a8ff')">
+        <div class="role-name">⚙️ 系统管理员</div>
+        <div class="role-email">admin@tcss.com</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:4px;">全权限 · 系统配置</div>
+      </div>
+    </div>
+    <button class="login-btn" onclick="doLogin()">🚀 登录系统</button>
+  </div>
+</div>
+
+<!-- ══════════════ APP ══════════════ -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="logo">FC6+6 <span>TCSS</span></span>
+    <select class="version-select" onchange="selectVersion(this.value)">
+      <option value="v1">2026H2 · 第1版（草稿）</option>
+      <option value="v2">2026H2 · 第2版（财务已复核）</option>
+    </select>
+    <div class="spacer"></div>
+    <div class="user-badge">
+      <div class="avatar" id="user-avatar" style="background:#3fb95033;color:#3fb950;">王</div>
+      <span id="user-name">王业务</span>
+      <span id="role-tag" style="font-size:11px;color:#8b949e;">BUSINESS</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">退出</button>
+  </div>
+
+  <div class="app-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="nav-group">
+        <div class="nav-label">概览</div>
+        <div class="nav-item active" onclick="nav('dashboard',this)">
+          <span class="icon">📊</span>仪表板
+        </div>
+        <div class="nav-item" onclick="nav('versions',this)">
+          <span class="icon">📋</span>版本管理
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">数据录入</div>
+        <div class="nav-item" onclick="nav('revenue',this)">
+          <span class="icon">💰</span>收入预测
+        </div>
+        <div class="nav-item" onclick="nav('expenses',this)">
+          <span class="icon">💸</span>费用预测
+        </div>
+        <div class="nav-item" onclick="nav('hc',this)">
+          <span class="icon">👥</span>HC / C&B
+        </div>
+        <div class="nav-item" onclick="nav('capex',this)">
+          <span class="icon">🏭</span>Capex 计划
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">分析报表</div>
+        <div class="nav-item" onclick="nav('reports',this)">
+          <span class="icon">📈</span>EBIT 报表
+        </div>
+        <div class="nav-item" onclick="nav('kpi',this)">
+          <span class="icon">🎯</span>KPI 基准库
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">审批</div>
+        <div class="nav-item" onclick="nav('approval',this)">
+          <span class="icon">✅</span>审批工作流
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box"></div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────
+let user = null
+let currentVersion = 'v1'
+let charts = {}
+
+const VERSIONS = {
+  v1: { id:'v1', name:'2026H2 · 第1版', status:'DRAFT', updatedAt:'2026-06-20' },
+  v2: { id:'v2', name:'2026H2 · 第2版', status:'FINANCE_REVIEWED', updatedAt:'2026-06-22' }
+}
+
+const BUS = ['国内人医','电商','国际公卫','国际非公卫','宠物']
+const BU_COLORS = ['#58a6ff','#3fb950','#d2a8ff','#f0883e','#e3b341']
+
+const REVENUE_DATA = [
+  {id:'r1',bu:'国内人医',productLine:'免疫诊断',sku:'IMM-A01',month:7,dataType:'FC',amount:3240,grossMargin:0.62,dso:45},
+  {id:'r2',bu:'国内人医',productLine:'分子诊断',sku:'MOL-B02',month:7,dataType:'FC',amount:1860,grossMargin:0.58,dso:42},
+  {id:'r3',bu:'电商',productLine:'自测产品',sku:'HOME-C01',month:7,dataType:'FC',amount:820,grossMargin:0.71,dso:7},
+  {id:'r4',bu:'国际公卫',productLine:'PCR试剂',sku:'PCR-D01',month:7,dataType:'FC',amount:1540,grossMargin:0.55,dso:60},
+  {id:'r5',bu:'宠物',productLine:'宠物诊断',sku:'PET-E01',month:7,dataType:'FC',amount:630,grossMargin:0.68,dso:30},
+  {id:'r6',bu:'国内人医',productLine:'免疫诊断',sku:'IMM-A01',month:8,dataType:'FC',amount:3380,grossMargin:0.63,dso:45},
+  {id:'r7',bu:'电商',productLine:'自测产品',sku:'HOME-C01',month:8,dataType:'FC',amount:910,grossMargin:0.72,dso:7},
+]
+
+const EXPENSE_DATA = [
+  {id:'e1',bu:'国内人医',category:'销售费用',subCategory:'市场推广',month:7,amount:480,note:'Q3品牌活动'},
+  {id:'e2',bu:'国内人医',category:'销售费用',subCategory:'差旅费',month:7,amount:120,note:''},
+  {id:'e3',bu:'电商',category:'运营费用',subCategory:'平台费',month:7,amount:98,note:'天猫+京东'},
+  {id:'e4',bu:'国际公卫',category:'销售费用',subCategory:'展会费',month:7,amount:220,note:''},
+  {id:'e5',bu:'宠物',category:'市场费用',subCategory:'投放费',month:7,amount:85,note:''},
+]
+
+const HC_DATA = [
+  {id:'h1',bu:'国内人医',dept:'销售部',month:7,headcount:42,fte:41.5,baseSalary:28000,bonus:5600,insurance:4200,totalCB:37800},
+  {id:'h2',bu:'电商',dept:'运营部',month:7,headcount:18,fte:18,baseSalary:22000,bonus:4400,insurance:3300,totalCB:29700},
+  {id:'h3',bu:'国际公卫',dept:'销售部',month:7,headcount:24,fte:23,baseSalary:32000,bonus:6400,insurance:4800,totalCB:43200},
+  {id:'h4',bu:'宠物',dept:'销售部',month:7,headcount:15,fte:15,baseSalary:24000,bonus:3600,insurance:3600,totalCB:31200},
+]
+
+const CAPEX_DATA = [
+  {id:'c1',bu:'运营',projectName:'苏州产线自动化改造',category:'自动化',month:7,amount:380,depMonths:60,monthlyDep:6.3,eff:12,roi:24},
+  {id:'c2',bu:'国内人医',projectName:'检测设备投放',category:'设备投放',month:8,amount:150,depMonths:36,monthlyDep:4.2,eff:8,roi:18},
+  {id:'c3',bu:'宠物',projectName:'仪器投放扩张',category:'设备投放',month:7,amount:90,depMonths:36,monthlyDep:2.5,eff:15,roi:32},
+]
+
+const KPI_DATA = [
+  {id:'k1',bu:'国内人医',kpiName:'毛利率',target:0.62,unit:'%',current:0.615,status:'warn'},
+  {id:'k2',bu:'电商',kpiName:'毛利率',target:0.70,unit:'%',current:0.715,status:'ok'},
+  {id:'k3',bu:'国内人医',kpiName:'DSO天数',target:45,unit:'天',current:48,status:'warn'},
+  {id:'k4',bu:'宠物',kpiName:'EBIT率',target:0.20,unit:'%',current:0.195,status:'warn'},
+  {id:'k5',bu:'国际公卫',kpiName:'收入增长率',target:0.15,unit:'%',current:0.18,status:'ok'},
+]
+
+let approvalStatus = { v1:'DRAFT', v2:'FINANCE_REVIEWED' }
+const APPROVAL_HISTORY = {
+  v1: [],
+  v2: [
+    {actor:'王业务',role:'BUSINESS',action:'SUBMIT',comment:'数据已核对，请财务复核',time:'2026-06-21 09:30'},
+    {actor:'李财务',role:'FINANCE',action:'FINANCE_REVIEW',comment:'收入数据符合预期，费用略高需CEO关注',time:'2026-06-22 14:15'},
+  ]
+}
+
+// ── Auth ───────────────────────────────────────────────
+function selectRole(el, email, name, role, color) {
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('selected'))
+  el.classList.add('selected')
+  window._loginData = { email, name, role, color }
+}
+window._loginData = { email:'business@tcss.com', name:'王业务', role:'BUSINESS', color:'#3fb950' }
+
+function doLogin() {
+  const d = window._loginData
+  user = { email: d.email, name: d.name, role: d.role, color: d.color }
+  document.getElementById('login-screen').style.display='none'
+  document.getElementById('app').style.display='flex'
+  document.getElementById('user-name').textContent = user.name
+  document.getElementById('role-tag').textContent = user.role
+  document.getElementById('user-avatar').textContent = user.name[0]
+  document.getElementById('user-avatar').style.background = user.color+'33'
+  document.getElementById('user-avatar').style.color = user.color
+  nav('dashboard', document.querySelector('.nav-item'))
+  toast('🎉 欢迎回来，' + user.name + '！角色：' + user.role)
+}
+
+function logout() {
+  document.getElementById('login-screen').style.display='flex'
+  document.getElementById('app').style.display='none'
+  Object.values(charts).forEach(c=>c.destroy())
+  charts={}
+}
+
+function selectVersion(v) { currentVersion=v; renderCurrentPage() }
+
+// ── Navigation ────────────────────────────────────────
+let currentPage = 'dashboard'
+function nav(page, el) {
+  currentPage = page
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'))
+  if(el) el.classList.add('active')
+  renderPage(page)
+}
+
+function renderCurrentPage() { renderPage(currentPage) }
+
+function renderPage(page) {
+  Object.values(charts).forEach(c=>c.destroy()); charts={}
+  const pages = {
+    dashboard, versions, revenue, expenses, hc, capex, reports, kpi, approval
+  }
+  const fn = pages[page]
+  if(fn) fn()
+}
+
+// ── Toast ─────────────────────────────────────────────
+function toast(msg, type='info') {
+  const t = document.getElementById('toast')
+  const icons = {info:'ℹ️', success:'✅', error:'❌', warn:'⚠️'}
+  t.innerHTML = (icons[type]||'ℹ️') + ' ' + msg
+  t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'), 3000)
+}
+
+// ── Modal ─────────────────────────────────────────────
+function openModal(html) {
+  document.getElementById('modal-box').innerHTML = html
+  document.getElementById('modal-overlay').classList.add('open')
+}
+function closeModal(e) {
+  if(e.target.id==='modal-overlay') document.getElementById('modal-overlay').classList.remove('open')
+}
+function closeModalNow() { document.getElementById('modal-overlay').classList.remove('open') }
+
+// ── Status helpers ─────────────────────────────────────
+function statusBadge(s) {
+  const map = {
+    DRAFT:            ['badge-draft',    '草稿'],
+    SUBMITTED:        ['badge-submitted','已提交'],
+    FINANCE_REVIEWED: ['badge-finance',  '财务已复核'],
+    CEO_APPROVED:     ['badge-ceo',      'CEO已审批'],
+    LOCKED:           ['badge-locked',   '已锁定'],
+  }
+  const [cls,label] = map[s]||['badge-draft',s]
+  return `<span class="badge ${cls}">${label}</span>`
+}
+
+function fmt(n) { return (n/10000).toFixed(1)+'万' }
+function fmtPct(n) { return (n*100).toFixed(1)+'%' }
+
+// ══════════════════════════════════════════════════════
+// PAGE: Dashboard
+// ══════════════════════════════════════════════════════
+function dashboard() {
+  const ver = VERSIONS[currentVersion]
+  const totalRev = REVENUE_DATA.reduce((s,r)=>s+r.amount,0)
+  const totalEBIT = Math.round(totalRev * 0.23)
+  const totalFTE = HC_DATA.reduce((s,h)=>s+h.fte,0)
+  const totalCapex = CAPEX_DATA.reduce((s,c)=>s+c.amount,0)
+
+  const byBU = BUS.map((bu,i)=>{
+    const rev = REVENUE_DATA.filter(r=>r.bu===bu).reduce((s,r)=>s+r.amount,0)
+    const gm = rev * 0.62
+    const exp = EXPENSE_DATA.filter(e=>e.bu===bu).reduce((s,e)=>s+e.amount,0)
+    return {bu, rev, gm, exp, ebit: Math.round(gm - exp*10)}
+  })
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>📊 仪表板</h2><p>当前版本：${ver.name} · ${statusBadge(ver.status)}</p></div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-label">总收入预测</div>
+        <div class="kpi-value" style="color:#58a6ff">${fmt(totalRev)}</div>
+        <div class="kpi-change up">↑ 12.4% vs 上期</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">EBIT</div>
+        <div class="kpi-value" style="color:#3fb950">${fmt(totalEBIT)}</div>
+        <div class="kpi-change up">↑ 8.1% vs 上期</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">总 FTE</div>
+        <div class="kpi-value" style="color:#d2a8ff">${totalFTE}</div>
+        <div class="kpi-change" style="color:#8b949e">→ 持平</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Capex 合计</div>
+        <div class="kpi-value" style="color:#f0883e">${fmt(totalCapex*10000)}</div>
+        <div class="kpi-change down">↑ 23.5% vs 预算</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>各 BU 收入 & EBIT 对比（万元）</h3>
+        <canvas id="buBarChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>BU 收入占比</h3>
+        <canvas id="buPieChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>月度收入趋势（YTD实际 vs FC预测）</h3>
+        <canvas id="trendChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>KPI 预警</h3>
+        <div class="alert-list" style="margin-top:4px">
+          ${KPI_DATA.map(k=>`
+            <div class="alert-item">
+              <div class="alert-dot" style="background:${k.status==='ok'?'#3fb950':'#f0883e'}"></div>
+              <span class="al-label">${k.bu} · ${k.kpiName}</span>
+              <span class="badge ${k.status==='ok'?'badge-alert-green':'badge-alert-yellow'}">
+                ${k.status==='ok'?'✓ 达标':'⚠ 偏低'}
+              </span>
+              <span class="al-val">${typeof k.target==='number'&&k.target<1?fmtPct(k.current):k.current}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `
+
+  // Bar chart
+  const ctx1 = document.getElementById('buBarChart').getContext('2d')
+  charts.bar = new Chart(ctx1, {
+    type:'bar',
+    data:{
+      labels: byBU.map(b=>b.bu),
+      datasets:[
+        {label:'收入',data:byBU.map(b=>Math.round(b.rev/10000)),backgroundColor:'#58a6ff88'},
+        {label:'EBIT', data:byBU.map(b=>Math.round(b.ebit/10000)),backgroundColor:'#3fb95088'},
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e'}}},
+      scales:{x:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}},
+              y:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}}}}
+  })
+
+  // Pie chart
+  const ctx2 = document.getElementById('buPieChart').getContext('2d')
+  charts.pie = new Chart(ctx2, {
+    type:'doughnut',
+    data:{
+      labels: byBU.map(b=>b.bu),
+      datasets:[{data:byBU.map(b=>b.rev), backgroundColor:BU_COLORS.map(c=>c+'bb')}]
+    },
+    options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#8b949e',font:{size:11}}}}}
+  })
+
+  // Trend chart
+  const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+  const ytd = [2800,2950,3100,3050,3200,3350,null,null,null,null,null,null]
+  const fc  = [null,null,null,null,null,null,3420,3580,3650,3700,3820,3900]
+  const ctx3 = document.getElementById('trendChart').getContext('2d')
+  charts.trend = new Chart(ctx3, {
+    type:'line',
+    data:{
+      labels:months,
+      datasets:[
+        {label:'YTD实际',data:ytd,borderColor:'#58a6ff',backgroundColor:'#58a6ff22',borderWidth:2,pointRadius:3,spanGaps:false},
+        {label:'FC预测', data:fc, borderColor:'#3fb950',backgroundColor:'#3fb95022',borderWidth:2,borderDash:[5,3],pointRadius:3,spanGaps:false}
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e'}}},
+      scales:{x:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}},
+              y:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}}}}
+  })
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Versions
+// ══════════════════════════════════════════════════════
+function versions() {
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>📋 预测版本管理</h2><p>管理 FC6+6 预测版本，每个版本独立的数据快照</p></div>
+      <button class="btn btn-primary" onclick="newVersionModal()">＋ 新建版本</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>版本名称</th><th>年度</th><th>周期</th><th>状态</th><th>最后更新</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>2026H2 · 第1版</strong></td><td>2026</td><td>H2</td>
+            <td>${statusBadge('DRAFT')}</td><td>2026-06-20</td>
+            <td><button class="btn btn-ghost btn-sm" onclick="toast('已切换到第1版','success');currentVersion='v1'">切换</button></td>
+          </tr>
+          <tr>
+            <td><strong>2026H2 · 第2版</strong></td><td>2026</td><td>H2</td>
+            <td>${statusBadge('FINANCE_REVIEWED')}</td><td>2026-06-22</td>
+            <td><button class="btn btn-ghost btn-sm" onclick="toast('已切换到第2版','success');currentVersion='v2'">切换</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `
+}
+
+function newVersionModal() {
+  openModal(`
+    <h3>新建预测版本</h3>
+    <div class="form-group">
+      <label>版本名称</label>
+      <input type="text" id="v-name" value="2026H2 · 第3版" />
+    </div>
+    <div class="form-group">
+      <label>年度</label>
+      <select id="v-year"><option>2026</option><option>2027</option></select>
+    </div>
+    <div class="form-group">
+      <label>预测周期</label>
+      <select id="v-period"><option>H2</option><option>H1</option></select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="closeModalNow()">取消</button>
+      <button class="btn btn-primary" onclick="closeModalNow();toast('✅ 版本已创建','success')">创建</button>
+    </div>
+  `)
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Revenue
+// ══════════════════════════════════════════════════════
+function revenue() {
+  const rows = REVENUE_DATA.map(r=>`
+    <tr>
+      <td>${r.bu}</td><td>${r.productLine}</td><td>${r.sku}</td>
+      <td>${r.month}月</td>
+      <td><span class="badge ${r.dataType==='YTD'?'badge-submitted':'badge-ceo'}">${r.dataType}</span></td>
+      <td style="text-align:right">${r.amount.toLocaleString()}</td>
+      <td style="text-align:right">${fmtPct(r.grossMargin)}</td>
+      <td style="text-align:right">${r.dso}天</td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="toast('编辑功能演示中','info')">编辑</button>
+        <button class="btn btn-danger btn-sm" onclick="toast('删除功能演示中','warn')">删除</button>
+      </td>
+    </tr>
+  `).join('')
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>💰 收入预测</h2><p>按 BU / 产品线 / SKU 录入 FC7-12 收入数据</p></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" onclick="toast('Excel模板下载演示','info')">⬇ 下载模板</button>
+        <button class="btn btn-ghost" onclick="toast('Excel上传演示','info')">⬆ 批量导入</button>
+        <button class="btn btn-primary" onclick="addRevenueModal()">＋ 新增记录</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>BU</th><th>产品线</th><th>SKU</th><th>月份</th><th>类型</th><th>收入(万元)</th><th>毛利率</th><th>DSO</th><th>操作</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `
+}
+
+function addRevenueModal() {
+  openModal(`
+    <h3>新增收入记录</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group">
+        <label>业务单元</label>
+        <select><option>国内人医</option><option>电商</option><option>国际公卫</option><option>宠物</option></select>
+      </div>
+      <div class="form-group">
+        <label>产品线</label><input type="text" placeholder="如：免疫诊断" />
+      </div>
+      <div class="form-group">
+        <label>SKU</label><input type="text" placeholder="如：IMM-A01" />
+      </div>
+      <div class="form-group">
+        <label>月份</label>
+        <select>${[7,8,9,10,11,12].map(m=>`<option>${m}月</option>`).join('')}</select>
+      </div>
+      <div class="form-group">
+        <label>收入金额（万元）</label><input type="number" placeholder="0" />
+      </div>
+      <div class="form-group">
+        <label>毛利率</label><input type="number" placeholder="0.62" step="0.01" />
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="closeModalNow()">取消</button>
+      <button class="btn btn-primary" onclick="closeModalNow();toast('✅ 收入记录已添加','success')">保存</button>
+    </div>
+  `)
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Expenses
+// ══════════════════════════════════════════════════════
+function expenses() {
+  const rows = EXPENSE_DATA.map(e=>`
+    <tr>
+      <td>${e.bu}</td><td>${e.category}</td><td>${e.subCategory}</td>
+      <td>${e.month}月</td>
+      <td style="text-align:right">${e.amount.toLocaleString()}</td>
+      <td>${e.note||'—'}</td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="toast('编辑演示','info')">编辑</button>
+      </td>
+    </tr>
+  `).join('')
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>💸 费用预测</h2><p>BU 部门费用 FC7-12 录入</p></div>
+      <button class="btn btn-primary" onclick="toast('新增费用记录演示','info')">＋ 新增费用</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>BU</th><th>费用类别</th><th>子类别</th><th>月份</th><th>金额(万元)</th><th>备注</th><th>操作</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div class="chart-card" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:16px">
+      <h3>费用结构分析</h3>
+      <canvas id="expenseChart" style="max-height:200px"></canvas>
+    </div>
+  `
+
+  const ctx = document.getElementById('expenseChart').getContext('2d')
+  charts.exp = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels:['国内人医','电商','国际公卫','宠物'],
+      datasets:[
+        {label:'销售费用',data:[600,98,220,85],backgroundColor:'#58a6ff88'},
+        {label:'市场费用',data:[120,60,80,40],backgroundColor:'#d2a8ff88'},
+        {label:'管理费用',data:[80,30,50,25],backgroundColor:'#3fb95088'},
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e'}}},
+      scales:{x:{stacked:true,ticks:{color:'#8b949e'},grid:{color:'#30363d'}},
+              y:{stacked:true,ticks:{color:'#8b949e'},grid:{color:'#30363d'}}}}
+  })
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: HC
+// ══════════════════════════════════════════════════════
+function hc() {
+  const rows = HC_DATA.map(h=>`
+    <tr>
+      <td>${h.bu}</td><td>${h.dept}</td><td>${h.month}月</td>
+      <td>${h.headcount}</td><td>${h.fte}</td>
+      <td style="text-align:right">${(h.baseSalary/10000).toFixed(1)}万</td>
+      <td style="text-align:right">${(h.bonus/10000).toFixed(1)}万</td>
+      <td style="text-align:right">${(h.totalCB/10000).toFixed(1)}万</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="toast('编辑演示','info')">编辑</button></td>
+    </tr>
+  `).join('')
+
+  const totalFTE = HC_DATA.reduce((s,h)=>s+h.fte,0)
+  const totalCB = HC_DATA.reduce((s,h)=>s+h.totalCB,0)
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>👥 HC / C&B 人员计划</h2><p>FTE 编制与薪酬福利预测</p></div>
+      <button class="btn btn-primary" onclick="toast('新增HC记录演示','info')">＋ 新增</button>
+    </div>
+    <div class="kpi-row" style="grid-template-columns:repeat(3,1fr)">
+      <div class="kpi-card">
+        <div class="kpi-label">总 FTE</div>
+        <div class="kpi-value" style="color:#d2a8ff">${totalFTE.toFixed(1)}</div>
+        <div class="kpi-change" style="color:#8b949e">人均收入：156万</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">月度 C&B 合计</div>
+        <div class="kpi-value" style="color:#f0883e">${(totalCB/10000).toFixed(1)}万</div>
+        <div class="kpi-change down">占收入比：${fmtPct(totalCB/REVENUE_DATA.reduce((s,r)=>s+r.amount,0)/10000)}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">人均月 C&B</div>
+        <div class="kpi-value" style="color:#3fb950">${(totalCB/totalFTE/10000).toFixed(1)}万</div>
+        <div class="kpi-change up">↑ 5.2% YoY</div>
+      </div>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>FTE 部门分布</h3>
+        <canvas id="hcPieChart"></canvas>
+      </div>
+      <div class="table-wrap" style="margin-bottom:0">
+        <table>
+          <thead><tr><th>BU</th><th>部门</th><th>月份</th><th>人数</th><th>FTE</th><th>基本薪资</th><th>奖金</th><th>C&B合计</th><th>操作</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+  `
+
+  const ctx = document.getElementById('hcPieChart').getContext('2d')
+  charts.hcPie = new Chart(ctx, {
+    type:'doughnut',
+    data:{
+      labels: HC_DATA.map(h=>h.bu),
+      datasets:[{data:HC_DATA.map(h=>h.fte), backgroundColor:BU_COLORS.map(c=>c+'bb')}]
+    },
+    options:{responsive:true,plugins:{legend:{position:'right',labels:{color:'#8b949e',font:{size:11}}}}}
+  })
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Capex
+// ══════════════════════════════════════════════════════
+function capex() {
+  const rows = CAPEX_DATA.map(c=>`
+    <tr>
+      <td>${c.bu}</td><td><strong>${c.projectName}</strong></td><td>${c.category}</td>
+      <td>${c.month}月</td>
+      <td style="text-align:right">${c.amount}万</td>
+      <td style="text-align:right">${c.depMonths}个月</td>
+      <td style="text-align:right">${c.monthlyDep}万/月</td>
+      <td style="text-align:right"><span style="color:#3fb950">${c.eff}%</span></td>
+      <td style="text-align:right"><span style="color:#e3b341">${c.roi}%</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="toast('编辑演示','info')">编辑</button></td>
+    </tr>
+  `).join('')
+
+  const totalCapex = CAPEX_DATA.reduce((s,c)=>s+c.amount,0)
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>🏭 Capex 资本支出计划</h2><p>自动化投资、设备投放及折旧测算</p></div>
+      <button class="btn btn-primary" onclick="toast('新增Capex演示','info')">＋ 新增项目</button>
+    </div>
+    <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi-card">
+        <div class="kpi-label">Capex 合计</div>
+        <div class="kpi-value" style="color:#f0883e">${totalCapex}万</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">月均折旧</div>
+        <div class="kpi-value" style="color:#58a6ff">${CAPEX_DATA.reduce((s,c)=>s+c.monthlyDep,0).toFixed(1)}万</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">平均效率提升</div>
+        <div class="kpi-value" style="color:#3fb950">${(CAPEX_DATA.reduce((s,c)=>s+c.eff,0)/CAPEX_DATA.length).toFixed(0)}%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">平均 ROI</div>
+        <div class="kpi-value" style="color:#e3b341">${(CAPEX_DATA.reduce((s,c)=>s+c.roi,0)/CAPEX_DATA.length).toFixed(0)}%</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>BU</th><th>项目名称</th><th>类别</th><th>月份</th><th>投资额</th><th>折旧期</th><th>月折旧</th><th>效率提升</th><th>ROI</th><th>操作</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Reports
+// ══════════════════════════════════════════════════════
+function reports() {
+  const ebitData = BUS.slice(0,4).map((bu,i)=>{
+    const rev = [3240+i*100, 820+i*20, 1540+i*80, 630+i*30][i]||1000
+    const gm = rev * [0.62,0.71,0.55,0.68][i]
+    const exp = EXPENSE_DATA.filter(e=>e.bu===bu).reduce((s,e)=>s+e.amount,0)
+    const ebit = Math.round(gm - exp*8)
+    return {bu, rev, gm:Math.round(gm), exp:exp*8, ebit}
+  })
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>📈 EBIT 管理报表</h2><p>各 BU 利润中心 EBIT 汇总分析</p></div>
+      <button class="btn btn-ghost" onclick="toast('Excel导出演示模式，请连接真实后端使用','warn')">⬇ 导出 Excel</button>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>各 BU EBIT 瀑布图</h3>
+        <canvas id="ebitChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>毛利率雷达图（vs KPI基准）</h3>
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-toolbar"><h3>EBIT 明细（单位：万元）</h3></div>
+      <table>
+        <thead><tr><th>BU</th><th>收入</th><th>毛利润</th><th>费用</th><th>EBIT</th><th>EBIT率</th><th>vs KPI</th></tr></thead>
+        <tbody>
+          ${ebitData.map(r=>`
+            <tr>
+              <td><strong>${r.bu}</strong></td>
+              <td style="text-align:right">${(r.rev/10000).toFixed(1)}万</td>
+              <td style="text-align:right">${(r.gm/10000).toFixed(1)}万</td>
+              <td style="text-align:right">${(r.exp/10000).toFixed(1)}万</td>
+              <td style="text-align:right;color:#3fb950"><strong>${(r.ebit/10000).toFixed(1)}万</strong></td>
+              <td style="text-align:right">${fmtPct(r.ebit/r.rev)}</td>
+              <td><span class="badge ${r.ebit/r.rev>0.2?'badge-alert-green':'badge-alert-yellow'}">${r.ebit/r.rev>0.2?'✓ 达标':'⚠ 偏低'}</span></td>
+            </tr>
+          `).join('')}
+          <tr style="font-weight:700;background:var(--bg3)">
+            <td>合计</td>
+            <td style="text-align:right">${(ebitData.reduce((s,r)=>s+r.rev,0)/10000).toFixed(1)}万</td>
+            <td style="text-align:right">${(ebitData.reduce((s,r)=>s+r.gm,0)/10000).toFixed(1)}万</td>
+            <td style="text-align:right">${(ebitData.reduce((s,r)=>s+r.exp,0)/10000).toFixed(1)}万</td>
+            <td style="text-align:right;color:#3fb950">${(ebitData.reduce((s,r)=>s+r.ebit,0)/10000).toFixed(1)}万</td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `
+
+  // EBIT bar
+  const ctx1 = document.getElementById('ebitChart').getContext('2d')
+  charts.ebit = new Chart(ctx1, {
+    type:'bar',
+    data:{
+      labels:ebitData.map(r=>r.bu),
+      datasets:[
+        {label:'收入', data:ebitData.map(r=>Math.round(r.rev/10000)),backgroundColor:'#58a6ff55'},
+        {label:'毛利润',data:ebitData.map(r=>Math.round(r.gm/10000)), backgroundColor:'#d2a8ff55'},
+        {label:'EBIT', data:ebitData.map(r=>Math.round(r.ebit/10000)),backgroundColor:'#3fb95099'},
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e'}}},
+      scales:{x:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}},
+              y:{ticks:{color:'#8b949e'},grid:{color:'#30363d'}}}}
+  })
+
+  // Radar
+  const ctx2 = document.getElementById('radarChart').getContext('2d')
+  charts.radar = new Chart(ctx2, {
+    type:'radar',
+    data:{
+      labels:['国内人医','电商','国际公卫','宠物'],
+      datasets:[
+        {label:'实际毛利率',data:[62,71,55,68],borderColor:'#58a6ff',backgroundColor:'#58a6ff22',pointBackgroundColor:'#58a6ff'},
+        {label:'KPI基准',  data:[62,70,58,65],borderColor:'#3fb950', backgroundColor:'#3fb95022',borderDash:[4,2]},
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#8b949e'}}},
+      scales:{r:{ticks:{color:'#8b949e',backdropColor:'transparent'},grid:{color:'#30363d'},pointLabels:{color:'#8b949e'}}}}
+  })
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: KPI
+// ══════════════════════════════════════════════════════
+function kpi() {
+  const rows = KPI_DATA.map(k=>`
+    <tr>
+      <td>${k.bu}</td><td>${k.kpiName}</td>
+      <td style="text-align:right">${typeof k.target<1?fmtPct(k.target):k.target}</td>
+      <td style="text-align:right">${typeof k.current<1?fmtPct(k.current):k.current}</td>
+      <td>${k.unit}</td>
+      <td><span class="badge ${k.status==='ok'?'badge-alert-green':'badge-alert-yellow'}">${k.status==='ok'?'✓ 正常':'⚠ 预警'}</span></td>
+      <td><button class="btn btn-ghost btn-sm" onclick="toast('编辑KPI基准演示','info')">编辑</button></td>
+    </tr>
+  `).join('')
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>🎯 KPI 基准库</h2><p>各 BU / 工厂 KPI 阈值配置与预警管理</p></div>
+      <button class="btn btn-primary" onclick="toast('新增KPI基准演示','info')">＋ 新增基准</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>BU</th><th>KPI 指标</th><th>目标值</th><th>当前值</th><th>单位</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `
+}
+
+// ══════════════════════════════════════════════════════
+// PAGE: Approval
+// ══════════════════════════════════════════════════════
+function approval() {
+  const ver = VERSIONS[currentVersion]
+  const status = ver.status
+  const history = APPROVAL_HISTORY[currentVersion] || []
+
+  const steps = [
+    {key:'DRAFT',         label:'草稿',     icon:'📝'},
+    {key:'SUBMITTED',     label:'已提交',   icon:'📤'},
+    {key:'FINANCE_REVIEWED',label:'财务复核',icon:'💼'},
+    {key:'CEO_APPROVED',  label:'CEO审批',  icon:'👔'},
+    {key:'LOCKED',        label:'已锁定',   icon:'🔒'},
+  ]
+  const statusOrder = steps.map(s=>s.key)
+  const currentIdx = statusOrder.indexOf(status)
+
+  const flowHtml = steps.map((s,i)=>`
+    <div class="flow-step ${i<currentIdx?'done':i===currentIdx?'active':''}">
+      <div class="circle">${i<currentIdx?'✓':s.icon}</div>
+      <div class="step-label">${s.label}</div>
+    </div>
+    ${i<steps.length-1?'<div class="flow-arrow">→</div>':''}
+  `).join('')
+
+  // Available actions based on role and status
+  const actions = []
+  if(user.role==='BUSINESS'&&status==='DRAFT')
+    actions.push({label:'📤 提交审批',action:'SUBMIT',color:'var(--blue)'})
+  if(user.role==='FINANCE'&&status==='SUBMITTED')
+    actions.push({label:'💼 财务复核通过',action:'FINANCE_REVIEW',color:'var(--purple)'})
+  if((user.role==='CEO'||user.role==='ADMIN')&&status==='FINANCE_REVIEWED')
+    actions.push({label:'👔 CEO 审批通过',action:'CEO_APPROVE',color:'var(--yellow)'})
+  if((user.role==='CEO'||user.role==='ADMIN')&&status==='CEO_APPROVED')
+    actions.push({label:'🔒 锁定版本',action:'LOCK',color:'var(--green)'})
+  if((user.role==='FINANCE'||user.role==='CEO'||user.role==='ADMIN')&&['SUBMITTED','FINANCE_REVIEWED','CEO_APPROVED'].includes(status))
+    actions.push({label:'↩ 驳回退回',action:'REJECT',color:'var(--red)'})
+
+  const historyHtml = history.length === 0
+    ? '<div class="empty"><div class="icon">📭</div><p>暂无审批记录</p></div>'
+    : history.map(h=>`
+      <tr>
+        <td>${h.actor}</td>
+        <td><span class="badge badge-submitted">${h.role}</span></td>
+        <td>${h.action}</td>
+        <td>${h.comment}</td>
+        <td style="color:var(--text2)">${h.time}</td>
+      </tr>
+    `).join('')
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-hd">
+      <div><h2>✅ 审批工作流</h2><p>版本：${ver.name} · 当前状态：${statusBadge(status)}</p></div>
+    </div>
+
+    <div class="approval-flow">${flowHtml}</div>
+
+    ${actions.length > 0 ? `
+    <div class="action-row">
+      <span style="color:var(--text2);font-size:13px;align-self:center">可执行操作（${user.role}）：</span>
+      ${actions.map(a=>`
+        <button class="btn" style="background:${a.color}22;border-color:${a.color};color:${a.color}"
+          onclick="doApproval('${a.action}','${a.label}')">
+          ${a.label}
+        </button>
+      `).join('')}
+    </div>` : `
+    <div class="action-row" style="color:var(--text2);font-size:13px">
+      ℹ️ 当前状态下，${user.role} 角色无可执行操作
+    </div>`}
+
+    <div class="table-wrap">
+      <div class="table-toolbar"><h3>审批历史</h3></div>
+      <table>
+        <thead><tr><th>操作人</th><th>角色</th><th>操作</th><th>备注</th><th>时间</th></tr></thead>
+        <tbody>${historyHtml}</tbody>
+      </table>
+    </div>
+  `
+}
+
+function doApproval(action, label) {
+  const msgs = {
+    SUBMIT: '提交审批',
+    FINANCE_REVIEW: '财务复核通过',
+    CEO_APPROVE: 'CEO 审批通过',
+    LOCK: '版本已锁定',
+    REJECT: '已驳回退回草稿'
+  }
+  const transitions = {
+    SUBMIT:'SUBMITTED', FINANCE_REVIEW:'FINANCE_REVIEWED',
+    CEO_APPROVE:'CEO_APPROVED', LOCK:'LOCKED', REJECT:'DRAFT'
+  }
+  openModal(`
+    <h3>${label}</h3>
+    <div class="form-group">
+      <label>审批意见（可选）</label>
+      <textarea id="ap-comment" rows="3" placeholder="请输入审批意见..."></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="closeModalNow()">取消</button>
+      <button class="btn btn-primary" onclick="confirmApproval('${action}','${msgs[action]}')">确认执行</button>
+    </div>
+  `)
+}
+
+function confirmApproval(action, msg) {
+  const comment = document.getElementById('ap-comment')?.value || ''
+  const transitions = {
+    SUBMIT:'SUBMITTED', FINANCE_REVIEW:'FINANCE_REVIEWED',
+    CEO_APPROVE:'CEO_APPROVED', LOCK:'LOCKED', REJECT:'DRAFT'
+  }
+  VERSIONS[currentVersion].status = transitions[action]
+  const roleNames = {BUSINESS:'王业务',FINANCE:'李财务',CEO:'张总',ADMIN:'系统管理员'}
+  if(!APPROVAL_HISTORY[currentVersion]) APPROVAL_HISTORY[currentVersion]=[]
+  APPROVAL_HISTORY[currentVersion].push({
+    actor:user.name, role:user.role, action,
+    comment:comment||'—',
+    time:new Date().toLocaleString('zh-CN',{hour12:false}).slice(0,-3)
+  })
+  closeModalNow()
+  toast('✅ ' + msg, 'success')
+  setTimeout(()=>approval(),300)
+}
+</script>
+</body>
+</html>
