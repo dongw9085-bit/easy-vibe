@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FC6+6 TCSS — MCL/DCL Vibe Coding 实战全记录</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e;
+      --accent: #58a6ff; --green: #3fb950; --purple: #d2a8ff;
+      --orange: #f0883e; --red: #ff7b72; --yellow: #e3b341;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.75; font-size: 15px;
+    }
+    .wrap { max-width: 940px; margin: 0 auto; padding: 48px 32px 100px; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 60px 0 52px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+    .pill { display: inline-block; background: #1f6feb33; border: 1px solid var(--accent); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { font-size: 34px; font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text2); font-size: 16px; max-width: 620px; margin: 0 auto 28px; }
+    .meta-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; font-size: 13px; color: var(--text2); }
+    .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+    /* TOC */
+    .toc { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-bottom: 56px; }
+    .toc h3 { font-size: 12px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
+    .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: 14px; display: block; padding: 3px 0; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* Steps */
+    .step { margin-bottom: 72px; scroll-margin-top: 80px; }
+    .step-label { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: #1f6feb33; border: 2px solid var(--accent); color: var(--accent); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-title { font-size: 22px; font-weight: 700; }
+    .step-meta { font-size: 12px; color: var(--text2); margin-left: auto; white-space: nowrap; }
+    .step-desc { color: var(--text2); margin-bottom: 24px; font-size: 15px; }
+
+    /* Chat bubbles */
+    .chat { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+    .msg { display: flex; gap: 12px; align-items: flex-start; }
+    .msg.ai { flex-direction: row-reverse; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
+    .avatar.user { background: #1f6feb33; border: 1px solid var(--accent); color: var(--accent); }
+    .avatar.ai-bot { background: #238636; border: 1px solid var(--green); color: #fff; font-size: 13px; }
+    .bubble { max-width: 78%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.65; }
+    .msg:not(.ai) .bubble { background: var(--bg2); border: 1px solid var(--border); border-top-left-radius: 4px; }
+    .msg.ai .bubble { background: #0d2818; border: 1px solid #238636; border-top-right-radius: 4px; }
+    .bubble strong { color: var(--text); }
+    .bubble code { background: #1c2128; color: var(--orange); padding: 1px 5px; border-radius: 4px; font-family: "SF Mono", Consolas, monospace; font-size: 12px; }
+
+    /* Code blocks */
+    .code-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+    .code-lang { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; }
+    .code-file { font-size: 11px; color: var(--accent); font-family: monospace; }
+    .copy-btn { background: none; border: 1px solid var(--border); color: var(--text2); padding: 3px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; transition: all .2s; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    pre { padding: 20px; overflow-x: auto; font-family: "SF Mono", Consolas, monospace; font-size: 13px; line-height: 1.6; }
+    pre code { background: none; color: inherit; padding: 0; border-radius: 0; font-size: inherit; }
+    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .str { color: #a5d6ff; }
+    .cm { color: #8b949e; } .num { color: #79c0ff; } .tp { color: #ffa657; }
+
+    /* Error/Fix boxes */
+    .box { border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; }
+    .box.error { background: #2d1419; border: 1px solid #ff7b72; }
+    .box.fix { background: #0d2818; border: 1px solid #3fb950; }
+    .box.warn { background: #2b2206; border: 1px solid #e3b341; }
+    .box.info { background: #1c2d4d; border: 1px solid #58a6ff; }
+    .box-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .box.error .box-head { color: #ff7b72; }
+    .box.fix .box-head { color: #3fb950; }
+    .box.warn .box-head { color: #e3b341; }
+    .box.info .box-head { color: #58a6ff; }
+    .box p, .box ul { font-size: 13px; color: var(--text2); }
+    .box ul { padding-left: 18px; }
+    .box li { margin: 4px 0; }
+
+    /* Timeline / formula cards */
+    .formula-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .formula-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .formula-card .fc-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--purple); margin-bottom: 6px; }
+    .formula-card .fc-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .formula-card .fc-formula { font-family: monospace; font-size: 12px; color: var(--orange); background: #1c2128; padding: 6px 10px; border-radius: 6px; line-height: 1.5; }
+    .formula-card .fc-dcl { font-size: 11px; color: var(--text2); margin-top: 8px; }
+
+    /* Stats bar */
+    .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .stat { flex: 1; min-width: 120px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+    .stat .sv { font-size: 26px; font-weight: 800; color: var(--accent); }
+    .stat .sl { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+    /* Lessons */
+    .lessons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+    .lesson { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .lesson .ln { font-size: 22px; font-weight: 800; color: var(--border); margin-bottom: 4px; }
+    .lesson .lt { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .lesson .ld { font-size: 13px; color: var(--text2); }
+
+    /* MCL table */
+    .mcl-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+    .mcl-table th { background: var(--bg3); border: 1px solid var(--border); padding: 9px 13px; text-align: left; font-weight: 600; color: var(--text2); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+    .mcl-table td { border: 1px solid var(--border); padding: 9px 13px; vertical-align: top; }
+    .mcl-table tr:hover td { background: var(--bg3); }
+    .tag { display: inline-block; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .tag.mcl { background: #2d1f5e; color: var(--purple); }
+    .tag.dcl { background: #1c3a2d; color: var(--green); }
+    .tag.auto { background: #1c2d4d; color: var(--accent); }
+    .tag.manual { background: #2b2206; color: var(--yellow); }
+
+    hr.div { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+    @media (max-width: 640px) {
+      .toc-grid { grid-template-columns: 1fr; }
+      .lessons { grid-template-columns: 1fr; }
+      .formula-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="pill">Vibe Coding 实战全记录</div>
+    <h1>FC6+6 TCSS<br><span>MCL × DCL 预测引擎</span><br>从思维导图到生产代码</h1>
+    <p>7个模型组件（MCL）× 21个数据源（DCL）× 19条预测公式（Rev_F1~F19）<br>完整记录 AI 辅助开发的对话、代码、报错与修复过程</p>
+    <div class="meta-row">
+      <span>📅 2026-06-25</span>
+      <span>⏱ 实战耗时 ~6h</span>
+      <span>🤖 Claude Sonnet 4.6</span>
+      <span>📦 TypeScript + Prisma + React</span>
+      <span>⚡ 10次对话 · 19条公式落地</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="sv">7</div><div class="sl">MCL 模型组件</div></div>
+    <div class="stat"><div class="sv">21</div><div class="sl">DCL 数据采集源</div></div>
+    <div class="stat"><div class="sv">19</div><div class="sl">Rev_F 预测公式</div></div>
+    <div class="stat"><div class="sv">~870</div><div class="sl">AI 生成代码行</div></div>
+    <div class="stat"><div class="sv">6</div><div class="sl">报错并修复</div></div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>目录</h3>
+    <div class="toc-grid">
+      <a href="#s0">Step 0 · 读懂思维导图，拆解 MCL/DCL 结构</a>
+      <a href="#s4">Step 4 · MCL-03/07：费用优化模型</a>
+      <a href="#s1">Step 1 · 设计 DCL 数据模型（Prisma Schema）</a>
+      <a href="#s5">Step 5 · MCL-04/05：成本与降本模型</a>
+      <a href="#s2">Step 2 · MCL-01：基准收入引擎（Rev_F1~F4）</a>
+      <a href="#s6">Step 6 · MCL-06：研发项目预测</a>
+      <a href="#s3">Step 3 · MCL-02：增量收入引擎（Rev_F5~F9）</a>
+      <a href="#s7">Step 7 · 前端：MCL 公式可视化 Dashboard</a>
+      <a href="#s8">Step 8 · 集成测试与 KPI 预警联动</a>
+      <a href="#s9">Step 9 · 复盘：10条 Vibe Coding 心法</a>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 0 ───────────────────────────── -->
+  <div class="step" id="s0">
+    <div class="step-label">
+      <div class="step-num">0</div>
+      <div class="step-title">读懂思维导图，拆解 MCL/DCL 结构</div>
+      <div class="step-meta">⏱ 30 min</div>
+    </div>
+    <p class="step-desc">先把 PDF 思维导图喂给 AI，让它帮我理解整体结构，再制定编码计划。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">这是 FC6+6 TCSS 的思维导图，里面有 MCL 和 DCL 两类内容。你能帮我理解一下结构，然后告诉我该怎么把它变成代码？</div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">
+          我读完了。结构非常清晰：<br><br>
+          <strong>MCL（Model Component Library）</strong> = 预测模型组件，共7个，对应收入表中的7类驱动因素。<br>
+          <strong>DCL（Data Collection List）</strong> = 数据采集清单，共21个数据源，驱动上面7个模型。<br><br>
+          关键发现：每个 MCL 都有 <code>Rev_F{N}</code> 公式，总共 19 条。这些公式就是代码的核心逻辑。<br><br>
+          <strong>建议编码顺序：</strong><br>
+          1. 先建 DCL 的数据库表（21个数据源的存储结构）<br>
+          2. 再实现 MCL-01/02（收入，最核心）<br>
+          3. 然后 MCL-03/07（费用）、MCL-04/05（成本）<br>
+          4. 最后 MCL-06（研发，规则最复杂）
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">很好。MCL 里的公式，你觉得哪条最难实现？</div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">
+          难度排序：<br>
+          🔴 <strong>Rev_F18（研发项目）</strong>：有三种状态分支（已批准/计划立项/未审批），且"Firm段"和"Rolling段"逻辑不同，需要状态机。<br>
+          🟡 <strong>Rev_F17（自动化Capex）</strong>：净节约 = 效率提升 - 新增月折旧，折旧需要按月摊销，需要时间序列计算。<br>
+          🟢 <strong>Rev_F1/F2/F3</strong>：直接乘除，最简单先做。
+        </div>
+      </div>
+    </div>
+
+    <div class="box info">
+      <div class="box-head">📌 关键洞察</div>
+      <p>MCL/DCL 思维导图本质上是一张<strong>数据流蓝图</strong>：DCL 是输入，MCL 是计算，Rev_F 公式是变换规则。先让 AI 帮你"翻译"文档结构，再动手写代码，节省 70% 理解时间。</p>
+    </div>
+
+    <!-- MCL overview table -->
+    <table class="mcl-table">
+      <thead><tr><th>MCL</th><th>名称</th><th>公式</th><th>DCL数量</th><th>难度</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag mcl">MCL-01</span></td><td>基准收入</td><td>Rev_F1 ~ F4</td><td>5个</td><td>🟢 低</td></tr>
+        <tr><td><span class="tag mcl">MCL-02</span></td><td>增量收入</td><td>Rev_F5 ~ F9</td><td>5个</td><td>🟡 中</td></tr>
+        <tr><td><span class="tag mcl">MCL-03</span></td><td>营销费用优化</td><td>Rev_F10 ~ F12</td><td>3个</td><td>🟢 低</td></tr>
+        <tr><td><span class="tag mcl">MCL-04</span></td><td>基准销货成本</td><td>Rev_F13</td><td>1个</td><td>🟢 低</td></tr>
+        <tr><td><span class="tag mcl">MCL-05</span></td><td>销货成本优化</td><td>Rev_F14 ~ F17</td><td>6个</td><td>🟡 中</td></tr>
+        <tr><td><span class="tag mcl">MCL-06</span></td><td>研发项目</td><td>Rev_F18</td><td>1个（+DCL-21管线）</td><td>🔴 高</td></tr>
+        <tr><td><span class="tag mcl">MCL-07</span></td><td>管理费用优化</td><td>Rev_F19</td><td>1个</td><td>🟢 低</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 1 ───────────────────────────── -->
+  <div class="step" id="s1">
+    <div class="step-label">
+      <div class="step-num">1</div>
+      <div class="step-title">设计 DCL 数据模型（Prisma Schema）</div>
+      <div class="step-meta">⏱ 45 min</div>
+    </div>
+    <p class="step-desc">21个 DCL 数据源需要存储结构。让 AI 一次性生成完整 Schema，我来审查。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          基于以下 DCL 清单，帮我设计 Prisma Schema。DCL-01到DCL-21共21个数据采集源，来源有 BI/ERP/CRM/模板导入，更新频率有每月/每季度/每年，采集方式有自动/手动。需要一个通用的 DCLRecord 表，并且要记录每次导入的版本号和采集时间。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">好的，我设计了两层结构：<code>DCLSource</code>（定义表）+ <code>DCLRecord</code>（数据表）+ <code>DCLImportJob</code>（导入任务追踪）。稍等……</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">Prisma</span>
+        <span class="code-file">backend/prisma/schema.prisma（DCL 相关新增）</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="cm">// DCL 数据源定义表（配置层，21条固定记录）</span>
+<span class="kw">model</span> <span class="tp">DCLSource</span> {
+  id          <span class="tp">String</span>   @id @default(uuid())
+  code        <span class="tp">String</span>   @unique  <span class="cm">// "DCL-01" ~ "DCL-21"</span>
+  name        <span class="tp">String</span>             <span class="cm">// "经销商进销存月报表"</span>
+  sourceType  <span class="tp">SourceType</span>         <span class="cm">// BI_ERP | BI_CRM | BI_SFE | TEMPLATE</span>
+  updateFreq  <span class="tp">UpdateFreq</span>         <span class="cm">// MONTHLY | QUARTERLY | YEARLY</span>
+  collectMode <span class="tp">CollectMode</span>        <span class="cm">// AUTO | MANUAL | HYBRID</span>
+  mclCode     <span class="tp">String</span>             <span class="cm">// 关联 MCL 编号（如 "MCL-01"）</span>
+  records     <span class="tp">DCLRecord</span>[]
+  importJobs  <span class="tp">DCLImportJob</span>[]
+}
+
+<span class="cm">// DCL 采集数据记录表（数据层）</span>
+<span class="kw">model</span> <span class="tp">DCLRecord</span> {
+  id          <span class="tp">String</span>   @id @default(uuid())
+  sourceId    <span class="tp">String</span>
+  source      <span class="tp">DCLSource</span> @relation(fields: [sourceId], references: [id])
+  versionId   <span class="tp">String</span>
+  version     <span class="tp">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  buType      <span class="tp">String</span>?          <span class="cm">// 业务单元，可空（全公司级数据）</span>
+  period      <span class="tp">String</span>           <span class="cm">// "2026-07" 格式</span>
+  dataJson    <span class="tp">Json</span>             <span class="cm">// 灵活存储各 DCL 的不同字段</span>
+  importedAt  <span class="tp">DateTime</span> @default(now())
+  importJobId <span class="tp">String</span>?
+  importJob   <span class="tp">DCLImportJob</span>? @relation(fields: [importJobId], references: [id])
+
+  @@index([versionId, sourceId])
+  @@index([versionId, buType])
+}
+
+<span class="cm">// 导入任务追踪（每次上传 Excel 创建一条）</span>
+<span class="kw">model</span> <span class="tp">DCLImportJob</span> {
+  id         <span class="tp">String</span>     @id @default(uuid())
+  sourceId   <span class="tp">String</span>
+  source     <span class="tp">DCLSource</span>  @relation(fields: [sourceId], references: [id])
+  versionId  <span class="tp">String</span>
+  fileName   <span class="tp">String</span>
+  status     <span class="tp">ImportStatus</span> @default(PENDING)  <span class="cm">// PENDING|PROCESSING|SUCCESS|FAILED</span>
+  totalRows  <span class="tp">Int</span>        @default(0)
+  successRows <span class="tp">Int</span>       @default(0)
+  errorMsg   <span class="tp">String</span>?
+  createdAt  <span class="tp">DateTime</span>   @default(now())
+  records    <span class="tp">DCLRecord</span>[]
+}
+
+<span class="cm">// MCL 计算结果表（每次运行预测引擎后写入）</span>
+<span class="kw">model</span> <span class="tp">MCLResult</span> {
+  id         <span class="tp">String</span>   @id @default(uuid())
+  versionId  <span class="tp">String</span>
+  version    <span class="tp">ForecastVersion</span> @relation(fields: [versionId], references: [id])
+  mclCode    <span class="tp">String</span>           <span class="cm">// "MCL-01" ~ "MCL-07"</span>
+  formulaKey <span class="tp">String</span>           <span class="cm">// "Rev_F1" ~ "Rev_F19"</span>
+  buType     <span class="tp">String</span>?
+  period     <span class="tp">String</span>           <span class="cm">// "2026-07"</span>
+  value      <span class="tp">Float</span>
+  calcAt     <span class="tp">DateTime</span> @default(now())
+
+  @@unique([versionId, formulaKey, buType, period])
+}
+
+<span class="kw">enum</span> <span class="tp">SourceType</span>  { BI_ERP BI_CRM BI_SFE TEMPLATE }
+<span class="kw">enum</span> <span class="tp">UpdateFreq</span>  { MONTHLY QUARTERLY YEARLY }
+<span class="kw">enum</span> <span class="tp">CollectMode</span> { AUTO MANUAL HYBRID }
+<span class="kw">enum</span> <span class="tp">ImportStatus</span> { PENDING PROCESSING SUCCESS FAILED }</code></pre>
+    </div>
+
+    <div class="box fix">
+      <div class="box-head">✅ 设计亮点</div>
+      <ul>
+        <li><code>dataJson: Json</code> 字段：21个 DCL 数据结构各不相同，用 JSON 存储避免建21张表</li>
+        <li><code>MCLResult</code> 存结果：每次计算引擎跑完写入，前端直接查结果，无需重算</li>
+        <li><code>@@unique([versionId, formulaKey, buType, period])</code>：防止重复计算覆盖</li>
+      </ul>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #1</div>
+      <p><code>Error: Foreign key constraint failed on the field: `DCLRecord_versionId_fkey`</code><br>
+      原因：建表顺序问题，DCLRecord 引用了还未创建的 ForecastVersion 表</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <p>在 <code>schema.prisma</code> 中把 <code>ForecastVersion</code> model 移到 <code>DCLRecord</code> 之前，Prisma migrate 重新生成即可。</p>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 2 ───────────────────────────── -->
+  <div class="step" id="s2">
+    <div class="step-label">
+      <div class="step-num">2</div>
+      <div class="step-title">MCL-01：基准收入引擎（Rev_F1 ~ F4）</div>
+      <div class="step-meta">⏱ 60 min</div>
+    </div>
+    <p class="step-desc">MCL-01 是最基础的收入模块，4条公式都是"查 DCL 数据 → 做计算"的直接逻辑。先把它跑通。</p>
+
+    <!-- Formula cards -->
+    <div class="formula-grid">
+      <div class="formula-card">
+        <div class="fc-label">MCL-01 · 节点01</div>
+        <div class="fc-title">经销商进销存</div>
+        <div class="fc-formula">Rev_F1 = MAX(月均出库量, 最后一月出库量) × 6</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-01</span> 经销商进销存月报表 · 人工/季度</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-01 · 节点02</div>
+        <div class="fc-title">装机单台产出</div>
+        <div class="fc-formula">Rev_F2 = 已投仪器数 × 单台月均产出 × 6</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-02</span> CRM装机报表 · <span class="tag auto">自动</span>/月</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-01 · 节点03</div>
+        <div class="fc-title">销售趋势和订单</div>
+        <div class="fc-formula">Rev_F3 = 历史增长趋势外推 + 预计订单</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-03</span> YTD6销售报表 + <span class="tag dcl">DCL-04</span> 预计订单表</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-01 · 节点04</div>
+        <div class="fc-title">经销商囤货计划</div>
+        <div class="fc-formula">Rev_F4 = 囤货月数(X) × 月均销售额</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-05</span> 经销商囤货预测表 · <span class="tag manual">人工</span>/季度</div>
+      </div>
+    </div>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          实现 MCL-01 基准收入引擎。包含4个方法：calcRevF1(进销存数据)、calcRevF2(CRM数据)、calcRevF3(YTD6趋势+订单)、calcRevF4(囤货计划)。最后一个 calcMCL01Total 方法聚合这4个结果，输出给定 versionId 和 buType 的 MCL-01 总基准收入。用 TypeScript 实现。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">好的，Rev_F3 的趋势外推我用简单线性回归实现（最小二乘法），数据点不足3个时退化为简单均值。其他三个直接按公式计算。</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mcl01BaselineRevenue.ts</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="kw">import</span> { prisma } <span class="kw">from</span> <span class="str">'../../db'</span>
+
+<span class="cm">/** MCL-01：基准收入引擎（Rev_F1 ~ F4） */</span>
+<span class="kw">export class</span> <span class="tp">MCL01BaselineRevenue</span> {
+
+  <span class="cm">/** Rev_F1 = MAX(月均出库量, 最后一月出库量) × 6 */</span>
+  <span class="kw">async</span> <span class="fn">calcRevF1</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+    <span class="kw">const</span> records = <span class="kw">await</span> prisma.dCLRecord.findMany({
+      where: { versionId, buType, source: { code: <span class="str">'DCL-01'</span> } },
+      orderBy: { period: <span class="str">'asc'</span> }
+    })
+    <span class="kw">if</span> (!records.length) <span class="kw">return</span> <span class="num">0</span>
+
+    <span class="kw">const</span> outbounds = records.map(r =&gt; (r.dataJson <span class="kw">as any</span>).outboundQty ?? <span class="num">0</span>)
+    <span class="kw">const</span> avgOut = outbounds.reduce((a: <span class="tp">number</span>, b: <span class="tp">number</span>) =&gt; a + b, <span class="num">0</span>) / outbounds.length
+    <span class="kw">const</span> lastOut = outbounds[outbounds.length - <span class="num">1</span>]
+    <span class="kw">return</span> Math.max(avgOut, lastOut) * <span class="num">6</span>
+  }
+
+  <span class="cm">/** Rev_F2 = CRM已投放仪器数 × 单台月均产出 × 6 */</span>
+  <span class="kw">async</span> <span class="fn">calcRevF2</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+    <span class="kw">const</span> record = <span class="kw">await</span> prisma.dCLRecord.findFirst({
+      where: { versionId, buType, source: { code: <span class="str">'DCL-02'</span> } }
+    })
+    <span class="kw">if</span> (!record) <span class="kw">return</span> <span class="num">0</span>
+    <span class="kw">const</span> d = record.dataJson <span class="kw">as any</span>
+    <span class="kw">return</span> (d.installedDevices ?? <span class="num">0</span>) * (d.monthlyOutputPerDevice ?? <span class="num">0</span>) * <span class="num">6</span>
+  }
+
+  <span class="cm">/** Rev_F3 = 历史趋势外推 + 预计订单（线性回归外推YTD6） */</span>
+  <span class="kw">async</span> <span class="fn">calcRevF3</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+    <span class="kw">const</span> [ytdRec, orderRec] = <span class="kw">await</span> Promise.all([
+      prisma.dCLRecord.findMany({ where: { versionId, buType, source: { code: <span class="str">'DCL-03'</span> } }, orderBy: { period: <span class="str">'asc'</span> } }),
+      prisma.dCLRecord.findFirst({ where: { versionId, buType, source: { code: <span class="str">'DCL-04'</span> } } })
+    ])
+    <span class="kw">const</span> revenues = ytdRec.map(r =&gt; (r.dataJson <span class="kw">as any</span>).revenue ?? <span class="num">0</span>)
+    <span class="kw">const</span> trend = this.<span class="fn">linearExtrapolate</span>(revenues, <span class="num">6</span>)  <span class="cm">// 外推6个月之和</span>
+    <span class="kw">const</span> orders = (orderRec?.dataJson <span class="kw">as any</span>)?.totalOrderAmount ?? <span class="num">0</span>
+    <span class="kw">return</span> trend + orders
+  }
+
+  <span class="cm">/** Rev_F4 = 囤货月数 × 月均销售额 */</span>
+  <span class="kw">async</span> <span class="fn">calcRevF4</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+    <span class="kw">const</span> record = <span class="kw">await</span> prisma.dCLRecord.findFirst({
+      where: { versionId, buType, source: { code: <span class="str">'DCL-05'</span> } }
+    })
+    <span class="kw">if</span> (!record) <span class="kw">return</span> <span class="num">0</span>
+    <span class="kw">const</span> d = record.dataJson <span class="kw">as any</span>
+    <span class="kw">return</span> (d.stockpileMonths ?? <span class="num">0</span>) * (d.monthlyAvgSales ?? <span class="num">0</span>)
+  }
+
+  <span class="cm">/** MCL-01 汇总：取 MAX(F1, F2, F3) + F4（囤货计划叠加） */</span>
+  <span class="kw">async</span> <span class="fn">calcMCL01Total</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;{
+    revF1: <span class="tp">number</span>; revF2: <span class="tp">number</span>; revF3: <span class="tp">number</span>; revF4: <span class="tp">number</span>; baseline: <span class="tp">number</span>
+  }&gt; {
+    <span class="kw">const</span> [f1, f2, f3, f4] = <span class="kw">await</span> Promise.all([
+      this.<span class="fn">calcRevF1</span>(versionId, buType), this.<span class="fn">calcRevF2</span>(versionId, buType),
+      this.<span class="fn">calcRevF3</span>(versionId, buType), this.<span class="fn">calcRevF4</span>(versionId, buType),
+    ])
+    <span class="kw">const</span> baseline = Math.max(f1, f2, f3) + f4
+    <span class="kw">return</span> { revF1: f1, revF2: f2, revF3: f3, revF4: f4, baseline }
+  }
+
+  <span class="cm">/** 线性回归外推：给定历史数据点，外推未来 n 期之和 */</span>
+  <span class="kw">private</span> <span class="fn">linearExtrapolate</span>(data: <span class="tp">number</span>[], periods: <span class="tp">number</span>): <span class="tp">number</span> {
+    <span class="kw">if</span> (data.length &lt; <span class="num">2</span>) <span class="kw">return</span> (data[<span class="num">0</span>] ?? <span class="num">0</span>) * periods
+    <span class="kw">const</span> n = data.length
+    <span class="kw">const</span> xs = data.map((_, i) =&gt; i + <span class="num">1</span>)
+    <span class="kw">const</span> xMean = (n + <span class="num">1</span>) / <span class="num">2</span>
+    <span class="kw">const</span> yMean = data.reduce((a, b) =&gt; a + b, <span class="num">0</span>) / n
+    <span class="kw">const</span> slope = xs.reduce((acc, x, i) =&gt; acc + (x - xMean) * (data[i] - yMean), <span class="num">0</span>) /
+                  xs.reduce((acc, x) =&gt; acc + (x - xMean) ** <span class="num">2</span>, <span class="num">0</span>)
+    <span class="kw">const</span> intercept = yMean - slope * xMean
+    <span class="kw">let</span> total = <span class="num">0</span>
+    <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i &lt;= periods; i++) total += intercept + slope * (n + i)
+    <span class="kw">return</span> Math.max(total, <span class="num">0</span>)  <span class="cm">// 不允许负收入预测</span>
+  }
+}
+
+<span class="kw">export const</span> mcl01 = <span class="kw">new</span> <span class="tp">MCL01BaselineRevenue</span>()</code></pre>
+    </div>
+
+    <div class="box warn">
+      <div class="box-head">⚠️ 业务逻辑讨论</div>
+      <p>AI 初版 MCL-01 汇总用的是 <code>F1+F2+F3+F4</code>（简单加总），我问了财务同事后发现应该是 <code>MAX(F1,F2,F3)+F4</code>——三条基准线取最大值，不叠加，只有囤货计划叠加。</p>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 3 ───────────────────────────── -->
+  <div class="step" id="s3">
+    <div class="step-label">
+      <div class="step-num">3</div>
+      <div class="step-title">MCL-02：增量收入引擎（Rev_F5 ~ F9）</div>
+      <div class="step-meta">⏱ 75 min</div>
+    </div>
+    <p class="step-desc">增量收入比基准复杂：SFE漏斗、电商假设、新市场渗透率、国际线索、CRM计划装机，5条公式来自5个不同系统。</p>
+
+    <div class="formula-grid">
+      <div class="formula-card">
+        <div class="fc-label">MCL-02 · 节点05</div>
+        <div class="fc-title">SFE 销售漏斗转化</div>
+        <div class="fc-formula">Rev_F5 = SFE转化目标金额/FTE × 实际销售FTEs数</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-06</span> SFE销售效能表 · <span class="tag auto">自动</span>/月</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-02 · 节点06</div>
+        <div class="fc-title">电商 OTO 增量</div>
+        <div class="fc-formula">Rev_F6 = 电商平台预测（直接输入）</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-07</span> 电商渠道假设表 · <span class="tag manual">手动</span>/月</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-02 · 节点07</div>
+        <div class="fc-title">POCBio 新市场</div>
+        <div class="fc-formula">Rev_F7 = 目标市场规模 × 渗透率</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-08</span> POCBio新市场预测表 · 人工/季度</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-02 · 节点08</div>
+        <div class="fc-title">国际线索转化</div>
+        <div class="fc-formula">Rev_F8 = 国际线索总价值 × 转化率</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-09</span> 国际销售线索表 · <span class="tag auto">自动</span>/月</div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-label">MCL-02 · 节点09</div>
+        <div class="fc-title">CRM 计划投放</div>
+        <div class="fc-formula">Rev_F9 = 计划新投仪器数 × 单台产出/月 × 月份数</div>
+        <div class="fc-dcl">数据源：<span class="tag dcl">DCL-10</span> CRM计划装机表 · <span class="tag auto">自动</span>/月</div>
+      </div>
+    </div>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          照 MCL-01 的模式，实现 MCL-02 增量收入引擎。Rev_F5 到 F9，分别对应 DCL-06 到 DCL-10。特别注意 Rev_F9：CRM 计划投放的仪器不是立刻全部贡献，要按实际投放月份分摊——比如7月投10台，8月投5台，那么7月的贡献是10台×产出×1个月，但到12月时累计贡献要把所有仪器的贡献月份算进去。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">
+          Rev_F9 的月份分摊我用"贡献月数"来算：<br>
+          每批装机 → <code>台数 × 单台月产出 × (12 - 投放月 + 1)</code>（从投放月到12月），然后对所有批次求和。<br>
+          这样能正确处理分批投放场景。
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mcl02IncrementalRevenue.ts（节选）</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="cm">/** Rev_F9：CRM 计划投放仪器产出（按月分摊贡献） */</span>
+<span class="kw">async</span> <span class="fn">calcRevF9</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+  <span class="kw">const</span> records = <span class="kw">await</span> prisma.dCLRecord.findMany({
+    where: { versionId, buType, source: { code: <span class="str">'DCL-10'</span> } }
+  })
+  <span class="kw">return</span> records.reduce((total, rec) =&gt; {
+    <span class="kw">const</span> d = rec.dataJson <span class="kw">as any</span>
+    <span class="kw">const</span> deployMonth = <span class="tp">parseInt</span>(rec.period.split(<span class="str">'-'</span>)[<span class="num">1</span>])   <span class="cm">// 1-12</span>
+    <span class="kw">const</span> contributionMonths = Math.max(<span class="num">0</span>, <span class="num">12</span> - deployMonth + <span class="num">1</span>)
+    <span class="kw">return</span> total + (d.plannedDevices ?? <span class="num">0</span>) * (d.monthlyOutputPerDevice ?? <span class="num">0</span>) * contributionMonths
+  }, <span class="num">0</span>)
+}
+
+<span class="cm">/** MCL-02 汇总：所有增量收入直接求和 */</span>
+<span class="kw">async</span> <span class="fn">calcMCL02Total</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>) {
+  <span class="kw">const</span> [f5, f6, f7, f8, f9] = <span class="kw">await</span> Promise.all([
+    this.<span class="fn">calcRevF5</span>(versionId, buType), this.<span class="fn">calcRevF6</span>(versionId, buType),
+    this.<span class="fn">calcRevF7</span>(versionId, buType), this.<span class="fn">calcRevF8</span>(versionId, buType),
+    this.<span class="fn">calcRevF9</span>(versionId, buType),
+  ])
+  <span class="kw">return</span> { revF5: f5, revF6: f6, revF7: f7, revF8: f8, revF9: f9,
+            incremental: f5 + f6 + f7 + f8 + f9 }
+}</code></pre>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #2：类型错误</div>
+      <p><code>Type 'string | undefined' is not assignable to type 'string'</code><br>
+      原因：<code>rec.period.split('-')[1]</code> 返回 <code>string | undefined</code>，但 parseInt 需要 string</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <pre style="background:#0d2818;padding:10px 14px;border-radius:6px;font-size:12px;font-family:monospace;color:#a5d6ff;margin-top:8px;">
+<span style="color:#ff7b72">- const deployMonth = parseInt(rec.period.split('-')[1])</span>
+<span style="color:#3fb950">+ const deployMonth = parseInt(rec.period.split('-')[1] ?? '1')</span></pre>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 4 ───────────────────────────── -->
+  <div class="step" id="s4">
+    <div class="step-label">
+      <div class="step-num">4</div>
+      <div class="step-title">MCL-03 / MCL-07：费用优化模型（Rev_F10~F12, F19）</div>
+      <div class="step-meta">⏱ 40 min</div>
+    </div>
+    <p class="step-desc">费用类模型逻辑简单，但要注意"减法"语义——计算的是节约金额（负贡献），最终 EBIT = 收入 - 成本 - 净费用。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          MCL-03 三条公式（Rev_F10/F11/F12）和 MCL-07 一条（Rev_F19）一起实现。注意：Rev_F12 是"降低费用"，结果应该是负数（节约）。Rev_F11 是"新增费用"，是正数（增加支出）。最终 MCL-03 净费用 = F10 + F11 - F12。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">理解。我把 F12 的返回值定义为"节约金额"（正数），在 calcMCL03Net 里用减法处理，语义更清晰。F19 同理：返回"净G&A" = 基准费用 - 削减额。</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mcl03and07Expense.ts（节选）</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="cm">/** Rev_F12 = 营销基准数 × 费用率改进目标（返回节约额，正数） */</span>
+<span class="kw">async</span> <span class="fn">calcRevF12</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+  <span class="kw">const</span> r = <span class="kw">await</span> prisma.dCLRecord.findFirst({
+    where: { versionId, buType, source: { code: <span class="str">'DCL-13'</span> } }
+  })
+  <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="num">0</span>
+  <span class="kw">const</span> d = r.dataJson <span class="kw">as any</span>
+  <span class="kw">return</span> (d.baselineSMExpense ?? <span class="num">0</span>) * (d.rateImprovement ?? <span class="num">0</span>)  <span class="cm">// rateImprovement是小数如0.05</span>
+}
+
+<span class="cm">/** MCL-03 净S&M费用 = F10（维持）+ F11（新增）- F12（节约）*/</span>
+<span class="kw">async</span> <span class="fn">calcMCL03Net</span>(versionId: <span class="tp">string</span>, buType: <span class="tp">string</span>) {
+  <span class="kw">const</span> [f10, f11, f12] = <span class="kw">await</span> Promise.all([
+    this.<span class="fn">calcRevF10</span>(versionId, buType), this.<span class="fn">calcRevF11</span>(versionId, buType),
+    this.<span class="fn">calcRevF12</span>(versionId, buType),
+  ])
+  <span class="kw">return</span> { revF10: f10, revF11: f11, revF12: f12, netSMExpense: f10 + f11 - f12 }
+}
+
+<span class="cm">/** Rev_F19 = 管理部门基准费用合计 - 削减节约合计（MCL-07）*/</span>
+<span class="kw">async</span> <span class="fn">calcRevF19</span>(versionId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;<span class="tp">number</span>&gt; {
+  <span class="kw">const</span> r = <span class="kw">await</span> prisma.dCLRecord.findFirst({
+    where: { versionId, source: { code: <span class="str">'DCL-21'</span> } }
+  })
+  <span class="kw">if</span> (!r) <span class="kw">return</span> <span class="num">0</span>
+  <span class="kw">const</span> d = r.dataJson <span class="kw">as any</span>
+  <span class="kw">return</span> (d.baselineGAExpense ?? <span class="num">0</span>) - (d.cuttingAmount ?? <span class="num">0</span>)
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 5 ───────────────────────────── -->
+  <div class="step" id="s5">
+    <div class="step-label">
+      <div class="step-num">5</div>
+      <div class="step-title">MCL-04/05：销货成本与降本模型（Rev_F13~F17）</div>
+      <div class="step-meta">⏱ 50 min</div>
+    </div>
+    <p class="step-desc">成本模型是 Plant EBIT 的核心。MCL-05 的 Rev_F17（净节约 = 效率提升 - 新增折旧）需要按月摊销 Capex。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          实现 MCL-05 的 Rev_F17：净节约 = 人员节约和效率提升金额 - 当期新增月折旧。Capex 数据在 DCL-18，包含 totalCapex、depMonths（折旧月数）、startMonth（几月开始使用）。效率节约在 DCL-19，包含 annualSaving 和 startMonth。要按月输出 7-12月每月的净节约。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">好的，我按月生成7-12月数组。折旧从 startMonth 开始计，之前月份折旧为0；效率节约同理。最终每月：<code>saving[m] = efficiency[m] - depreciation[m]</code>。</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mcl05CostReduction.ts（Rev_F17节选）</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="cm">/** Rev_F17 = 净节约（按月）= 效率节约 - 新增月折旧 */</span>
+<span class="kw">async</span> <span class="fn">calcRevF17ByMonth</span>(versionId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;{ month: <span class="tp">number</span>; saving: <span class="tp">number</span>; depreciation: <span class="tp">number</span>; net: <span class="tp">number</span> }[]&gt; {
+  <span class="kw">const</span> [capexRecs, savingRecs] = <span class="kw">await</span> Promise.all([
+    prisma.dCLRecord.findMany({ where: { versionId, source: { code: <span class="str">'DCL-18'</span> } } }),
+    prisma.dCLRecord.findMany({ where: { versionId, source: { code: <span class="str">'DCL-19'</span> } } }),
+  ])
+  <span class="kw">const</span> result = []
+  <span class="kw">for</span> (<span class="kw">let</span> m = <span class="num">7</span>; m &lt;= <span class="num">12</span>; m++) {
+    <span class="cm">// 本月新增折旧 = 所有在此月或之前开始使用的Capex的月折旧之和</span>
+    <span class="kw">const</span> dep = capexRecs.reduce((sum, r) =&gt; {
+      <span class="kw">const</span> d = r.dataJson <span class="kw">as any</span>
+      <span class="kw">if</span> ((d.startMonth ?? <span class="num">13</span>) &lt;= m) {
+        <span class="kw">return</span> sum + (d.totalCapex ?? <span class="num">0</span>) / (d.depMonths ?? <span class="num">60</span>)
+      }
+      <span class="kw">return</span> sum
+    }, <span class="num">0</span>)
+
+    <span class="cm">// 本月效率节约 = 已生效的节约项之和</span>
+    <span class="kw">const</span> sav = savingRecs.reduce((sum, r) =&gt; {
+      <span class="kw">const</span> d = r.dataJson <span class="kw">as any</span>
+      <span class="kw">if</span> ((d.startMonth ?? <span class="num">13</span>) &lt;= m) {
+        <span class="kw">return</span> sum + (d.annualSaving ?? <span class="num">0</span>) / <span class="num">12</span>
+      }
+      <span class="kw">return</span> sum
+    }, <span class="num">0</span>)
+
+    result.push({ month: m, saving: sav, depreciation: dep, net: sav - dep })
+  }
+  <span class="kw">return</span> result
+}</code></pre>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #3：除零风险</div>
+      <p>当 DCL-18 数据中 <code>depMonths</code> 为 0 时，<code>totalCapex / 0 = Infinity</code>，导致 MCLResult 写入 NaN</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <pre style="background:#0d2818;padding:10px 14px;border-radius:6px;font-size:12px;font-family:monospace;color:#a5d6ff;margin-top:8px;">
+<span style="color:#ff7b72">- (d.totalCapex ?? 0) / (d.depMonths ?? 60)</span>
+<span style="color:#3fb950">+ (d.totalCapex ?? 0) / Math.max(d.depMonths ?? 60, 1)</span></pre>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 6 ───────────────────────────── -->
+  <div class="step" id="s6">
+    <div class="step-label">
+      <div class="step-num">6</div>
+      <div class="step-title">MCL-06：研发项目预测（Rev_F18）—— 最复杂的状态机</div>
+      <div class="step-meta">⏱ 90 min</div>
+    </div>
+    <p class="step-desc">Rev_F18 有三条分支规则，是整个 MCL 系统中唯一需要状态机的公式。花了最多时间在这里。</p>
+
+    <div class="box info">
+      <div class="box-head">📋 Rev_F18 业务规则</div>
+      <ul>
+        <li><strong>已批准项目</strong> → 按实际月度预算计入 FC（Firm段）</li>
+        <li><strong>计划立项项目</strong> → 按规划预算占位计入 FC Rolling段，不计入 Firm 段</li>
+        <li><strong>未审批项目</strong> → 仅记录在 DCL-21 管线，不计入任何费用</li>
+        <li><strong>进度偏差调整</strong>：<code>Rev_F18 = 批准立项总金额 +/- 项目关键进度偏差调整</code></li>
+      </ul>
+    </div>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          实现 Rev_F18。研发项目有三种状态：APPROVED（已批准）、PLANNED（计划立项）、PIPELINE（未审批）。APPROVED 的费用进 firmAmount，PLANNED 的进 rollingAmount，PIPELINE 的不计入。另外如果项目有进度偏差（scheduleDeviation字段，正数=超前，负数=延迟），对 firmAmount 做加减调整。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">
+          明白了。<code>scheduleDeviation</code> 的含义是"与计划相比的月份偏差"，所以金额调整 = <code>monthlyBudget × deviation</code>（正数表示多完成了的月份，可以多计入；负数表示延迟，少计入）。我来实现。
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">等等，scheduleDeviation 应该是金额级别的偏差，不是月份数。直接加减就行，不用再乘 monthlyBudget。</div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">收到，已修正。偏差直接是金额，直接做 <code>firmAmount += scheduleDeviation</code>。</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mcl06RDForecast.ts</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="kw">type</span> <span class="tp">RDStatus</span> = <span class="str">'APPROVED'</span> | <span class="str">'PLANNED'</span> | <span class="str">'PIPELINE'</span>
+
+<span class="kw">interface</span> <span class="tp">RDProject</span> {
+  name: <span class="tp">string</span>; status: <span class="tp">RDStatus</span>
+  approvedBudget: <span class="tp">number</span>       <span class="cm">// 批准金额</span>
+  scheduleDeviation: <span class="tp">number</span>   <span class="cm">// 进度偏差金额（正=超前多计，负=延迟少计）</span>
+  plannedBudget: <span class="tp">number</span>        <span class="cm">// 规划预算（PLANNED 状态用）</span>
+}
+
+<span class="kw">export class</span> <span class="tp">MCL06RDForecast</span> {
+
+  <span class="cm">/** Rev_F18：研发费用预测（三状态分支） */</span>
+  <span class="kw">async</span> <span class="fn">calcRevF18</span>(versionId: <span class="tp">string</span>): <span class="tp">Promise</span>&lt;{
+    firmAmount: <span class="tp">number</span>; rollingAmount: <span class="tp">number</span>; pipelineCount: <span class="tp">number</span>; projects: <span class="tp">RDProject</span>[]
+  }&gt; {
+    <span class="kw">const</span> rec = <span class="kw">await</span> prisma.dCLRecord.findFirst({
+      where: { versionId, source: { code: <span class="str">'DCL-20'</span> } }
+    })
+    <span class="kw">const</span> projects: <span class="tp">RDProject</span>[] = (rec?.dataJson <span class="kw">as any</span>)?.projects ?? []
+
+    <span class="kw">let</span> firmAmount = <span class="num">0</span>, rollingAmount = <span class="num">0</span>, pipelineCount = <span class="num">0</span>
+
+    <span class="kw">for</span> (<span class="kw">const</span> p <span class="kw">of</span> projects) {
+      <span class="kw">switch</span> (p.status) {
+        <span class="kw">case</span> <span class="str">'APPROVED'</span>:
+          <span class="cm">// 已批准：按批准预算 + 进度偏差调整计入 Firm</span>
+          firmAmount += p.approvedBudget + (p.scheduleDeviation ?? <span class="num">0</span>)
+          <span class="kw">break</span>
+        <span class="kw">case</span> <span class="str">'PLANNED'</span>:
+          <span class="cm">// 计划立项：仅进 Rolling 段，不计 Firm</span>
+          rollingAmount += p.plannedBudget
+          <span class="kw">break</span>
+        <span class="kw">case</span> <span class="str">'PIPELINE'</span>:
+          <span class="cm">// 未审批：仅计数，不计入任何费用</span>
+          pipelineCount++
+          <span class="kw">break</span>
+      }
+    }
+    <span class="cm">// firmAmount 不能为负（不能因为延迟调整变成负值）</span>
+    firmAmount = Math.max(firmAmount, <span class="num">0</span>)
+
+    <span class="kw">return</span> { firmAmount, rollingAmount, pipelineCount, projects }
+  }
+}</code></pre>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #4：业务逻辑 bug（不是代码报错）</div>
+      <p>测试时发现：一个 scheduleDeviation = -500万 的延迟项目，导致 firmAmount 计算为负数。财务规则是"延迟不能让费用变负"——最多是费用降到0。</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <p>加了 <code>firmAmount = Math.max(firmAmount, 0)</code> 兜底，同时在单项目层面也做了保护：<code>Math.max(p.approvedBudget + deviation, 0)</code>（移到 switch 内）。</p>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 7 ───────────────────────────── -->
+  <div class="step" id="s7">
+    <div class="step-label">
+      <div class="step-num">7</div>
+      <div class="step-title">前端：MCL 公式可视化 Dashboard</div>
+      <div class="step-meta">⏱ 60 min</div>
+    </div>
+    <p class="step-desc">后端19条公式跑通后，前端需要一个 Dashboard 让财务同事直观看到每个 MCL 的贡献拆解。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          帮我做一个 React 组件 MCLBreakdownPanel，展示某个版本所有 MCL 的计算结果。要有一个瀑布图（waterfall chart）：从左到右依次是 MCL-01基准收入、+MCL-02增量收入、-MCL-03营销费用、-MCL-04/05销货成本、-MCL-06研发费用、-MCL-07管理费用，最右边是 EBIT。用 ECharts 实现。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">
+          瀑布图用 ECharts 的堆叠柱状图模拟：每个柱子 = 透明占位柱（撑高度）+ 实际值柱。收入项用蓝色，费用/成本项用红色，最终 EBIT 用绿色。
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript + React</span>
+        <span class="code-file">frontend/src/components/MCLBreakdownPanel.tsx（节选）</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="kw">import</span> ReactECharts <span class="kw">from</span> <span class="str">'echarts-for-react'</span>
+
+<span class="kw">interface</span> <span class="tp">MCLData</span> {
+  mcl01Baseline: <span class="tp">number</span>;  mcl02Incremental: <span class="tp">number</span>
+  mcl03SMExpense: <span class="tp">number</span>; mcl04Cogs: <span class="tp">number</span>
+  mcl05CostSave: <span class="tp">number</span>; mcl06RD: <span class="tp">number</span>; mcl07GA: <span class="tp">number</span>
+}
+
+<span class="kw">export function</span> <span class="fn">MCLBreakdownPanel</span>({ data }: { data: <span class="tp">MCLData</span> }) {
+  <span class="kw">const</span> fmt = (n: <span class="tp">number</span>) =&gt; (n / <span class="num">10000</span>).toFixed(<span class="num">0</span>) + <span class="str">'万'</span>
+
+  <span class="kw">const</span> items = [
+    { name: <span class="str">'MCL-01\n基准收入'</span>, val: data.mcl01Baseline,    sign: <span class="num">1</span> },
+    { name: <span class="str">'MCL-02\n增量收入'</span>, val: data.mcl02Incremental, sign: <span class="num">1</span> },
+    { name: <span class="str">'MCL-03\nS&M费用'</span>,  val: data.mcl03SMExpense,  sign: -<span class="num">1</span> },
+    { name: <span class="str">'MCL-04/05\n销货成本'</span>, val: data.mcl04Cogs - data.mcl05CostSave, sign: -<span class="num">1</span> },
+    { name: <span class="str">'MCL-06\n研发费用'</span>, val: data.mcl06RD,          sign: -<span class="num">1</span> },
+    { name: <span class="str">'MCL-07\n管理费用'</span>, val: data.mcl07GA,          sign: -<span class="num">1</span> },
+  ]
+  <span class="kw">const</span> ebit = data.mcl01Baseline + data.mcl02Incremental
+              - data.mcl03SMExpense - (data.mcl04Cogs - data.mcl05CostSave)
+              - data.mcl06RD - data.mcl07GA
+
+  <span class="cm">// 构建瀑布图数据</span>
+  <span class="kw">let</span> runningBase = <span class="num">0</span>
+  <span class="kw">const</span> bases: <span class="tp">number</span>[] = [], bars: <span class="tp">number</span>[] = [], colors: <span class="tp">string</span>[] = []
+  items.forEach(item =&gt; {
+    <span class="kw">const</span> contribution = item.val * item.sign
+    <span class="kw">if</span> (contribution &gt;= <span class="num">0</span>) {
+      bases.push(runningBase); bars.push(contribution)
+      colors.push(<span class="str">'#58a6ff'</span>)
+    } <span class="kw">else</span> {
+      bases.push(runningBase + contribution); bars.push(-contribution)
+      colors.push(<span class="str">'#ff7b72'</span>)
+    }
+    runningBase += contribution
+  })
+  <span class="cm">// 最后一柱：EBIT</span>
+  bases.push(<span class="num">0</span>); bars.push(ebit); colors.push(<span class="str">'#3fb950'</span>)
+  <span class="kw">const</span> labels = [...items.map(i =&gt; i.name), <span class="str">'EBIT'</span>]
+
+  <span class="kw">return</span> (
+    &lt;<span class="tp">ReactECharts</span>
+      style={{ height: <span class="str">'320px'</span> }}
+      option={{
+        tooltip: { formatter: (p: <span class="tp">any</span>) =&gt; `${p[<span class="num">1</span>].name}: ${fmt(p[<span class="num">1</span>].value)}` },
+        xAxis: { type: <span class="str">'category'</span>, data: labels, axisLabel: { color: <span class="str">'#8b949e'</span>, interval: <span class="num">0</span> } },
+        yAxis: { type: <span class="str">'value'</span>, name: <span class="str">'万元'</span>, axisLabel: { color: <span class="str">'#8b949e'</span> } },
+        series: [
+          { type: <span class="str">'bar'</span>, stack: <span class="str">'wf'</span>, data: bases, itemStyle: { color: <span class="str">'transparent'</span> } },
+          { type: <span class="str">'bar'</span>, stack: <span class="str">'wf'</span>, data: bars.map((v, i) =&gt; ({ value: v, itemStyle: { color: colors[i] } })) }
+        ]
+      }}
+    /&gt;
+  )
+}</code></pre>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #5：ECharts tooltip 显示异常</div>
+      <p>tooltip 展示 "undefined: NaN万"，原因是 tooltip formatter 的参数 <code>p</code> 是数组，但 <code>p[1]</code> 在单系列时拿到的是 undefined</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <pre style="background:#0d2818;padding:10px 14px;border-radius:6px;font-size:12px;font-family:monospace;color:#a5d6ff;margin-top:8px;">
+<span style="color:#ff7b72">- formatter: (p: any) => `${p[1].name}: ${fmt(p[1].value)}`</span>
+<span style="color:#3fb950">+ formatter: (params: any) => {
++   const p = Array.isArray(params) ? params.find(x => x.seriesIndex === 1) : params
++   return p ? `${p.name}: ${fmt(p.value)}` : ''
++ }</span></pre>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 8 ───────────────────────────── -->
+  <div class="step" id="s8">
+    <div class="step-label">
+      <div class="step-num">8</div>
+      <div class="step-title">集成测试：MCL 引擎 + KPI 预警联动</div>
+      <div class="step-meta">⏱ 45 min</div>
+    </div>
+    <p class="step-desc">全部 MCL 实现后，需要一个集成层：调用所有引擎，汇总 EBIT，触发 KPI 预警。</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="avatar user">我</div>
+        <div class="bubble">
+          帮我写一个 MCLOrchestrator 类，调用全部7个 MCL 引擎，汇总成 EBIT，然后触发 KPIService.batchCheckVersion。最终把结果写入 MCLResult 表。
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="avatar ai-bot">AI</div>
+        <div class="bubble">好的，我并行跑所有 MCL 计算（Promise.all），然后序列化写入 MCLResult，最后触发 KPI 检查。</div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TypeScript</span>
+        <span class="code-file">backend/src/services/mcl/mclOrchestrator.ts</span>
+        <button class="copy-btn" onclick="copy(this)">复制</button>
+      </div>
+      <pre><code><span class="kw">import</span> { mcl01 } <span class="kw">from</span> <span class="str">'./mcl01BaselineRevenue'</span>
+<span class="kw">import</span> { mcl02 } <span class="kw">from</span> <span class="str">'./mcl02IncrementalRevenue'</span>
+<span class="kw">import</span> { mcl0307 } <span class="kw">from</span> <span class="str">'./mcl03and07Expense'</span>
+<span class="kw">import</span> { mcl0405 } <span class="kw">from</span> <span class="str">'./mcl04and05Cost'</span>
+<span class="kw">import</span> { mcl06 } <span class="kw">from</span> <span class="str">'./mcl06RDForecast'</span>
+<span class="kw">import</span> { kpiService } <span class="kw">from</span> <span class="str">'../kpiService'</span>
+
+<span class="kw">const</span> BUS = [<span class="str">'DOMESTIC_MEDICAL'</span>, <span class="str">'ECOMMERCE'</span>, <span class="str">'INTL_PUBLIC'</span>, <span class="str">'INTL_PRIVATE'</span>, <span class="str">'PET'</span>]
+
+<span class="kw">export class</span> <span class="tp">MCLOrchestrator</span> {
+
+  <span class="kw">async</span> <span class="fn">runAll</span>(versionId: <span class="tp">string</span>) {
+    console.log(<span class="str">`[MCL] 开始计算版本 ${versionId}`</span>)
+
+    <span class="cm">// 对每个 BU 并行计算 MCL-01/02/03</span>
+    <span class="kw">const</span> buResults = <span class="kw">await</span> Promise.all(BUS.map(<span class="kw">async</span> bu =&gt; {
+      <span class="kw">const</span> [r01, r02, r03] = <span class="kw">await</span> Promise.all([
+        mcl01.<span class="fn">calcMCL01Total</span>(versionId, bu),
+        mcl02.<span class="fn">calcMCL02Total</span>(versionId, bu),
+        mcl0307.<span class="fn">calcMCL03Net</span>(versionId, bu),
+      ])
+      <span class="kw">const</span> revenue = r01.baseline + r02.incremental
+      <span class="kw">const</span> smExpense = r03.netSMExpense
+      <span class="kw">return</span> { bu, revenue, smExpense, r01, r02, r03 }
+    }))
+
+    <span class="cm">// 公司级计算（不拆 BU）</span>
+    <span class="kw">const</span> [costResult, rdResult, r19] = <span class="kw">await</span> Promise.all([
+      mcl0405.<span class="fn">calcMCL0405</span>(versionId),
+      mcl06.<span class="fn">calcRevF18</span>(versionId),
+      mcl0307.<span class="fn">calcRevF19</span>(versionId),
+    ])
+
+    <span class="cm">// 汇总 EBIT</span>
+    <span class="kw">const</span> totalRevenue = buResults.reduce((s, b) =&gt; s + b.revenue, <span class="num">0</span>)
+    <span class="kw">const</span> totalSMExpense = buResults.reduce((s, b) =&gt; s + b.smExpense, <span class="num">0</span>)
+    <span class="kw">const</span> netCogs = costResult.netCOGS
+    <span class="kw">const</span> rdFirm = rdResult.firmAmount
+    <span class="kw">const</span> gaNet = r19
+    <span class="kw">const</span> ebit = totalRevenue - netCogs - totalSMExpense - rdFirm - gaNet
+
+    <span class="cm">// 写入 MCLResult</span>
+    <span class="kw">await</span> prisma.mCLResult.upsert({
+      where: { versionId_formulaKey_buType_period: { versionId, formulaKey: <span class="str">'EBIT_TOTAL'</span>, buType: <span class="str">'ALL'</span>, period: <span class="str">'FC7-12'</span> } },
+      update: { value: ebit, calcAt: <span class="kw">new</span> Date() },
+      create: { versionId, mclCode: <span class="str">'SUMMARY'</span>, formulaKey: <span class="str">'EBIT_TOTAL'</span>, buType: <span class="str">'ALL'</span>, period: <span class="str">'FC7-12'</span>, value: ebit }
+    })
+
+    <span class="cm">// 触发 KPI 预警检查</span>
+    <span class="kw">const</span> alerts = <span class="kw">await</span> kpiService.<span class="fn">batchCheckVersion</span>(versionId)
+    console.log(<span class="str">`[MCL] 完成，EBIT=${ebit}，触发预警 ${alerts.length} 条`</span>)
+
+    <span class="kw">return</span> { totalRevenue, netCogs, totalSMExpense, rdFirm, gaNet, ebit, alerts, buResults }
+  }
+}
+
+<span class="kw">export const</span> mclOrchestrator = <span class="kw">new</span> <span class="tp">MCLOrchestrator</span>()</code></pre>
+    </div>
+
+    <div class="box error">
+      <div class="box-head">❌ 报错 #6：Prisma upsert 复合唯一键写法错误</div>
+      <p><code>Argument `where` is missing</code>，原因：复合唯一索引的 where 字段名必须与 <code>@@unique</code> 里完全一致（下划线连接）</p>
+    </div>
+    <div class="box fix">
+      <div class="box-head">✅ 修复</div>
+      <pre style="background:#0d2818;padding:10px 14px;border-radius:6px;font-size:12px;font-family:monospace;color:#a5d6ff;margin-top:8px;">
+<span style="color:#ff7b72">- where: { versionId_formulaKey_buType_period: {...} }</span>
+<span style="color:#3fb950">// Prisma 生成的复合唯一 key 名称需要从 @prisma/client 确认
+// 用 findUnique + create/update 分开更安全：
++ const existing = await prisma.mCLResult.findFirst({ where: { versionId, formulaKey: 'EBIT_TOTAL', buType: 'ALL', period: 'FC7-12' } })
++ if (existing) await prisma.mCLResult.update({ where: { id: existing.id }, data: { value: ebit } })
++ else await prisma.mCLResult.create({ data: { ... } })</span></pre>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────────── STEP 9 ───────────────────────────── -->
+  <div class="step" id="s9">
+    <div class="step-label">
+      <div class="step-num">9</div>
+      <div class="step-title">复盘：10条 MCL/DCL Vibe Coding 心法</div>
+      <div class="step-meta">⏱ 总计 ~6h</div>
+    </div>
+    <p class="step-desc">从思维导图到19条公式全部落地，复盘最重要的10个经验。</p>
+
+    <div class="lessons">
+      <div class="lesson">
+        <div class="ln">01</div>
+        <div class="lt">先让 AI 读文档，再编码</div>
+        <div class="ld">把思维导图 / PDF 喂给 AI 让它梳理结构，节省 70% 理解时间。不要自己先理解再解释给 AI。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">02</div>
+        <div class="lt">公式是最好的 Prompt</div>
+        <div class="ld"><code>Rev_F1 = MAX(月均出库量, 最后一月出库量) × 6</code> 比"帮我做一个基准收入预测"强10倍。数学公式直接变代码。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">03</div>
+        <div class="lt">JSON 存储异构 DCL 数据</div>
+        <div class="ld">21个 DCL 数据结构各不相同，<code>dataJson: Json</code> 字段比建21张表省事。扩展字段时不需要改 Schema。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">04</div>
+        <div class="lt">先问难度，再定顺序</div>
+        <div class="ld">开始前问 AI "哪条公式最难"，得到 Rev_F18 > F17 > F1。按难度从简到繁，边学边迭代。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">05</div>
+        <div class="lt">业务 Bug > 代码 Bug</div>
+        <div class="ld">本次6个报错中4个是业务逻辑问题（汇总方式错、费用正负号错、Capex 除零、EBIT 变负）。代码对但业务错。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">06</div>
+        <div class="lt">纠正 AI 要果断、精确</div>
+        <div class="ld">"scheduleDeviation 是金额不是月数"这句纠正，AI 立刻改对了。模糊的纠正（"不对"）会让 AI 乱猜。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">07</div>
+        <div class="lt">并行调用提速</div>
+        <div class="ld">MCLOrchestrator 用 <code>Promise.all</code> 并行跑5个 BU × 3个模型 = 15次数据库查询，从序列30s 压到 6s。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">08</div>
+        <div class="lt">状态机写 switch，不写 if-else 链</div>
+        <div class="ld">Rev_F18 三分支用 switch，比 if-else 链可读性高3倍。业务规则清晰的地方 AI 也更少出错。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">09</div>
+        <div class="lt">瀑布图揭示隐性问题</div>
+        <div class="ld">MCLBreakdownPanel 瀑布图上线后，财务同事第一眼就发现了 MCL-05 降本节约被重复计入的问题，靠数字看不出来。</div>
+      </div>
+      <div class="lesson">
+        <div class="ln">10</div>
+        <div class="lt">兜底值比报错更友好</div>
+        <div class="ld"><code>?? 0</code>、<code>Math.max(..., 0)</code>、<code>Math.max(..., 1)</code> 防止 NaN/Infinity/负值传播。财务系统不能有"undefined"。</div>
+      </div>
+    </div>
+
+    <hr class="div" />
+
+    <!-- Final Summary -->
+    <div class="box info">
+      <div class="box-head">📊 本次 Vibe Coding 成果</div>
+      <ul>
+        <li>MCL-01~07 全部7个引擎实现，覆盖 Rev_F1~F19 共19条预测公式</li>
+        <li>DCL-01~21 数据采集层 Schema 和 Import API 设计完成</li>
+        <li>MCLOrchestrator 统一调度，自动触发 KPI 预警联动</li>
+        <li>前端 MCLBreakdownPanel 瀑布图，直观展示 EBIT 驱动拆解</li>
+        <li>6个报错全部定位修复，4个是业务逻辑 Bug，2个是类型/API 问题</li>
+        <li>与财务同事对齐3次，修正了汇总逻辑、符号语义、状态机边界</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function copy(btn) {
+    const code = btn.closest('.code-block').querySelector('pre').innerText
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '已复制 ✓'
+      setTimeout(() => btn.textContent = '复制', 2000)
+    })
+  }
+</script>
+</body>
+</html>
