@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FC6+6 TCSS — Vibe Coding 底层思维：业务目的优先</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg2: #161b22; --bg3: #1c2128;
+      --border: #30363d; --text: #e6edf3; --text2: #8b949e;
+      --accent: #58a6ff; --green: #3fb950; --purple: #d2a8ff;
+      --orange: #f0883e; --red: #ff7b72; --yellow: #e3b341;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.85; font-size: 15px;
+    }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 100px; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 64px 0 56px; border-bottom: 1px solid var(--border); margin-bottom: 64px; }
+    .pill { display: inline-block; background: #1f6feb33; border: 1px solid var(--accent); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 22px; }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero .sub { color: var(--text2); font-size: 16px; max-width: 560px; margin: 0 auto 28px; line-height: 1.7; }
+    .hero .quote { display: inline-block; border-left: 3px solid var(--accent); padding: 12px 20px; text-align: left; color: var(--text2); font-size: 14px; line-height: 1.7; max-width: 520px; }
+    .hero .quote strong { color: var(--text); }
+
+    /* Section headings */
+    h2 { font-size: 22px; font-weight: 800; margin: 56px 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    h2 .n { color: var(--accent); font-size: 14px; font-weight: 600; margin-right: 10px; }
+    h3 { font-size: 16px; font-weight: 700; margin: 32px 0 12px; color: var(--text); }
+
+    p { color: var(--text2); margin-bottom: 16px; }
+    p strong { color: var(--text); }
+
+    /* The two questions */
+    .two-q { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .q-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .q-card .qnum { font-size: 36px; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: 10px; }
+    .q-card .qtxt { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+    .q-card .qdesc { font-size: 13px; color: var(--text2); line-height: 1.65; }
+    .q-card.q1 { border-color: var(--accent); }
+    .q-card.q1 .qnum { color: #1f6feb55; }
+    .q-card.q2 { border-color: var(--green); }
+    .q-card.q2 .qnum { color: #23863655; }
+
+    /* P&L chain */
+    .pl-chain { display: flex; flex-direction: column; gap: 0; margin: 28px 0; }
+    .pl-row { display: flex; align-items: stretch; gap: 0; }
+    .pl-label { width: 180px; flex-shrink: 0; padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--text2); display: flex; align-items: center; border: 1px solid var(--border); border-right: none; background: var(--bg3); }
+    .pl-bar { flex: 1; padding: 12px 18px; font-size: 13px; color: var(--text2); border: 1px solid var(--border); line-height: 1.55; display: flex; align-items: center; }
+    .pl-row:not(:first-child) .pl-label,
+    .pl-row:not(:first-child) .pl-bar { border-top: none; }
+    .pl-row.hl .pl-label { background: #1c2d4d; color: var(--accent); border-color: var(--accent); }
+    .pl-row.hl .pl-bar { background: #1c2d4d22; border-color: var(--accent); color: var(--text); }
+    .pl-row.warn .pl-label { background: #2b220633; color: var(--yellow); border-color: var(--yellow); }
+    .pl-row.warn .pl-bar { border-color: var(--yellow); }
+    .pl-op { width: 24px; text-align: center; font-weight: 800; color: var(--text2); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+
+    /* Principle cards */
+    .principles { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
+    .pc { display: flex; gap: 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; }
+    .pc .pi { font-size: 28px; width: 40px; flex-shrink: 0; }
+    .pc .pt { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .pc .pd { font-size: 13px; color: var(--text2); line-height: 1.65; }
+    .pc .pd strong { color: var(--text); }
+    .pc.danger { border-color: var(--red); background: #2d141933; }
+    .pc.caution { border-color: var(--yellow); background: #2b220633; }
+    .pc.good { border-color: var(--green); background: #0d281833; }
+
+    /* Definition standard */
+    .def-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 28px 0; }
+    .def-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text2); margin-bottom: 18px; }
+    .def-row { display: flex; gap: 16px; margin-bottom: 14px; align-items: flex-start; }
+    .def-row:last-child { margin-bottom: 0; }
+    .def-tag { flex-shrink: 0; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-top: 2px; }
+    .def-tag.r { background: #2d1419; color: var(--red); }
+    .def-tag.y { background: #2b2206; color: var(--yellow); }
+    .def-tag.g { background: #0d2818; color: var(--green); }
+    .def-row p { margin: 0; font-size: 13px; color: var(--text2); line-height: 1.65; }
+    .def-row p strong { color: var(--text); }
+
+    /* The three levers */
+    .levers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0; }
+    .lever { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .lever .lnum { font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+    .lever .ltitle { font-size: 15px; font-weight: 800; margin-bottom: 10px; }
+    .lever .lbody { font-size: 13px; color: var(--text2); line-height: 1.65; }
+    .lever .lbody strong { color: var(--text); }
+    .lever.lev1 { border-color: var(--accent); }
+    .lever.lev1 .ltitle { color: var(--accent); }
+    .lever.lev2 { border-color: var(--orange); }
+    .lever.lev2 .ltitle { color: var(--orange); }
+    .lever.lev3 { border-color: var(--green); }
+    .lever.lev3 .ltitle { color: var(--green); }
+
+    /* Decision flow */
+    .flow { margin: 28px 0; display: flex; flex-direction: column; gap: 0; }
+    .flow-step { display: flex; gap: 16px; padding: 16px 0; border-left: 2px solid var(--border); margin-left: 16px; padding-left: 24px; position: relative; }
+    .flow-step::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--border); position: absolute; left: -7px; top: 22px; }
+    .flow-step.active::before { background: var(--accent); box-shadow: 0 0 0 4px #1f6feb22; }
+    .flow-step.active { border-left-color: var(--accent); }
+    .flow-q { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .flow-a { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .flow-a code { background: var(--bg3); color: var(--orange); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+    /* Closing */
+    .closing { margin-top: 64px; padding: 36px; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; }
+    .closing p { margin-bottom: 12px; }
+    .closing p:last-child { margin-bottom: 0; }
+
+    hr.div { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    @media (max-width: 640px) {
+      .two-q { grid-template-columns: 1fr; }
+      .levers { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">Vibe Coding · 底层思维</div>
+    <h1>任何工作，先问<em>两个问题</em></h1>
+    <p class="sub">在写第一行代码之前，在设计第一张数据表之前，在开任何需求评审会之前——先问自己这两个问题。</p>
+    <div class="quote">
+      <strong>这是一种会让人感到不舒服的思维方式。</strong><br>
+      因为它要求你在还没动手之前，就先回答最难回答的问题：<br>
+      这件事，值不值得做？做到什么程度才算够？
+    </div>
+  </div>
+
+  <!-- The Two Questions -->
+  <h2><span class="n">§1</span>两个必须先回答的问题</h2>
+
+  <p>不论你在做系统设计、写代码、优化模型，还是开会讨论需求，<strong>在正式开始之前，必须先回答这两个问题</strong>。否则所有的努力可能方向正确但目标偏离。</p>
+
+  <div class="two-q">
+    <div class="q-card q1">
+      <div class="qnum">Q1</div>
+      <div class="qtxt">它最终是为了什么业务目的？</div>
+      <div class="qdesc">不是"功能目的"，不是"技术目的"——是<strong>业务目的</strong>。这件事不做，公司会怎样？做了，公司会怎样？如果说不出区别，这件事大概率不该做。</div>
+    </div>
+    <div class="q-card q2">
+      <div class="qnum">Q2</div>
+      <div class="qtxt">它最终会如何影响财务报表？</div>
+      <div class="qdesc">落到利润表（P&L）的哪一行？影响收入、毛利、费用，还是资产负债表上的资本？<strong>能说清楚落点，才能说清楚做到位的标准。</strong></div>
+    </div>
+  </div>
+
+  <p>只有先回答这两个问题，才能做三件事：</p>
+
+  <div class="def-box">
+    <h4>回答两个问题之后，才能做到</h4>
+    <div class="def-row">
+      <span class="def-tag g">定义</span>
+      <p><strong>这件工作的完成标准。</strong> "功能上线"不是完成，"指标改善"也不是完成。完成是：它产生的影响，达到了预设的业务目的。</p>
+    </div>
+    <div class="def-row">
+      <span class="def-tag y">判断</span>
+      <p><strong>目前是否已经做到位，还是需要继续优化。</strong> 有了财务落点，就有了量化标准——而不是凭感觉说"差不多了"。</p>
+    </div>
+    <div class="def-row">
+      <span class="def-tag r">决策</span>
+      <p><strong>这件事本身是否值得做，以及投入是否合理。</strong> 如果做到极致，对P&L的影响可以忽略不计，那就不值得继续投入——把资源留给影响更大的事。</p>
+    </div>
+  </div>
+
+  <!-- P&L Chain -->
+  <h2><span class="n">§2</span>FC6+6 TCSS 的财务报表落点</h2>
+
+  <p>以 FC6+6 TCSS 为例，<strong>最终目标只有一个：确保公司实现年初制定的净利润目标。</strong> 所有模块的设计，都应该能追溯到这个目标在 P&L 上的某一行。</p>
+
+  <div class="pl-chain">
+    <div class="pl-row hl">
+      <div class="pl-label">收入（Revenue）</div>
+      <div class="pl-bar"><strong>MCL-01 基准收入 + MCL-02 增量收入</strong> — 必须是真实可持续的收入，不能靠压货或不可复现的一次性因素虚高</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-op">−</div>
+    </div>
+    <div class="pl-row hl">
+      <div class="pl-label">销货成本（COGS）</div>
+      <div class="pl-bar"><strong>MCL-04 标准COGS + MCL-05 降本节约</strong> — 降本假设必须有落地依据，不能加入确定性不足的结构性节约</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-op">=</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-label">毛利润（Gross Profit）</div>
+      <div class="pl-bar">毛利率波动直接触发 KPI 预警（M3）；跨 BU 对比揭示结构问题</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-op">−</div>
+    </div>
+    <div class="pl-row warn">
+      <div class="pl-label">营销费用（S&M）</div>
+      <div class="pl-bar"><strong>MCL-03</strong> — 费用管理的核心战场。维持性费用不能压缩，但增量费用必须有明确 ROI，费用率改进目标必须可执行</div>
+    </div>
+    <div class="pl-row warn">
+      <div class="pl-label">研发费用（R&D）</div>
+      <div class="pl-bar"><strong>MCL-06</strong> — 未批准项目不计入；计划立项仅进 Rolling 段。防止把"愿望清单"变成 P&L 负担</div>
+    </div>
+    <div class="pl-row warn">
+      <div class="pl-label">管理费用（G&A）</div>
+      <div class="pl-bar"><strong>MCL-07</strong> — Dead Capital 的主要藏身地。削减计划必须落到具体科目和执行时间，不能停留在"计划削减"</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-op">=</div>
+    </div>
+    <div class="pl-row" style="border: 2px solid var(--green); border-radius: 4px;">
+      <div class="pl-label" style="background: #0d2818; color: var(--green); border: none;">EBIT</div>
+      <div class="pl-bar" style="border: none; color: var(--text);"><strong>这才是 FC6+6 TCSS 所有模块汇向的终点。</strong> EBIT率预警触发审批流（M4），版本锁定（LOCKED）意味着这个数字对外承诺</div>
+    </div>
+  </div>
+
+  <!-- Three Levers -->
+  <h2><span class="n">§3</span>实现净利润目标的三个杠杆</h2>
+
+  <p>年初制定的净利润目标，在执行过程中只有三个真正可以主动拉动的杠杆。FC6+6 TCSS 的每一个功能模块，都应该归属于其中一个。</p>
+
+  <div class="levers">
+    <div class="lever lev1">
+      <div class="lnum">杠杆 一</div>
+      <div class="ltitle">收入的可靠性</div>
+      <div class="lbody">
+        预测的收入必须是<strong>真实可达的</strong>，不能依靠：<br><br>
+        · 向经销商压货（出货 ≠ 销售）<br>
+        · 年底囤货计划（Rev_F4）过度乐观<br>
+        · 尚未签约的"意向订单"<br><br>
+        MCL-01 的 <code>MAX(月均, 末月)</code> 设计，本质是要<strong>防止用异常高月份拉高全年预测</strong>。
+      </div>
+    </div>
+    <div class="lever lev2">
+      <div class="lnum">杠杆 二</div>
+      <div class="ltitle">COGS 的准确性</div>
+      <div class="lbody">
+        成本预测宁可保守，不能乐观。<strong>不能轻易加入确定性不足的降本假设：</strong><br><br>
+        · MCL-05 的降本率，必须有合同或 SOP 支撑<br>
+        · Rev_F17（净节约）的效率提升，必须有 Capex 投入时间线对应<br>
+        · 自动化项目的月折旧，从投产月起必须计入<br><br>
+        <strong>过于乐观的 COGS 预测，是年底利润缺口的最常见来源。</strong>
+      </div>
+    </div>
+    <div class="lever lev3">
+      <div class="lnum">杠杆 三</div>
+      <div class="ltitle">费用的主动管理</div>
+      <div class="lbody">
+        当收入和 COGS 基本确定后，<strong>费用是唯一可以主动控制的利润杠杆：</strong><br><br>
+        · <strong>减少 Dead Capital</strong>：长期占用但无产出的资产、项目、人员<br>
+        · <strong>控制非必要支出</strong>：MCL-03 的维持性费用审计，MCL-07 的 G&A 削减计划<br>
+        · <strong>合理延后费用</strong>：研发项目中 PLANNED 状态仅进 Rolling，不进 Firm——把不确定的支出推后，把确定的利润释放出来
+      </div>
+    </div>
+  </div>
+
+  <!-- Dead Capital -->
+  <h2><span class="n">§4</span>Dead Capital：最容易忽视的利润漏洞</h2>
+
+  <p><strong>Dead Capital</strong> 是指<strong>已经占用了资源（人、钱、时间），但没有产生对应业务价值的部分</strong>。它不会在 P&L 上直接亮红灯，却是长期侵蚀利润的主要来源。</p>
+
+  <div class="principles">
+    <div class="pc danger">
+      <div class="pi">🔴</div>
+      <div>
+        <div class="pt">停滞的 Capex 项目</div>
+        <div class="pd">设备已购入，折旧已在跑，但产能没有释放，效率提升没有兑现。<strong>Rev_F17 = 净节约 = 效率提升 - 当期新增折旧</strong>——如果分子迟迟没有落地，净节约会变成净损失。每延迟一个月，就是一个月的"空折旧"。</div>
+      </div>
+    </div>
+    <div class="pc caution">
+      <div class="pi">🟡</div>
+      <div>
+        <div class="pt">PIPELINE 状态的研发项目</div>
+        <div class="pd">未审批的项目不计入 FC，这是 MCL-06 的设计原则。但现实中，这些项目往往已经有人在花时间推进——<strong>人的时间是隐性的 Dead Capital</strong>。Rev_F18 的 PIPELINE 计数，是一个用来定期审查"投入但未承诺"项目的信号。</div>
+      </div>
+    </div>
+    <div class="pc caution">
+      <div class="pi">🟡</div>
+      <div>
+        <div class="pt">维持性费用中的"历史惯性"</div>
+        <div class="pd">DCL-11 采集的"必保费用"里，有多少是真的必保，有多少是"一直这么花所以没人质疑"？<strong>维持性不等于必要性。</strong> MCL-03 的 Rev_F10 基线，每个季度都应该被重新审视一次。</div>
+      </div>
+    </div>
+    <div class="pc good">
+      <div class="pi">🟢</div>
+      <div>
+        <div class="pt">可以延后的费用，就延后</div>
+        <div class="pd">不是所有费用都必须在当期发生。<strong>合理延后 ≠ 逃避——它是把有限的利润空间分配给最高优先级的投入。</strong> 研发项目中 PLANNED → APPROVED 的门槛，正是一道强制延后的过滤器。只有过了这道门，费用才进入 Firm 段、才算正式占用利润。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decision Flow -->
+  <h2><span class="n">§5</span>在 Vibe Coding 中运用这个框架</h2>
+
+  <p>把这两个问题变成<strong>开始任何开发任务之前的强制 checklist</strong>。不是流程，是思维习惯。</p>
+
+  <div class="flow">
+    <div class="flow-step active">
+      <div>
+        <div class="flow-q">我现在要做什么？</div>
+        <div class="flow-a">明确具体任务。比如："实现 Rev_F17 的 Capex 折旧按月摊销"。</div>
+      </div>
+    </div>
+    <div class="flow-step active">
+      <div>
+        <div class="flow-q">这个功能，最终的业务目的是什么？</div>
+        <div class="flow-a">让 MCL-05 的降本预测更准确，从而让 EBIT 预测不因为"少算折旧"而虚高——防止年底利润缺口。</div>
+      </div>
+    </div>
+    <div class="flow-step active">
+      <div>
+        <div class="flow-q">它落在财务报表的哪一行？</div>
+        <div class="flow-a">COGS 下面的制造费用（折旧），以及 MCL-05 净节约行 → 影响毛利率 → 影响 EBIT。</div>
+      </div>
+    </div>
+    <div class="flow-step active">
+      <div>
+        <div class="flow-q">完成标准是什么？</div>
+        <div class="flow-a">不是"代码写完了"。而是：<code>任意一个 Capex 项目，输入 totalCapex/depMonths/startMonth 后，7-12月每月的折旧计算结果与手工 Excel 一致，误差 &lt; 1元</code>。</div>
+      </div>
+    </div>
+    <div class="flow-step active">
+      <div>
+        <div class="flow-q">这件事值不值得做？投入是否合理？</div>
+        <div class="flow-a">在测试数据中，一个500万 Capex 项目如果折旧算错一个月，会导致 EBIT 偏差约 8.3万。对于一家年收入数十亿的公司，这个精度要求是合理的。这件事值得做，而且要做到精确。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="def-box" style="border-color: var(--accent);">
+    <h4 style="color: var(--accent);">给 AI 的 Prompt 也要从业务目的出发</h4>
+    <div class="def-row">
+      <span class="def-tag r">❌ 弱</span>
+      <p>"帮我实现 Capex 折旧计算，按月摊销"</p>
+    </div>
+    <div class="def-row">
+      <span class="def-tag g">✅ 强</span>
+      <p>"实现 Rev_F17 净节约按月计算。业务规则：Capex 从 startMonth 开始折旧，之前月份折旧为0；效率节约同理从 startMonth 开始生效；净节约 = 效率节约 - 月折旧，且净节约不得为负（延迟不能让节约变成损耗）。输出 7-12月数组，每月包含 saving、depreciation、net 三个字段。精度要求：与手工Excel误差 &lt; 1元。"</p>
+    </div>
+    <div class="def-row" style="margin-top:8px;">
+      <span style="width:68px;flex-shrink:0;"></span>
+      <p style="color:var(--text2)">业务目的（防止EBIT虚高）→ 完成标准（精度要求）→ 边界条件（净节约不为负）都在 Prompt 里，AI 第一次输出就基本能用。</p>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <hr class="div" />
+
+  <div class="closing">
+    <p style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:18px;">为什么这种思维方式会让人"不舒服"？</p>
+    <p>因为它要求你在开始之前，就对结果负责。</p>
+    <p>大多数时候，技术人员更愿意先做再说——先把功能实现，再看效果。但对于一个要支撑财务决策的系统来说，<strong>"先做再说"的代价，是整个预测体系都建立在一个方向不确定的地基上。</strong></p>
+    <p>FC6+6 TCSS 的19条 Rev_F 公式，每一条背后都有一个具体的业务问题：<em>这笔收入是真实的吗？这笔成本计进去是合理的吗？这笔费用非现在花不可吗？</em></p>
+    <p>先回答这些问题，再动手编码——这不是多一道程序，<strong>这才是 Vibe Coding 真正的工作方式：用代码去实现一个已经想清楚的业务判断，而不是用代码去探索一个还没想清楚的业务问题。</strong></p>
+  </div>
+
+</div>
+</body>
+</html>
