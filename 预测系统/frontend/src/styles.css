@@ -1,0 +1,311 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  color: #222;
+  background: #f6f7f9;
+}
+.pet-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px 48px;
+}
+.pet-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pet-header h1 {
+  font-size: 20px;
+  margin: 8px 0;
+}
+.pet-facts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #555;
+}
+.pet-facts span {
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.pet-gear {
+  margin-left: auto;
+}
+.pet-tabs {
+  margin: 12px 0;
+  display: flex;
+  gap: 8px;
+}
+.pet-tabs button,
+.pet-gear,
+.tier-picker button,
+.param-row button {
+  border: 1px solid #d6d9dd;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.pet-tabs button.active {
+  background: #2f5aa8;
+  color: #fff;
+  border-color: #2f5aa8;
+}
+.tier-picker button.active {
+  background: var(--tier-color);
+  border-color: var(--tier-color);
+  color: #fff;
+}
+.pet-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+.pet-hint {
+  color: #777;
+  font-size: 12px;
+}
+.pet-loading,
+.pet-error {
+  padding: 32px;
+  color: #666;
+}
+.pet-error {
+  color: #c0392b;
+}
+.pet-footer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.6;
+}
+
+/* 概览 */
+.tier-capsules {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0;
+}
+.capsule {
+  flex: 1;
+  border: 2px solid #e3e5e8;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+.capsule.active {
+  border-color: var(--tier-color);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+.capsule-name {
+  font-weight: 700;
+  color: var(--tier-color);
+}
+.capsule-h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.capsule-fy {
+  font-size: 12px;
+  color: #777;
+}
+.tier-deltas {
+  font-size: 13px;
+  color: #555;
+  margin: 6px 0 14px;
+}
+.wf-bars {
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.wf-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 90px 90px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.wf-row:hover {
+  background: #fafbfc;
+}
+.wf-total {
+  border-top: 1px solid #e3e5e8;
+  font-weight: 700;
+  cursor: default;
+}
+.wf-label {
+  font-size: 13px;
+}
+.wf-track {
+  height: 14px;
+  background: #f0f1f3;
+  border-radius: 7px;
+  overflow: hidden;
+}
+.wf-bar {
+  display: block;
+  height: 100%;
+  border-radius: 7px;
+}
+.wf-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.wf-conf {
+  font-size: 12px;
+  text-align: right;
+}
+.prov-drawer {
+  margin-top: 12px;
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-left: 4px solid #2f5aa8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+}
+.prov-drawer h3 {
+  margin: 0 0 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.prov-drawer h3 button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.prov-formula {
+  font-family: ui-monospace, monospace;
+  background: #f6f7f9;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.prov-source,
+.prov-note {
+  color: #777;
+  font-size: 12px;
+}
+
+/* 表格 */
+.pet-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.pet-table th,
+.pet-table td {
+  border-bottom: 1px solid #eef0f2;
+  padding: 6px 10px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.pet-table th:first-child,
+.pet-table td:first-child {
+  text-align: left;
+}
+.pet-table thead th {
+  background: #fafbfc;
+  font-weight: 600;
+}
+.h1-col {
+  color: #7a7f87;
+  background: #fbfbfc;
+}
+.pet-h3 {
+  margin: 20px 0 8px;
+  font-size: 15px;
+}
+.matrix-row {
+  cursor: pointer;
+}
+.matrix-row:hover td {
+  background: #f6f9ff;
+}
+.matrix-total td {
+  border-top: 2px solid #d6d9dd;
+  font-weight: 600;
+}
+.matrix-detail td {
+  text-align: left;
+  color: #666;
+  font-size: 12px;
+  background: #fbfcfe;
+}
+.mo {
+  display: inline-block;
+  margin-right: 12px;
+}
+.mo-h1 {
+  color: #999;
+}
+.cell-h1 {
+  color: #999;
+}
+.cell-h2 {
+  font-weight: 600;
+}
+.cell-sep {
+  color: #ccc;
+}
+.sku-name {
+  font-weight: 600;
+}
+.sku-codes {
+  color: #888;
+  font-size: 12px;
+}
+
+/* 参数面板 */
+.params-panel {
+  background: #fff;
+  border: 1px solid #e3e5e8;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+}
+.params-panel h3 {
+  margin: 4px 0 10px;
+  font-size: 15px;
+}
+.params-group h4 {
+  margin: 10px 0 6px;
+  font-size: 13px;
+  color: #2f5aa8;
+}
+.param-row {
+  display: grid;
+  grid-template-columns: 220px 140px auto;
+  gap: 10px;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 13px;
+}
+.param-row input {
+  border: 1px solid #d6d9dd;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+}

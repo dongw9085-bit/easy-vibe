@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "devices": 9569,
+    "hospitals": 5624,
+    "h1_tests": 1045710,
+    "per_dev_month_tests": 18.2,
+    "base_monthly_reg": 5052411,
+    "base_monthly_act": 3436302,
+    "shape": { "7": 0.1601, "8": 0.1236, "9": 0.1706, "10": 0.1724, "11": 0.1921, "12": 0.1811 },
+    "unmatched": ["05.03.201.001", "05.03.202.001", "05.03.203.001", "05.03.204.001", "05.03.205.001"],
+    "generated": "2026-07-18 14:19",
+    "source": "CRM设备用量(H1 2026)×销售价目表（宠物国内-常规价/活动价）",
+    "newdev_plan": {
+      "monthly": [195, 195, 195, 195, 195, 195],
+      "by_line": { "F1": 780, "M4": 390, "M16": 0, "A1": 0 },
+      "c1_monthly": [125, 125, 125, 125, 125, 150],
+      "c1_h2": 775
+    },
+    "h1_dw_total": 16089422.81,
+    "h1_dw_monthly": { "1": 3505781.19, "2": 1955443.31, "3": 2482530.12, "4": 2605796.97, "5": 2554919.92, "6": 2984951.3 },
+    "h1_dw_note": "口径：DW_T_TaxSalesNetValue，所属BU=N'国内宠物'，预提年份=2026，预提月份<=6。宠物行开票年/月为 NULL，必须用预提年份/月份切期，否则漏掉全部行。"
+  },
+  "params": [
+    { "key": "price_source", "value": "act", "label": "价格口径", "group": "基准", "unit": "", "note": "act=活动价（促销价，更贴近真实成交，业务指令 2026-07-21）/ reg=常规价。reg 相对 DW 真实约 1.9×，act 约 1.3×" },
+    { "key": "base_mode", "value": "ma", "label": "基准算法", "group": "基准", "unit": "", "note": "ma=近 N 月移动平均（业务确认 2026-07-21，H2 用实际单台产出外推）/ h1avg=H1 六月均值。历史值 june 按 ma 处理" },
+    { "key": "base_ma_window", "value": "3", "label": "移动平均窗口", "group": "基准", "unit": "月", "note": "3=近 3 月（避开 2 月春节低点）/ 6=近半年更稳" },
+    { "key": "zombie_n", "value": "2439", "label": "僵尸机基数", "group": "僵尸机激活", "unit": "台", "note": "CRM 数据驾驶舱·僵尸机分析口径：终端 3 个月内无检测使用（含从投放起零用量机，全量名册）。手工录入，待接 BI 仓月度清单" },
+    { "key": "act_rate_yellow", "value": "0.05", "label": "激活率（黄）", "group": "僵尸机激活", "unit": "", "note": "模型.txt 管理层硬要求 5%" },
+    { "key": "act_rate_green", "value": "0.08", "label": "激活率（绿）", "group": "僵尸机激活", "unit": "", "note": "绿档乐观【占位】" },
+    { "key": "newdev_n", "value": "0", "label": "新投放台数（回退）", "group": "新投放", "unit": "台", "note": "已由 newdev_plan（FC3+9 设备投入计划）取代；只在无 plan 时用" },
+    { "key": "newdev_rate_yellow", "value": "0.5", "label": "新投放实现率（黄）", "group": "新投放", "unit": "", "note": "沿用非电商实现率【待业务】" },
+    { "key": "newdev_rate_green", "value": "1.0", "label": "新投放实现率（绿）", "group": "新投放", "unit": "", "note": "绿档=满产" },
+    { "key": "stock_months", "value": "2", "label": "压货月数", "group": "经销商压货", "unit": "月", "note": "业务确认：为达年度合同考核，年底压两个月的货" },
+    { "key": "stock_h2", "value": "0", "label": "压货金额（回退）", "group": "经销商压货", "unit": "万元", "note": "只在 stock_months=0 时按金额取" },
+    { "key": "stock_grn_mult", "value": "1.3", "label": "压货倍数（绿）", "group": "经销商压货", "unit": "×", "note": "绿档压得更多【占位】" },
+    { "key": "rebate_h2", "value": "58.3526", "label": "H2 渠道返利", "group": "返利", "unit": "万元", "note": "业务给 2026-07-21：2025 返利年度总额 324.8 万，H1 已用 266.4 万，H2 余额 58.35 万。三档同减" },
+    { "key": "c1_service_fee", "value": "299", "label": "C1 服务费", "group": "新上市线C1", "unit": "元/台/月", "note": "业务确认：C1 按投放台数收服务费，在服务就收，与检测量无关" },
+    { "key": "c1_green_mult", "value": "1.3", "label": "C1 新投倍数（绿）", "group": "新上市线C1", "unit": "×", "note": "绿档新投 C1 加速【占位】" }
+  ],
+  "sku": [
+    { "code": "05.03.101.001", "name": "FR6", "tests": 318500, "price_reg": 12.5, "price_act": 8.2 },
+    { "code": "05.03.102.001", "name": "CR7", "tests": 156200, "price_reg": 11.4, "price_act": 7.6 },
+    { "code": "05.03.103.001", "name": "F-Ab3", "tests": 118400, "price_reg": 13.5, "price_act": 9.0 },
+    { "code": "05.03.104.001", "name": "FG5", "tests": 96300, "price_reg": 10.2, "price_act": 6.8 },
+    { "code": "05.03.105.001", "name": "C-Ab3", "tests": 78900, "price_reg": 10.8, "price_act": 7.2 },
+    { "code": "05.03.106.001", "name": "FPV5", "tests": 72100, "price_reg": 9.0, "price_act": 6.0 },
+    { "code": "05.03.107.001", "name": "CDV", "tests": 65400, "price_reg": 7.8, "price_act": 5.2 },
+    { "code": "05.03.114.002", "name": "TO1", "tests": 41200, "price_reg": 8.3, "price_act": 5.5 },
+    { "code": "05.03.114.003", "name": "TO1", "tests": 28800, "price_reg": 8.3, "price_act": 5.5 },
+    { "code": "05.03.108.001", "name": "CPV", "tests": 69537, "price_reg": 7.2, "price_act": 4.8 }
+  ]
+}
